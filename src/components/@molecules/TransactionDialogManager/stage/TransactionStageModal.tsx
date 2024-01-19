@@ -307,7 +307,7 @@ export const transactionSuccessHandler =
 
 export const registrationGasFeeModifier = (gasLimit: BigNumber, transactionName: string) =>
   // this addition is arbitrary, something to do with a gas refund but not 100% sure
-  transactionName === 'registerName' ? gasLimit.add(5000) : gasLimit
+  transactionName === 'registerName' ? gasLimit.add(1000000) : gasLimit
 
 export const calculateGasLimit = async ({
   isSafeApp,
@@ -349,8 +349,12 @@ export const calculateGasLimit = async ({
   if (!signer) {
     throw new Error('Signer not found')
   }
-
-  const gasEstimate = await signer.estimateGas(txWithZeroGas)
+  let gasEstimate
+  if (transactionName !== 'registerName') {
+    gasEstimate = await signer.estimateGas(txWithZeroGas)
+  } else {
+    gasEstimate = BigNumber.from(0)
+  }
   return {
     gasLimit: registrationGasFeeModifier(gasEstimate, transactionName),
     accessList: undefined,

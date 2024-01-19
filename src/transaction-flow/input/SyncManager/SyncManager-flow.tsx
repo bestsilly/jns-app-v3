@@ -43,13 +43,15 @@ const SyncManager = ({ data: { name }, dispatch, onDismiss }: Props) => {
     dnsOwner: details.dnsOwner,
   })
 
-  const syncType = nameType.data?.startsWith('dns') ? 'dns' : 'eth'
+  console.log('nameType', nameType)
+
+  const syncType = nameType.data?.startsWith('dns') ? 'dns' : 'jfin'
   const needsProof = nameType.data?.startsWith('dns') || !baseCanSynManager
   const proof = useDNSProof(name, !needsProof)
 
   const canSyncEth =
     baseCanSynManager &&
-    syncType === 'eth' &&
+    syncType === 'jfin' &&
     !!abilities.data?.sendNameFunctionCallDetails?.sendManager?.contract
   const canSyncDNS = baseCanSynManager && syncType === 'dns' && !!proof.data
   const canSyncManager = canSyncEth || canSyncDNS

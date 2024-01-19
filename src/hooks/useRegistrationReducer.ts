@@ -10,8 +10,8 @@ import { useLocalStorageReducer } from '@app/hooks/useLocalStorage'
 import { useChainId } from './useChainId'
 
 export const randomSecret = () => {
-  // the first 4 bytes of the namehash of enslabs.eth
-  const platformSource = '9923eb94'
+  // the first 4 bytes of the namehash of enslabs.jfin
+  const platformSource = '95aec8b7'
   // v3
   const version = '00000003'
   const bytes = Buffer.allocUnsafe(24)
@@ -33,7 +33,7 @@ const defaultData: RegistrationReducerDataItem = {
   name: '',
   isMoonpayFlow: false,
   externalTransactionId: '',
-  chainId: 1,
+  chainId: 3502,
 }
 
 const isBrowser = !!(

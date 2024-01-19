@@ -119,7 +119,7 @@ const MyNames = () => {
   const isNameDisabled = useCallback(
     (name: ReturnedName) => {
       if (mode !== 'select') return false
-      return name.parent?.name !== 'eth'
+      return name.parent?.name !== 'jfin'
     },
     [mode],
   )
@@ -127,6 +127,8 @@ const MyNames = () => {
   const loading = namesLoading || namesStatus === 'loading' || !router.isReady || !namesData
 
   useProtectedRoute('/', loading ? true : address && address !== '')
+
+  console.log(namesData)
 
   return (
     <Content title={t('title')} singleColumnContent loading={loading}>

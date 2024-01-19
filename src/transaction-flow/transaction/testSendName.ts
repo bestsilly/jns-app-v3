@@ -26,7 +26,7 @@ const displayItems = (
   },
   {
     label: 'name',
-    value: 'taytems.eth',
+    value: 'taytems.jfin',
     type: 'name',
   },
 ]

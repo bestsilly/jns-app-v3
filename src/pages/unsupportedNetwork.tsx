@@ -42,10 +42,12 @@ export default function Page() {
 
   useEffect(() => {
     if (
-      currentChain?.id === 1 ||
-      currentChain?.id === 5 ||
-      currentChain?.id === 11155111 ||
-      currentChain?.id === 1337
+      // currentChain?.id === 1 ||
+      // currentChain?.id === 5 ||
+      // currentChain?.id === 11155111 ||
+      // currentChain?.id === 1337 ||
+      currentChain?.id === 3501 ||
+      currentChain?.id === 3502
     ) {
       router.push('/')
     }
@@ -53,7 +55,7 @@ export default function Page() {
   }, [currentChain?.id])
 
   const handleChangeNetwork = () => {
-    switchNetwork?.(1)
+    switchNetwork?.(3502)
   }
 
   return (

@@ -318,6 +318,25 @@ export const KNOWN_RESOLVER_DATA: KnownResolverData = {
       ],
     },
   ],
+  '3502': [
+    {
+      address: '0x9200d994379e85fb1C2994DB79ff4826A36bDBC3',
+      deployer: 'ENS Labs',
+      tag: 'latest',
+      isNameWrapperAware: true,
+      supportedInterfaces: [
+        RESOLVER_INTERFACE_IDS.AddressResolver,
+        RESOLVER_INTERFACE_IDS.MultiCoinAddressResolver,
+        RESOLVER_INTERFACE_IDS.NameResolver,
+        RESOLVER_INTERFACE_IDS.AbiResolver,
+        RESOLVER_INTERFACE_IDS.TextResolver,
+        RESOLVER_INTERFACE_IDS.ContentHashResolver,
+        RESOLVER_INTERFACE_IDS.DnsRecordResolver,
+        RESOLVER_INTERFACE_IDS.InterfaceResolver,
+        RESOLVER_INTERFACE_IDS.VersionableResolver,
+      ],
+    },
+  ],
   ...(process.env.NODE_ENV === 'development'
     ? {
         '1337': [

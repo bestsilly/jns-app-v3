@@ -1,7 +1,6 @@
 import '@rainbow-me/rainbowkit/styles.css'
 import { DefaultOptions, QueryClient } from '@tanstack/react-query'
-import { ChainProviderFn, configureChains, createClient } from 'wagmi'
-import { goerli, localhost, mainnet, sepolia } from 'wagmi/chains'
+import { Chain, ChainProviderFn, configureChains, createClient } from 'wagmi'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
@@ -10,9 +9,26 @@ import { makePersistent } from '@app/utils/persist'
 import { WC_PROJECT_ID } from './constants'
 import { getDefaultWallets } from './getDefaultWallets'
 
-const providerArray: ChainProviderFn<
-  typeof mainnet | typeof goerli | typeof localhost | typeof sepolia
->[] = []
+const jfintestnet: Chain = {
+  id: 3502,
+  name: 'jfintestnet',
+  nativeCurrency: {
+    name: 'JFIN',
+    symbol: 'JFIN',
+    decimals: 18,
+  },
+  network: 'JFIN Testnet',
+  rpcUrls: {
+    default: {
+      http: ['https://rpc.testnet.jfinchain.com'],
+    },
+    public: {
+      http: ['https://rpc.testnet.jfinchain.com'],
+    },
+  },
+}
+
+const providerArray: ChainProviderFn<typeof jfintestnet>[] = []
 
 if (process.env.NEXT_PUBLIC_PROVIDER) {
   // for local testing
@@ -41,7 +57,7 @@ if (process.env.NEXT_PUBLIC_PROVIDER) {
   )
 }
 
-const { provider, chains } = configureChains([mainnet, goerli, localhost, sepolia], providerArray)
+const { provider, chains } = configureChains([jfintestnet], providerArray)
 
 const connectors = getDefaultWallets({
   appName: 'ENS',

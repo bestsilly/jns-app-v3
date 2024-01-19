@@ -147,7 +147,7 @@ export const useBasicName = (name?: string | null, options: UseBasicNameOptions 
         nameWrapperAddress &&
         nameWrapperAddress !== emptyAddress &&
         !isWrapped &&
-        normalisedName?.endsWith('.eth') &&
+        normalisedName?.endsWith('.jfin') &&
         !isLabelTooLong(normalisedName)
       ),
     [ens.ready, nameWrapperAddress, isWrapped, normalisedName],

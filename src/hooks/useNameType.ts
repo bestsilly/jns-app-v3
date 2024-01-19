@@ -55,7 +55,7 @@ export const getNameType = ({
   wrapperData: ReturnType<typeof useBasicName>['wrapperData']
   pccExpired: boolean
 }) => {
-  const tldType = name.endsWith('.eth') ? ('eth' as const) : ('dns' as const)
+  const tldType = name.endsWith('.jfin') ? ('eth' as const) : ('dns' as const)
   const level = nameLevel(name)
   const wrapLevel = getWrapLevel(wrapperData, ownerData)
 

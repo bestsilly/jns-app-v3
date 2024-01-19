@@ -161,13 +161,17 @@ const useEthInvoice = (
     if (isLoading) return null
     const value = registrationValue || BigNumber.from(0)
 
-    const commitGasUsed = BigNumber.from(commitReceipt?.gasUsed || 0)
-    const registerGasUsed = BigNumber.from(registerReceipt?.gasUsed || 0)
+    // const commitGasUsed = BigNumber.from(commitReceipt?.gasUsed || BigNumber.from(0))
+    // const registerGasUsed = BigNumber.from(registerReceipt?.gasUsed || BigNumber.from(0))
 
-    const commitNetFee = commitGasUsed.mul(commitReceipt!.effectiveGasPrice)
-    const registerNetFee = registerGasUsed.mul(registerReceipt!.effectiveGasPrice)
-    const totalNetFee = registerNetFee ? commitNetFee?.add(registerNetFee) : BigNumber.from(0)
-
+    // const commitNetFee = commitGasUsed
+    //   ? commitGasUsed.mul(commitReceipt!.effectiveGasPrice)
+    //   : BigNumber.from(0)
+    // const registerNetFee = registerGasUsed
+    //   ? registerGasUsed.mul(registerReceipt!.effectiveGasPrice)
+    //   : BigNumber.from(0)
+    // const totalNetFee = registerNetFee ? commitNetFee?.add(registerNetFee) : BigNumber.from(0)
+    const totalNetFee = BigNumber.from(0)
     return (
       <Invoice
         items={[

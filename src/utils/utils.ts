@@ -67,7 +67,7 @@ export const formatFullExpiry = (expiryDate?: Date) =>
   expiryDate ? `${formatExpiry(expiryDate)}, ${formatDateTime(expiryDate)}` : ''
 
 export const makeEtherscanLink = (data: string, network?: string, route: string = 'tx') =>
-  `https://${!network || network === 'mainnet' ? '' : `${network}.`}etherscan.io/${route}/${data}`
+  `https://${network === 'jfin' ? '' : 'testnet.'}jfinscan.com/${route}/${data}`
 
 export const isBrowser = !!(
   typeof window !== 'undefined' &&
@@ -78,20 +78,20 @@ export const isBrowser = !!(
 export const checkDNSName = (name: string): boolean => {
   const labels = name?.split('.')
 
-  return !!labels && labels[labels.length - 1] !== 'eth'
+  return !!labels && labels[labels.length - 1] !== 'jfin'
 }
 
 export const checkETH2LDFromName = (name: string) => {
   const labels = name.split('.')
   if (labels.length !== 2) return false
-  if (labels[1] !== 'eth') return false
+  if (labels[1] !== 'jfin') return false
   return true
 }
 
 export const checkDNS2LDFromName = (name: string) => {
   const labels = name.split('.')
   if (labels.length !== 2) return false
-  if (labels[1] === 'eth') return false
+  if (labels[1] === 'jfin') return false
   return true
 }
 
@@ -139,7 +139,7 @@ export const validateExpiry = (
 export const canEditRecordsWhenWrappedCalc = (
   isWrapped: boolean,
   resolverAddress: string = '',
-  chainId: number = 1,
+  chainId: number = 3502,
 ) => {
   if (!isWrapped) return true
   return NAMEWRAPPER_AWARE_RESOLVERS[chainId]?.includes(resolverAddress)
