@@ -1,4 +1,4 @@
-import { AllCurrentFuses } from '@jventures-jdn/jnsjs/utils/fuses'
+import { AllCurrentFuses } from '@jfinchain/jnsjs/utils/fuses'
 import { Dispatch, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'

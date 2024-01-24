@@ -1,4 +1,4 @@
-import { labelhash } from '@jventures-jdn/jnsjs/utils/labels'
+import { labelhash } from '@jfinchain/jnsjs/utils/labels'
 import { useQuery } from 'wagmi'
 
 import { useEns } from '@app/utils/EnsProvider'

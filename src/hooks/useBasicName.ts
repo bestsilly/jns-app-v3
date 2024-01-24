@@ -1,4 +1,4 @@
-import { truncateFormat } from '@jventures-jdn/jnsjs/utils/format'
+import { truncateFormat } from '@jfinchain/jnsjs/utils/format'
 import { useMemo } from 'react'
 import { useQuery } from 'wagmi'
 

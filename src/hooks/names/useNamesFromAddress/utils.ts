@@ -1,4 +1,4 @@
-import type { Name } from '@jventures-jdn/jnsjs/functions/getNames'
+import type { Name } from '@jfinchain/jnsjs/functions/getNames'
 import { match } from 'ts-pattern'
 
 import { GRACE_PERIOD } from '@app/utils/constants'

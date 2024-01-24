@@ -1,4 +1,4 @@
-import { checkIsDecrypted } from '@jventures-jdn/jnsjs/utils/labels'
+import { checkIsDecrypted } from '@jfinchain/jnsjs/utils/labels'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 

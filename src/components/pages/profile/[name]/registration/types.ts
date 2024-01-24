@@ -1,4 +1,4 @@
-import { ChildFuses } from '@jventures-jdn/jnsjs'
+import { ChildFuses } from '@jfinchain/jnsjs'
 
 import { ProfileRecord } from '@app/constants/profileRecordOptions'
 

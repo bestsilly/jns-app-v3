@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract } from '@ethersproject/contracts'
-import { namehash } from '@jventures-jdn/jnsjs/utils/normalise'
+import { namehash } from '@jfinchain/jnsjs/utils/normalise'
 import { useQuery, useSigner } from 'wagmi'
 
 import { useChainId } from '@app/hooks/useChainId'

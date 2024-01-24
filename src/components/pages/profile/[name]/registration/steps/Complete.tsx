@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
-import { ETHRegistrarController__factory } from '@jventures-jdn/jnsjs/generated/factories/ETHRegistrarController__factory'
-import { tokenise } from '@jventures-jdn/jnsjs/utils/normalise'
+import { ETHRegistrarController__factory } from '@jfinchain/jnsjs/generated/factories/ETHRegistrarController__factory'
+import { tokenise } from '@jfinchain/jnsjs/utils/normalise'
 import dynamic from 'next/dynamic'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import type ConfettiT from 'react-confetti'

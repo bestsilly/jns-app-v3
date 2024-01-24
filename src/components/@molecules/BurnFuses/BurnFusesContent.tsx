@@ -1,5 +1,5 @@
-import type { ChildFuses } from '@jventures-jdn/jnsjs'
-import { childFuseKeys } from '@jventures-jdn/jnsjs/utils/fuses'
+import type { ChildFuses } from '@jfinchain/jnsjs'
+import { childFuseKeys } from '@jfinchain/jnsjs/utils/fuses'
 import isEqual from 'lodash/isEqual'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'

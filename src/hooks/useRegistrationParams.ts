@@ -1,5 +1,5 @@
-import { ChildFuses } from '@jventures-jdn/jnsjs'
-import { BaseRegistrationParams } from '@jventures-jdn/jnsjs/utils/registerHelpers'
+import { ChildFuses } from '@jfinchain/jnsjs'
+import { BaseRegistrationParams } from '@jfinchain/jnsjs/utils/registerHelpers'
 import { useMemo } from 'react'
 
 import { profileRecordsToRecordOptions } from '@app/components/pages/profile/[name]/registration/steps/Profile/profileRecordUtils'

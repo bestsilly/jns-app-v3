@@ -1,4 +1,4 @@
-import { ContractName } from '@jventures-jdn/jnsjs/contracts/types'
+import { ContractName } from '@jfinchain/jnsjs/contracts/types'
 
 import { useEns } from '@app/utils/EnsProvider'
 

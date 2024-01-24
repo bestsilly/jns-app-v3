@@ -1,4 +1,4 @@
-import type { ChildFuses } from '@jventures-jdn/jnsjs'
+import type { ChildFuses } from '@jfinchain/jnsjs'
 import { Dispatch } from 'react'
 
 import BurnFusesContent from '@app/components/@molecules/BurnFuses/BurnFusesContent'

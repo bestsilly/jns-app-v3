@@ -1,4 +1,4 @@
-import { ParsedInputResult, parseInput } from '@jventures-jdn/jnsjs/utils/validation'
+import { ParsedInputResult, parseInput } from '@jfinchain/jnsjs/utils/validation'
 import { useQuery } from 'wagmi'
 
 import { Prettify } from '@app/types'

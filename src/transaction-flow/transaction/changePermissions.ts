@@ -2,7 +2,7 @@ import type { JsonRpcSigner } from '@ethersproject/providers'
 import {
   ChildFuses as ENSJSChildFuses,
   ParentFuses as ENSJSParentFuses,
-} from '@jventures-jdn/jnsjs/utils/fuses'
+} from '@jfinchain/jnsjs/utils/fuses'
 import type { TFunction } from 'react-i18next'
 
 import { PublicENS, Transaction, TransactionDisplayItem } from '@app/types'

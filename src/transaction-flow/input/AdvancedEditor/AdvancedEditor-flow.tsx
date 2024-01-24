@@ -1,4 +1,4 @@
-import { RecordOptions } from '@jventures-jdn/jnsjs/utils/recordHelpers'
+import { RecordOptions } from '@jfinchain/jnsjs/utils/recordHelpers'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'

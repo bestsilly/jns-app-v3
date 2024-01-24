@@ -1,4 +1,4 @@
-import { decodeFuses } from '@jventures-jdn/jnsjs/utils/fuses'
+import { decodeFuses } from '@jfinchain/jnsjs/utils/fuses'
 import { useEffect, useState } from 'react'
 import { useProvider } from 'wagmi'
 

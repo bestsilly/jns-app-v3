@@ -3,7 +3,7 @@ import { toUtf8Bytes } from '@ethersproject/strings/lib/utf8'
 import {
   BaseRegistrationParams,
   makeRegistrationData,
-} from '@jventures-jdn/jnsjs/utils/registerHelpers'
+} from '@jfinchain/jnsjs/utils/registerHelpers'
 import { useMemo } from 'react'
 import { useQuery } from 'wagmi'
 

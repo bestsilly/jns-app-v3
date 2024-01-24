@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { toUtf8Bytes } from '@ethersproject/strings/lib/utf8'
-import { AllCurrentFuses } from '@jventures-jdn/jnsjs/utils/fuses'
+import { AllCurrentFuses } from '@jfinchain/jnsjs/utils/fuses'
 
 import {
   CURRENCY_FLUCTUATION_BUFFER_PERCENTAGE,

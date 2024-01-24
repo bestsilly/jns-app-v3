@@ -1,4 +1,4 @@
-import { DNS_OVER_HTTP_ENDPOINT } from '@jventures-jdn/jnsjs/functions/importDNSSECName'
+import { DNS_OVER_HTTP_ENDPOINT } from '@jfinchain/jnsjs/functions/importDNSSECName'
 import { useMemo } from 'react'
 import { useQuery } from 'wagmi'
 

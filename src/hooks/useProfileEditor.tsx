@@ -1,4 +1,4 @@
-import { RecordOptions } from '@jventures-jdn/jnsjs/utils/recordHelpers'
+import { RecordOptions } from '@jfinchain/jnsjs/utils/recordHelpers'
 import React, { ComponentProps, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'

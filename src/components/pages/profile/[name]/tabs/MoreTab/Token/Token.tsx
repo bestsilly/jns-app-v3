@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
-import { labelhash } from '@jventures-jdn/jnsjs/utils/labels'
-import { namehash } from '@jventures-jdn/jnsjs/utils/normalise'
+import { labelhash } from '@jfinchain/jnsjs/utils/labels'
+import { namehash } from '@jfinchain/jnsjs/utils/normalise'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 

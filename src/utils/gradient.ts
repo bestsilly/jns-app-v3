@@ -1,5 +1,5 @@
 import { arrayify } from '@ethersproject/bytes/lib/index'
-import { namehash } from '@jventures-jdn/jnsjs/utils/normalise'
+import { namehash } from '@jfinchain/jnsjs/utils/normalise'
 
 import { emptyAddress } from './constants'
 

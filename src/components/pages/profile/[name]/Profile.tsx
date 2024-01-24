@@ -1,4 +1,4 @@
-import { getEncryptedLabelAmount } from '@jventures-jdn/jnsjs/utils/labels'
+import { getEncryptedLabelAmount } from '@jfinchain/jnsjs/utils/labels'
 import Head from 'next/head'
 import { useEffect, useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'

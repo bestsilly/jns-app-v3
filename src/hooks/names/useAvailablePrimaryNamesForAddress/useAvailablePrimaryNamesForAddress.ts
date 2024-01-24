@@ -1,4 +1,4 @@
-import { Name as BaseName } from '@jventures-jdn/jnsjs/functions/getNames'
+import { Name as BaseName } from '@jfinchain/jnsjs/functions/getNames'
 import { useCallback, useMemo, useState } from 'react'
 
 import { useNamesFromAddress } from '@app/hooks/names/useNamesFromAddress/useNamesFromAddress'

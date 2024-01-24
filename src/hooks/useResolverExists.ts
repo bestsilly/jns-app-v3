@@ -1,4 +1,4 @@
-import { namehash } from '@jventures-jdn/jnsjs/utils/normalise'
+import { namehash } from '@jfinchain/jnsjs/utils/normalise'
 import { useQuery } from 'wagmi'
 
 import { useEns } from '@app/utils/EnsProvider'

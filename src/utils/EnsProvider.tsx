@@ -1,5 +1,5 @@
-import { ENS } from '@jventures-jdn/jnsjs'
-import type { ContractName } from '@jventures-jdn/jnsjs/contracts/types'
+import { ENS } from '@jfinchain/jnsjs'
+import type { ContractName } from '@jfinchain/jnsjs/contracts/types'
 import { getProvider } from '@wagmi/core'
 import React, { createContext, useContext, useMemo, useRef, useState } from 'react'
 

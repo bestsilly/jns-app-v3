@@ -1,4 +1,4 @@
-import { validateName } from '@jventures-jdn/jnsjs/utils/validation'
+import { validateName } from '@jfinchain/jnsjs/utils/validation'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'

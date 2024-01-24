@@ -1,5 +1,5 @@
-import { decodeLabelhash, isEncodedLabelhash, labelhash } from '@jventures-jdn/jnsjs/utils/labels'
-import { validateName } from '@jventures-jdn/jnsjs/utils/validation'
+import { decodeLabelhash, isEncodedLabelhash, labelhash } from '@jfinchain/jnsjs/utils/labels'
+import { validateName } from '@jfinchain/jnsjs/utils/validation'
 import { forwardRef } from 'react'
 import { UseFormReturn, useFieldArray } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'

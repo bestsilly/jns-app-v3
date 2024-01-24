@@ -1,5 +1,5 @@
 import { isHexString } from '@ethersproject/bytes/lib/index'
-import { DecodedContentHash } from '@jventures-jdn/jnsjs/utils/contentHash'
+import { DecodedContentHash } from '@jfinchain/jnsjs/utils/contentHash'
 
 import contentHash from '@ensdomains/content-hash'
 

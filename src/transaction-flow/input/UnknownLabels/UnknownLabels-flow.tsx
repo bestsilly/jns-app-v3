@@ -1,4 +1,4 @@
-import { saveName } from '@jventures-jdn/jnsjs/utils/labels'
+import { saveName } from '@jfinchain/jnsjs/utils/labels'
 import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useQueryClient } from 'wagmi'

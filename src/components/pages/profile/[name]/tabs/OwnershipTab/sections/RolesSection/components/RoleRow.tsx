@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { labelhash } from '@jventures-jdn/jnsjs/utils/labels'
-import { namehash } from '@jventures-jdn/jnsjs/utils/normalise'
+import { labelhash } from '@jfinchain/jnsjs/utils/labels'
+import { namehash } from '@jfinchain/jnsjs/utils/normalise'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCopyToClipboard } from 'react-use'

@@ -1,4 +1,4 @@
-import { RecordOptions } from '@jventures-jdn/jnsjs/utils/recordHelpers'
+import { RecordOptions } from '@jfinchain/jnsjs/utils/recordHelpers'
 
 import { ProfileRecord, ProfileRecordGroup, sortValues } from '@app/constants/profileRecordOptions'
 import supportedGeneralRecordKeys from '@app/constants/supportedGeneralRecordKeys.json'

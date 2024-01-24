@@ -1,4 +1,4 @@
-import { ChildFuses, ParentFuses, userSettableFuseEnum } from '@jventures-jdn/jnsjs/utils/fuses'
+import { ChildFuses, ParentFuses, userSettableFuseEnum } from '@jfinchain/jnsjs/utils/fuses'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 

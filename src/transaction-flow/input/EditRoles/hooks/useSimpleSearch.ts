@@ -1,5 +1,5 @@
 import { isAddress } from '@ethersproject/address'
-import { normalise } from '@jventures-jdn/jnsjs/utils/normalise'
+import { normalise } from '@jfinchain/jnsjs/utils/normalise'
 import { useEffect } from 'react'
 import { useMutation, useQueryClient } from 'wagmi'
 

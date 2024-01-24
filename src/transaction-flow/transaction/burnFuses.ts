@@ -1,5 +1,5 @@
 import type { JsonRpcSigner } from '@ethersproject/providers'
-import type { ChildFuses } from '@jventures-jdn/jnsjs'
+import type { ChildFuses } from '@jfinchain/jnsjs'
 import type { TFunction } from 'react-i18next'
 
 import { PublicENS, Transaction, TransactionDisplayItem } from '@app/types'

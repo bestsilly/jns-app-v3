@@ -3,7 +3,7 @@ import {
   isEncodedLabelhash,
   labelhash,
   saveName,
-} from '@jventures-jdn/jnsjs/utils/labels'
+} from '@jfinchain/jnsjs/utils/labels'
 import { useRef, useState } from 'react'
 import { UseFormReturn, useForm, useWatch } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
