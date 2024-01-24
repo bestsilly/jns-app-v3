@@ -1,6 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
-
-import { ParsedInputResult } from '@ensdomains/ensjs/utils/validation'
+import { ParsedInputResult } from '@jventures-jdn/jnsjs/utils/validation'
 
 import type { ReturnedENS } from '@app/types/index'
 

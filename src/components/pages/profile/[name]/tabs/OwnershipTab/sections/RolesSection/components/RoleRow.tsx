@@ -1,11 +1,11 @@
 import { BigNumber } from '@ethersproject/bignumber'
+import { labelhash } from '@jventures-jdn/jnsjs/utils/labels'
+import { namehash } from '@jventures-jdn/jnsjs/utils/normalise'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCopyToClipboard } from 'react-use'
 import styled, { css } from 'styled-components'
 
-import { labelhash } from '@ensdomains/ensjs/utils/labels'
-import { namehash } from '@ensdomains/ensjs/utils/normalise'
 import {
   Button,
   Card,

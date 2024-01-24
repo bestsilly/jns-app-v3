@@ -1,7 +1,6 @@
 import { BigNumberish } from '@ethersproject/bignumber'
+import { RecordOptions } from '@jventures-jdn/jnsjs/utils/recordHelpers'
 import { P, match as _match } from 'ts-pattern'
-
-import { RecordOptions } from '@ensdomains/ensjs/utils/recordHelpers'
 
 import { ContentHash, Profile, RecordItem } from '@app/types'
 

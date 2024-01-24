@@ -1,4 +1,4 @@
-import { ChildFuses } from '@ensdomains/ensjs'
+import { ChildFuses } from '@jventures-jdn/jnsjs'
 
 import { ProfileRecord } from '@app/constants/profileRecordOptions'
 

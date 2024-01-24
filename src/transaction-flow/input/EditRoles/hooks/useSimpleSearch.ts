@@ -1,8 +1,7 @@
 import { isAddress } from '@ethersproject/address'
+import { normalise } from '@jventures-jdn/jnsjs/utils/normalise'
 import { useEffect } from 'react'
 import { useMutation, useQueryClient } from 'wagmi'
-
-import { normalise } from '@ensdomains/ensjs/utils/normalise'
 
 import useDebouncedCallback from '@app/hooks/useDebouncedCallback'
 import { useEns } from '@app/utils/EnsProvider'

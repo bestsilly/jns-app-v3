@@ -1,6 +1,5 @@
+import { labelhash } from '@jventures-jdn/jnsjs/utils/labels'
 import { useQuery } from 'wagmi'
-
-import { labelhash } from '@ensdomains/ensjs/utils/labels'
 
 import { useEns } from '@app/utils/EnsProvider'
 import { useQueryKeys } from '@app/utils/cacheKeyFactory'

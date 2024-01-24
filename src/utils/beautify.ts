@@ -1,4 +1,4 @@
-import { beautify } from '@ensdomains/ensjs/utils/normalise'
+import { beautify } from '@jventures-jdn/jnsjs/utils/normalise'
 
 export const tryBeautify = (name: string): string => {
   try {

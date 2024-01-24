@@ -1,8 +1,8 @@
+import { RecordOptions } from '@jventures-jdn/jnsjs/utils/recordHelpers'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { RecordOptions } from '@ensdomains/ensjs/utils/recordHelpers'
 import { Button, mq } from '@ensdomains/thorin'
 
 import AddRecord from '@app/components/@molecules/AdvancedEditor/AddRecord'

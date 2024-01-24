@@ -1,6 +1,5 @@
+import type { Name } from '@jventures-jdn/jnsjs/functions/getNames'
 import { match } from 'ts-pattern'
-
-import type { Name } from '@ensdomains/ensjs/functions/getNames'
 
 import { GRACE_PERIOD } from '@app/utils/constants'
 import { validateExpiry } from '@app/utils/utils'

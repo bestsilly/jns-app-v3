@@ -1,7 +1,6 @@
+import { checkIsDecrypted } from '@jventures-jdn/jnsjs/utils/labels'
 import { useMemo } from 'react'
 import { useQuery } from 'wagmi'
-
-import { checkIsDecrypted } from '@ensdomains/ensjs/utils/labels'
 
 import { useEns } from '@app/utils/EnsProvider'
 import { useQueryKeys } from '@app/utils/cacheKeyFactory'

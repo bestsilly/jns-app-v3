@@ -73,3 +73,5 @@ tsconfig.tsbuildinfo
 # yalc
 .yalc
 yalc.lock
+
+.vscode/*

@@ -1,7 +1,6 @@
+import type { Name } from '@jventures-jdn/jnsjs/functions/getNames'
 import { useMemo } from 'react'
 import { useQuery } from 'wagmi'
-
-import type { Name } from '@ensdomains/ensjs/functions/getNames'
 
 import { useGlobalErrorFunc } from '@app/hooks/errors/useGlobalErrorFunc'
 import { useBlockTimestamp } from '@app/hooks/useBlockTimestamp'

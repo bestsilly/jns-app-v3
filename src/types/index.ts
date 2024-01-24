@@ -1,10 +1,10 @@
 import type { PopulatedTransaction } from '@ethersproject/contracts'
 import type { JsonRpcSigner, TransactionReceipt } from '@ethersproject/providers'
+import type { ChildFuses, ENS } from '@jventures-jdn/jnsjs'
+import { DecodedContentHash } from '@jventures-jdn/jnsjs/utils/contentHash'
 import { ComponentProps } from 'react'
 import type { TFunction } from 'react-i18next'
 
-import type { ChildFuses, ENS } from '@ensdomains/ensjs'
-import { DecodedContentHash } from '@ensdomains/ensjs/utils/contentHash'
 import { Helper, Space } from '@ensdomains/thorin'
 
 export type Profile = NonNullable<Awaited<ReturnType<ENS['getProfile']>>>

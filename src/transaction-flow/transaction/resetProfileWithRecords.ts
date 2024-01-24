@@ -1,8 +1,7 @@
 import type { JsonRpcSigner } from '@ethersproject/providers'
+import { RecordOptions } from '@jventures-jdn/jnsjs/utils/recordHelpers'
 import { TFunction } from 'i18next'
 import { P, match } from 'ts-pattern'
-
-import { RecordOptions } from '@ensdomains/ensjs/utils/recordHelpers'
 
 import { PublicENS, Transaction, TransactionDisplayItem } from '@app/types'
 import { recordOptionsToToupleList } from '@app/utils/records'

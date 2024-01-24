@@ -1,7 +1,6 @@
 import type { JsonRpcSigner } from '@ethersproject/providers'
+import { RecordOptions } from '@jventures-jdn/jnsjs/utils/recordHelpers'
 import { TFunction } from 'i18next'
-
-import { RecordOptions } from '@ensdomains/ensjs/utils/recordHelpers'
 
 import { PublicENS, Transaction, TransactionDisplayItem } from '@app/types'
 

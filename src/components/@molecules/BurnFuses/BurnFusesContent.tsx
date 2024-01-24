@@ -1,10 +1,10 @@
+import type { ChildFuses } from '@jventures-jdn/jnsjs'
+import { childFuseKeys } from '@jventures-jdn/jnsjs/utils/fuses'
 import isEqual from 'lodash/isEqual'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import type { ChildFuses } from '@ensdomains/ensjs'
-import { childFuseKeys } from '@ensdomains/ensjs/utils/fuses'
 import { Button, FlameSVG, Helper, Typography, mq } from '@ensdomains/thorin'
 
 import { Spacer } from '@app/components/@atoms/Spacer'

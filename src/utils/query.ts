@@ -17,7 +17,7 @@ const jfintestnet: Chain = {
     symbol: 'JFIN',
     decimals: 18,
   },
-  network: 'JFIN Testnet',
+  network: 'JFINTestnet',
   rpcUrls: {
     default: {
       http: ['https://rpc.testnet.jfinchain.com'],

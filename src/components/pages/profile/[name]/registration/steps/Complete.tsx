@@ -1,4 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
+import { ETHRegistrarController__factory } from '@jventures-jdn/jnsjs/generated/factories/ETHRegistrarController__factory'
+import { tokenise } from '@jventures-jdn/jnsjs/utils/normalise'
 import dynamic from 'next/dynamic'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import type ConfettiT from 'react-confetti'
@@ -6,8 +8,6 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useAccount } from 'wagmi'
 
-import { ETHRegistrarController__factory } from '@ensdomains/ensjs/generated/factories/ETHRegistrarController__factory'
-import { tokenise } from '@ensdomains/ensjs/utils/normalise'
 import { Button, Typography, mq } from '@ensdomains/thorin'
 
 import { Invoice } from '@app/components/@atoms/Invoice/Invoice'

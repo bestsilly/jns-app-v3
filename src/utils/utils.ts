@@ -1,7 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { toUtf8Bytes } from '@ethersproject/strings/lib/utf8'
-
-import { AllCurrentFuses } from '@ensdomains/ensjs/utils/fuses'
+import { AllCurrentFuses } from '@jventures-jdn/jnsjs/utils/fuses'
 
 import {
   CURRENCY_FLUCTUATION_BUFFER_PERCENTAGE,
@@ -12,9 +11,7 @@ import {
 export const getSupportedNetworkName = (networkId: number) =>
   networkName[`${networkId}` as keyof typeof networkName] || 'unknown'
 
-const baseMetadataURL = process.env.NEXT_PUBLIC_PROVIDER
-  ? 'http://localhost:8080'
-  : 'https://metadata.ens.domains'
+const baseMetadataURL = 'https://jns-metadata-service-metadata-tdgmlujt7q-uc.a.run.app'
 
 // eslint-disable-next-line consistent-return
 export function imageUrlUnknownRecord(name: string, network: number) {

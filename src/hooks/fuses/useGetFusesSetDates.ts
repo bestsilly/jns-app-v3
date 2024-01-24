@@ -1,7 +1,6 @@
+import { decodeFuses } from '@jventures-jdn/jnsjs/utils/fuses'
 import { useEffect, useState } from 'react'
 import { useProvider } from 'wagmi'
-
-import { decodeFuses } from '@ensdomains/ensjs/utils/fuses'
 
 import {
   CHILD_FUSES,

@@ -1,7 +1,6 @@
 import type { JsonRpcSigner } from '@ethersproject/providers'
+import { BaseRegistrationParams } from '@jventures-jdn/jnsjs/utils/registerHelpers'
 import type { TFunction } from 'react-i18next'
-
-import { BaseRegistrationParams } from '@ensdomains/ensjs/utils/registerHelpers'
 
 import { PublicENS, Transaction, TransactionDisplayItem } from '@app/types'
 
