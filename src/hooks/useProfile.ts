@@ -6,6 +6,7 @@ import supportedProfileItems from '@app/constants/supportedGeneralRecordKeys.jso
 import supportedTexts from '@app/constants/supportedSocialRecordKeys.json'
 import { useEns } from '@app/utils/EnsProvider'
 import { useQueryKeys } from '@app/utils/cacheKeyFactory'
+import { RESOLVER_ADDRESSES } from '@app/utils/constants'
 
 import { useGlobalErrorFunc } from './errors/useGlobalErrorFunc'
 import useDecryptName from './useDecryptName'
@@ -18,7 +19,11 @@ type UseProfileOptions = {
 
 export const useProfile = (
   name: string,
-  { skip, resolverAddress, skipGraph = false }: UseProfileOptions = {},
+  {
+    skip,
+    resolverAddress = RESOLVER_ADDRESSES['3502']?.[0],
+    skipGraph = false,
+  }: UseProfileOptions = {},
 ) => {
   const { ready, getProfile } = useEns()
 

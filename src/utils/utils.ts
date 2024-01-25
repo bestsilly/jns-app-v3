@@ -5,6 +5,7 @@ import { AllCurrentFuses } from '@jfinchain/jnsjs/utils/fuses'
 import {
   CURRENCY_FLUCTUATION_BUFFER_PERCENTAGE,
   NAMEWRAPPER_AWARE_RESOLVERS,
+  RESOLVER_ADDRESSES,
   networkName,
 } from './constants'
 
@@ -135,7 +136,7 @@ export const validateExpiry = (
 
 export const canEditRecordsWhenWrappedCalc = (
   isWrapped: boolean,
-  resolverAddress: string = '',
+  resolverAddress: string = RESOLVER_ADDRESSES['3502']?.[0],
   chainId: number = 3502,
 ) => {
   if (!isWrapped) return true

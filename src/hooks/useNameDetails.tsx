@@ -1,7 +1,9 @@
 import { ReactNode, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useChainId } from 'wagmi'
 
 import { useEns } from '@app/utils/EnsProvider'
+import { RESOLVER_ADDRESSES } from '@app/utils/constants'
 import { formatFullExpiry } from '@app/utils/utils'
 
 import { useBasicName } from './useBasicName'
@@ -20,6 +22,7 @@ export type DetailedProfile = Omit<Profile, 'records'> & {
 export const useNameDetails = (name: string, skipGraph = false) => {
   const { t } = useTranslation('profile')
   const { ready } = useEns()
+  const chainId = useChainId()
 
   const {
     isValid,
@@ -39,6 +42,7 @@ export const useNameDetails = (name: string, skipGraph = false) => {
     isCachedData: profileIsCachedData,
   } = useProfile(normalisedName, {
     skip: !normalisedName || normalisedName === '[root]',
+    resolverAddress: RESOLVER_ADDRESSES[chainId]?.[0],
     skipGraph,
   })
 

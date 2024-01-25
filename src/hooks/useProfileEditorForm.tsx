@@ -17,11 +17,7 @@ import { validateAbi } from '../validators/validateAbi'
 
 const SINGLE_VALUE_RECORD_TYPES = ['contenthash']
 
-const SUPPORTED_AVUP_ENDPOINTS = [
-  'https://euc.li',
-  'https://ens.xyz',
-  'https://avatar-upload.ens-cf.workers.dev',
-]
+const SUPPORTED_AVUP_ENDPOINTS = ['https://jns-avatar-upload.jfin.workers.dev']
 
 export type ProfileEditorForm = {
   records: ProfileRecord[]

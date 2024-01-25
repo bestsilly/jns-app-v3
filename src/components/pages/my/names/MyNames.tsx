@@ -128,8 +128,6 @@ const MyNames = () => {
 
   useProtectedRoute('/', loading ? true : address && address !== '')
 
-  console.log(namesData)
-
   return (
     <Content title={t('title')} singleColumnContent loading={loading}>
       {{

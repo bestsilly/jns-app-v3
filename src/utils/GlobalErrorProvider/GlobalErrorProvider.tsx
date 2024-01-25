@@ -2,8 +2,9 @@ import { ENSJSErrorName } from '@jfinchain/jnsjs/utils/errors'
 import { QueryKey, hashQueryKey } from '@tanstack/react-query'
 import { Dispatch, Reducer, createContext, useContext, useReducer } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useQueryClient } from 'wagmi'
+import { useChainId, useQueryClient } from 'wagmi'
 
+import { RESOLVER_ADDRESSES } from '../constants'
 import { useSubgraphMetaSync } from './useSubgraphMetaSync'
 
 export type GlobalErrorState = {
@@ -99,6 +100,7 @@ type Action =
 export const GlobalErrorProvider = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation('common')
   const queryClient = useQueryClient()
+  const chainId = useChainId()
 
   const reducer = (state: GlobalErrorState, action: Action) => {
     switch (action.type) {
@@ -123,6 +125,9 @@ export const GlobalErrorProvider = ({ children }: { children: React.ReactNode })
       }
       case 'SET_NETWORK_ERROR': {
         const { key } = action.payload
+        if (key[4] === 'profile' && key[5] === RESOLVER_ADDRESSES[chainId]?.[0]) {
+          return state
+        }
         const hash = hashQueryKey(key)
         return {
           ...state,
