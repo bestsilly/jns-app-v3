@@ -12,7 +12,7 @@ import {
 export const getSupportedNetworkName = (networkId: number) =>
   networkName[`${networkId}` as keyof typeof networkName] || 'unknown'
 
-const baseMetadataURL = 'https://jns-metadata-service-metadata-tdgmlujt7q-uc.a.run.app'
+const baseMetadataURL = 'https://jns-metadata-service-i2utwvqgjq-as.a.run.app'
 
 // eslint-disable-next-line consistent-return
 export function imageUrlUnknownRecord(name: string, network: number) {
