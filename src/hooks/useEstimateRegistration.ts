@@ -1,8 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
 import { toUtf8Bytes } from '@ethersproject/strings/lib/utf8'
 import {
-  BaseRegistrationParams,
-  makeRegistrationData,
+  BaseRegistrationParams, // makeRegistrationData,
 } from '@jfinchain/jnsjs/utils/registerHelpers'
 import { useMemo } from 'react'
 import { useQuery } from 'wagmi'
@@ -15,7 +14,7 @@ import { useQueryKeys } from '@app/utils/cacheKeyFactory'
 import { fetchTenderlyEstimate } from '@app/utils/tenderly'
 
 import { useAccountSafely } from './useAccountSafely'
-import { useChainId } from './useChainId'
+// import { useChainId } from './useChainId'
 import useGasPrice from './useGasPrice'
 import { useNameDetails } from './useNameDetails'
 import useRegistrationParams from './useRegistrationParams'
@@ -41,7 +40,7 @@ const useEstimateRegistration = (
   gasPrice: BigNumber | undefined,
   data: RegistrationProps | undefined,
 ) => {
-  const chainId = useChainId()
+  // const chainId = useChainId()
   const { ready, contracts } = useEns()
   const queryKeys = useQueryKeys()
   const {
@@ -53,22 +52,23 @@ const useEstimateRegistration = (
     async () => {
       const resolver = await contracts?.getPublicResolver()
       if (!resolver) return null
-      const registrationTuple = makeRegistrationData({
-        ...data!,
-        resolver,
-        duration: 31557600,
-        secret: 'placeholder',
-      })
-      return fetchTenderlyEstimate({
-        type: 'registration',
-        networkId: chainId,
-        label: registrationTuple[0],
-        owner: registrationTuple[1],
-        resolver: registrationTuple[4],
-        data: registrationTuple[5],
-        reverseRecord: registrationTuple[6],
-        ownerControlledFuses: registrationTuple[7],
-      })
+      // const registrationTuple = makeRegistrationData({
+      //   ...data!,
+      //   resolver,
+      //   duration: 31557600,
+      //   secret: 'placeholder',
+      // })
+      // const options = {
+      //   type: 'registration',
+      //   networkId: chainId,
+      //   label: registrationTuple[0],
+      //   owner: registrationTuple[1],
+      //   resolver: registrationTuple[4],
+      //   data: registrationTuple[5],
+      //   reverseRecord: registrationTuple[6],
+      //   ownerControlledFuses: registrationTuple[7],
+      // }
+      return fetchTenderlyEstimate()
     },
     {
       enabled: !!data && ready,

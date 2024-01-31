@@ -16,7 +16,7 @@ const LinkWrapper = styled.a<{
   $isActive: boolean
 }>(
   ({ theme, $asText, $disabled, $isActive }) => css`
-    --indicator-color: ${theme.colors.accent};
+    --indicator-color: ${theme.colors.purple};
     position: relative;
     display: flex;
     align-items: center;
@@ -24,7 +24,7 @@ const LinkWrapper = styled.a<{
     gap: ${theme.space['1.5']};
     cursor: pointer;
 
-    color: ${theme.colors.greyPrimary};
+    color: ${theme.colors.greyBright};
     transition: all 0.15s ease-in-out;
 
     ${!$asText

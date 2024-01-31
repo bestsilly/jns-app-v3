@@ -16,7 +16,7 @@ const GradientTitle = styled.h1(
     font-size: ${theme.fontSizes.headingTwo};
     text-align: center;
     font-weight: 800;
-    background-image: ${theme.colors.gradients.accent};
+    background-image: ${theme.colors.gradients.purple};
     background-repeat: no-repeat;
     background-size: 110%;
     /* stylelint-disable-next-line property-no-vendor-prefix */

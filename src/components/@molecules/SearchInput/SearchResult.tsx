@@ -36,7 +36,8 @@ const SearchItem = styled.div<{
       border-bottom: 0;
     }
     position: relative;
-    opacity: 0.6;
+    background-color: ${theme.colors.background};
+    color: white !important;
     ${$clickable &&
     css`
       cursor: pointer;

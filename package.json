@@ -121,6 +121,7 @@
     "react-dom": "*"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.8.5",
     "@cloudflare/workers-types": "^3.14.1",
     "@ensdomains/buffer": "^0.1.0",
     "@ensdomains/ens-test-env": "^0.3.8",
