@@ -27,12 +27,13 @@ type Props = {
 }
 
 const GasDisplay = ({ gasPrice }: Props) => {
-  const gasLabel = gasPrice ? makeDisplay(gasPrice, 0, 'Gwei', 9) : '-'
+  // const gasLabel = gasPrice ? makeDisplay(gasPrice, 0, 'Gwei', 9) : '-'
+  const gasLabel = '20 Gwei'
 
   return (
     <Container>
       <GasSVG />
-      <Skeleton loading={!gasPrice}>{gasLabel}</Skeleton>
+      <Skeleton>{gasLabel}</Skeleton>
     </Container>
   )
 }
