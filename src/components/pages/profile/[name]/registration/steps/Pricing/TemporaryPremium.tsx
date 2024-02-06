@@ -1,3 +1,4 @@
+import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
 import { CalendarEvent, google, ics, office365, outlook, yahoo } from 'calendar-link'
 import {
   ChangeEventHandler,
@@ -16,11 +17,11 @@ import { Button, Dropdown, Helper, Input, Typography, mq } from '@ensdomains/tho
 import CalendarSVG from '@app/assets/Calendar.svg'
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
 import useCurrentBlockTimestamp from '@app/hooks/useCurrentBlockTimestamp'
+import { useEthPrice } from '@app/hooks/useEthPrice'
 import { makeDisplay } from '@app/utils/currency'
 
 const VAR_PREFIX = '--premium-chart-'
-const startPrice = 100000000.0
-const offset = 47.6837158203125
+const startPrice = 10000000000000000
 const duration = 21 * 24 * 60 * 60 * 1000
 const FACTOR = 0.5
 const chartResolution = 65536
@@ -334,22 +335,35 @@ const TemporaryPremium = ({ startDate, name }: Props) => {
   }, [currentBlockTimestamp, startDate])
   const [selectedPoint, setSelectedPoint] = useState(-1)
   const [{ width, height }, setDimensions] = useState({ width: 0, height: 0 })
+  const { data: ethPrice, loading } = useEthPrice()
+  const base = loading
+    ? 0
+    : parseFloat(BigNumber.from(startPrice.toString()).div(ethPrice!).toString())
+
+  const getOffset = () => {
+    let result = base
+    for (let i = 0; i < 20; i += 1) {
+      result /= 2
+    }
+
+    return result
+  }
 
   const getPos = useCallback(
     (i: number) => {
-      const yChunk = startPrice / (height - padding * 2)
+      const yChunk = base / (height - padding * 2)
       const resAsDay = i / resolutionPerDay
       const x = (i * (width - padding * 2)) / chartResolution + padding
-      const price = Math.max(startPrice * FACTOR ** resAsDay - offset, 0)
+      const price = Math.max(base * FACTOR ** resAsDay - getOffset(), 0)
       const y = (price / yChunk) * -1 + height - padding
 
       return { x, y, price }
     },
-    [width, height],
+    [width, height, loading, ethPrice],
   )
 
   const getPointFromPrice = useCallback((price: number) => {
-    const realX = Math.log((price + offset) / startPrice) / Math.log(FACTOR)
+    const realX = Math.log((price + getOffset()) / startPrice) / Math.log(FACTOR)
     return Math.floor(realX * resolutionPerDay)
   }, [])
   const getPointFromDate = useCallback(
@@ -448,7 +462,7 @@ const TemporaryPremium = ({ startDate, name }: Props) => {
         }),
         true,
       )
-      setHoverProperty('price', makeDisplay(price, 2, 'usd'), true)
+      setHoverProperty('price', makeDisplay(price, 2, 'jfin'), true)
     },
     [getPointFromX, getPos, setProperty, getDateFromPoint],
   )
@@ -511,14 +525,15 @@ const TemporaryPremium = ({ startDate, name }: Props) => {
     }
   }, [bgRef, setProperty])
 
+  // remove dependency
   useEffect(() => {
-    setPriceInput(makeDisplay(getPos(nowPoint).price, 2, 'usd').split('$')[1])
-  }, [getPos, nowPoint])
+    setPriceInput(makeDisplay(getPos(nowPoint).price, 2, 'jfin').split(' ')[0])
+  }, [])
 
   useEffect(() => {
     const priceInputEl = priceInputRef.current
     if (priceInputEl && document.activeElement !== priceInputEl && selectedPoint !== -1) {
-      setPriceInput(makeDisplay(selectedPrice, 2, 'usd').split('$')[1])
+      setPriceInput(makeDisplay(selectedPrice, 2, 'jfin').split(' ')[0])
     }
   }, [selectedPoint, selectedPrice])
 
@@ -539,7 +554,7 @@ const TemporaryPremium = ({ startDate, name }: Props) => {
             }}
             onChange={handleCurrencyInput}
             onBlur={() => {
-              setPriceInput(makeDisplay(selectedPrice, 2, 'usd').split('$')[1])
+              setPriceInput(makeDisplay(selectedPrice, 2, 'jfin').split(' ')[0])
             }}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
@@ -548,7 +563,7 @@ const TemporaryPremium = ({ startDate, name }: Props) => {
             }}
             ref={priceInputRef}
             type="text"
-            prefix="$"
+            prefix="JFIN"
             size="medium"
             clearable={false}
             parentStyles={inputStyle as any}
