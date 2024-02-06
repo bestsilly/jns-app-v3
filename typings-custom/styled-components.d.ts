@@ -1,7 +1,8 @@
-import { lightTheme } from '@ensdomains/thorin'
 import 'styled-components'
 
-type Theme = typeof lightTheme
+import { darkTheme } from '@ensdomains/thorin'
+
+type Theme = typeof darkTheme
 
 declare module 'styled-components' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface

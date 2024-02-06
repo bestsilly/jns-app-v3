@@ -1,6 +1,8 @@
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
 import { toUtf8Bytes } from '@ethersproject/strings/lib/utf8'
-import { BaseRegistrationParams } from '@jfinchain/jnsjs/utils/registerHelpers'
+import {
+  BaseRegistrationParams, // makeRegistrationData,
+} from '@jfinchain/jnsjs/utils/registerHelpers'
 import { useMemo } from 'react'
 import { useQuery } from 'wagmi'
 
@@ -56,7 +58,7 @@ const useEstimateRegistration = (
       //   duration: 31557600,
       //   secret: 'placeholder',
       // })
-      // return fetchTenderlyEstimate({
+      // const options = {
       //   type: 'registration',
       //   networkId: chainId,
       //   label: registrationTuple[0],
@@ -65,7 +67,7 @@ const useEstimateRegistration = (
       //   data: registrationTuple[5],
       //   reverseRecord: registrationTuple[6],
       //   ownerControlledFuses: registrationTuple[7],
-      // })
+      // }
       return fetchTenderlyEstimate()
     },
     {

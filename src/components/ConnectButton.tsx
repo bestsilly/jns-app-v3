@@ -113,6 +113,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
   return (
     <StyledButtonWrapper $large={large} $isTabBar={isTabBar}>
       <Button
+        colorStyle="indigoPrimary"
         data-testid={calculateTestId(isTabBar, inHeader)}
         onClick={() => openConnectModal?.()}
         size={breakpoints.sm || large ? 'medium' : 'small'}

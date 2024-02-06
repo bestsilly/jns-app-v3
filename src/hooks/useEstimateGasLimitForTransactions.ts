@@ -43,13 +43,13 @@ export const fetchEstimateWithConfig =
         throw e
       }
       // const { names, duration } = transaction.data as TransactionData<'extendNames'>
-      // const fetchedEstimate = await fetchTenderlyEstimate({
+      // const options = {
       //   type: 'extension',
       //   networkId: chainId,
       //   labels: names.map((name) => name.split('.')[0]),
       //   duration,
       //   from: await signer.getAddress(),
-      // })
+      // }
       const fetchedEstimate = await fetchTenderlyEstimate()
 
       gasLimit = BigNumber.from(fetchedEstimate)
