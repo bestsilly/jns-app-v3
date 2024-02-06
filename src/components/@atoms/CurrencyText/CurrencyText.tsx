@@ -17,7 +17,8 @@ export const CurrencyText = ({ eth, bufferPercentage = 100, currency = 'eth' }: 
   if (loading || !eth || !ethPrice) return null
 
   if (currency === 'eth') {
-    return <>{makeDisplay(eth.mul(bufferPercentage).div(100), 5, 'eth')}</>
+    // replace eth symbol with jfin
+    return <>{makeDisplay(eth.mul(bufferPercentage).div(100), 5, 'jfin')}</>
   }
   return <>{makeDisplay(eth.mul(ethPrice).div(1e8), 2, currency, 18)}</>
 }
