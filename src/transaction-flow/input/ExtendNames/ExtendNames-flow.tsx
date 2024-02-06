@@ -208,7 +208,7 @@ const ExtendNames = ({ data: { names, isSelf }, dispatch, onDismiss }: Props) =>
   const [years, setYears] = useState(1)
   const duration = yearsToSeconds(years)
 
-  const { userConfig, setCurrency } = useUserConfig()
+  const { userConfig } = useUserConfig()
   const currencyDisplay = userConfig.currency === 'fiat' ? userConfig.fiat : 'eth'
 
   const { total: rentFee, loading: priceLoading } = usePrice(names, false)

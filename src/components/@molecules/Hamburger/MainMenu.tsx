@@ -26,7 +26,8 @@ import useGasPrice from '@app/hooks/useGasPrice'
 import { routes } from '@app/routes'
 import { useGraphOutOfSync } from '@app/utils/SyncProvider/SyncProvider'
 import { makeDisplay } from '@app/utils/currency'
-import useUserConfig from '@app/utils/useUserConfig'
+
+// import useUserConfig from '@app/utils/useUserConfig'
 
 const Container = styled.div(
   ({ theme }) => css`
@@ -246,7 +247,7 @@ const disconnectedRoutes = routes.filter(
 const MainMenu = ({ setCurrentView }: { setCurrentView: (view: 'main' | 'language') => void }) => {
   const { t, i18n } = useTranslation('common')
   const language = i18n.resolvedLanguage || 'en'
-  const { userConfig, setCurrency } = useUserConfig()
+  // const { userConfig, setCurrency } = useUserConfig()
 
   return (
     <Container>
