@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
 import {
-  CurrencyToggle,
   LanguageSVG,
   RightChevronSVG,
   Spinner,
@@ -270,12 +269,12 @@ const MainMenu = ({ setCurrentView }: { setCurrentView: (view: 'main' | 'languag
             <Typography weight="bold">{t('navigation.currency')}</Typography>
           </div>
           <div>
-            <CurrencyToggle
+            {/* <CurrencyToggle
               size="extraSmall"
               fiat={userConfig.fiat}
               checked={userConfig.currency === 'fiat'}
               onChange={(e) => setCurrency(e.target.checked ? 'fiat' : 'eth')}
-            />
+            /> */}
           </div>
         </SettingsItem>
       </SettingsSection>
