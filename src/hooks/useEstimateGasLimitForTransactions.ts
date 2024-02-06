@@ -6,7 +6,6 @@ import { useQuery, useSigner } from 'wagmi'
 
 import {
   Transaction,
-  TransactionData,
   TransactionName,
   transactions as _transactions,
   makeTransactionItem,
@@ -43,14 +42,15 @@ export const fetchEstimateWithConfig =
       if (transactionName !== 'extendNames') {
         throw e
       }
-      const { names, duration } = transaction.data as TransactionData<'extendNames'>
-      const fetchedEstimate = await fetchTenderlyEstimate({
-        type: 'extension',
-        networkId: chainId,
-        labels: names.map((name) => name.split('.')[0]),
-        duration,
-        from: await signer.getAddress(),
-      })
+      // const { names, duration } = transaction.data as TransactionData<'extendNames'>
+      // const fetchedEstimate = await fetchTenderlyEstimate({
+      //   type: 'extension',
+      //   networkId: chainId,
+      //   labels: names.map((name) => name.split('.')[0]),
+      //   duration,
+      //   from: await signer.getAddress(),
+      // })
+      const fetchedEstimate = await fetchTenderlyEstimate()
 
       gasLimit = BigNumber.from(fetchedEstimate)
     }
