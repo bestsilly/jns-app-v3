@@ -6,8 +6,7 @@ import {
   LanguageSVG,
   RightChevronSVG,
   Spinner,
-  Typography,
-  WalletSVG,
+  Typography, // WalletSVG,
   mq,
 } from '@ensdomains/thorin'
 
@@ -264,20 +263,20 @@ const MainMenu = ({ setCurrentView }: { setCurrentView: (view: 'main' | 'languag
             <RightChevronSVG />
           </div>
         </HoverableSettingsItem>
-        <SettingsItem>
+        {/* <SettingsItem>
           <div>
             <WalletSVG />
             <Typography weight="bold">{t('navigation.currency')}</Typography>
           </div>
           <div>
-            {/* <CurrencyToggle
+            <CurrencyToggle
               size="extraSmall"
               fiat={userConfig.fiat}
               checked={userConfig.currency === 'fiat'}
               onChange={(e) => setCurrency(e.target.checked ? 'fiat' : 'eth')}
-            /> */}
+            />
           </div>
-        </SettingsItem>
+        </SettingsItem> */}
       </SettingsSection>
       <RoutesSection>
         {disconnectedRoutes.map((route) => (
