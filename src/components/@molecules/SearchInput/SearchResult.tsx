@@ -252,6 +252,8 @@ const NameResultItem = forwardRef<HTMLDivElement, { name: string; $selected: boo
     const zorb = useZorb(name, 'name')
     const { registrationStatus, isLoading, beautifiedName } = useBasicName(name)
 
+    if (registrationStatus === 'notImported') return null
+
     return (
       <SearchItem
         data-testid="search-result-name"
