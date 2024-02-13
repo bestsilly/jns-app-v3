@@ -134,7 +134,7 @@
         },
         "resetProfile": {
           "title": "Reset profile",
-          "subtitle": "You are resetting your profile records. You will lose all existing profile information, such as ETH address, avatar and social records. These can be re-added by editing your profile."
+          "subtitle": "You are resetting your profile records. You will lose all existing profile information, such as JFIN address, avatar and social records. These can be re-added by editing your profile."
         },
         "resolverNotNameWrapperAware": {
           "title": "Resolver incompatible",
@@ -324,7 +324,7 @@
     },
     "resetPrimaryName": {
       "title": "Remove Primary Name",
-      "description": "This name will no longer appear as the name for this address. However, transactions to this name will still resolve to this address unless you remove the ETH record."
+      "description": "This name will no longer appear as the name for this address. However, transactions to this name will still resolve to this address unless you remove the JFIN record."
     },
     "sendName": {
       "views": {
@@ -333,13 +333,13 @@
           "description": "You do not have permission to send this name."
         },
         "search": {
-          "placeholder": "ENS name or Ethereum address",
+          "placeholder": "JNS name or JFIN address",
           "views": {
             "error": {
               "message": "Something went wrong. Please try again."
             },
             "intro": {
-              "message": "Search for an ENS name or ETH address"
+              "message": "Search for an JNS name or JFIN address"
             },
             "noResults": {
               "message": "No results found"
@@ -363,7 +363,7 @@
               "title": "Summary of changes",
               "updates": {
                 "role": "Update {{role}} role to {{address}}",
-                "eth-record": "Update ETH record to {{address}}"
+                "eth-record": "Update JFIN record to {{address}}"
               },
               "remove": {
                 "profile": "Remove profile records"
@@ -378,7 +378,7 @@
           "learnMore": "Learn about sending names"
         }
       }
-    }, 
+    },
     "syncManager": {
       "title": "Sync manager",
       "description": "Syncing the manager will make you the new manager of this name. The current manager <strong>({{manager}})</strong> will no longer be able to make changes.",
@@ -408,16 +408,16 @@
     },
     "selectPrimaryName": {
       "updateEthAddress": {
-        "title": "Update ETH address",
-        "description": "The ETH address for this name doesn't match this wallet. To use this as your primary name you will need to update the ETH address first."
+        "title": "Update JFIN address",
+        "description": "The JFIN address for this name doesn't match this wallet. To use this as your primary name you will need to update the JFIN address first."
       },
       "noResolver": {
         "title": "No resolver set",
-        "description": "To use this as your primary name you will need to set a resolver and update the ETH address first."
+        "description": "To use this as your primary name you will need to set a resolver and update the JFIN address first."
       },
       "invalidResolver": {
         "title": "Unauthorized resolver set",
-        "description": "To use this as your primary name you will need to set a valid resolver and update the ETH address first."
+        "description": "To use this as your primary name you will need to set a valid resolver and update the JFIN address first."
       }
     },
     "multiStepSubnameDelete": {
