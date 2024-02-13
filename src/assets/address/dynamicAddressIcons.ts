@@ -16,6 +16,7 @@ export const dynamicAddressIcons = {
   xem: dynamic(() => import('./XemIcon.svg')),
   sys: dynamic(() => import('./SysIcon.svg')),
   eth: dynamic(() => import('./EthIcon.svg')),
+  ethereum: dynamic(() => import('./Ethereum.svg')),
   icx: dynamic(() => import('./IcxIcon.svg')),
   xvg: dynamic(() => import('./XvgIcon.svg')),
   strat: dynamic(() => import('./StratIcon.svg')),
