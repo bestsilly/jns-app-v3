@@ -149,7 +149,7 @@ const Token = ({ name, isWrapped, canBeWrapped, wrapperData, ownerData, profile 
         {hasToken ? (
           <Outlink
             data-testid="etherscan-nft-link"
-            href={makeEtherscanLink(`${contractAddress}/${tokenId}`, networkName, 'nft')}
+            href={makeEtherscanLink(`${contractAddress}/instance/${tokenId}`, networkName, 'token')}
           >
             {t('etherscan', { ns: 'common' })}
           </Outlink>

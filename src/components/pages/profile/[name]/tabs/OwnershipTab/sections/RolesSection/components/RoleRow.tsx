@@ -90,7 +90,7 @@ export const RoleRow = ({ name, address, roles, actions, isWrapped, isEmancipate
       label: t('transaction.viewEtherscan', { ns: 'common' }),
       onClick: () =>
         window.open(
-          makeEtherscanLink(`${contractAddress}/${tokenId}`, networkName, 'nft'),
+          makeEtherscanLink(`${contractAddress}/instance/${tokenId}`, networkName, 'token'),
           '_blank',
         ),
       icon: <OutlinkSVG />,
