@@ -193,10 +193,7 @@ export default () => {
   return (
     <>
       <WarningWrapper>
-        <Banner title="Unsupported TLD" alert="warning">
-          Names not ending with .jfin are not supported. Please ensure you are using .jfin at the
-          end of your JNS name.
-        </Banner>
+        <Banner alert="warning">Importing DNS names is not supported</Banner>
       </WarningWrapper>
     </>
   )

@@ -200,7 +200,7 @@ const StatusTag = ({ status }: { status: RegistrationStatus }) => {
       return <StyledTag colorStyle="greenSecondary">{t(`search.status.${status}`)}</StyledTag>
     case 'notOwned':
     case 'notImported':
-      return <StyledTag colorStyle="blueSecondary">{t(`search.status.${status}`)}</StyledTag>
+      return <StyledTag colorStyle="redSecondary">{t(`search.status.unsupportedTLD`)}</StyledTag>
     case 'short':
     default:
       return <StyledTag colorStyle="redSecondary">{t(`search.status.${status}`)}</StyledTag>
@@ -251,8 +251,6 @@ const NameResultItem = forwardRef<HTMLDivElement, { name: string; $selected: boo
     const { avatar } = useAvatar(name, network)
     const zorb = useZorb(name, 'name')
     const { registrationStatus, isLoading, beautifiedName } = useBasicName(name)
-
-    if (registrationStatus === 'notImported') return null
 
     return (
       <SearchItem

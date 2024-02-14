@@ -72,7 +72,7 @@ export const useNameDetails = (name: string, skipGraph = false) => {
     if (isValid === false) {
       return t('errors.invalidName')
     }
-    if (registrationStatus === 'unsupportedTLD') {
+    if (registrationStatus === 'unsupportedTLD' || registrationStatus === 'notImported') {
       return t('errors.unsupportedTLD')
     }
     if (profile && !profile.isMigrated && typeof profile.isMigrated === 'boolean') {

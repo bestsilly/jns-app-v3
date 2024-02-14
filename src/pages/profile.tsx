@@ -43,8 +43,8 @@ export default function Page() {
 
   const isDNS = checkDNSName(name)
   if (isDNS && registrationStatus === 'notImported') {
-    router.push(`/import/${name}`)
-    return null
+    // router.push(`/import/${name}`)
+    // return null
   }
 
   return (
