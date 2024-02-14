@@ -4,7 +4,7 @@
   "loading": "Loading",
   "unsupportedNetwork": "Unsupported network",
   "notFound": "404 Not Found",
-  "etherscan": "Etherscan",
+  "etherscan": "Jfinscan",
   "action": {
     "cancel": "Cancel",
     "change": "Change",
@@ -318,7 +318,7 @@
         "UNPREDICTABLE_GAS_LIMIT": "An unknown error occurred"
       }
     },
-    "viewEtherscan": "View on Etherscan",
+    "viewEtherscan": "View on Jfinscan",
     "viewMore": "View More"
   },
   "search": {
