@@ -1,5 +1,8 @@
+/* eslint-disable no-param-reassign */
 import { RecordOptions } from '@jfinchain/jnsjs/utils/recordHelpers'
+import { FieldArrayWithId } from 'react-hook-form'
 
+import coinsWithIcons from '@app/constants/coinsWithIcons.json'
 import { ProfileRecord, ProfileRecordGroup, sortValues } from '@app/constants/profileRecordOptions'
 import supportedGeneralRecordKeys from '@app/constants/supportedGeneralRecordKeys.json'
 import supportedAccounts from '@app/constants/supportedSocialRecordKeys.json'
@@ -132,6 +135,69 @@ const sortProfileRecords = (recordA: ProfileRecord, recordB: ProfileRecord): num
   const recordBValue =
     sortValues[recordB.group]?.[recordB.key.toLowerCase()] || unknownGroupValue[recordB.group]
   return recordAValue - recordBValue
+}
+
+// transform addr records into type text
+export const transformAddrToTextEditRecords = (form: ProfileEditorForm) => {
+  form.records.forEach((value) => {
+    if (value.key.includes('ETHEREUM') && value.group !== 'custom') {
+      value.type = 'text'
+      value.group = 'address'
+    }
+  })
+
+  return form
+}
+
+// transform text addr records into type address (edit fields)
+export const transformTextToAddrEditRecords = (
+  profileRecords: FieldArrayWithId<ProfileEditorForm, 'records', 'id'>[],
+) => {
+  const profileRecordsClone = [...(profileRecords || [])]
+  const customAddressSet = new Set(coinsWithIcons.map((coin) => coin.toUpperCase()))
+
+  profileRecordsClone.forEach((profileRecord) => {
+    if (customAddressSet.has(profileRecord.key)) {
+      profileRecord.type = 'addr'
+      profileRecord.group = 'address'
+    }
+  })
+
+  return profileRecordsClone
+}
+
+// transform text addr records into type address (profile fields)
+export const transformTextToAddressProfileRecords = (profile: DetailedProfile | undefined) => {
+  if (!profile) {
+    return
+  }
+
+  const profileClone: DetailedProfile = JSON.parse(JSON.stringify(profile))
+  const textsClone = [...(profileClone?.records?.texts || [])]
+  const coinTypesClone = [...(profileClone?.records?.coinTypes || [])] as any
+
+  const customAddressList = coinsWithIcons.map((v) => v.toUpperCase())
+  if (textsClone) {
+    for (let i = textsClone.length - 1; i >= 0; i -= 1) {
+      const value = textsClone[i]
+      if (customAddressList.includes(value.key as string)) {
+        coinTypesClone?.push({
+          type: 'addr',
+          addr: value.value,
+          key: value.key,
+          coin: value.key as string,
+        })
+        textsClone.splice(i, 1)
+      }
+    }
+  }
+
+  if (profileClone.records) {
+    profileClone.records.texts = textsClone
+    profileClone.records.coinTypes = coinTypesClone
+  }
+
+  return profileClone
 }
 
 export const profileToProfileRecords = (profile?: DetailedProfile): ProfileRecord[] => {

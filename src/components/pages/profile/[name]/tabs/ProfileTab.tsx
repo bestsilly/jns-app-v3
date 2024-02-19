@@ -17,6 +17,8 @@ import { useProfileActions } from '@app/hooks/useProfileActions'
 import { getSupportLink } from '@app/utils/supportLinks'
 import { validateExpiry } from '@app/utils/utils'
 
+import { transformTextToAddressProfileRecords } from '../registration/steps/Profile/profileRecordUtils'
+
 const DetailsWrapper = styled.div(
   ({ theme }) => css`
     display: flex;
@@ -85,6 +87,8 @@ const ProfileTab = ({ nameDetails, name }: Props) => {
 
   const getTextRecord = (key: string) => profile?.records?.texts?.find((x) => x.key === key)
 
+  const transformProfile = transformTextToAddressProfileRecords(profile)
+
   return (
     <DetailsWrapper>
       <ProfileSnippet
@@ -120,11 +124,11 @@ const ProfileTab = ({ nameDetails, name }: Props) => {
         )}
         pccExpired={!!pccExpired}
         isCached={profileIsCachedData || basicIsCachedData || abilities.isCachedData}
-        addresses={(profile?.records?.coinTypes || []).map((item: any) => ({
+        addresses={(transformProfile?.records?.coinTypes || []).map((item: any) => ({
           key: item.coin,
           value: item.addr,
         }))}
-        textRecords={(profile?.records?.texts || [])
+        textRecords={(transformProfile?.records?.texts || [])
           .map((item: any) => ({ key: item.key, value: item.value }))
           .filter((item: any) => item.value !== null)}
         contentHash={profile?.records?.contentHash}

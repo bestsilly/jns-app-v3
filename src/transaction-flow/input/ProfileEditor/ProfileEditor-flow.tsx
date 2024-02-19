@@ -16,6 +16,8 @@ import {
   getProfileRecordsDiff,
   profileEditorFormToProfileRecords,
   profileToProfileRecords,
+  transformAddrToTextEditRecords,
+  transformTextToAddrEditRecords,
 } from '@app/components/pages/profile/[name]/registration/steps/Profile/profileRecordUtils'
 import { ProfileRecord } from '@app/constants/profileRecordOptions'
 import { useResolverStatus } from '@app/hooks/resolver/useResolverStatus'
@@ -126,7 +128,7 @@ const SubmitButton = ({
   const { t } = useTranslation('common')
 
   // Precompute the records that will be submitted
-  const form = useWatch({ control }) as ProfileEditorForm
+  const form = transformAddrToTextEditRecords(useWatch({ control }) as ProfileEditorForm)
   const currentRecords = profileEditorFormToProfileRecords(form)
   const recordsDiff = getProfileRecordsDiff(currentRecords, previousRecords)
 
@@ -277,6 +279,9 @@ const ProfileEditor = ({ data = {}, transactions = [], dispatch, onDismiss }: Pr
   )
 
   if (profileLoading || resolverStatus.isLoading || !isRecordsUpdated) return <TransactionLoader />
+
+  const transformProfileRecords = transformTextToAddrEditRecords(profileRecords)
+
   return (
     <Container
       data-testid="profile-editor"
@@ -303,7 +308,7 @@ const ProfileEditor = ({ data = {}, transactions = [], dispatch, onDismiss }: Pr
                       onAvatarSrcChange={(src) => setAvatarSrc(src)}
                     />
                   </AvatarWrapper>
-                  {profileRecords.map((field, index) =>
+                  {transformProfileRecords.map((field, index) =>
                     field.group === 'custom' ? (
                       <CustomProfileRecordInput
                         key={field.id}
