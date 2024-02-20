@@ -122,7 +122,7 @@
     },
     "editResolver": {
       "latestLabel": "Gebruik laatste resolver",
-      "etherscan": "Jfinscan",
+      "etherscan": "JFINScan",
       "latestMessage": "Je gebruikt de laatste resolver",
       "customLabel": "Handmatige resolver",
       "customPlaceholder": "Vul handmatige resolver adres hier"
