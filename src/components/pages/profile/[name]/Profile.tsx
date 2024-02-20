@@ -114,6 +114,7 @@ const ProfileContent = ({ isSelf, isLoading: _isLoading, name }: Props) => {
     error,
     errorTitle,
     profile,
+    transformedProfile,
     gracePeriodEndDate,
     expiryDate,
     normalisedName,
@@ -264,8 +265,8 @@ const ProfileContent = ({ isSelf, isLoading: _isLoading, name }: Props) => {
               <RecordsTab
                 network={chainId}
                 name={normalisedName}
-                texts={(profile?.records?.texts as any) || []}
-                addresses={(profile?.records?.coinTypes as any) || []}
+                texts={(transformedProfile?.records?.texts as any) || []}
+                addresses={(transformedProfile?.records?.coinTypes as any) || []}
                 contentHash={profile?.records?.contentHash}
                 abi={profile?.records?.abi}
                 resolverAddress={profile?.resolverAddress}
