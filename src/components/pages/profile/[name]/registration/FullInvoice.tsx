@@ -45,10 +45,6 @@ const FullInvoice = ({ years, totalYearlyFee, hasPremium, premiumFee }: Props) =
         bufferPercentage: CURRENCY_FLUCTUATION_BUFFER_PERCENTAGE,
         value: totalYearlyFee,
       },
-      // {
-      //   label: t('invoice.estimatedNetworkFee'),
-      //   value: estimatedGasFee,
-      // },
       ...(hasPremium
         ? [
             {
