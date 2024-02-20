@@ -5,7 +5,7 @@ import { Button, Helper, Typography, mq } from '@ensdomains/thorin'
 
 import { CacheableComponent } from '@app/components/@atoms/CacheableComponent'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
-import coinsWithIcons from '@app/constants/coinsWithIcons.json'
+import { coinsWithIcons } from '@app/constants/coinsWithIcons'
 import supportedProfileItems from '@app/constants/supportedGeneralRecordKeys.json'
 import supportedTexts from '@app/constants/supportedSocialRecordKeys.json'
 import useOwners from '@app/hooks/useOwners'

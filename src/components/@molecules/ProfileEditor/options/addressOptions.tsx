@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 import { Select } from '@ensdomains/thorin'
 
 import { DynamicAddressIcon } from '@app/assets/address/DynamicAddressIcon'
-import coinsWithIcons from '@app/constants/coinsWithIcons.json'
+import { coinsWithIcons } from '@app/constants/coinsWithIcons'
 import coinsWithoutIcons from '@app/constants/coinsWithoutIcons.json'
 import { formSafeKey } from '@app/utils/editor'
 

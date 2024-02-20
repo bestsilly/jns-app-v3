@@ -1,4 +1,4 @@
-import coinsWithIcons from '@app/constants/coinsWithIcons.json'
+import { coinsWithIcons } from '@app/constants/coinsWithIcons'
 import coinsWithoutIcons from '@app/constants/coinsWithoutIcons.json'
 import supportedContentHashKeys from '@app/constants/supportedContentHashKeys.json'
 import supportedGeneralRecordKeys from '@app/constants/supportedGeneralRecordKeys.json'
