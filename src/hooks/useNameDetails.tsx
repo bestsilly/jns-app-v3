@@ -21,7 +21,7 @@ export type DetailedProfile = Omit<Profile, 'records'> & {
 }
 
 // transform text addr records into type address (profile fields)
-export const transformTextToAddressProfileRecords = (profile: DetailedProfile | undefined) => {
+const transformTextToAddressProfileRecords = (profile: DetailedProfile | undefined) => {
   if (!profile) {
     return
   }
