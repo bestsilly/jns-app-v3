@@ -281,12 +281,6 @@ const ExtendNames = ({ data: { names, isSelf }, dispatch, onDismiss }: Props) =>
               </PlusMinusWrapper>
               <OptionBar $isCached={priceLoading}>
                 <GasDisplay />
-                {/* <CurrencyToggle
-                  size="small"
-                  checked={userConfig.currency === 'fiat'}
-                  onChange={(e) => setCurrency(e.target.checked ? 'fiat' : 'eth')}
-                  data-testid="extend-names-currency-toggle"
-                /> */}
               </OptionBar>
               <GasEstimationCacheableComponent $isCached={isEstimateGasLoading}>
                 <Invoice items={items} unit={currencyDisplay} totalLabel="Estimated total" />

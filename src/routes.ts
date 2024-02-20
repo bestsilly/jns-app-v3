@@ -99,49 +99,6 @@ export const routes: RouteItemObj[] = [
     },
     onlyDropdown: true,
   },
-  // {
-  //   name: 'support',
-  //   href: 'https://support.ens.domains',
-  //   label: 'navigation.support',
-  //   disabled: false,
-  //   connected: false,
-  // },
-  // {
-  //   name: 'feedback',
-  //   href: 'https://ens.canny.io/',
-  //   label: 'navigation.feedback',
-  //   disabled: false,
-  //   connected: false,
-  //   onlyDropdown: true,
-  // },
-  // {
-  //   name: 'governance',
-  //   href: 'https://ensdao.org/',
-  //   label: 'navigation.governance',
-  //   disabled: false,
-  //   connected: false,
-  // },
-  // {
-  //   name: 'community',
-  //   href: 'https://chat.ens.domains/',
-  //   label: 'navigation.community',
-  //   disabled: false,
-  //   connected: false,
-  // },
-  // {
-  //   name: 'developers',
-  //   href: 'https://docs.ens.domains/',
-  //   label: 'navigation.developers',
-  //   disabled: false,
-  //   connected: false,
-  // },
-  // {
-  //   name: 'bounty',
-  //   href: 'https://docs.ens.domains/bug-bounty-program',
-  //   label: 'navigation.bounty',
-  //   disabled: false,
-  //   connected: false,
-  // },
   {
     name: 'terms',
     href: '/legal/terms-of-use',
@@ -156,22 +113,6 @@ export const routes: RouteItemObj[] = [
     disabled: false,
     connected: false,
   },
-  // {
-  //   name: 'oldApp',
-  //   href: 'https://legacy.ens.domains',
-  //   label: 'navigation.oldApp',
-  //   disabled: false,
-  //   connected: false,
-  //   onlyDropdown: true,
-  // },
-  // {
-  //   name: 'ipfsApp',
-  //   href: 'https://app.ens.eth.limo/',
-  //   label: 'navigation.ipfsApp',
-  //   disabled: false,
-  //   connected: false,
-  //   onlyDropdown: true,
-  // },
 ]
 
 export const legacyFavouritesRoute: RouteItemObj = {

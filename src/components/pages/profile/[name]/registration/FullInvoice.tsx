@@ -45,10 +45,6 @@ const FullInvoice = ({ years, totalYearlyFee, hasPremium, premiumFee }: Props) =
         bufferPercentage: CURRENCY_FLUCTUATION_BUFFER_PERCENTAGE,
         value: totalYearlyFee,
       },
-      // {
-      //   label: t('invoice.estimatedNetworkFee'),
-      //   value: estimatedGasFee,
-      // },
       ...(hasPremium
         ? [
             {
@@ -67,11 +63,6 @@ const FullInvoice = ({ years, totalYearlyFee, hasPremium, premiumFee }: Props) =
     <InvoiceContainer>
       <OptionBar>
         <GasDisplay />
-        {/* <CurrencyToggle
-          size="small"
-          checked={userConfig.currency === 'fiat'}
-          onChange={(e) => setCurrency(e.target.checked ? 'fiat' : 'eth')}
-        /> */}
       </OptionBar>
       <Invoice items={invoiceItems} unit={currencyDisplay} totalLabel={t('invoice.total')} />
     </InvoiceContainer>
