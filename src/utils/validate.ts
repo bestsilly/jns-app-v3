@@ -3,6 +3,8 @@ import { getAddress } from '@ethersproject/address'
 import { formatsByName } from '@ensdomains/address-encoder'
 import { validate } from '@ensdomains/ens-validation'
 
+import customCoins from '@app/constants/customCoins.json'
+
 export const hasNonAscii = () => {
   const strs = window.location.pathname.split('/')
   const rslt = strs.reduce((accum, next) => {
@@ -18,7 +20,7 @@ export const validateCryptoAddress =
   (address?: string): string | boolean => {
     try {
       if (!address) return 'addressRequired'
-      const _coin = coin.includes('ETHEREUM') ? 'ETH' : coin.toUpperCase()
+      const _coin = customCoins.includes(coin.toLowerCase()) ? 'ETH' : coin.toUpperCase()
 
       let _address
       if (_coin === 'ETH') _address = getAddress(address)
