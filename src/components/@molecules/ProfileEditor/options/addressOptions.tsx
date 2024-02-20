@@ -36,7 +36,7 @@ const UnsupportedAddressWrapper = styled.div(
 
 const coinsWithIconsOptions = coinsWithIcons.map((coin) => ({
   value: formSafeKey(coin.toUpperCase()),
-  label: coin.toUpperCase(),
+  label: coin.toUpperCase() === 'ETH' ? 'JFIN' : coin.toUpperCase(),
   node: <AddressWrapper>{coin}</AddressWrapper>,
   prefix: (
     <IconWrapper>

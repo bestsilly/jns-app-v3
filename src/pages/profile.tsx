@@ -5,7 +5,6 @@ import { useInitial } from '@app/hooks/useInitial'
 import { useNameDetails } from '@app/hooks/useNameDetails'
 import { usePrimary } from '@app/hooks/usePrimary'
 import { useRouterWithHistory } from '@app/hooks/useRouterWithHistory'
-import { checkDNSName } from '@app/utils/utils'
 
 export default function Page() {
   const router = useRouterWithHistory()
@@ -38,12 +37,6 @@ export default function Page() {
     !detailsLoading
   ) {
     router.push(`/register/${name}`)
-    return null
-  }
-
-  const isDNS = checkDNSName(name)
-  if (isDNS && registrationStatus === 'notImported') {
-    router.push(`/import/${name}`)
     return null
   }
 

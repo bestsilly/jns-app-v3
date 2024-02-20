@@ -21,7 +21,7 @@ const RecordItem = ({
     <ThorinRecordItem
       size={breakpoint.sm ? 'large' : 'small'}
       value={value}
-      keyLabel={keyLabel}
+      keyLabel={keyLabel === 'ETH' ? 'JFIN' : keyLabel}
       keySublabel={keySubLabel}
       data-testid={
         itemKey ? `name-details-${type}-${itemKey.toLowerCase()}` : `name-details-${type}`

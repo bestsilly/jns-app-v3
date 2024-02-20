@@ -200,7 +200,7 @@ const StatusTag = ({ status }: { status: RegistrationStatus }) => {
       return <StyledTag colorStyle="greenSecondary">{t(`search.status.${status}`)}</StyledTag>
     case 'notOwned':
     case 'notImported':
-      return <StyledTag colorStyle="blueSecondary">{t(`search.status.${status}`)}</StyledTag>
+      return <StyledTag colorStyle="redSecondary">{t(`search.status.unsupportedTLD`)}</StyledTag>
     case 'short':
     default:
       return <StyledTag colorStyle="redSecondary">{t(`search.status.${status}`)}</StyledTag>

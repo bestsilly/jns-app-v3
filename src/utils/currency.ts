@@ -22,6 +22,13 @@ export const makeDisplay = (
     options.roundingPriority = 'lessPrecision'
     options.currency = undefined
     customSymbol = ` ${symbol}`
+  } else if (symbol.toLowerCase() === 'jfin') {
+    options.maximumSignificantDigits = 4
+    options.maximumFractionDigits = 4
+    options.style = 'decimal'
+    options.roundingPriority = 'lessPrecision'
+    options.currency = undefined
+    customSymbol = ` ${symbol.toUpperCase()}`
   } else if (symbol === 'eth') {
     options.minimumFractionDigits = 4
     options.maximumFractionDigits = 4

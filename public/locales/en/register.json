@@ -1,5 +1,5 @@
 {
-  "title": "Register {{name}} on ENS",
+  "title": "Register {{name}} on JNS",
   "subtitle": "Register",
   "heading": "Register {{name}}",
   "invoice": {
@@ -22,7 +22,7 @@
       "primaryNameMessage": "This links your address to this name, allowing dApps to display it as your profile when connected to them. You can only have one primary name per address.",
       "premium": {
         "heading": "This name has a temporary premium",
-        "subheading": "To give fair opportunity to recently expired names, the premium starts at $100,000,000 and reduces to $0 over 21 days. You can calculate the premium on a date below.",
+        "subheading": "To provide a fair opportunity for recently expired names, the premium rates will reduce in the coming days. You can calculate the premium on a date below.",
         "targetPrice": "Target price",
         "targetDate": "Target date",
         "timezone": "Date and time shown in local time zone ({{timezone}})"
@@ -168,11 +168,13 @@
       "setupProfile": "I'd like to set up my profile first",
       "paymentMethod": "Payment method",
       "notEnoughEth": "Not enough ETH in wallet",
+      "notEnoughJFIN": "Not enough JFIN in wallet",
       "creditOrDebit": "Credit or debit card",
       "additionalFee": "Additional processing fee",
       "pendingMoonpayTransaction": "Your MoonPay transaction is processing. This may take up to two minutes. You can check your progress from the confirmation email you recieved.",
       "failedMoonpayTransaction": "Your MoonPay transaction has failed. Please try again or choose the 'Ethereum' payment method.",
       "ethereum": "Ethereum",
+      "jfin": "JFIN",
       "processing": "Processing",
       "poweredBy": "Powered by",
       "moonpayModalHeader": "MoonPay Checkout",

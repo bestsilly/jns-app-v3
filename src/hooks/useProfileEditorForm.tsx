@@ -46,7 +46,9 @@ export const useProfileEditorForm = (existingRecords: ProfileRecord[]) => {
     if (record.group === 'social')
       return t(`steps.profile.options.groups.social.items.${record.key}`)
     if (record.group === 'address')
-      return t('steps.profile.options.groups.address.itemLabel', { coin: record.key })
+      return t('steps.profile.options.groups.address.itemLabel', {
+        coin: record.key === 'ETH' ? 'JFIN' : record.key,
+      })
     if (record.group === 'other') return t(`steps.profile.options.groups.other.items.${record.key}`)
     if (record.group === 'website')
       return t(`steps.profile.options.groups.website.items.${record.key}`)
@@ -56,7 +58,7 @@ export const useProfileEditorForm = (existingRecords: ProfileRecord[]) => {
   const secondaryLabelForRecord = (record: ProfileRecord) => {
     if (record.group === 'website') return 'contenthash'
     if (record.key === 'contentHash') return 'contenthash'
-    if (record.group !== 'custom') return record.key
+    if (record.group !== 'custom') return record.key === 'ETH' ? 'JFIN' : record.key
     return ''
   }
 

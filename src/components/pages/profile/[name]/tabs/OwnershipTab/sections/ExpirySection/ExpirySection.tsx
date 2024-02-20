@@ -1,4 +1,4 @@
-import { CalendarEvent, google, ics, office365, outlook, yahoo } from 'calendar-link'
+import { CalendarEvent, google, office365, outlook } from 'calendar-link'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
@@ -28,16 +28,6 @@ const calendarOptions = [
     value: 'office365',
     label: 'tabs.more.misc.reminderOptions.office365',
     function: office365,
-  },
-  {
-    value: 'yahoo',
-    label: 'tabs.more.misc.reminderOptions.yahoo',
-    function: yahoo,
-  },
-  {
-    value: 'ics',
-    label: 'tabs.more.misc.reminderOptions.ical',
-    function: ics,
   },
 ]
 
@@ -149,13 +139,6 @@ export const ExpirySection = ({ name, details }: Props) => {
                         keepMenuOnTop
                         width={220}
                         items={[
-                          {
-                            value: 'earnifi',
-                            label: t('tabs.more.misc.reminderOptions.earnifi', { ns: 'profile' }),
-                            onClick: () => {
-                              setShowEarnifiDialog(true)
-                            },
-                          },
                           ...calendarOptions.map((option) => ({
                             label: t(option.label, { ns: 'profile' }),
                             onClick: () =>

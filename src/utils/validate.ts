@@ -18,7 +18,7 @@ export const validateCryptoAddress =
   (address?: string): string | boolean => {
     try {
       if (!address) return 'addressRequired'
-      const _coin = coin.toUpperCase()
+      const _coin = coin === 'ETHEREUM' ? 'ETH' : coin.toUpperCase()
 
       let _address
       if (_coin === 'ETH') _address = getAddress(address)

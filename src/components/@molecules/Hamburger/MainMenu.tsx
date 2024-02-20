@@ -3,12 +3,10 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
 import {
-  CurrencyToggle,
   LanguageSVG,
   RightChevronSVG,
   Spinner,
-  Typography,
-  WalletSVG,
+  Typography, // WalletSVG,
   mq,
 } from '@ensdomains/thorin'
 
@@ -27,7 +25,6 @@ import useGasPrice from '@app/hooks/useGasPrice'
 import { routes } from '@app/routes'
 import { useGraphOutOfSync } from '@app/utils/SyncProvider/SyncProvider'
 import { makeDisplay } from '@app/utils/currency'
-import useUserConfig from '@app/utils/useUserConfig'
 
 const Container = styled.div(
   ({ theme }) => css`
@@ -247,7 +244,6 @@ const disconnectedRoutes = routes.filter(
 const MainMenu = ({ setCurrentView }: { setCurrentView: (view: 'main' | 'language') => void }) => {
   const { t, i18n } = useTranslation('common')
   const language = i18n.resolvedLanguage || 'en'
-  const { userConfig, setCurrency } = useUserConfig()
 
   return (
     <Container>
@@ -264,20 +260,6 @@ const MainMenu = ({ setCurrentView }: { setCurrentView: (view: 'main' | 'languag
             <RightChevronSVG />
           </div>
         </HoverableSettingsItem>
-        <SettingsItem>
-          <div>
-            <WalletSVG />
-            <Typography weight="bold">{t('navigation.currency')}</Typography>
-          </div>
-          <div>
-            <CurrencyToggle
-              size="extraSmall"
-              fiat={userConfig.fiat}
-              checked={userConfig.currency === 'fiat'}
-              onChange={(e) => setCurrency(e.target.checked ? 'fiat' : 'eth')}
-            />
-          </div>
-        </SettingsItem>
       </SettingsSection>
       <RoutesSection>
         {disconnectedRoutes.map((route) => (

@@ -148,7 +148,7 @@ export const RecordInput = forwardRef(
     const error = errorProp ? <ErrorWrapper>{errorProp}</ErrorWrapper> : undefined
 
     const labelText = labelProp || option?.label || option?.value || ''
-    const label = <LabelWrapper>{labelText}</LabelWrapper>
+    const label = <LabelWrapper>{labelText === 'ETH' ? 'JFIN' : labelText}</LabelWrapper>
 
     const labelSecondary = disabled ? <LabelSecondary>{labelDisabled}</LabelSecondary> : undefined
 

@@ -17,7 +17,7 @@ import {
   mq,
 } from '@ensdomains/thorin'
 
-import MoonpayLogo from '@app/assets/MoonpayLogo.svg'
+// import MoonpayLogo from '@app/assets/MoonpayLogo.svg'
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
 import { PlusMinusControl } from '@app/components/@atoms/PlusMinusControl/PlusMinusControl'
 import { RegistrationTimeComparisonBanner } from '@app/components/@atoms/RegistrationTimeComparisonBanner/RegistrationTimeComparisonBanner'
@@ -89,7 +89,7 @@ const gridAreaStyle = ({ $name }: { $name: string }) => css`
   grid-area: ${$name};
 `
 
-const moonpayInfoItems = Array.from({ length: 2 }, (_, i) => `steps.info.moonpayItems.${i}`)
+// const moonpayInfoItems = Array.from({ length: 2 }, (_, i) => `steps.info.moonpayItems.${i}`)
 
 const PaymentChoiceContainer = styled.div`
   width: 100%;
@@ -125,69 +125,69 @@ const RadioLabel = styled(Typography)(
   `,
 )
 
-const MoonpayContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-`
+// const MoonpayContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   gap: 5px;
+// `
 
-const InfoItems = styled.div(
-  ({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: ${theme.space['4']};
+// const InfoItems = styled.div(
+//   ({ theme }) => css`
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: flex-start;
+//     gap: ${theme.space['4']};
 
-    ${mq.sm.min(css`
-      flex-direction: row;
-      align-items: stretch;
-    `)}
-  `,
-)
+//     ${mq.sm.min(css`
+//       flex-direction: row;
+//       align-items: stretch;
+//     `)}
+//   `,
+// )
 
-const InfoItem = styled.div(
-  ({ theme }) => css`
-    width: 100%;
+// const InfoItem = styled.div(
+//   ({ theme }) => css`
+//     width: 100%;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: ${theme.space['4']};
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     gap: ${theme.space['4']};
 
-    padding: ${theme.space['4']};
-    border: 1px solid ${theme.colors.border};
-    border-radius: ${theme.radii.large};
-    text-align: center;
+//     padding: ${theme.space['4']};
+//     border: 1px solid ${theme.colors.border};
+//     border-radius: ${theme.radii.large};
+//     text-align: center;
 
-    & > div:first-of-type {
-      width: ${theme.space['10']};
-      height: ${theme.space['10']};
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: ${theme.fontSizes.extraLarge};
-      font-weight: ${theme.fontWeights.bold};
-      color: ${theme.colors.backgroundPrimary};
-      background: ${theme.colors.accentPrimary};
-      border-radius: ${theme.radii.full};
-    }
+//     & > div:first-of-type {
+//       width: ${theme.space['10']};
+//       height: ${theme.space['10']};
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       font-size: ${theme.fontSizes.extraLarge};
+//       font-weight: ${theme.fontWeights.bold};
+//       color: ${theme.colors.backgroundPrimary};
+//       background: ${theme.colors.accentPrimary};
+//       border-radius: ${theme.radii.full};
+//     }
 
-    & > div:last-of-type {
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  `,
-)
+//     & > div:last-of-type {
+//       flex-grow: 1;
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//     }
+//   `,
+// )
 
-const LabelContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`
+// const LabelContainer = styled.div`
+//   display: flex;
+//   flex-wrap: wrap;
+// `
 
 const CheckboxWrapper = styled.div(
   () => css`
@@ -256,7 +256,6 @@ const PaymentChoice = ({
   setPaymentMethodChoice,
   hasEnoughEth,
   hasPendingMoonpayTransaction,
-  hasFailedMoonpayTransaction,
   address,
   hasPrimaryName,
   reverseRecord,
@@ -289,7 +288,7 @@ const PaymentChoice = ({
         <RadioButtonContainer>
           <StyledRadioButton
             data-testid="payment-choice-ethereum"
-            label={<RadioLabel>{t('steps.info.ethereum')}</RadioLabel>}
+            label={<RadioLabel>{t('steps.info.jfin')}</RadioLabel>}
             name="RadioButtonGroup"
             value={PaymentMethod.ethereum}
             disabled={hasPendingMoonpayTransaction}
@@ -299,7 +298,7 @@ const PaymentChoice = ({
             <>
               <Spacer $height="4" />
               <Helper type="warning" alignment="horizontal">
-                {t('steps.info.notEnoughEth')}
+                {t('steps.info.notEnoughJFIN')}
               </Helper>
               <Spacer $height="2" />
             </>
@@ -323,7 +322,7 @@ const PaymentChoice = ({
           )}
         </RadioButtonContainer>
         <RadioButtonContainer>
-          <StyledRadioButton
+          {/* <StyledRadioButton
             label={
               <LabelContainer>
                 <RadioLabel>{t('steps.info.creditOrDebit')}</RadioLabel>
@@ -335,8 +334,8 @@ const PaymentChoice = ({
             name="RadioButtonGroup"
             value={PaymentMethod.moonpay}
             checked={paymentMethodChoice === PaymentMethod.moonpay || undefined}
-          />
-          {paymentMethodChoice === PaymentMethod.moonpay && (
+          /> */}
+          {/* {paymentMethodChoice === PaymentMethod.moonpay && (
             <>
               <Spacer $height="4" />
               <InfoItems>
@@ -357,7 +356,7 @@ const PaymentChoice = ({
                 <MoonpayLogo />
               </MoonpayContainer>
             </>
-          )}
+          )} */}
         </RadioButtonContainer>
       </StyledRadioButtonGroup>
     </PaymentChoiceContainer>

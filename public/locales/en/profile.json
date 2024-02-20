@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "{{name}} on ENS",
+    "title": "{{name}} on JNS",
     "description": "{{name}}'s profile on the Ethereum Name Service"
   },
   "title": "Profile",
@@ -71,7 +71,6 @@
             "grace-period": {
               "title": "Grace period ends",
               "tooltip": "A 90 day grace window after expiration, when the name can still be extended but not re-registered."
-              
             },
             "registration": {
               "title": "Registered"
@@ -262,7 +261,7 @@
         "outdated": "Outdated",
         "wildcard": "Wildcard",
         "version": "Version",
-        "etherscan": "Etherscan"
+        "etherscan": "JFINScan"
       },
       "fuses": {
         "label": "Fuses",

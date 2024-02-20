@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Colors, CurrencyToggle } from '@ensdomains/thorin'
+import { Colors } from '@ensdomains/thorin'
 
 import GasDisplay from '@app/components/@atoms/GasDisplay'
 import { Invoice } from '@app/components/@atoms/Invoice/Invoice'
@@ -32,17 +32,10 @@ const InvoiceContainer = styled.div(
 
 type Props = ReturnType<typeof useEstimateFullRegistration>
 
-const FullInvoice = ({
-  years,
-  totalYearlyFee,
-  estimatedGasFee,
-  hasPremium,
-  premiumFee,
-  gasPrice,
-}: Props) => {
+const FullInvoice = ({ years, totalYearlyFee, hasPremium, premiumFee }: Props) => {
   const { t } = useTranslation('register')
 
-  const { userConfig, setCurrency } = useUserConfig()
+  const { userConfig } = useUserConfig()
   const currencyDisplay = userConfig.currency === 'fiat' ? userConfig.fiat : 'eth'
 
   const invoiceItems = useMemo(
@@ -51,10 +44,6 @@ const FullInvoice = ({
         label: t('invoice.yearRegistration', { years }),
         bufferPercentage: CURRENCY_FLUCTUATION_BUFFER_PERCENTAGE,
         value: totalYearlyFee,
-      },
-      {
-        label: t('invoice.estimatedNetworkFee'),
-        value: estimatedGasFee,
       },
       ...(hasPremium
         ? [
@@ -67,18 +56,13 @@ const FullInvoice = ({
           ]
         : []),
     ],
-    [t, years, totalYearlyFee, estimatedGasFee, hasPremium, premiumFee],
+    [t, years, totalYearlyFee, hasPremium, premiumFee],
   )
 
   return (
     <InvoiceContainer>
       <OptionBar>
-        <GasDisplay gasPrice={gasPrice} />
-        <CurrencyToggle
-          size="small"
-          checked={userConfig.currency === 'fiat'}
-          onChange={(e) => setCurrency(e.target.checked ? 'fiat' : 'eth')}
-        />
+        <GasDisplay />
       </OptionBar>
       <Invoice items={invoiceItems} unit={currencyDisplay} totalLabel={t('invoice.total')} />
     </InvoiceContainer>

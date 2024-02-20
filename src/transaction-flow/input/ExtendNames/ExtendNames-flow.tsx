@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useAccount, useBalance } from 'wagmi'
 
-import { Avatar, Button, CurrencyToggle, Dialog, Helper, ScrollBox, mq } from '@ensdomains/thorin'
+import { Avatar, Button, Dialog, Helper, ScrollBox, mq } from '@ensdomains/thorin'
 
 import { CacheableComponent } from '@app/components/@atoms/CacheableComponent'
 import { Invoice, InvoiceItem } from '@app/components/@atoms/Invoice/Invoice'
@@ -208,7 +208,7 @@ const ExtendNames = ({ data: { names, isSelf }, dispatch, onDismiss }: Props) =>
   const [years, setYears] = useState(1)
   const duration = yearsToSeconds(years)
 
-  const { userConfig, setCurrency } = useUserConfig()
+  const { userConfig } = useUserConfig()
   const currencyDisplay = userConfig.currency === 'fiat' ? userConfig.fiat : 'eth'
 
   const { total: rentFee, loading: priceLoading } = usePrice(names, false)
@@ -280,13 +280,7 @@ const ExtendNames = ({ data: { names, isSelf }, dispatch, onDismiss }: Props) =>
                 />
               </PlusMinusWrapper>
               <OptionBar $isCached={priceLoading}>
-                <GasDisplay gasPrice={gasPrice} />
-                <CurrencyToggle
-                  size="small"
-                  checked={userConfig.currency === 'fiat'}
-                  onChange={(e) => setCurrency(e.target.checked ? 'fiat' : 'eth')}
-                  data-testid="extend-names-currency-toggle"
-                />
+                <GasDisplay />
               </OptionBar>
               <GasEstimationCacheableComponent $isCached={isEstimateGasLoading}>
                 <Invoice items={items} unit={currencyDisplay} totalLabel="Estimated total" />

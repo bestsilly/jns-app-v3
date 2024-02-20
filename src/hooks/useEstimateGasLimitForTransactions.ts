@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 import { useQuery, useSigner } from 'wagmi'
 
 import {
-  Transaction, // TransactionData,
+  Transaction,
   TransactionName,
   transactions as _transactions,
   makeTransactionItem,

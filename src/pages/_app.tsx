@@ -1,4 +1,4 @@
-import { RainbowKitProvider, Theme, darkTheme } from '@rainbow-me/rainbowkit'
+import { RainbowKitProvider, Theme, lightTheme } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
@@ -7,7 +7,7 @@ import { I18nextProvider } from 'react-i18next'
 import { ThemeProvider, createGlobalStyle, keyframes } from 'styled-components'
 import { WagmiConfig } from 'wagmi'
 
-import { ThorinGlobalStyles, baseTheme, darkTheme as thorinDarkTheme } from '@ensdomains/thorin'
+import { ThorinGlobalStyles, baseTheme, lightTheme as thorinLightTheme } from '@ensdomains/thorin'
 
 import { Notifications } from '@app/components/Notifications'
 import { TransactionStoreProvider } from '@app/hooks/transactions/TransactionStoreContext'
@@ -27,8 +27,8 @@ import '../styles.css'
 // const INTERCOM_ID = process.env.NEXT_PUBLIC_INTERCOM_ID || 'eotmigir'
 
 const rainbowKitTheme: Theme = {
-  ...darkTheme({
-    accentColor: thorinDarkTheme.colors.purple,
+  ...lightTheme({
+    accentColor: thorinLightTheme.colors.purple,
     borderRadius: 'medium',
   }),
   fonts: {
@@ -38,7 +38,7 @@ const rainbowKitTheme: Theme = {
 
 const thorinGlobalTheme = {
   ...baseTheme,
-  ...thorinDarkTheme,
+  ...thorinLightTheme,
 }
 
 const anim = keyframes`
@@ -81,7 +81,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: radial-gradient(50% 50% at 50% 50%, rgba(125, 82, 255, 0.06) 0%, rgba(255, 255, 255, 0) 100%), #101112;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(82, 152, 255, 0.062) 0%, rgba(255, 255, 255, 0) 100%), #F7F7F7;
   }
 
   body, .min-safe {
@@ -150,17 +150,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <RainbowKitProvider theme={rainbowKitTheme} chains={chains}>
           <TransactionStoreProvider>
             <EnsProvider>
-              <ThemeProvider
-                theme={{
-                  ...thorinDarkTheme,
-                  colors: {
-                    ...thorinDarkTheme.colors,
-                    accent: 'indigo',
-                    text: '#fff',
-                    textPrimary: '#fff',
-                  },
-                }}
-              >
+              <ThemeProvider theme={thorinLightTheme}>
                 <BreakpointProvider queries={breakpoints}>
                   <GlobalStyle />
                   <ThorinGlobalStyles theme={thorinGlobalTheme} />

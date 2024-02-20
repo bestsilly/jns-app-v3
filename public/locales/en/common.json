@@ -4,7 +4,7 @@
   "loading": "Loading",
   "unsupportedNetwork": "Unsupported network",
   "notFound": "404 Not Found",
-  "etherscan": "Etherscan",
+  "etherscan": "JFINScan",
   "action": {
     "cancel": "Cancel",
     "change": "Change",
@@ -184,13 +184,13 @@
       "migrateProfile": "Migrate profile",
       "migrateProfileWithReset": "Migrate profile",
       "migrateProfileWithSync": "Migrate and update profile",
-      "migrateProfileWithEthAddress": "Migrate and update ETH address",
+      "migrateProfileWithEthAddress": "Migrate and update JFIN address",
       "wrapName": "Wrap name",
       "updateResolver": "Update resolver",
       "updateProfile": "Update profile",
       "setPrimaryName": "Set primary name",
       "resetPrimaryName": "Remove primary name",
-      "updateEthAddress": "Update ETH address",
+      "updateEthAddress": "Update JFIN address",
       "testSendName": "Send name",
       "burnFuses": "Burn permissions",
       "createSubname": "Create subname",
@@ -221,8 +221,8 @@
       "updateResolver": "Change resolver to",
       "updateProfile": "Update records on existing resolver",
       "setPrimaryName": "Set the primary name for your address",
-      "updateEthAddress": "Update ETH address to this address",
-      "updateEthAddressOnLatestResolver": "Update ETH address on latest resolver",
+      "updateEthAddress": "Update JFIN address to this address",
+      "updateEthAddressOnLatestResolver": "Update JFIN address on latest resolver",
       "testSendName": "Set the controller and registrant of the name",
       "createSubname": "Create a new subname on the name",
       "burnFuses": "Burn the chosen permissions until name expiry",
@@ -318,7 +318,7 @@
         "UNPREDICTABLE_GAS_LIMIT": "An unknown error occurred"
       }
     },
-    "viewEtherscan": "View on Etherscan",
+    "viewEtherscan": "View on JFINScan",
     "viewMore": "View More"
   },
   "search": {
@@ -375,7 +375,7 @@
       "description": "An address that can change the profile."
     },
     "eth-record": {
-      "title": "ETH record",
+      "title": "JFIN record",
       "description": "The address that this name points to."
     }
   },

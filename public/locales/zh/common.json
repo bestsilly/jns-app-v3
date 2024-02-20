@@ -4,7 +4,7 @@
   "loading": "加载中",
   "unsupportedNetwork": "不支持的网络",
   "notFound": "404 未找到",
-  "etherscan": "Etherscan",
+  "etherscan": "JFINScan",
   "action": {
     "cancel": "取消",
     "change": "更改",
@@ -312,7 +312,7 @@
         "UNPREDICTABLE_GAS_LIMIT": "发生未知错误"
       }
     },
-    "viewEtherscan": "在 Etherscan 上查看",
+    "viewEtherscan": "在 JFINScan 上查看",
     "viewMore": "查看详情"
   },
   "search": {
