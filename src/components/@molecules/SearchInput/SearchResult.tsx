@@ -217,6 +217,7 @@ const TextWrapper = styled.div(
       text-overflow: clip;
       text-align: left;
       direction: rtl;
+      color: white;
       &::before {
         content: '‎';
       }
@@ -264,7 +265,9 @@ const NameResultItem = forwardRef<HTMLDivElement, { name: string; $selected: boo
             <Avatar src={avatar || zorb} label="name" />
           </AvatarWrapper>
           <TextWrapper>
-            <Typography weight="bold">{beautifiedName}</Typography>
+            <Typography weight="bold" color="text">
+              {beautifiedName}
+            </Typography>
           </TextWrapper>
         </LeadingSearchItem>
         {!isLoading && registrationStatus ? (
