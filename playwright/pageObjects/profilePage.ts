@@ -3,7 +3,7 @@
 /* eslint-disable no-await-in-loop */
 import { Locator, Page } from '@playwright/test'
 
-import coinsWithIcons from '@app/constants/coinsWithIcons.json'
+import { coinsWithIcons } from '@app/constants/coinsWithIcons'
 import supportedGeneralRecordKeys from '@app/constants/supportedGeneralRecordKeys.json'
 import supportedSocialRecordKeys from '@app/constants/supportedSocialRecordKeys.json'
 

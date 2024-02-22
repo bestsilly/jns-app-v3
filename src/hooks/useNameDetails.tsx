@@ -2,6 +2,7 @@ import { ReactNode, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useChainId } from 'wagmi'
 
+import { coinsWithIcons } from '@app/constants/coinsWithIcons'
 import { useEns } from '@app/utils/EnsProvider'
 import { RESOLVER_ADDRESSES } from '@app/utils/constants'
 import { formatFullExpiry } from '@app/utils/utils'
@@ -17,6 +18,40 @@ export type DetailedProfileRecords = Profile['records'] & {
 }
 export type DetailedProfile = Omit<Profile, 'records'> & {
   records: DetailedProfileRecords
+}
+
+// transform text addr records into type address (profile fields)
+const transformTextToAddressProfileRecords = (profile: DetailedProfile | undefined) => {
+  if (!profile) {
+    return
+  }
+
+  const profileClone: DetailedProfile = JSON.parse(JSON.stringify(profile))
+  const textsClone = [...(profileClone?.records?.texts || [])]
+  const coinTypesClone = [...(profileClone?.records?.coinTypes || [])] as any
+
+  const coinList = coinsWithIcons.map((v) => v.toUpperCase())
+  if (textsClone) {
+    for (let i = textsClone.length - 1; i >= 0; i -= 1) {
+      const value = textsClone[i]
+      if (coinList.includes(value.key as string)) {
+        coinTypesClone?.push({
+          type: 'addr',
+          addr: value.value,
+          key: value.key,
+          coin: value.key as string,
+        })
+        textsClone.splice(i, 1)
+      }
+    }
+  }
+
+  if (profileClone.records) {
+    profileClone.records.texts = textsClone
+    profileClone.records.coinTypes = coinTypesClone
+  }
+
+  return profileClone
 }
 
 export const useNameDetails = (name: string, skipGraph = false) => {
@@ -155,6 +190,7 @@ export const useNameDetails = (name: string, skipGraph = false) => {
     normalisedName,
     isValid,
     profile,
+    transformedProfile: transformTextToAddressProfileRecords(profile),
     isLoading,
     dnsOwner,
     basicIsCachedData: basicIsCachedData || dnsOwnerIsCachedData,

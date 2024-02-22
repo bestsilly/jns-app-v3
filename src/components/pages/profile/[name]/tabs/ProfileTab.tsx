@@ -41,6 +41,7 @@ const ProfileTab = ({ nameDetails, name }: Props) => {
 
   const {
     profile,
+    transformedProfile,
     normalisedName,
     profileIsCachedData,
     basicIsCachedData,
@@ -120,11 +121,11 @@ const ProfileTab = ({ nameDetails, name }: Props) => {
         )}
         pccExpired={!!pccExpired}
         isCached={profileIsCachedData || basicIsCachedData || abilities.isCachedData}
-        addresses={(profile?.records?.coinTypes || []).map((item: any) => ({
+        addresses={(transformedProfile?.records?.coinTypes || []).map((item: any) => ({
           key: item.coin,
           value: item.addr,
         }))}
-        textRecords={(profile?.records?.texts || [])
+        textRecords={(transformedProfile?.records?.texts || [])
           .map((item: any) => ({ key: item.key, value: item.value }))
           .filter((item: any) => item.value !== null)}
         contentHash={profile?.records?.contentHash}

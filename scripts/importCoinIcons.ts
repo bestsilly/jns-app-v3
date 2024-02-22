@@ -7,7 +7,7 @@ import coinList from '../src/constants/coinList'
 
 const iconFolderPath = resolve(process.argv[2])
 const destinationFolderPath = resolve(__dirname, '../src/assets/address')
-const supportedAddessesFile = resolve(__dirname, '../src/constants/coinsWithIcons.json')
+const supportedAddessesFile = resolve(__dirname, '../src/constants/coinsWithIcons.ts')
 const unsupportedAddessesFile = resolve(__dirname, '../src/constants/coinsWithoutIcons.json')
 
 ;(async () => {

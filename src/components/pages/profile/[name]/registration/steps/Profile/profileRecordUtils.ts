@@ -1,5 +1,9 @@
+/* eslint-disable no-param-reassign */
 import { RecordOptions } from '@jfinchain/jnsjs/utils/recordHelpers'
+import { FieldArrayWithId } from 'react-hook-form'
 
+import { coinsWithIcons } from '@app/constants/coinsWithIcons'
+import customCoins from '@app/constants/customCoins.json'
 import { ProfileRecord, ProfileRecordGroup, sortValues } from '@app/constants/profileRecordOptions'
 import supportedGeneralRecordKeys from '@app/constants/supportedGeneralRecordKeys.json'
 import supportedAccounts from '@app/constants/supportedSocialRecordKeys.json'
@@ -132,6 +136,35 @@ const sortProfileRecords = (recordA: ProfileRecord, recordB: ProfileRecord): num
   const recordBValue =
     sortValues[recordB.group]?.[recordB.key.toLowerCase()] || unknownGroupValue[recordB.group]
   return recordAValue - recordBValue
+}
+
+// transform addr records into type text
+export const transformAddrToTextEditRecords = (form: ProfileEditorForm) => {
+  form.records.forEach((value) => {
+    if (customCoins.includes(value.key.toLowerCase()) && value.group !== 'custom') {
+      value.type = 'text'
+      value.group = 'address'
+    }
+  })
+
+  return form
+}
+
+// transform text addr records into type address (edit fields)
+export const transformTextToAddrEditRecords = (
+  profileRecords: FieldArrayWithId<ProfileEditorForm, 'records', 'id'>[],
+) => {
+  const profileRecordsClone = [...(profileRecords || [])]
+  const coinList = new Set(coinsWithIcons.map((coin) => coin.toUpperCase()))
+
+  profileRecordsClone.forEach((profileRecord) => {
+    if (coinList.has(profileRecord.key)) {
+      profileRecord.type = 'addr'
+      profileRecord.group = 'address'
+    }
+  })
+
+  return profileRecordsClone
 }
 
 export const profileToProfileRecords = (profile?: DetailedProfile): ProfileRecord[] => {

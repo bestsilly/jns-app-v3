@@ -1,4 +1,4 @@
-import coinsWithIcons from '@app/constants/coinsWithIcons.json'
+import { coinsWithIcons } from '@app/constants/coinsWithIcons'
 import coinsWithoutIcons from '@app/constants/coinsWithoutIcons.json'
 
 import COIN_LIST from './coinList'
