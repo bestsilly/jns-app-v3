@@ -4,16 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useDisconnect } from 'wagmi'
 
-import {
-  Button,
-  CheckSVG,
-  CogSVG,
-  CopySVG,
-  ExitSVG,
-  PersonSVG,
-  Profile,
-  mq,
-} from '@ensdomains/thorin'
+import { CheckSVG, CogSVG, CopySVG, ExitSVG, PersonSVG, Profile, mq } from '@ensdomains/thorin'
 import { DropdownItem } from '@ensdomains/thorin/dist/types/components/molecules/Dropdown/Dropdown'
 
 import useHasPendingTransactions from '@app/hooks/transactions/useHasPendingTransactions'
@@ -27,6 +18,7 @@ import { useBreakpoint } from '@app/utils/BreakpointProvider'
 import { shortenAddress } from '@app/utils/utils'
 
 import BaseLink from './@atoms/BaseLink'
+import JNSGradientButton from './jns/button'
 
 const StyledButtonWrapper = styled.div<{ $isTabBar?: boolean; $large?: boolean }>(
   ({ theme, $isTabBar, $large }) => [
@@ -112,8 +104,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
 
   return (
     <StyledButtonWrapper $large={large} $isTabBar={isTabBar}>
-      <Button
-        colorStyle="indigoPrimary"
+      <JNSGradientButton
         data-testid={calculateTestId(isTabBar, inHeader)}
         onClick={() => openConnectModal?.()}
         size={breakpoints.sm || large ? 'medium' : 'small'}
@@ -121,7 +112,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
         shape="rounded"
       >
         {t('wallet.connect')}
-      </Button>
+      </JNSGradientButton>
     </StyledButtonWrapper>
   )
 }

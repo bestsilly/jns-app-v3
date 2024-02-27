@@ -90,7 +90,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body, .min-safe {
-    min-height: 100vh;
+    min-height: calc(100vh);
     /* stylelint-disable-next-line value-no-vendor-prefix */
     @supports (-webkit-touch-callout: none) {
       /* stylelint-disable-next-line value-no-vendor-prefix */
