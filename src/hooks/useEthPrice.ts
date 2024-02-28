@@ -10,7 +10,7 @@ import { useQueryKeys } from '@app/utils/cacheKeyFactory'
 
 // const ORACLE_ENS = 'eth-usd.data.eth'
 // const ORACLE_GOERLI = '0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e'
-const ORACLE_DUMMY = '0x186ba623f8CAB9368204ebc1232d02ebd77439E7'
+const ORACLE_DUMMY = '0x1AB6637a8886170F51E9B091523cB597032F93fc'
 
 export const useEthPrice = () => {
   const provider = useProvider()
