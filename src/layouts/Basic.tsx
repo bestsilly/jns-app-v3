@@ -37,7 +37,6 @@ const Container = styled.div(
 
 const ContentWrapper = styled.div(
   ({ theme }) => css`
-    max-width: ${theme.space['192']};
     width: 100%;
     align-self: center;
     flex-grow: 1;
