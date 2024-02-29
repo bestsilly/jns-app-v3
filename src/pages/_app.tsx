@@ -36,8 +36,6 @@ const thorinGlobalTheme: typeof thorinDarkTheme = merge(thorinDarkTheme, {
   },
 })
 
-console.log(thorinGlobalTheme)
-
 const rainbowKitTheme = merge(
   darkTheme({ accentColor: thorinGlobalTheme.colors.accent, borderRadius: 'medium' }),
   {
