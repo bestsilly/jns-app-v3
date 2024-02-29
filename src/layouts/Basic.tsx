@@ -44,6 +44,7 @@ const ContentWrapper = styled.div(
     flex-direction: column;
     gap: ${theme.space['4']};
     flex-gap: ${theme.space['4']};
+    align-items: center;
   `,
 )
 

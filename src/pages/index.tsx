@@ -40,7 +40,7 @@ const StyledLeadingHeading = styled(LeadingHeading)(
 export default function Page() {
   return (
     <>
-      <div style={{ position: 'relative', zIndex: 1 }}>
+      <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
         <Head>
           <title>JNS</title>
         </Head>
@@ -52,9 +52,6 @@ export default function Page() {
         </StyledLeadingHeading>
         <FaucetBanner />
         <LandingSection1 />
-        {/* <Container>
-         
-        </Container> */}
       </div>
     </>
   )

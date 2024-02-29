@@ -126,6 +126,7 @@ const Title = styled(Typography)(
     line-height: ${theme.lineHeights.headingThree};
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: ${theme.colors.greyActive};
 
     ${mq.sm.min(css`
       font-size: ${theme.fontSizes.headingTwo};

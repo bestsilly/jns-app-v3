@@ -2,6 +2,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { JsonRpcProvider } from '@ethersproject/providers'
 import { useEffect, useState } from 'react'
+import styled, { css } from 'styled-components'
 import { usePrepareSendTransaction, useProvider, useSendTransaction } from 'wagmi'
 
 import { Button } from '@ensdomains/thorin'
@@ -105,16 +106,26 @@ export const DevSection = () => {
   const [ensjsError, setEnsjsError] = useLocalStorageString('ensjs-debug')
   const [subgraphError, setSubgraphError] = useLocalStorageString('subgraph-debug')
 
+  const StyledButton = styled(Button)(
+    ({ theme }) => css`
+      background: linear-gradient(
+        45deg,
+        ${theme.colors.accent} 0%,
+        ${theme.colors.accentPrimary} 100%
+      ) !important;
+    `,
+  )
+
   return (
     <SectionContainer title="Developer">
       {process.env.NEXT_PUBLIC_PROVIDER && (
         <>
-          <Button onClick={() => addSuccess()}>Add Successful Transaction</Button>
-          <Button onClick={() => sendName()}>Test Send Name</Button>
-          <Button onClick={() => addFailure()}>Add Failing Transaction</Button>
-          <Button onClick={() => startAutoMine()}>Start Automine</Button>
-          <Button onClick={() => stopAutoMine()}>Stop Automine</Button>
-          <Button onClick={() => revert()}>Revert</Button>
+          <StyledButton onClick={() => addSuccess()}>Add Successful Transaction</StyledButton>
+          <StyledButton onClick={() => sendName()}>Test Send Name</StyledButton>
+          <StyledButton onClick={() => addFailure()}>Add Failing Transaction</StyledButton>
+          <StyledButton onClick={() => startAutoMine()}>Start Automine</StyledButton>
+          <StyledButton onClick={() => stopAutoMine()}>Stop Automine</StyledButton>
+          <StyledButton onClick={() => revert()}>Revert</StyledButton>
         </>
       )}
       <DetailedSwitch

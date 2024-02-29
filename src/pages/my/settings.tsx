@@ -55,16 +55,18 @@ export default function Page() {
     process.env.NEXT_PUBLIC_PROVIDER
 
   return (
-    <Content singleColumnContent title={t('title')}>
-      {{
-        trailing: (
-          <OtherWrapper>
-            <PrimarySection />
-            <TransactionSection />
-            {showDevPanel && <DevSection />}
-          </OtherWrapper>
-        ),
-      }}
-    </Content>
+    <div style={{ maxWidth: '48rem' }}>
+      <Content singleColumnContent title={t('title')}>
+        {{
+          trailing: (
+            <OtherWrapper>
+              <PrimarySection />
+              <TransactionSection />
+              {showDevPanel && <DevSection />}
+            </OtherWrapper>
+          ),
+        }}
+      </Content>
+    </div>
   )
 }

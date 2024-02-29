@@ -1,5 +1,6 @@
 import { RainbowKitProvider, Theme, darkTheme } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
+import { merge } from 'lodash'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { ReactElement, ReactNode } from 'react'
@@ -7,7 +8,7 @@ import { I18nextProvider } from 'react-i18next'
 import { ThemeProvider, createGlobalStyle, keyframes } from 'styled-components'
 import { WagmiConfig } from 'wagmi'
 
-import { ThorinGlobalStyles, baseTheme, darkTheme as thorinDarkTheme } from '@ensdomains/thorin'
+import { ThorinGlobalStyles, darkTheme as thorinDarkTheme } from '@ensdomains/thorin'
 
 import { Notifications } from '@app/components/Notifications'
 import { TransactionStoreProvider } from '@app/hooks/transactions/TransactionStoreContext'
@@ -24,27 +25,27 @@ import { chains, wagmiClient } from '@app/utils/query'
 import i18n from '../i18n'
 import '../styles.css'
 
-const thorinGlobalTheme: typeof thorinDarkTheme = {
-  ...baseTheme,
-  ...thorinDarkTheme,
+const thorinGlobalTheme: typeof thorinDarkTheme = merge(thorinDarkTheme, {
   colors: {
-    ...thorinDarkTheme.colors,
-    accent: '#736ad5',
+    accentPrimary: '#5536ae',
+    accent: '#3c32bb',
     background: '#101112',
     backgroundPrimary: '#101112',
+    backgroundSecondary: '#fff',
     greySurface: 'white',
   },
-}
+})
 
-const rainbowKitTheme: Theme = {
-  ...darkTheme({
-    accentColor: thorinGlobalTheme.colors.accent,
-    borderRadius: 'medium',
-  }),
-  fonts: {
-    body: 'Satoshi, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
-  },
-}
+console.log(thorinGlobalTheme)
+
+const rainbowKitTheme = merge(
+  darkTheme({ accentColor: thorinGlobalTheme.colors.accent, borderRadius: 'medium' }),
+  {
+    fonts: {
+      body: 'Satoshi, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+    },
+  } as Theme,
+)
 
 const anim = keyframes`
   0% {

@@ -39,6 +39,7 @@ const NoNameContainer = styled.div(({ theme }) => [
 const NoNameTitle = styled(Typography)(({ theme }) => [
   css`
     grid-area: title;
+    color: ${theme.colors.greyPrimary};
   `,
   mq.sm.min(css`
     line-height: ${theme.space['10']};
@@ -68,6 +69,7 @@ const NoNameDisabledButtonContainer = styled.div(() => [
 const NoNameDescription = styled(Typography)(
   () => css`
     grid-area: description;
+    color: ${({ theme }) => theme.colors.greyDim};
   `,
 )
 
@@ -162,15 +164,19 @@ export const PrimarySection = () => {
     })
   }
 
+  const CustomTitle = styled(Typography)(
+    ({ theme }) => css`
+      color: ${theme.colors.greyPrimary};
+    `,
+  )
+
   return (
     <Skeleton loading={isLoading} as={SkeletonFiller as any}>
       <Card>
         {primary.data?.name ? (
           <PrimaryNameContainer data-testid="primary-name-section">
             <PrimaryNameInfo>
-              <Typography fontVariant="bodyBold" color="grey">
-                {t('section.primary.title')}
-              </Typography>
+              <CustomTitle fontVariant="bodyBold">{t('section.primary.title')}</CustomTitle>
               <Typography data-testid="primary-name-label" fontVariant="headingTwo" ellipsis>
                 {truncatedName}
               </Typography>
