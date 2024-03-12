@@ -3,11 +3,10 @@ import styled, { css } from 'styled-components'
 
 import { mq } from '@ensdomains/thorin'
 
+import Background01 from '@app/assets/background/Background01.svg'
+import Object01 from '@app/assets/object/object01.svg'
+import Object02 from '@app/assets/object/object02.svg'
 import { SearchInput } from '@app/components/@molecules/SearchInput/SearchInput'
-
-import Background01 from '../../../assets/background/Background01.svg'
-import Object01 from '../../../assets/object/object01.svg'
-import Object02 from '../../../assets/object/object02.svg'
 
 const Stack = styled.div(
   ({ theme }) => css`
