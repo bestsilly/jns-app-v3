@@ -9,6 +9,7 @@ import { mq } from '@ensdomains/thorin'
 
 import FeedbackSVG from '@app/assets/Feedback.svg'
 import ErrorScreen from '@app/components/@atoms/ErrorScreen'
+import { useJoin } from '@app/hooks/useJoin'
 
 import { Navigation } from './Navigation'
 
@@ -66,6 +67,7 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
   const { switchNetwork } = useSwitchNetwork()
   const router = useRouter()
   const [error] = useErrorBoundary()
+  const { getProfile } = useJoin()
   // const { boot } = useIntercom()
 
   useEffect(() => {
@@ -90,6 +92,25 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChain?.id, router.pathname])
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const sessionId = urlParams.get('sessionId')
+    if (sessionId) {
+      localStorage.setItem('sessionId', sessionId)
+      const profile = localStorage.getItem('profile')
+
+      const fetchData = async () => {
+        const result: any = await getProfile()
+        localStorage.setItem('profile', JSON.stringify(result.data))
+        window.history.replaceState({}, document.title, window.location.pathname)
+      }
+
+      if (!profile) {
+        fetchData()
+      }
+    }
+  }, [])
 
   return (
     <Container className="min-safe">
