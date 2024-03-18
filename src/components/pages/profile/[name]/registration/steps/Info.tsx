@@ -9,6 +9,7 @@ import { Card } from '@app/components/Card'
 import { useEstimateFullRegistration } from '@app/hooks/useEstimateRegistration'
 import { useJoin } from '@app/hooks/useJoin'
 import { useNameDetails } from '@app/hooks/useNameDetails'
+import { useBreakpoint } from '@app/utils/BreakpointProvider'
 
 import FullInvoice from '../FullInvoice'
 import { RegistrationReducerDataItem } from '../types'
@@ -121,6 +122,7 @@ const Info = ({
   })
 
   const { login } = useJoin()
+  const breakpoints = useBreakpoint()
   const [isJoin, setIsJoin] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -150,12 +152,12 @@ const Info = ({
   return (
     <>
       <div>
-        <Dialog open={dialogOpen} variant="blank" onClose={() => setDialogOpen(false)}>
+        <Dialog open={dialogOpen} variant="closable" onDismiss={() => setDialogOpen(false)}>
           <Dialog.Heading alert="warning" title="Action Required: Upgrade JOIN account" />
-          <div style={{ width: '500px' }}>
+          <Typography style={breakpoints.sm ? { width: '500px' } : { padding: '16px' }}>
             Your JOIN account is currently BRONZE. To access this feature, your account must be at
             least SILVER. You can upgrade your account with the JOIN application.
-          </div>
+          </Typography>
         </Dialog>
       </div>
 
