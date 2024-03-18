@@ -49,10 +49,7 @@ export default function Page() {
 
   useProtectedRoute('/', isConnecting || isReconnecting ? true : address)
 
-  const showDevPanel =
-    process.env.NEXT_PUBLIC_ENSJS_DEBUG ||
-    process.env.NODE_ENV === 'development' ||
-    process.env.NEXT_PUBLIC_PROVIDER
+  const showDevPanel = process.env.NEXT_PUBLIC_ENSJS_DEBUG
 
   return (
     <Content singleColumnContent title={t('title')}>
