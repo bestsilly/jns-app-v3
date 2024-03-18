@@ -1,12 +1,15 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Heading, Typography, mq } from '@ensdomains/thorin'
+import { Button, Dialog, Heading, Typography, mq } from '@ensdomains/thorin'
 
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
 import { Card } from '@app/components/Card'
 import { useEstimateFullRegistration } from '@app/hooks/useEstimateRegistration'
+import { useJoin } from '@app/hooks/useJoin'
 import { useNameDetails } from '@app/hooks/useNameDetails'
+import { useBreakpoint } from '@app/utils/BreakpointProvider'
 
 import FullInvoice from '../FullInvoice'
 import { RegistrationReducerDataItem } from '../types'
@@ -118,39 +121,84 @@ const Info = ({
     price: priceData,
   })
 
+  const { login } = useJoin()
+  const breakpoints = useBreakpoint()
+  const [isJoin, setIsJoin] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
+
+  window.addEventListener('storage', () => {
+    if (!localStorage.getItem('sessionId')) {
+      setIsJoin(false)
+    } else {
+      setIsJoin(true)
+    }
+  })
+
+  const profile = JSON.parse(localStorage.getItem('profile') || 'null')
+  const isAllow = profile && profile.level !== 'BRONZE'
+
+  const handleJoin = () => {
+    if (isJoin) {
+      if (isAllow) {
+        callback({ back: false })
+      } else {
+        setDialogOpen(true)
+      }
+    } else {
+      login()
+    }
+  }
+
   return (
-    <StyledCard>
-      <Heading>{t('steps.info.heading')}</Heading>
-      <Typography>{t('steps.info.subheading')}</Typography>
-      <InfoItems>
-        {infoItemArr.map((item, inx) => (
-          <InfoItem key={item}>
-            <Typography>{inx + 1}</Typography>
-            <Typography>{t(item)}</Typography>
-          </InfoItem>
-        ))}
-      </InfoItems>
-      <FullInvoice {...estimate} />
-      {!registrationData.queue.includes('profile') && (
-        <ProfileButton data-testid="setup-profile-button" onClick={onProfileClick}>
-          <Typography weight="bold" color="accent">
-            {t('steps.info.setupProfile')}
+    <>
+      <div>
+        <Dialog open={dialogOpen} variant="closable" onDismiss={() => setDialogOpen(false)}>
+          <Dialog.Heading alert="warning" title="Action Required: Upgrade JOIN account" />
+          <Typography style={breakpoints.sm ? { width: '500px' } : { padding: '16px' }}>
+            Your JOIN account is currently BRONZE. To access this feature, your account must be at
+            least SILVER. You can upgrade your account with the JOIN application.
           </Typography>
-        </ProfileButton>
-      )}
-      <ButtonContainer>
-        <MobileFullWidth>
-          <Button colorStyle="accentSecondary" onClick={() => callback({ back: true })}>
-            {t('action.back', { ns: 'common' })}
-          </Button>
-        </MobileFullWidth>
-        <MobileFullWidth>
-          <Button data-testid="next-button" onClick={() => callback({ back: false })}>
-            {t('action.begin', { ns: 'common' })}
-          </Button>
-        </MobileFullWidth>
-      </ButtonContainer>
-    </StyledCard>
+        </Dialog>
+      </div>
+
+      <StyledCard>
+        <Heading>{t('steps.info.heading')}</Heading>
+        <Typography>{t('steps.info.subheading')}</Typography>
+        <InfoItems>
+          {infoItemArr.map((item, inx) => (
+            <InfoItem key={item}>
+              <Typography>{inx + 1}</Typography>
+              <Typography>{t(item)}</Typography>
+            </InfoItem>
+          ))}
+        </InfoItems>
+        <FullInvoice {...estimate} />
+        {!registrationData.queue.includes('profile') && (
+          <ProfileButton data-testid="setup-profile-button" onClick={onProfileClick}>
+            <Typography weight="bold" color="accent">
+              {t('steps.info.setupProfile')}
+            </Typography>
+          </ProfileButton>
+        )}
+        <ButtonContainer>
+          <MobileFullWidth>
+            <Button colorStyle="accentSecondary" onClick={() => callback({ back: true })}>
+              {t('action.back', { ns: 'common' })}
+            </Button>
+          </MobileFullWidth>
+          <MobileFullWidth>
+            <Button
+              data-testid="next-button"
+              onClick={() => {
+                handleJoin()
+              }}
+            >
+              {isJoin ? t('action.begin', { ns: 'common' }) : 'Connect JOIN'}
+            </Button>
+          </MobileFullWidth>
+        </ButtonContainer>
+      </StyledCard>
+    </>
   )
 }
 

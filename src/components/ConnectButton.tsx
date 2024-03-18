@@ -1,5 +1,5 @@
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { Key, ReactNode } from 'react'
+import { Key, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useDisconnect } from 'wagmi'
@@ -21,6 +21,7 @@ import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import { useAvatar } from '@app/hooks/useAvatar'
 import { useChainId } from '@app/hooks/useChainId'
 import { useCopied } from '@app/hooks/useCopied'
+import { useJoin } from '@app/hooks/useJoin'
 import { usePrimary } from '@app/hooks/usePrimary'
 import { useZorb } from '@app/hooks/useZorb'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
@@ -126,6 +127,55 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
   )
 }
 
+export const JoinConnectButton = ({ isTabBar, large, inHeader }: Props) => {
+  const breakpoints = useBreakpoint()
+  const { login } = useJoin()
+
+  return (
+    <StyledButtonWrapper $large={large} $isTabBar={isTabBar}>
+      <Button
+        colorStyle="indigoPrimary"
+        data-testid={calculateTestId(isTabBar, inHeader)}
+        onClick={() => login()}
+        size={breakpoints.sm || large ? 'medium' : 'small'}
+        width={inHeader ? '45' : undefined}
+        shape="rounded"
+      >
+        Connect JOIN
+      </Button>
+    </StyledButtonWrapper>
+  )
+}
+
+const JoinHeaderProfile = ({ setIsJoin }: any) => {
+  const profileData = localStorage.getItem('profile')
+  const profile = profileData ? JSON.parse(profileData) : {}
+  const { logout } = useJoin()
+
+  return (
+    <Profile
+      address={profile?.contactNumber || ''}
+      ensName={profile?.contactNumber || ''}
+      dropdownItems={
+        [
+          {
+            label: 'Logout JOIN',
+            color: 'red',
+            onClick: () => {
+              setIsJoin(false)
+              logout()
+            },
+            icon: <ExitSVG />,
+          },
+        ] as DropdownItem[]
+      }
+      size="medium"
+      alignDropdown="left"
+      data-testid="join-header-profile"
+    />
+  )
+}
+
 const HeaderProfile = ({ address }: { address: string }) => {
   const { t } = useTranslation('common')
 
@@ -205,10 +255,26 @@ const HeaderProfile = ({ address }: { address: string }) => {
 
 export const HeaderConnect = () => {
   const { address } = useAccountSafely()
+  const [isJoin, setIsJoin] = useState(false)
+
+  if (typeof window !== 'undefined') {
+    window.addEventListener('storage', () => {
+      if (!localStorage.getItem('sessionId')) {
+        setIsJoin(false)
+      } else {
+        setIsJoin(true)
+      }
+    })
+  }
 
   if (!address) {
     return <ConnectButton inHeader />
   }
 
-  return <HeaderProfile address={address} />
+  return (
+    <>
+      {isJoin ? <JoinHeaderProfile setIsJoin={setIsJoin} /> : <JoinConnectButton />}
+      <HeaderProfile address={address} />
+    </>
+  )
 }

@@ -44,7 +44,7 @@ export default function Page() {
       }
     }
 
-    if (redirect) {
+    if (redirect && name) {
       router.push(`/profile/${name}`)
     }
   }
