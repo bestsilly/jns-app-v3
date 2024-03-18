@@ -22,7 +22,6 @@ const SearchInputWrapper = styled.div<{ $size: 'medium' | 'extraLarge' }>(
     }
     ${$size === 'medium' &&
     css`
-      max-width: ${theme.space['96']};
       box-shadow: none;
       border-radius: ${theme.radii.full};
       & input::placeholder {
@@ -97,24 +96,27 @@ export const SearchInputBox = forwardRef(
   ) => {
     const { t } = useTranslation('common')
     return (
-      <SearchInputWrapper ref={containerRef} $size={size}>
-        <Input
-          size={size}
-          label={t('search.label')}
-          hideLabel
-          placeholder={t('search.placeholder')}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          ref={ref as any}
-          clearable
-          autoComplete="off"
-          autoCorrect="off"
-          parentStyles={StyledInputParent(size)}
-          icon={size === 'medium' ? <MagnifyingGlassIcon as={MagnifyingGlassSVG} /> : undefined}
-          spellCheck="false"
-          data-testid="search-input-box"
-        />
-      </SearchInputWrapper>
+      <>
+        <SearchInputWrapper ref={containerRef} $size={size}>
+          <Input
+            style={{ background: '#fff', color: '#000' }}
+            size={size}
+            label={t('search.label')}
+            hideLabel
+            placeholder={t('search.placeholder')}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            ref={ref as any}
+            clearable
+            autoComplete="off"
+            autoCorrect="off"
+            parentStyles={StyledInputParent(size)}
+            icon={size === 'medium' ? <MagnifyingGlassIcon as={MagnifyingGlassSVG} /> : undefined}
+            spellCheck="false"
+            data-testid="search-input-box"
+          />
+        </SearchInputWrapper>
+      </>
     )
   },
 )
@@ -134,6 +136,7 @@ export const FakeSearchInputBox = forwardRef(
     return (
       <SearchInputWrapper $size={size}>
         <Input
+          style={{ background: '#fff', color: '#000' }}
           size={size}
           label={t('search.label')}
           hideLabel

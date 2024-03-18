@@ -141,6 +141,7 @@ const MobileSearchInput = ({
   return (
     <>
       <FakeSearchInputBox
+        size="medium"
         onClick={(e) => {
           toggle(true)
           // MOBILE SAFARI FIX:

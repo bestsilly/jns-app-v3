@@ -23,6 +23,12 @@ const ContentContainer = styled.div(
   `,
 )
 
+const StyledToggle = styled(Toggle)(
+  ({ theme }) => css`
+    background: ${theme.colors.greyPrimary};
+  `,
+)
+
 type ToggleProps = ComponentProps<typeof Toggle>
 
 type Props = {
@@ -38,7 +44,7 @@ export const DetailedSwitch = forwardRef<HTMLInputElement, Props>(
           {title && <Typography fontVariant="bodyBold">{title}</Typography>}{' '}
           {description && <Typography fontVariant="small">{description}</Typography>}
         </ContentContainer>
-        <Toggle ref={ref} {...toggleProps} size="large" />
+        <StyledToggle ref={ref} {...toggleProps} size="large" />
       </Container>
     )
   },

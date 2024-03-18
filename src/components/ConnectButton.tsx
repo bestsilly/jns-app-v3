@@ -4,16 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useDisconnect } from 'wagmi'
 
-import {
-  Button,
-  CheckSVG,
-  CogSVG,
-  CopySVG,
-  ExitSVG,
-  PersonSVG,
-  Profile,
-  mq,
-} from '@ensdomains/thorin'
+import { CheckSVG, CogSVG, CopySVG, ExitSVG, PersonSVG, Profile, mq } from '@ensdomains/thorin'
 import { DropdownItem } from '@ensdomains/thorin/dist/types/components/molecules/Dropdown/Dropdown'
 
 import useHasPendingTransactions from '@app/hooks/transactions/useHasPendingTransactions'
@@ -28,6 +19,7 @@ import { useBreakpoint } from '@app/utils/BreakpointProvider'
 import { shortenAddress } from '@app/utils/utils'
 
 import BaseLink from './@atoms/BaseLink'
+import JNSGradientButton from './jns/button'
 
 const StyledButtonWrapper = styled.div<{ $isTabBar?: boolean; $large?: boolean }>(
   ({ theme, $isTabBar, $large }) => [
@@ -113,8 +105,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
 
   return (
     <StyledButtonWrapper $large={large} $isTabBar={isTabBar}>
-      <Button
-        colorStyle="indigoPrimary"
+      <JNSGradientButton
         data-testid={calculateTestId(isTabBar, inHeader)}
         onClick={() => openConnectModal?.()}
         size={breakpoints.sm || large ? 'medium' : 'small'}
@@ -122,7 +113,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
         shape="rounded"
       >
         {t('wallet.connect')}
-      </Button>
+      </JNSGradientButton>
     </StyledButtonWrapper>
   )
 }
@@ -187,69 +178,77 @@ const HeaderProfile = ({ address }: { address: string }) => {
   const { copy, copied } = useCopied(300)
   const hasPendingTransactions = useHasPendingTransactions()
 
+  const CustomProfile = styled(Profile)(
+    () => css`
+      display: none;
+    `,
+  )
   return (
-    <Profile
-      address={address}
-      ensName={primary.data?.beautifiedName}
-      dropdownItems={
-        [
-          ...(primary.data?.name
-            ? [
-                {
-                  label: t('wallet.myProfile'),
-                  wrapper: (children: ReactNode, key: Key) => (
-                    <BaseLink href="/my/profile" key={key}>
-                      {children}
-                    </BaseLink>
-                  ),
-                  as: 'a' as 'a',
-                  color: 'text',
-                  icon: <PersonSVG />,
-                },
-              ]
-            : []),
-          {
-            label: t('navigation.settings'),
-            color: 'text',
-            wrapper: (children: ReactNode, key: Key) => (
-              <BaseLink href="/my/settings" key={key}>
-                {children}
-              </BaseLink>
-            ),
-            as: 'a',
-            icon: <CogSVG />,
-            showIndicator: hasPendingTransactions,
-          },
-          <SectionDivider key="divider" />,
-          {
-            label: shortenAddress(address),
-            color: 'text',
-            onClick: () => copy(address),
-            icon: copied ? <CheckSVG /> : <CopySVG />,
-          },
-          {
-            label: t('wallet.disconnect'),
-            color: 'red',
-            onClick: () => disconnect(),
-            icon: <ExitSVG />,
-          },
-        ] as DropdownItem[]
-      }
-      avatar={{
-        src: avatar || zorb,
-        decoding: 'sync',
-        loading: 'eager',
-        noBorder: true,
-        overlay: avatar ? undefined : (
-          <PersonOverlay>
-            <PersonSVG />
-          </PersonOverlay>
-        ),
-      }}
-      size="medium"
-      alignDropdown="left"
-      data-testid="header-profile"
-    />
+    <>
+      Twest
+      <CustomProfile
+        address={address}
+        ensName={primary.data?.beautifiedName}
+        dropdownItems={
+          [
+            ...(primary.data?.name
+              ? [
+                  {
+                    label: t('wallet.myProfile'),
+                    wrapper: (children: ReactNode, key: Key) => (
+                      <BaseLink href="/my/profile" key={key}>
+                        {children}
+                      </BaseLink>
+                    ),
+                    as: 'a' as 'a',
+                    color: 'text',
+                    icon: <PersonSVG />,
+                  },
+                ]
+              : []),
+            {
+              label: t('navigation.settings'),
+              color: 'text',
+              wrapper: (children: ReactNode, key: Key) => (
+                <BaseLink href="/my/settings" key={key}>
+                  {children}
+                </BaseLink>
+              ),
+              as: 'a',
+              icon: <CogSVG />,
+              showIndicator: hasPendingTransactions,
+            },
+            <SectionDivider key="divider" />,
+            {
+              label: shortenAddress(address),
+              color: 'text',
+              onClick: () => copy(address),
+              icon: copied ? <CheckSVG /> : <CopySVG />,
+            },
+            {
+              label: t('wallet.disconnect'),
+              color: 'red',
+              onClick: () => disconnect(),
+              icon: <ExitSVG />,
+            },
+          ] as DropdownItem[]
+        }
+        avatar={{
+          src: avatar || zorb,
+          decoding: 'sync',
+          loading: 'eager',
+          noBorder: true,
+          overlay: avatar ? undefined : (
+            <PersonOverlay>
+              <PersonSVG />
+            </PersonOverlay>
+          ),
+        }}
+        size="medium"
+        alignDropdown="left"
+        data-testid="header-profile"
+      />
+    </>
   )
 }
 

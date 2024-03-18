@@ -22,7 +22,8 @@ import { HeaderConnect } from './ConnectButton'
 
 const HeaderWrapper = styled.header(
   ({ theme }) => css`
-    height: ${theme.space['12']};
+    background-color: #010101;
+    padding: ${theme.space['4']};
 
     ${mq.sm.max(css`
       display: none;
@@ -55,6 +56,8 @@ const NavContainer = styled.div(
     flex-gap: ${theme.space['3']};
     gap: ${theme.space['3']};
     height: ${theme.space['12']};
+    margin: auto;
+    max-width: ${theme.breakpoints.lg}px;
 
     ${mq.lg.min(css`
       flex-gap: ${theme.space['6']};

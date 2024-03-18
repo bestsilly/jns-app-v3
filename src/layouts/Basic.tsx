@@ -38,7 +38,6 @@ const Container = styled.div(
 
 const ContentWrapper = styled.div(
   ({ theme }) => css`
-    max-width: ${theme.space['192']};
     width: 100%;
     align-self: center;
     flex-grow: 1;
@@ -46,6 +45,7 @@ const ContentWrapper = styled.div(
     flex-direction: column;
     gap: ${theme.space['4']};
     flex-gap: ${theme.space['4']};
+    align-items: center;
   `,
 )
 
@@ -113,12 +113,14 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
   }, [])
 
   return (
-    <Container className="min-safe">
+    <>
       <Navigation />
-      <ContentWrapper>
-        {error ? <ErrorScreen errorType="application-error" /> : children}
-      </ContentWrapper>
-      <BottomPlaceholder />
-    </Container>
+      <Container className="min-safe" style={{ position: 'relative' }}>
+        <ContentWrapper style={{ display: 'flex', justifyContent: 'center ' }}>
+          {error ? <ErrorScreen errorType="application-error" /> : children}
+        </ContentWrapper>
+        <BottomPlaceholder />
+      </Container>
+    </>
   )
 })

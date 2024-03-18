@@ -85,7 +85,9 @@ export const SectionContainer = ({
   return (
     <StyledCard {...props}>
       <SectionHeader $hideBorder={hideBorder}>
-        <Typography fontVariant="largeBold">{title}</Typography>
+        <Typography fontVariant="largeBold" color="greyPrimary">
+          {title}
+        </Typography>
         <div>{action}</div>
       </SectionHeader>
       {InnerContent}

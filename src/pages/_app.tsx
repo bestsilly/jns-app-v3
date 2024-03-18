@@ -1,5 +1,6 @@
-import { RainbowKitProvider, Theme, lightTheme } from '@rainbow-me/rainbowkit'
+import { RainbowKitProvider, Theme, darkTheme } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
+import { merge } from 'lodash'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { ReactElement, ReactNode } from 'react'
@@ -7,7 +8,7 @@ import { I18nextProvider } from 'react-i18next'
 import { ThemeProvider, createGlobalStyle, keyframes } from 'styled-components'
 import { WagmiConfig } from 'wagmi'
 
-import { ThorinGlobalStyles, baseTheme, lightTheme as thorinLightTheme } from '@ensdomains/thorin'
+import { ThorinGlobalStyles, darkTheme as thorinDarkTheme } from '@ensdomains/thorin'
 
 import { Notifications } from '@app/components/Notifications'
 import { TransactionStoreProvider } from '@app/hooks/transactions/TransactionStoreContext'
@@ -24,22 +25,25 @@ import { chains, wagmiClient } from '@app/utils/query'
 import i18n from '../i18n'
 import '../styles.css'
 
-// const INTERCOM_ID = process.env.NEXT_PUBLIC_INTERCOM_ID || 'eotmigir'
-
-const rainbowKitTheme: Theme = {
-  ...lightTheme({
-    accentColor: thorinLightTheme.colors.purple,
-    borderRadius: 'medium',
-  }),
-  fonts: {
-    body: 'Satoshi, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+const thorinGlobalTheme: typeof thorinDarkTheme = merge(thorinDarkTheme, {
+  colors: {
+    accentPrimary: '#5536ae',
+    accent: '#3c32bb',
+    background: '#101112',
+    backgroundPrimary: '#101112',
+    backgroundSecondary: '#fff',
+    greySurface: 'white',
   },
-}
+})
 
-const thorinGlobalTheme = {
-  ...baseTheme,
-  ...thorinLightTheme,
-}
+const rainbowKitTheme = merge(
+  darkTheme({ accentColor: thorinGlobalTheme.colors.accent, borderRadius: 'medium' }),
+  {
+    fonts: {
+      body: 'Satoshi, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+    },
+  } as Theme,
+)
 
 const anim = keyframes`
   0% {
@@ -81,11 +85,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: radial-gradient(50% 50% at 50% 50%, rgba(82, 152, 255, 0.062) 0%, rgba(255, 255, 255, 0) 100%), #F7F7F7;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(19,5,59,1) 100%);
   }
 
   body, .min-safe {
-    min-height: 100vh;
+    min-height: calc(100vh);
     /* stylelint-disable-next-line value-no-vendor-prefix */
     @supports (-webkit-touch-callout: none) {
       /* stylelint-disable-next-line value-no-vendor-prefix */
@@ -150,7 +154,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <RainbowKitProvider theme={rainbowKitTheme} chains={chains}>
           <TransactionStoreProvider>
             <EnsProvider>
-              <ThemeProvider theme={thorinLightTheme}>
+              <ThemeProvider theme={thorinGlobalTheme}>
                 <BreakpointProvider queries={breakpoints}>
                   <GlobalStyle />
                   <ThorinGlobalStyles theme={thorinGlobalTheme} />
