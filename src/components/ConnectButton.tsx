@@ -4,7 +4,16 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useDisconnect } from 'wagmi'
 
-import { CheckSVG, CogSVG, CopySVG, ExitSVG, PersonSVG, Profile, mq } from '@ensdomains/thorin'
+import {
+  Button,
+  CheckSVG,
+  CogSVG,
+  CopySVG,
+  ExitSVG,
+  PersonSVG,
+  Profile,
+  mq,
+} from '@ensdomains/thorin'
 import { DropdownItem } from '@ensdomains/thorin/dist/types/components/molecules/Dropdown/Dropdown'
 
 import useHasPendingTransactions from '@app/hooks/transactions/useHasPendingTransactions'
