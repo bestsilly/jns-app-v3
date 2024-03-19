@@ -132,6 +132,7 @@ export const useBasicName = (name?: string | null, options: UseBasicNameOptions 
         expiryData,
         priceData,
         supportedTLD,
+        normalisedName,
       })
     : undefined
 

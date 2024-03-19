@@ -223,6 +223,9 @@ export const SearchInput = ({
     [inputIsAddress, inputVal, name],
   )
 
+  // getBlacklist().includes(inputVal.toLowerCase())
+  const isBlacklisted = false
+
   const searchItem: SearchItem = useMemo(() => {
     if (isEmpty) {
       return {
@@ -235,7 +238,7 @@ export const SearchInput = ({
         type: 'address',
       }
     }
-    if (!isValid) {
+    if (!isValid || isBlacklisted) {
       return {
         type: 'error',
         value: t('search.errors.invalid'),
@@ -255,7 +258,7 @@ export const SearchInput = ({
     return {
       type: 'name',
     }
-  }, [isEmpty, inputIsAddress, isValid, isETH, is2LD, isShort, type, t])
+  }, [isEmpty, inputIsAddress, isValid, isETH, is2LD, isShort, type, t, isBlacklisted])
 
   const extraItems = useMemo(() => {
     if (history.length > 0) {

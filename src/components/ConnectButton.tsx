@@ -193,71 +193,68 @@ const HeaderProfile = ({ address }: { address: string }) => {
     `,
   )
   return (
-    <>
-      Twest
-      <CustomProfile
-        address={address}
-        ensName={primary.data?.beautifiedName}
-        dropdownItems={
-          [
-            ...(primary.data?.name
-              ? [
-                  {
-                    label: t('wallet.myProfile'),
-                    wrapper: (children: ReactNode, key: Key) => (
-                      <BaseLink href="/my/profile" key={key}>
-                        {children}
-                      </BaseLink>
-                    ),
-                    as: 'a' as 'a',
-                    color: 'text',
-                    icon: <PersonSVG />,
-                  },
-                ]
-              : []),
-            {
-              label: t('navigation.settings'),
-              color: 'text',
-              wrapper: (children: ReactNode, key: Key) => (
-                <BaseLink href="/my/settings" key={key}>
-                  {children}
-                </BaseLink>
-              ),
-              as: 'a',
-              icon: <CogSVG />,
-              showIndicator: hasPendingTransactions,
-            },
-            <SectionDivider key="divider" />,
-            {
-              label: shortenAddress(address),
-              color: 'text',
-              onClick: () => copy(address),
-              icon: copied ? <CheckSVG /> : <CopySVG />,
-            },
-            {
-              label: t('wallet.disconnect'),
-              color: 'red',
-              onClick: () => disconnect(),
-              icon: <ExitSVG />,
-            },
-          ] as DropdownItem[]
-        }
-        avatar={{
-          src: avatar || zorb,
-          decoding: 'sync',
-          loading: 'eager',
-          noBorder: true,
-          overlay: avatar ? undefined : (
-            <PersonOverlay>
-              <PersonSVG />
-            </PersonOverlay>
-          ),
-        }}
-        size="medium"
-        alignDropdown="left"
-        data-testid="header-profile"
-      />
-    </>
+    <CustomProfile
+      address={address}
+      ensName={primary.data?.beautifiedName}
+      dropdownItems={
+        [
+          ...(primary.data?.name
+            ? [
+                {
+                  label: t('wallet.myProfile'),
+                  wrapper: (children: ReactNode, key: Key) => (
+                    <BaseLink href="/my/profile" key={key}>
+                      {children}
+                    </BaseLink>
+                  ),
+                  as: 'a' as 'a',
+                  color: 'text',
+                  icon: <PersonSVG />,
+                },
+              ]
+            : []),
+          {
+            label: t('navigation.settings'),
+            color: 'text',
+            wrapper: (children: ReactNode, key: Key) => (
+              <BaseLink href="/my/settings" key={key}>
+                {children}
+              </BaseLink>
+            ),
+            as: 'a',
+            icon: <CogSVG />,
+            showIndicator: hasPendingTransactions,
+          },
+          <SectionDivider key="divider" />,
+          {
+            label: shortenAddress(address),
+            color: 'text',
+            onClick: () => copy(address),
+            icon: copied ? <CheckSVG /> : <CopySVG />,
+          },
+          {
+            label: t('wallet.disconnect'),
+            color: 'red',
+            onClick: () => disconnect(),
+            icon: <ExitSVG />,
+          },
+        ] as DropdownItem[]
+      }
+      avatar={{
+        src: avatar || zorb,
+        decoding: 'sync',
+        loading: 'eager',
+        noBorder: true,
+        overlay: avatar ? undefined : (
+          <PersonOverlay>
+            <PersonSVG />
+          </PersonOverlay>
+        ),
+      }}
+      size="medium"
+      alignDropdown="left"
+      data-testid="header-profile"
+    />
   )
 }
 

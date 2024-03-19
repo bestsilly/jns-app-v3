@@ -26,6 +26,7 @@ export const getRegistrationStatus = ({
   expiryData,
   priceData,
   supportedTLD,
+  normalisedName,
 }: {
   timestamp: number
   validation: Partial<Omit<ParsedInputResult, 'normalised' | 'isValid'>>
@@ -34,9 +35,16 @@ export const getRegistrationStatus = ({
   expiryData?: ReturnedENS['getExpiry']
   priceData?: ReturnedENS['getPrice']
   supportedTLD?: boolean | null
+  normalisedName?: string | null
 }): RegistrationStatus => {
   if (isETH && is2LD && isShort) {
     return 'short'
+  }
+
+  const blacklist: string[] = []
+
+  if (blacklist.includes(normalisedName?.toLowerCase() || '')) {
+    return 'invalid'
   }
 
   if (!ownerData && !wrapperData) return 'invalid'
