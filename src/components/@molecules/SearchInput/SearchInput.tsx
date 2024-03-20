@@ -20,6 +20,7 @@ import { useElementSize } from '@app/hooks/useWindowSize'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
 import { useQueryKeys } from '@app/utils/cacheKeyFactory'
 import { getRegistrationStatus } from '@app/utils/registrationStatus'
+import { isBlacklisted, isEnglish } from '@app/utils/wording'
 
 import { FakeSearchInputBox, SearchInputBox } from './SearchInputBox'
 import { SearchResult } from './SearchResult'
@@ -223,9 +224,6 @@ export const SearchInput = ({
     [inputIsAddress, inputVal, name],
   )
 
-  // getBlacklist().includes(inputVal.toLowerCase())
-  const isBlacklisted = false
-
   const searchItem: SearchItem = useMemo(() => {
     if (isEmpty) {
       return {
@@ -238,7 +236,7 @@ export const SearchInput = ({
         type: 'address',
       }
     }
-    if (!isValid || isBlacklisted) {
+    if (!isValid || isBlacklisted(inputVal) || !isEnglish(inputVal)) {
       return {
         type: 'error',
         value: t('search.errors.invalid'),
@@ -258,7 +256,7 @@ export const SearchInput = ({
     return {
       type: 'name',
     }
-  }, [isEmpty, inputIsAddress, isValid, isETH, is2LD, isShort, type, t, isBlacklisted])
+  }, [isEmpty, inputIsAddress, isValid, isETH, is2LD, isShort, type, t, inputVal])
 
   const extraItems = useMemo(() => {
     if (history.length > 0) {
