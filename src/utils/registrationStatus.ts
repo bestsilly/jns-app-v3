@@ -4,6 +4,7 @@ import { ParsedInputResult } from '@jfinchain/jnsjs/utils/validation'
 import type { ReturnedENS } from '@app/types/index'
 
 import { emptyAddress } from './constants'
+import { isBlacklisted, isEnglish } from './wording'
 
 export type RegistrationStatus =
   | 'invalid'
@@ -41,9 +42,7 @@ export const getRegistrationStatus = ({
     return 'short'
   }
 
-  const blacklist: string[] = []
-
-  if (blacklist.includes(normalisedName?.toLowerCase() || '')) {
+  if (isBlacklisted(normalisedName || '') || !isEnglish(normalisedName || '')) {
     return 'invalid'
   }
 
