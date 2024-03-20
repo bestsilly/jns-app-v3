@@ -145,6 +145,9 @@ importers:
       '@wagmi/core':
         specifier: 0.10.11
         version: 0.10.11(ethers@5.7.2)(immer@9.0.15)(react@17.0.2)(typescript@4.9.5)
+      bad-words:
+        specifier: ^3.0.4
+        version: 3.0.4
       calendar-link:
         specifier: ^2.2.0
         version: 2.2.0
@@ -8315,6 +8318,17 @@ packages:
     engines: {node: '>= 0.6'}
     dependencies:
       precond: 0.2.3
+    dev: false
+
+  /bad-words@3.0.4:
+    resolution: {integrity: sha512-v/Q9uRPH4+yzDVLL4vR1+S9KoFgOEUl5s4axd6NIAq8SV2mradgi4E8lma/Y0cw1ltVdvyegCQQKffCPRCp8fg==}
+    engines: {node: '>=8.0.0'}
+    dependencies:
+      badwords-list: 1.0.0
+    dev: false
+
+  /badwords-list@1.0.0:
+    resolution: {integrity: sha512-oWhaSG67e+HQj3OGHQt2ucP+vAPm1wTbdp2aDHeuh4xlGXBdWwzZ//pfu6swf5gZ8iX0b7JgmSo8BhgybbqszA==}
     dev: false
 
   /balanced-match@1.0.2:
