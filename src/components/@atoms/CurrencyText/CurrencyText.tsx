@@ -9,16 +9,22 @@ type Props = {
   /* Percentage buffer to multiply value by when displaying in ETH, defaults to 100 */
   bufferPercentage?: number
   currency: CurrencyDisplay
+  rounding?: boolean
 }
 
-export const CurrencyText = ({ eth, bufferPercentage = 100, currency = 'eth' }: Props) => {
+export const CurrencyText = ({
+  eth,
+  bufferPercentage = 100,
+  currency = 'eth',
+  rounding,
+}: Props) => {
   const { data: ethPrice, loading } = useEthPrice()
 
   if (loading || !eth || !ethPrice) return null
 
   if (currency === 'eth') {
     // replace eth symbol with jfin
-    return <>{makeDisplay(eth.mul(bufferPercentage).div(100), 5, 'jfin')}</>
+    return <>{makeDisplay(eth.mul(bufferPercentage).div(100), 5, 'jfin', 18, rounding)}</>
   }
   return <>{makeDisplay(eth.mul(ethPrice).div(1e8), 2, currency, 18)}</>
 }

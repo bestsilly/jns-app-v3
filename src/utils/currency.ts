@@ -6,6 +6,7 @@ export const makeDisplay = (
   decimals: number | undefined,
   symbol: string,
   fromDecimals: number = 18,
+  rounding?: boolean | undefined,
 ) => {
   const number = typeof val === 'number' ? val : Number(formatFixed(val, fromDecimals))
   const options: Intl.NumberFormatOptions & { [x: string]: string } = {
@@ -38,5 +39,7 @@ export const makeDisplay = (
     options.minimumFractionDigits = 2
     options.currencyDisplay = symbol === 'usd' ? 'narrowSymbol' : 'symbol'
   }
-  return new Intl.NumberFormat(undefined, options).format(number) + customSymbol
+  return rounding
+    ? new Intl.NumberFormat(undefined, options).format(number) + customSymbol
+    : number + customSymbol
 }
