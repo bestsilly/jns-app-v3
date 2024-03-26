@@ -68,6 +68,7 @@ export const Invoice = ({ totalLabel = 'Estimated total', unit = 'eth', items }:
                 bufferPercentage={bufferPercentage}
                 eth={value || BigNumber.from(0)}
                 currency={unit}
+                rounding={false}
               />
             </div>
           </Skeleton>
