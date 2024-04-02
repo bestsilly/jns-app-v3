@@ -82,6 +82,7 @@ const OwnerContainer = styled.div(
 
     &:hover {
       background-color: ${theme.colors.backgroundSecondary};
+      color: ${theme.colors.textSecondary};
     }
 
     ${mq.sm.min(css`

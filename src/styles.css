@@ -5,3 +5,14 @@
   position: relative;
   z-index: 998 !important;
 }
+
+div[data-testid='profile-title'] {
+  color: #f2f2f2;
+}
+
+div[data-testid='dropdown-menu'] button:hover:not(:last-child),
+div[data-testid='dropdown-menu'] button:hover svg,
+div[data-testid='dropdown-menu'] a:hover svg,
+div[data-testid='dropdown-menu'] a:hover {
+  color: #000 !important;
+}

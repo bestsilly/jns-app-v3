@@ -196,16 +196,9 @@ const HeaderProfile = ({ address }: { address: string }) => {
   const { copy, copied } = useCopied(300)
   const hasPendingTransactions = useHasPendingTransactions()
 
-  const CustomProfile = styled(Profile)(
-    () => css`
-      display: none;
-      &:hover {
-        background-color: lightblue !important;
-      }
-    `,
-  )
   return (
-    <CustomProfile
+    <Profile
+      style={{ color: '#fff !important' }}
       address={address}
       ensName={primary.data?.beautifiedName}
       dropdownItems={

@@ -1,7 +1,9 @@
 import { HTMLAttributes } from 'react'
 import styled, { css } from 'styled-components'
 
-import { Button, Dialog, Typography, mq } from '@ensdomains/thorin'
+import { Button, Dialog, mq } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 const Container = styled.div(({ theme }) => [
   css`
@@ -16,12 +18,6 @@ const Container = styled.div(({ theme }) => [
     max-width: ${theme.space['128']};
   `),
 ])
-
-const CustomTypography = styled(Typography)(
-  ({ theme }) => css`
-    color: ${theme.colors.textTertiary};
-  `,
-)
 
 type Props = {
   title?: string

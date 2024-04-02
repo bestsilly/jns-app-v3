@@ -15,6 +15,7 @@ const Container = styled.button(
 
     &:hover {
       background-color: ${theme.colors.yellowLight};
+      color: ${theme.colors.textSecondary};
       transform: translateY(-1px);
     }
   `,

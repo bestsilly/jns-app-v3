@@ -29,6 +29,7 @@ const Button = styled.button<{ $active: boolean }>(
 
     &:hover {
       background-color: ${theme.colors.greyLight};
+      color: ${theme.colors.textSecondary};
     }
 
     ${$active &&

@@ -2,13 +2,7 @@ import ISO6391 from 'iso-639-1'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import {
-  LanguageSVG,
-  RightChevronSVG,
-  Spinner,
-  Typography, // WalletSVG,
-  mq,
-} from '@ensdomains/thorin'
+import { LanguageSVG, RightChevronSVG, Spinner, mq } from '@ensdomains/thorin'
 
 import SocialDiscord from '@app/assets/social/SocialDiscord.svg'
 import SocialDiscourse from '@app/assets/social/SocialDiscourse.svg'
@@ -20,6 +14,7 @@ import SocialTwitter from '@app/assets/social/SocialTwitter.svg'
 import SocialYoutube from '@app/assets/social/SocialYoutube.svg'
 import BaseLink from '@app/components/@atoms/BaseLink'
 import { SocialIcon } from '@app/components/SocialIcon'
+import { CustomTypography } from '@app/components/customs'
 import { useChainName } from '@app/hooks/useChainName'
 import useGasPrice from '@app/hooks/useGasPrice'
 import { routes } from '@app/routes'
@@ -68,12 +63,6 @@ const SettingsSection = styled.div(
       margin: 0;
       gap: 0;
     `)}
-  `,
-)
-
-const CustomTypography = styled(Typography)(
-  ({ theme }) => css`
-    color: ${theme.colors.textTertiary};
   `,
 )
 
@@ -129,6 +118,7 @@ const HoverableSettingsItem = styled(SettingsItem)(
 
     &:hover {
       background-color: ${theme.colors.greySurface};
+      color: ${theme.colors.textSecondary};
     }
   `,
 )
@@ -136,6 +126,7 @@ const HoverableSettingsItem = styled(SettingsItem)(
 const miscSectionStyle = css(
   ({ theme }) => css`
     background-color: ${theme.colors.greySurface};
+    color: ${theme.colors.textSecondary};
     border-radius: ${theme.radii.large};
 
     ${mq.sm.min(css`
@@ -165,6 +156,7 @@ const RouteItem = styled.a(
 
     &:hover {
       background-color: ${theme.colors.greySurface};
+      color: ${theme.colors.textSecondary};
     }
 
     ${mq.sm.min(css`

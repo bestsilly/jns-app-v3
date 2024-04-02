@@ -27,6 +27,7 @@ const Container = styled.div<{ $state: TransitionState }>(
       background: ${$state === 'exited' || $state === 'exiting'
         ? theme.colors.border
         : theme.colors.greySurface};
+      color: ${theme.colors.textSecondary};
     }
 
     ${$state === 'exited' &&

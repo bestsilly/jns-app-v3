@@ -28,6 +28,7 @@ const Container = styled.button<{ $selected?: boolean }>(
 
     &:hover {
       background-color: ${theme.colors.backgroundSecondary};
+      color: ${theme.colors.textSecondary};
       transform: translateY(-1px);
     }
 
@@ -38,6 +39,7 @@ const Container = styled.button<{ $selected?: boolean }>(
 
       &:hover {
         background-color: ${theme.colors.accentLight};
+        color: ${theme.colors.textSecondary};
       }
     `}
 
@@ -50,6 +52,7 @@ const Container = styled.button<{ $selected?: boolean }>(
 
       &:hover {
         background-color: ${theme.colors.greyLight};
+        color: ${theme.colors.textSecondary};
         transform: initial;
       }
     `}

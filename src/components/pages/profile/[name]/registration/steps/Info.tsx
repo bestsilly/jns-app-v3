@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Dialog, Heading, Typography, mq } from '@ensdomains/thorin'
+import { Button, Dialog, mq } from '@ensdomains/thorin'
 
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
 import { Card } from '@app/components/Card'
+import { CustomHeading, CustomTypography } from '@app/components/customs'
 import { useEstimateFullRegistration } from '@app/hooks/useEstimateRegistration'
 import { useJoin } from '@app/hooks/useJoin'
 import { useNameDetails } from '@app/hooks/useNameDetails'
@@ -148,18 +149,6 @@ const Info = ({
       login()
     }
   }
-
-  const CustomHeading = styled(Heading)(
-    ({ theme }) => css`
-      color: ${theme.colors.textPrimary};
-    `,
-  )
-
-  const CustomTypography = styled(Typography)(
-    ({ theme }) => css`
-      color: ${theme.colors.textTertiary};
-    `,
-  )
 
   const CustomDialogHeading = styled(Dialog.Heading)(
     ({ theme }) => css`

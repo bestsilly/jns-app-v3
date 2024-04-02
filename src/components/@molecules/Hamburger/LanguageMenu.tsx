@@ -118,6 +118,16 @@ const LanguageItem = styled.div(
       }
     }
 
+    &:hover {
+      background-color: ${theme.colors.backgroundSecondary};
+      & > div {
+        color: ${theme.colors.textSecondary} !important;
+      }
+      & > div > div {
+        color: ${theme.colors.textSecondary} !important;
+      }
+    }
+
     ${mq.sm.min(css`
       border: none;
     `)}
