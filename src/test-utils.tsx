@@ -10,7 +10,7 @@ import React, { FC, ReactElement } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { WagmiConfig, createClient } from 'wagmi'
 
-import { ThorinGlobalStyles, lightTheme } from '@ensdomains/thorin'
+import { ThorinGlobalStyles, darkTheme } from '@ensdomains/thorin'
 
 import { DeepPartial } from './types'
 
@@ -107,11 +107,21 @@ jest.mock('@app/utils/query', () => ({
   wagmiClientWithRefetch: wagmiClient,
 }))
 
+const customDarkTheme = {
+  ...darkTheme,
+  colors: {
+    ...darkTheme.colors,
+    textSecondary: '#212121',
+  },
+}
+
+// darkTheme.colors.textSecondary
+
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <WagmiConfig client={wagmiClient}>
-        <ThemeProvider theme={lightTheme}>
+        <ThemeProvider theme={customDarkTheme}>
           <ThorinGlobalStyles />
           {children}
         </ThemeProvider>

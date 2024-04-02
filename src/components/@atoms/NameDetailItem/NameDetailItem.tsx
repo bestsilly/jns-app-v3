@@ -76,8 +76,9 @@ const NameItemContent = styled.div(
 )
 
 const TitleWrapper = styled(StyledName)(
-  () => css`
+  ({ theme }) => css`
     font-size: 1rem;
+    color: ${theme.colors.textPrimary};
   `,
 )
 

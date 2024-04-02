@@ -48,8 +48,9 @@ const StyledCard = styled.form(({ theme }) => [
 ])
 
 const CenterAlignedTypography = styled(Typography)(
-  () => css`
+  ({ theme }) => css`
     text-align: center;
+    color: ${theme.colors.textPrimary};
   `,
 )
 

@@ -152,10 +152,19 @@ const JoinHeaderProfile = ({ setIsJoin }: any) => {
   const profile = profileData ? JSON.parse(profileData) : {}
   const { logout } = useJoin()
 
+  const CustomProfile = styled(Profile)(
+    ({ theme }) => css`
+      * {
+        color: ${theme.colors.textPrimary} !important;
+      }
+    `,
+  )
+
   return (
-    <Profile
+    <CustomProfile
       address={profile?.contactNumber || ''}
       ensName={profile?.contactNumber || ''}
+      style={{ color: '#fff !important' }}
       dropdownItems={
         [
           {
@@ -190,6 +199,9 @@ const HeaderProfile = ({ address }: { address: string }) => {
   const CustomProfile = styled(Profile)(
     () => css`
       display: none;
+      &:hover {
+        background-color: lightblue !important;
+      }
     `,
   )
   return (
@@ -253,6 +265,7 @@ const HeaderProfile = ({ address }: { address: string }) => {
       }}
       size="medium"
       alignDropdown="left"
+      indicatorColor="accent"
       data-testid="header-profile"
     />
   )

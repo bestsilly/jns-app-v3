@@ -47,10 +47,6 @@ const Heading = styled.div(
     cursor: pointer;
     transition: all 0.1s ease-in-out;
 
-    &:hover {
-      background-color: ${theme.colors.greySurface};
-    }
-
     & > svg {
       color: ${theme.colors.grey};
     }
@@ -110,10 +106,6 @@ const LanguageItem = styled.div(
     transition: all 0.1s ease-in-out;
     cursor: pointer;
 
-    &:hover {
-      background-color: ${theme.colors.greySurface};
-    }
-
     & > div {
       display: flex;
       flex-direction: row;
@@ -161,7 +153,9 @@ const LanguageMenu = ({
           <LeftArrowSVG />
           <InnerHeading>
             <LanguageSVG />
-            <Typography weight="bold">{t('navigation.language')}</Typography>
+            <Typography weight="bold" style={{ color: '#fff' }}>
+              {t('navigation.language')}
+            </Typography>
           </InnerHeading>
         </Heading>
       </HeadingWrapper>
@@ -173,9 +167,9 @@ const LanguageMenu = ({
                 as={CheckCircleSVG}
                 style={{ display: i18n.resolvedLanguage === lang ? 'block' : 'none' }}
               />
-              <Typography>{ISO6391.getNativeName(lang)}</Typography>
+              <Typography style={{ color: '#fff' }}>{ISO6391.getNativeName(lang)}</Typography>
             </div>
-            <Typography>{lang.toLocaleUpperCase()}</Typography>
+            <Typography style={{ color: '#f2f2f2' }}>{lang.toLocaleUpperCase()}</Typography>
           </LanguageItem>
         ))}
       </LanguagesContainer>

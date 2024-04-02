@@ -17,9 +17,9 @@ const Container = styled.div(({ theme }) => [
   `),
 ])
 
-const Description = styled(Typography)(
-  () => css`
-    text-align: center;
+const CustomTypography = styled(Typography)(
+  ({ theme }) => css`
+    color: ${theme.colors.textTertiary};
   `,
 )
 
@@ -43,8 +43,11 @@ export const ConfirmationDialogView = ({
 }: Props) => {
   return (
     <Container {...props}>
-      <Dialog.Heading title={title} alert="warning" />
-      <Description>{description}</Description>
+      <Dialog.Heading
+        title={<span style={{ fontSize: '25px', color: '#fff' }}>{title}</span>}
+        alert="warning"
+      />
+      <CustomTypography>{description}</CustomTypography>
       <Dialog.Footer
         leading={
           <Button

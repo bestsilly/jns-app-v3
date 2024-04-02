@@ -149,35 +149,60 @@ const Info = ({
     }
   }
 
+  const CustomHeading = styled(Heading)(
+    ({ theme }) => css`
+      color: ${theme.colors.textPrimary};
+    `,
+  )
+
+  const CustomTypography = styled(Typography)(
+    ({ theme }) => css`
+      color: ${theme.colors.textTertiary};
+    `,
+  )
+
+  const CustomDialogHeading = styled(Dialog.Heading)(
+    ({ theme }) => css`
+      color: ${theme.colors.textPrimary} !important;
+    `,
+  )
+
   return (
     <>
       <div>
         <Dialog open={dialogOpen} variant="closable" onDismiss={() => setDialogOpen(false)}>
-          <Dialog.Heading alert="warning" title="Action Required: Upgrade JOIN account" />
-          <Typography style={breakpoints.sm ? { width: '500px' } : { padding: '16px' }}>
+          <CustomDialogHeading
+            alert="warning"
+            title={
+              <CustomHeading style={{ textAlign: 'center', fontSize: '20px' }}>
+                Action Required: Upgrade JOIN account
+              </CustomHeading>
+            }
+          />
+          <CustomTypography style={breakpoints.sm ? { width: '500px' } : { padding: '16px' }}>
             Your JOIN account is currently BRONZE. To access this feature, your account must be at
             least SILVER. You can upgrade your account with the JOIN application.
-          </Typography>
+          </CustomTypography>
         </Dialog>
       </div>
 
       <StyledCard>
-        <Heading>{t('steps.info.heading')}</Heading>
-        <Typography>{t('steps.info.subheading')}</Typography>
+        <CustomHeading>{t('steps.info.heading')}</CustomHeading>
+        <CustomTypography>{t('steps.info.subheading')}</CustomTypography>
         <InfoItems>
           {infoItemArr.map((item, inx) => (
             <InfoItem key={item}>
-              <Typography>{inx + 1}</Typography>
-              <Typography>{t(item)}</Typography>
+              <CustomTypography>{inx + 1}</CustomTypography>
+              <CustomTypography>{t(item)}</CustomTypography>
             </InfoItem>
           ))}
         </InfoItems>
         <FullInvoice {...estimate} />
         {!registrationData.queue.includes('profile') && (
           <ProfileButton data-testid="setup-profile-button" onClick={onProfileClick}>
-            <Typography weight="bold" color="accent">
+            <CustomTypography weight="bold" color="accent">
               {t('steps.info.setupProfile')}
-            </Typography>
+            </CustomTypography>
           </ProfileButton>
         )}
         <ButtonContainer>

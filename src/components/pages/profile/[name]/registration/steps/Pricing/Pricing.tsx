@@ -74,9 +74,10 @@ const OutlinedContainer = styled.div(
 )
 
 const StyledHeading = styled(Heading)(
-  () => css`
+  ({ theme }) => css`
     width: 100%;
     word-break: break-all;
+    color: ${theme.colors.textTertiary};
 
     @supports (overflow-wrap: anywhere) {
       overflow-wrap: anywhere;

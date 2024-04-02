@@ -191,7 +191,7 @@ const MenuButton = styled.button<MenuButtonProps>(
           justify-content: center;
 
           &:hover {
-            color: ${theme.colors.accent};
+            color: ${theme.colors.textSecondary};
           }
         `
 
@@ -200,6 +200,7 @@ const MenuButton = styled.button<MenuButtonProps>(
           justify-content: flex-start;
 
           &:hover {
+            color: ${theme.colors.textSecondary};
             background: ${theme.colors.greySurface};
           }
         `
@@ -208,7 +209,7 @@ const MenuButton = styled.button<MenuButtonProps>(
     ${() => {
       if ($inner && !$hasColor)
         return css`
-          color: ${theme.colors.greyPrimary};
+          color: ${theme.colors.textSecondary};
         `
     }}
   `,
@@ -375,7 +376,7 @@ const InnerMenuButton = styled.button<InnerMenuButtonProps>(
             0s border-width 0.1s, 0s padding linear;
 
           &:hover {
-            color: ${theme.colors.accent};
+            color: ${theme.colors.textSecondary};
           }
         `
       if (!$open)

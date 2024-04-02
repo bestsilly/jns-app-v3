@@ -84,6 +84,8 @@ const WarningWrapper = styled.div(
 const FullWidthSkeleton = styled.div(
   ({ theme }) => css`
     width: ${theme.space.full};
+    max-width: 48rem !important;
+    margin: auto;
   `,
 )
 

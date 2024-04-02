@@ -71,6 +71,12 @@ const SettingsSection = styled.div(
   `,
 )
 
+const CustomTypography = styled(Typography)(
+  ({ theme }) => css`
+    color: ${theme.colors.textTertiary};
+  `,
+)
+
 const SettingsItem = styled.div(
   ({ theme }) => css`
     display: flex;
@@ -221,16 +227,18 @@ const NetworkSection = () => {
     <NetworkSectionContainer>
       <NetworkSectionRow>
         {graphOutOfSync && <Spinner color="accent" />}
-        <Typography id="chain-name" weight="bold" color="text">
+        <CustomTypography id="chain-name" weight="bold" color="text">
           {chainName}
-        </Typography>
+        </CustomTypography>
         {gasPrice && (
-          <Typography color="grey">{makeDisplay(gasPrice, undefined, 'Gwei', 9)}</Typography>
+          <CustomTypography color="grey">
+            {makeDisplay(gasPrice, undefined, 'Gwei', 9)}
+          </CustomTypography>
         )}
       </NetworkSectionRow>
       {graphOutOfSync && (
         <NetworkSectionRow>
-          <Typography fontVariant="small">{t('navigation.syncMessage')}</Typography>
+          <CustomTypography fontVariant="small">{t('navigation.syncMessage')}</CustomTypography>
         </NetworkSectionRow>
       )}
     </NetworkSectionContainer>
@@ -251,12 +259,12 @@ const MainMenu = ({ setCurrentView }: { setCurrentView: (view: 'main' | 'languag
         <HoverableSettingsItem onClick={() => setCurrentView('language')}>
           <div>
             <LanguageSVG />
-            <Typography weight="bold">{t('navigation.language')}</Typography>
+            <CustomTypography weight="bold">{t('navigation.language')}</CustomTypography>
           </div>
           <div>
-            <Typography>
+            <CustomTypography>
               {ISO6391.getNativeName(language)} ({language.toLocaleUpperCase()})
-            </Typography>
+            </CustomTypography>
             <RightChevronSVG />
           </div>
         </HoverableSettingsItem>
@@ -265,7 +273,7 @@ const MainMenu = ({ setCurrentView }: { setCurrentView: (view: 'main' | 'languag
         {disconnectedRoutes.map((route) => (
           <BaseLink href={route.href} passHref key={route.href}>
             <RouteItem {...(route.href.startsWith('http') ? { target: '_blank' } : {})}>
-              <Typography>{t(route.label)}</Typography>
+              <CustomTypography>{t(route.label)}</CustomTypography>
             </RouteItem>
           </BaseLink>
         ))}

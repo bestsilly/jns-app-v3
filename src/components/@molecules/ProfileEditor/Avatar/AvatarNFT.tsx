@@ -256,7 +256,7 @@ export const AvatarNFT = ({
   if (isLoading) {
     innerContent = (
       <LoadingContainer>
-        <Heading>{t('input.profileEditor.tabs.avatar.nft.loading')}</Heading>
+        <div>{t('input.profileEditor.tabs.avatar.nft.loading')}</div>
         <SpinnerRow />
       </LoadingContainer>
     )
@@ -306,15 +306,14 @@ export const AvatarNFT = ({
   } else {
     innerContent = (
       <LoadingContainer>
-        <Heading>{t('input.profileEditor.tabs.avatar.nft.noNFTs')}</Heading>
+        <div>{t('input.profileEditor.tabs.avatar.nft.noNFTs')}</div>
       </LoadingContainer>
     )
   }
-
   return (
     <>
-      <Dialog.Heading title={t('input.profileEditor.tabs.avatar.nft.title')} />
-      {innerContent}
+      <div style={{ fontSize: '25px' }}>{t('input.profileEditor.tabs.avatar.nft.title')}</div>
+      <div>{innerContent}</div>
       <Dialog.Footer
         leading={
           <Button colorStyle="accentSecondary" onClick={handleCancel}>

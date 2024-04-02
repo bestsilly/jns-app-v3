@@ -20,17 +20,17 @@ const Container = styled.div(
 )
 
 const LineItem = styled.div<{ $color?: Colors }>(
-  ({ theme, $color }) => css`
+  ({ theme }) => css`
     display: flex;
     justify-content: space-between;
     line-height: ${theme.space['5']};
-    color: ${$color ? theme.colors[$color] : theme.colors.textTertiary};
+    color: ${theme.colors.textSecondary};
   `,
 )
 
 const Total = styled(LineItem)(
   ({ theme }) => css`
-    color: ${theme.colors.text};
+    color: ${theme.colors.textTertiary};
   `,
 )
 
