@@ -1,5 +1,10 @@
 import { EthAddress } from '@app/types'
 
+export const CONTRACT_ADDRESSES = {
+  publicResolver: '0x9E7f75493c2f9247BC178a8943A106B733B83DA0',
+  dummyOracle: '0xEab36A1fCaB6B61CE05063ff5637a2188e4a7E7E',
+}
+
 export const emptyAddress = '0x0000000000000000000000000000000000000000'
 
 export const networkName = {
@@ -58,7 +63,7 @@ export const RESOLVER_ADDRESSES: ResolverAddresses = {
   //   '0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB',
   // ],
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '3502': ['0x5477CD223E5F4Df55ED738C0E21E9341A5a134A9'],
+  '3502': [CONTRACT_ADDRESSES.publicResolver], // JNS PublicResolver Address
 }
 
 export const NAMEWRAPPER_AWARE_RESOLVERS: ResolverAddresses = {
@@ -75,7 +80,7 @@ export const NAMEWRAPPER_AWARE_RESOLVERS: ResolverAddresses = {
   // // eslint-disable-next-line @typescript-eslint/naming-convention
   // '1337': ['0x0E801D84Fa97b50751Dbf25036d067dCf18858bF'],
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '3502': ['0x5477CD223E5F4Df55ED738C0E21E9341A5a134A9'],
+  '3502': [CONTRACT_ADDRESSES.publicResolver], // JNS PublicResolver Address
 }
 
 export const RESOLVER_INTERFACE_IDS = {
