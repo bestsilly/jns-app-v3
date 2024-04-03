@@ -2,7 +2,9 @@ import { ComponentProps } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { OutlinkSVG, QuestionCircleSVG, Tooltip, Typography } from '@ensdomains/thorin'
+import { OutlinkSVG, QuestionCircleSVG, Tooltip } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 const IconWrapper = styled.div(
   ({ theme }) => css`
@@ -26,7 +28,7 @@ const Content = styled.div(
   `,
 )
 
-const CenteredTypography = styled(Typography)(
+const CenteredTypography = styled(CustomTypography)(
   () => css`
     text-align: center;
   `,
@@ -55,9 +57,9 @@ export const QuestionTooltip = ({ content, link, ...props }: Props) => {
       <CenteredTypography fontVariant="small"> {content}</CenteredTypography>
       {link && (
         <Link href={link} target="_blank" rel="noreferrer noopener">
-          <Typography fontVariant="smallBold" color="indigo">
+          <CustomTypography fontVariant="smallBold" color="indigo">
             {t('action.learnMore')}
-          </Typography>
+          </CustomTypography>
           <OutlinkSVG />
         </Link>
       )}

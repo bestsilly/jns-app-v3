@@ -2,11 +2,12 @@ import { ChildFuses, ParentFuses, userSettableFuseEnum } from '@jfinchain/jnsjs/
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Helper, Typography, mq } from '@ensdomains/thorin'
+import { Helper, mq } from '@ensdomains/thorin'
 
 import { cacheableComponentStyles } from '@app/components/@atoms/CacheableComponent'
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { TrafficLight } from '@app/components/TrafficLight'
+import { CustomTypography } from '@app/components/customs'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
 
 import { TabWrapper } from '../../../TabWrapper'
@@ -44,7 +45,7 @@ const HeadingContainer = styled.div(
   `,
 )
 
-const Heading = styled(Typography)(
+const Heading = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.text};
     font-weight: ${theme.fontWeights.bold};
@@ -122,9 +123,9 @@ const Fuses = ({
             )
             .map(([key, value], inx) => (
               <FusesRow key={key}>
-                <Typography color="textSecondary" weight="bold">
+                <CustomTypography color="textSecondary" weight="bold">
                   {t(`tabs.more.fuses.permissions.${key}`)}
-                </Typography>
+                </CustomTypography>
                 <TrafficLight
                   $go={!value}
                   data-testid={inx === 0 ? 'first-traffic-light' : undefined}

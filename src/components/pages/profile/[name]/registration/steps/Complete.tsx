@@ -8,12 +8,13 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useAccount } from 'wagmi'
 
-import { Button, Typography, mq } from '@ensdomains/thorin'
+import { Button, mq } from '@ensdomains/thorin'
 
 import { Invoice } from '@app/components/@atoms/Invoice/Invoice'
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
 import NFTTemplate from '@app/components/@molecules/NFTTemplate/NFTTemplate'
 import { Card } from '@app/components/Card'
+import { CustomHeading, CustomTypography } from '@app/components/customs'
 import { useNameDetails } from '@app/hooks/useNameDetails'
 import useWindowSize from '@app/hooks/useWindowSize'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
@@ -72,15 +73,7 @@ const TitleContainer = styled.div(
   `,
 )
 
-const Title = styled(Typography)(
-  ({ theme }) => css`
-    font-size: ${theme.fontSizes.headingOne};
-    font-weight: 800;
-    line-height: ${theme.lineHeights.headingOne};
-  `,
-)
-
-const SubtitleWithGradient = styled(Typography)(
+const SubtitleWithGradient = styled(CustomTypography)(
   ({ theme }) => css`
     display: inline;
 
@@ -246,13 +239,13 @@ const Complete = ({
         <NFTTemplate backgroundImage={avatarSrc} isNormalised name={name} />
       </NFTContainer>
       <TitleContainer>
-        <Title>{t('steps.complete.heading')}</Title>
-        <Typography style={{ display: 'inline' }} fontVariant="headingThree" weight="bold">
+        <CustomHeading>{t('steps.complete.heading')}</CustomHeading>
+        <CustomTypography style={{ display: 'inline' }} fontVariant="headingThree" weight="bold">
           {t('steps.complete.subheading')}
           <SubtitleWithGradient>{nameWithColourEmojis}</SubtitleWithGradient>
-        </Typography>
+        </CustomTypography>
       </TitleContainer>
-      <Typography>{t('steps.complete.description')}</Typography>
+      <CustomTypography>{t('steps.complete.description')}</CustomTypography>
       {InvoiceFilled}
       <ButtonContainer>
         <MobileFullWidth>

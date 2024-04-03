@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useAccount } from 'wagmi'
 
-import { Button, PlusSVG, Spinner, Typography, mq } from '@ensdomains/thorin'
+import { Button, PlusSVG, Spinner, mq } from '@ensdomains/thorin'
 
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
 import {
@@ -13,6 +13,7 @@ import {
 } from '@app/components/@molecules/NameTableHeader/NameTableHeader'
 import { Card } from '@app/components/Card'
 import { Outlink } from '@app/components/Outlink'
+import { CustomTypography } from '@app/components/customs'
 import { TabWrapper } from '@app/components/pages/profile/TabWrapper'
 import { SubnameSortType, useSubnameInfiniteQuery } from '@app/hooks/useSubnameInfiniteQuery'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
@@ -202,12 +203,12 @@ export const SubnamesTab = ({
     <TabWrapperWithButtons>
       {canEdit && (
         <AddSubnamesCard>
-          <Typography>
+          <CustomTypography>
             {t('details.tabs.subnames.addSubname.title')}{' '}
             <Outlink href={getSupportLink('namesAndSubnames')}>
               {t('details.tabs.subnames.addSubname.learn')}
             </Outlink>
-          </Typography>
+          </CustomTypography>
           {canCreateSubdomains ? (
             <Button
               data-testid="add-subname-action"

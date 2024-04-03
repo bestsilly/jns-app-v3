@@ -1,12 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
-
 import { Outlink } from '@app/components/Outlink'
+import { CustomTypography } from '@app/components/customs'
 import { getSupportLink } from '@app/utils/supportLinks'
 
-const DescriptionWrapper = styled(Typography)(
+const DescriptionWrapper = styled(CustomTypography)(
   ({ theme }) => css`
     display: inline;
     text-align: center;
@@ -22,14 +21,14 @@ export const ChangePrimaryName = () => {
 
   return (
     <DescriptionWrapper>
-      <Typography>
+      <CustomTypography>
         {t('tabs.profile.actions.setAsPrimaryName.description')}{' '}
         <span>
           <Outlink href={getSupportLink('primaryName')}>
             {t('action.learnMore', { ns: 'common' })}
           </Outlink>
         </span>
-      </Typography>
+      </CustomTypography>
     </DescriptionWrapper>
   )
 }

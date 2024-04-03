@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useMutation, useQueryClient } from 'wagmi'
 
-import { Button, Dialog, Heading, Typography, mq } from '@ensdomains/thorin'
+import { Button, Dialog, Heading, mq } from '@ensdomains/thorin'
 
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
 import {
@@ -19,6 +19,7 @@ import {
   SortType,
 } from '@app/components/@molecules/NameTableHeader/NameTableHeader'
 import { ScrollBoxWithSpinner, SpinnerRow } from '@app/components/@molecules/ScrollBoxWithSpinner'
+import { CustomTypography } from '@app/components/customs'
 import {
   Name,
   useAvailablePrimaryNamesForAddress,
@@ -376,11 +377,11 @@ const SelectPrimaryName = ({ data: { address }, dispatch, onDismiss }: Props) =>
             </>
           ) : (
             <ErrorContainer>
-              <Typography fontVariant="bodyBold" color="grey">
+              <CustomTypography fontVariant="bodyBold" color="grey">
                 {hasNoEligibleNames
                   ? t('input.selectPrimaryName.errors.noEligibleNames')
                   : t('input.selectPrimaryName.errors.noNamesFound')}
-              </Typography>
+              </CustomTypography>
             </ErrorContainer>
           )}
         </StyledScrollBox>

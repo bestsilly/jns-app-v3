@@ -1,6 +1,6 @@
 import styled, { DefaultTheme, css, keyframes } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
+import { CustomTypography } from '../customs'
 
 const generateBgImg = (percent: number, theme: DefaultTheme) => css`
   background-image: linear-gradient(
@@ -23,7 +23,7 @@ const ellipsesAnimation = ({ theme }: { theme: DefaultTheme }) => keyframes`
   }
 `
 
-export const TypographyWithAnimatedEllipses = styled(Typography)(
+export const TypographyWithAnimatedEllipses = styled(CustomTypography)(
   ({ theme }) => css`
     &::after {
       content: '...';

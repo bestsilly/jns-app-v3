@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Dialog, RadioButton, ScrollBox, Typography } from '@ensdomains/thorin'
+import { Button, Dialog, RadioButton, ScrollBox } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 import type { SelectedProfile } from '../ResolverWarningOverlay'
 import { CenteredTypography } from '../components/CenteredTypography'
@@ -81,11 +83,11 @@ export const MigrateProfileSelectorView = ({
                 label={
                   <RadioLabelContainer>
                     <RadioInfoContainer>
-                      <Typography fontVariant="bodyBold">
+                      <CustomTypography fontVariant="bodyBold">
                         {t(
                           'input.profileEditor.warningOverlay.migrateProfileSelector.option.latest',
                         )}
-                      </Typography>
+                      </CustomTypography>
                     </RadioInfoContainer>
                     <ProfileBlurb name={name} resolver={latestResolver} />
                   </RadioLabelContainer>
@@ -101,11 +103,11 @@ export const MigrateProfileSelectorView = ({
                   label={
                     <RadioLabelContainer>
                       <RadioInfoContainer>
-                        <Typography fontVariant="bodyBold">
+                        <CustomTypography fontVariant="bodyBold">
                           {t(
                             'input.profileEditor.warningOverlay.migrateProfileSelector.option.current',
                           )}
-                        </Typography>
+                        </CustomTypography>
                       </RadioInfoContainer>
                       <ProfileBlurb name={name} resolver={currentResolver} />
                     </RadioLabelContainer>
@@ -120,14 +122,14 @@ export const MigrateProfileSelectorView = ({
                 data-testid="migrate-profile-selector-reset"
                 label={
                   <RadioInfoContainer>
-                    <Typography fontVariant="bodyBold">
+                    <CustomTypography fontVariant="bodyBold">
                       {t('input.profileEditor.warningOverlay.migrateProfileSelector.option.reset')}
-                    </Typography>
-                    <Typography color="grey">
+                    </CustomTypography>
+                    <CustomTypography color="grey">
                       {t(
                         'input.profileEditor.warningOverlay.migrateProfileSelector.option.resetSubtitle',
                       )}
-                    </Typography>
+                    </CustomTypography>
                   </RadioInfoContainer>
                 }
                 name="resolver-option"

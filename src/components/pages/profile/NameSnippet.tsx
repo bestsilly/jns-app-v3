@@ -2,11 +2,12 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useQuery } from 'wagmi'
 
-import { Button, Typography } from '@ensdomains/thorin'
+import { Button } from '@ensdomains/thorin'
 
 import { CacheableComponent } from '@app/components/@atoms/CacheableComponent'
 import { AddressAvatar, AvatarWithZorb } from '@app/components/AvatarWithZorb'
 import { NFTWithPlaceholder } from '@app/components/NFTWithPlaceholder'
+import { CustomTypography } from '@app/components/customs'
 import { useRouterWithHistory } from '@app/hooks/useRouterWithHistory'
 import { ReturnedENS } from '@app/types'
 import { useEns } from '@app/utils/EnsProvider'
@@ -68,10 +69,10 @@ const NameOwnerItem = ({ address = '', network }: { address?: string; network: n
     return (
       <OwnerContainer>
         <OwnerWithEns>
-          <Typography weight="bold">
+          <CustomTypography weight="bold">
             {data.name.length > 12 ? `${data.name.slice(0, 12)}...` : data.name}
-          </Typography>
-          <Typography weight="bold">{shortenAddress(address)}</Typography>
+          </CustomTypography>
+          <CustomTypography weight="bold">{shortenAddress(address)}</CustomTypography>
         </OwnerWithEns>
         <AvatarWrapper>
           <AvatarWithZorb label={data.name} address={address} name={data.name} network={network} />
@@ -82,7 +83,7 @@ const NameOwnerItem = ({ address = '', network }: { address?: string; network: n
 
   return (
     <OwnerContainer>
-      <Typography weight="bold">{shortenAddress(address)}</Typography>
+      <CustomTypography weight="bold">{shortenAddress(address)}</CustomTypography>
       <AvatarWrapper>
         <AddressAvatar address={address} label={address} />
       </AvatarWrapper>
@@ -124,7 +125,7 @@ const ButtonWrapper = styled.div(
   `,
 )
 
-const LeftText = styled(Typography)(
+const LeftText = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.textTertiary};
   `,
@@ -176,9 +177,9 @@ export const NameDetailSnippet = ({
       {expiryDate && (
         <ItemContainer>
           <LeftText weight="bold">{t('name.expires')}</LeftText>
-          <Typography weight="bold">{`${expiryDate.toLocaleDateString(undefined, {
+          <CustomTypography weight="bold">{`${expiryDate.toLocaleDateString(undefined, {
             month: 'long',
-          })} ${expiryDate.getDate()}, ${expiryDate.getFullYear()}`}</Typography>
+          })} ${expiryDate.getDate()}, ${expiryDate.getFullYear()}`}</CustomTypography>
         </ItemContainer>
       )}
       {owners.map(([translation, address]) => (

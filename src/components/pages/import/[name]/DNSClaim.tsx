@@ -7,6 +7,7 @@ export default () => {
     ({ theme }) => css`
       color: ${theme.colors.textSecondary};
       width: 100%;
+      max-width: 48rem !important;
       grid-column: span 1;
       height: min-content;
       ${mq.sm.min(css`

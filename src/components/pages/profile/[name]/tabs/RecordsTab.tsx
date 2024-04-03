@@ -2,12 +2,13 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Typography, mq } from '@ensdomains/thorin'
+import { Button, mq } from '@ensdomains/thorin'
 
 import { cacheableComponentStyles } from '@app/components/@atoms/CacheableComponent'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
 import { Outlink } from '@app/components/Outlink'
 import RecordItem from '@app/components/RecordItem'
+import { CustomTypography } from '@app/components/customs'
 import { useHasGlobalError } from '@app/hooks/errors/useHasGlobalError'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
 import { emptyAddress } from '@app/utils/constants'
@@ -99,13 +100,13 @@ const SectionTitleContainer = styled.div(
   `,
 )
 
-const SectionTitle = styled(Typography)(
+const SectionTitle = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.greyPrimary};
   `,
 )
 
-const SectionSubtitle = styled(Typography)(
+const SectionSubtitle = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.textTertiary};
   `,

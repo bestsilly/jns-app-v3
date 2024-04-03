@@ -5,9 +5,10 @@ import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useAccount } from 'wagmi'
 
-import { Banner, CheckCircleSVG, Typography } from '@ensdomains/thorin'
+import { Banner, CheckCircleSVG } from '@ensdomains/thorin'
 
 import BaseLink from '@app/components/@atoms/BaseLink'
+import { CustomTypography } from '@app/components/customs'
 import { useAbilities } from '@app/hooks/abilities/useAbilities'
 import { useRecentTransactions } from '@app/hooks/transactions/useRecentTransactions'
 import { useChainId } from '@app/hooks/useChainId'
@@ -252,9 +253,9 @@ const ProfileContent = ({ isSelf, isLoading: _isLoading, name }: Props) => {
                   $selected={tabItem === tab}
                   onClick={() => setTab(tabItem)}
                 >
-                  <Typography fontVariant="extraLargeBold" color="inherit">
+                  <CustomTypography fontVariant="extraLargeBold" color="inherit">
                     {t(`tabs.${tabItem}.name`)}
-                  </Typography>
+                  </CustomTypography>
                 </TabButton>
               ))}
             </TabButtonContainer>

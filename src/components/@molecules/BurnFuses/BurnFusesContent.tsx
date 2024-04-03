@@ -5,9 +5,10 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, FlameSVG, Helper, Typography, mq } from '@ensdomains/thorin'
+import { Button, FlameSVG, Helper, mq } from '@ensdomains/thorin'
 
 import { Spacer } from '@app/components/@atoms/Spacer'
+import { CustomTypography } from '@app/components/customs'
 import { AllChildFuses } from '@app/types'
 
 export const childFuseObj = Object.fromEntries(
@@ -110,10 +111,10 @@ const BurnButton = ({
       }
     >
       <ButtonInner data-testid={`burn-button-${permission}`}>
-        <Typography>{t(`permissions.${permission}`)}</Typography>
+        <CustomTypography>{t(`permissions.${permission}`)}</CustomTypography>
         {isBurned && (
           <BurnedFlameContainer $isBurned={isBurned}>
-            <Typography>{t('burned')}</Typography>
+            <CustomTypography>{t('burned')}</CustomTypography>
             <BurnedStyledFlameSVG width="24" height="24" />
           </BurnedFlameContainer>
         )}
@@ -215,12 +216,12 @@ const BurnFusesContent = ({
 
   return (
     <FusesContainer>
-      <Typography fontVariant="headingFour">{t('fuses.burnFormTitle')}</Typography>
+      <CustomTypography fontVariant="headingFour">{t('fuses.burnFormTitle')}</CustomTypography>
       {!_fuseData.CANNOT_UNWRAP && !fuseSelected.CANNOT_UNWRAP ? (
         <>
           <Spacer $height="1" />
           <Helper type="info" style={{ textAlign: 'center' }}>
-            <Typography>{t('fuses.info')}</Typography>
+            <CustomTypography>{t('fuses.info')}</CustomTypography>
           </Helper>
         </>
       ) : (

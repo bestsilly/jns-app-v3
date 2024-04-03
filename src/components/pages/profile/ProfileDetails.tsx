@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Helper, Typography, mq } from '@ensdomains/thorin'
+import { Button, Helper, mq } from '@ensdomains/thorin'
 
 import { CacheableComponent } from '@app/components/@atoms/CacheableComponent'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
+import { CustomTypography } from '@app/components/customs'
 import { coinsWithIcons } from '@app/constants/coinsWithIcons'
 import supportedProfileItems from '@app/constants/supportedGeneralRecordKeys.json'
 import supportedTexts from '@app/constants/supportedSocialRecordKeys.json'
@@ -41,7 +42,7 @@ const Stack = styled.div(
   `,
 )
 
-const SectionTitle = styled(Typography)(({ theme }) => [
+const SectionTitle = styled(CustomTypography)(({ theme }) => [
   css`
     color: ${theme.colors.greyPrimary};
     margin-left: ${theme.space['2']};

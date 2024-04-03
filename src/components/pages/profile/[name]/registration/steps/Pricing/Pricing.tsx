@@ -13,7 +13,6 @@ import {
   RadioButton,
   RadioButtonGroup,
   Toggle,
-  Typography,
   mq,
 } from '@ensdomains/thorin'
 
@@ -24,6 +23,7 @@ import { RegistrationTimeComparisonBanner } from '@app/components/@atoms/Registr
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { Card } from '@app/components/Card'
 import { ConnectButton } from '@app/components/ConnectButton'
+import { CustomTypography } from '@app/components/customs'
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import { useContractAddress } from '@app/hooks/useContractAddress'
 import { useEstimateFullRegistration } from '@app/hooks/useEstimateRegistration'
@@ -115,11 +115,11 @@ const RadioButtonContainer = styled.div(
   `,
 )
 
-const StyledTitle = styled(Typography)`
+const StyledTitle = styled(CustomTypography)`
   margin-left: 15px;
 `
 
-const RadioLabel = styled(Typography)(
+const RadioLabel = styled(CustomTypography)(
   ({ theme }) => css`
     margin-right: 10px;
     color: ${theme.colors.text};
@@ -197,9 +197,9 @@ const CheckboxWrapper = styled.div(
   gridAreaStyle,
 )
 
-const OutlinedContainerDescription = styled(Typography)(gridAreaStyle)
+const OutlinedContainerDescription = styled(CustomTypography)(gridAreaStyle)
 
-const OutlinedContainerTitle = styled(Typography)(
+const OutlinedContainerTitle = styled(CustomTypography)(
   ({ theme }) => css`
     font-size: ${theme.fontSizes.large};
     font-weight: ${theme.fontWeights.bold};
@@ -327,9 +327,9 @@ const PaymentChoice = ({
             label={
               <LabelContainer>
                 <RadioLabel>{t('steps.info.creditOrDebit')}</RadioLabel>
-                <Typography color="textTertiary" weight="light">
+                <CustomTypography color="textTertiary" weight="light">
                   ({t('steps.info.additionalFee')})
-                </Typography>
+                </CustomTypography>
               </LabelContainer>
             }
             name="RadioButtonGroup"
@@ -342,8 +342,8 @@ const PaymentChoice = ({
               <InfoItems>
                 {moonpayInfoItems.map((item, idx) => (
                   <InfoItem key={item}>
-                    <Typography>{idx + 1}</Typography>
-                    <Typography>{t(item)}</Typography>
+                    <CustomTypography>{idx + 1}</CustomTypography>
+                    <CustomTypography>{t(item)}</CustomTypography>
                   </InfoItem>
                 ))}
               </InfoItems>

@@ -12,6 +12,7 @@ import { UpdateCallback, useCallbackOnTransaction } from '@app/utils/SyncProvide
 import { makeEtherscanLink } from '@app/utils/utils'
 
 import { trackEvent } from '../utils/analytics'
+import { CustomTypography } from './customs'
 
 type Notification = {
   title: string
@@ -63,10 +64,14 @@ export const Notifications = () => {
       }
       const resumable = key && getResumable(key)
       const item = {
-        title: t(`transaction.status.${status}.notifyTitle`),
-        description: t(`transaction.status.${status}.notifyMessage`, {
-          action: t(`transaction.description.${action}`),
-        }),
+        title: <CustomTypography>{t(`transaction.status.${status}.notifyTitle`)}</CustomTypography>,
+        description: (
+          <CustomTypography>
+            {t(`transaction.status.${status}.notifyMessage`, {
+              action: t(`transaction.description.${action}`),
+            })}
+          </CustomTypography>
+        ),
         children: resumable ? (
           <ButtonContainer>
             <a target="_blank" href={makeEtherscanLink(hash, chainName)} rel="noreferrer">
@@ -91,7 +96,7 @@ export const Notifications = () => {
         ),
       }
 
-      setNotificationQueue((queue) => [...queue, item])
+      setNotificationQueue((queue) => [...queue, item as any])
     },
     [chainName, getResumable, resumeTransactionFlow, t],
   )

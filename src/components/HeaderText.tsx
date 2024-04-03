@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
+import { CustomTypography } from './customs'
 
 const Wrapper = styled.div<{ $align: 'left' | 'right' }>(
   ({ $align }) => css`
@@ -11,14 +11,14 @@ const Wrapper = styled.div<{ $align: 'left' | 'right' }>(
   `,
 )
 
-const Title = styled(Typography)(
+const Title = styled(CustomTypography)(
   ({ theme }) => css`
     font-size: ${theme.fontSizes.headingThree};
     line-height: ${theme.lineHeights.headingThree};
   `,
 )
 
-const Subtitle = styled(Typography)(
+const Subtitle = styled(CustomTypography)(
   ({ theme }) => css`
     line-height: ${theme.lineHeights.body};
     color: ${theme.colors.greenPrimary};

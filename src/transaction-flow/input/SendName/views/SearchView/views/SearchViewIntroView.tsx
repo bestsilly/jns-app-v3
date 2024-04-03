@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { MagnifyingGlassSVG, Typography } from '@ensdomains/thorin'
+import { MagnifyingGlassSVG } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 const Container = styled.div(
   () => css`
@@ -32,9 +34,9 @@ export const SearchViewIntroView = () => {
     <Container>
       <Message>
         <MagnifyingGlassSVG />
-        <Typography fontVariant="body">
+        <CustomTypography fontVariant="body">
           {t('input.sendName.views.search.views.intro.message')}
-        </Typography>
+        </CustomTypography>
       </Message>
     </Container>
   )

@@ -13,7 +13,6 @@ import {
   EthSVG,
   Helper,
   RightArrowSVG,
-  Typography,
 } from '@ensdomains/thorin'
 
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
@@ -21,6 +20,7 @@ import { useChainName } from '@app/hooks/useChainName'
 import useFaucet from '@app/hooks/useFaucet'
 
 import { InnerDialog } from '../@atoms/InnerDialog'
+import { CustomTypography } from '../customs'
 import { DisplayItems } from './TransactionDialogManager/DisplayItems'
 
 const BannerWrapper = styled.div(
@@ -132,7 +132,7 @@ const FaucetBanner = () => {
           <Dialog.Heading title="Your claim was submitted!" />
           <InnerDialog>
             <LargeCheckIcon as={CheckCircleSVG} />
-            <Typography>{t('testnetFaucet.note')}</Typography>
+            <CustomTypography>{t('testnetFaucet.note')}</CustomTypography>
           </InnerDialog>
           <Dialog.Footer trailing={<Button onClick={closeDialog}>{t('action.close')}</Button>} />
         </>

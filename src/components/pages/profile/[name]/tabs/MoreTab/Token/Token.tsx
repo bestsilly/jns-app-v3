@@ -4,12 +4,13 @@ import { namehash } from '@jfinchain/jnsjs/utils/normalise'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Tag, Typography, mq } from '@ensdomains/thorin'
+import { Tag, mq } from '@ensdomains/thorin'
 
 import { CacheableComponent } from '@app/components/@atoms/CacheableComponent'
 import { NFTWithPlaceholder } from '@app/components/NFTWithPlaceholder'
 import { Outlink } from '@app/components/Outlink'
 import RecordItem from '@app/components/RecordItem'
+import { CustomTypography } from '@app/components/customs'
 import { useFusesStates } from '@app/hooks/fuses/useFusesStates'
 import { useChainId } from '@app/hooks/useChainId'
 import { useChainName } from '@app/hooks/useChainName'
@@ -145,7 +146,7 @@ const Token = ({ name, isWrapped, canBeWrapped, wrapperData, ownerData, profile 
   return (
     <Container>
       <HeaderContainer>
-        <Typography fontVariant="headingFour">{t('tabs.more.token.label')}</Typography>
+        <CustomTypography fontVariant="headingFour">{t('tabs.more.token.label')}</CustomTypography>
         {hasToken ? (
           <Outlink
             data-testid="etherscan-nft-link"

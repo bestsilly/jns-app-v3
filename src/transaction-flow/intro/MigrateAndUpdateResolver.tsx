@@ -1,12 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
-
 import { Outlink } from '@app/components/Outlink'
+import { CustomTypography } from '@app/components/customs'
 import { getSupportLink } from '@app/utils/supportLinks'
 
-const DescriptionWrapper = styled(Typography)(
+const DescriptionWrapper = styled(CustomTypography)(
   ({ theme }) => css`
     display: flex;
     flex-direction: column;
@@ -24,7 +23,7 @@ export const MigrateAndUpdateResolver = () => {
   return (
     <>
       <DescriptionWrapper>
-        <Typography color="textTertiary">
+        <CustomTypography color="textTertiary">
           {t('intro.migrateAndUpdateResolver.heading')}
           &nbsp;
           <span>
@@ -32,10 +31,10 @@ export const MigrateAndUpdateResolver = () => {
               {t('intro.migrateAndUpdateResolver.link')}
             </Outlink>
           </span>
-        </Typography>
-        <Typography color="textSecondary" weight="bold">
+        </CustomTypography>
+        <CustomTypography color="textSecondary" weight="bold">
           {t('intro.migrateAndUpdateResolver.warning')}
-        </Typography>
+        </CustomTypography>
       </DescriptionWrapper>
     </>
   )

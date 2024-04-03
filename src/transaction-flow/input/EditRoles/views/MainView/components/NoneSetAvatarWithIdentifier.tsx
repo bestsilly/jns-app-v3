@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Space, Typography, mq } from '@ensdomains/thorin'
+import { Space, mq } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { QuerySpace } from '@app/types'
 
 const Wrapper = styled.div<{ $size?: QuerySpace; $dirty?: boolean }>(
@@ -49,7 +50,9 @@ export const NoneSetAvatarWithIdentifier = ({ dirty = false, size = '10' }: Prop
   return (
     <Container>
       <Wrapper $size={size} $dirty={dirty} />
-      <Typography fontVariant="bodyBold">{t('input.editRoles.views.main.noneSet')}</Typography>
+      <CustomTypography fontVariant="bodyBold">
+        {t('input.editRoles.views.main.noneSet')}
+      </CustomTypography>
     </Container>
   )
 }

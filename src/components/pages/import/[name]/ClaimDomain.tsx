@@ -4,11 +4,12 @@ import styled, { css } from 'styled-components'
 import { useAccount, useQuery } from 'wagmi'
 
 import { DNSProver } from '@ensdomains/dnsprovejs'
-import { Helper, Typography } from '@ensdomains/thorin'
+import { Helper } from '@ensdomains/thorin'
 
 import BaseLink from '@app/components/@atoms/BaseLink'
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { NameAvatar } from '@app/components/AvatarWithZorb'
+import { CustomTypography } from '@app/components/customs'
 import { useRecentTransactions } from '@app/hooks/transactions/useRecentTransactions'
 import { useEstimateGasLimitForTransactions } from '@app/hooks/useEstimateGasLimitForTransactions'
 import {
@@ -68,7 +69,7 @@ const AvatarWrapper = styled.div(
   `,
 )
 
-const StyledTypography = styled(Typography)(
+const StyledTypography = styled(CustomTypography)(
   ({ theme }) => css`
     a {
       color: ${theme.colors.blue};
@@ -88,10 +89,10 @@ export const NamePillWithAddress = ({
   return (
     <NamePillContainer>
       <TextContainer>
-        <Typography fontVariant="bodyBold">{name}</Typography>
-        <Typography fontVariant="small" color="grey">
+        <CustomTypography fontVariant="bodyBold">{name}</CustomTypography>
+        <CustomTypography fontVariant="small" color="grey">
           {shortenAddress(address)}
-        </Typography>
+        </CustomTypography>
       </TextContainer>
       <AvatarWrapper>
         <NameAvatar label={name} name={name} network={network} />
@@ -171,24 +172,26 @@ export const ClaimDomain = ({
 
   return (
     <Container>
-      <Typography fontVariant="extraLargeBold">{t('claimDomain.title')}</Typography>
+      <CustomTypography fontVariant="extraLargeBold">{t('claimDomain.title')}</CustomTypography>
       <Spacer $height="4" />
       <GreyBox>
-        <Typography>{t('claimDomain.dnsOwner')}</Typography>
+        <CustomTypography>{t('claimDomain.dnsOwner')}</CustomTypography>
         <NamePillWithAddress name={name} network={1} address={address || ''} />
       </GreyBox>
       <Spacer $height="4" />
       <GreyBox>
-        <Typography>{t('claimDomain.networkEst')}</Typography>
-        <Typography>{gasEstimate?.gasCostEth?.toString()?.substring(0, 6)} ETH</Typography>
+        <CustomTypography>{t('claimDomain.networkEst')}</CustomTypography>
+        <CustomTypography>
+          {gasEstimate?.gasCostEth?.toString()?.substring(0, 6)} ETH
+        </CustomTypography>
       </GreyBox>
       <Spacer $height="4" />
       {syncWarning ? (
         <Helper type="warning" style={{ textAlign: 'center' }}>
-          <Typography>{t('claimDomain.syncWarning')}</Typography>
+          <CustomTypography>{t('claimDomain.syncWarning')}</CustomTypography>
         </Helper>
       ) : (
-        <Typography>{t('claimDomain.verifiedOwnership')}</Typography>
+        <CustomTypography>{t('claimDomain.verifiedOwnership')}</CustomTypography>
       )}
       {pendingTransaction && (
         <>

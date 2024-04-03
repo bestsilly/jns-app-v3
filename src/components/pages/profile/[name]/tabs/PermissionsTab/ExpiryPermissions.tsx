@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Typography } from '@ensdomains/thorin'
+import { Button } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import type { useFusesStates } from '@app/hooks/fuses/useFusesStates'
 import type { useGetFusesSetDates } from '@app/hooks/fuses/useGetFusesSetDates'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
@@ -21,7 +22,7 @@ type Props = {
   fusesSetDates: FusesSetDates
 } & FusesStates
 
-const TypographyGreyDim = styled(Typography)(
+const TypographyGreyDim = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.greyDim};
   `,
@@ -73,15 +74,15 @@ export const ExpiryPermissions = ({
     <Section>
       {canExtendExpiry ? (
         <SectionItem icon="info" data-testid="owner-can-extend-expiry">
-          <Typography fontVariant="bodyBold">
+          <CustomTypography fontVariant="bodyBold">
             {t(`tabs.permissions.expiry.permissions.canExtendExpiry.label`)}
-          </Typography>
+          </CustomTypography>
           {fusesSetDates.CAN_EXTEND_EXPIRY && (
             <TypographyGreyDim fontVariant="extraSmall">
               {t('tabs.permissions.grantedLabel', { date: fusesSetDates.CAN_EXTEND_EXPIRY })}
             </TypographyGreyDim>
           )}
-          <Typography fontVariant="small">
+          <CustomTypography fontVariant="small">
             {t(`tabs.permissions.expiry.permissions.canExtendExpiry.description`, {
               managerOrOwner:
                 state === 'locked'
@@ -90,20 +91,20 @@ export const ExpiryPermissions = ({
               date: expiryLabel,
               context: expiryLabel ? 'date' : undefined,
             })}
-          </Typography>
+          </CustomTypography>
         </SectionItem>
       ) : (
         <>
           <SectionItem icon="disabled" data-testid="owner-cannot-extend-expiry">
-            <Typography fontVariant="bodyBold">
+            <CustomTypography fontVariant="bodyBold">
               {t(`tabs.permissions.expiry.permissions.cannotExtendExpiry.label`)}
-            </Typography>
-            <Typography fontVariant="small">
+            </CustomTypography>
+            <CustomTypography fontVariant="small">
               {t(`tabs.permissions.expiry.permissions.cannotExtendExpiry.description`, {
                 date: expiryLabel,
                 context: expiryLabel ? 'date' : undefined,
               })}
-            </Typography>
+            </CustomTypography>
           </SectionItem>
           {showChangePermissionsButton && (
             <SectionFooter>

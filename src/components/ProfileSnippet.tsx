@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, NametagSVG, Tag, Typography, mq } from '@ensdomains/thorin'
+import { Button, NametagSVG, Tag, mq } from '@ensdomains/thorin'
 
 import FastForwardSVG from '@app/assets/FastForward.svg'
 import { useAbilities } from '@app/hooks/abilities/useAbilities'
@@ -12,6 +12,7 @@ import { shouldShowExtendWarning } from '@app/utils/abilities/shouldShowExtendWa
 
 import { useTransactionFlow } from '../transaction-flow/TransactionFlowProvider'
 import { NameAvatar } from './AvatarWithZorb'
+import { CustomHeading, CustomTypography } from './customs'
 
 const Container = styled.div<{ $banner?: string }>(
   ({ theme, $banner }) =>
@@ -51,16 +52,9 @@ const DetailStack = styled.div(
   `,
 )
 
-const Name = styled(Typography)(
-  () => css`
-    width: 100%;
-    overflow-wrap: anywhere;
-  `,
-)
-
-const NameRecord = styled(Typography)(
+const NameRecord = styled(CustomTypography)(
   ({ theme }) => css`
-    color: ${theme.colors.greyPrimary};
+    color: ${theme.colors.textPrimary};
     margin-top: -${theme.space['0.5']};
   `,
 )
@@ -244,28 +238,28 @@ export const ProfileSnippet = ({
       </FirstItems>
       <TextStack>
         <DetailStack>
-          <Name fontVariant="headingTwo" data-testid="profile-snippet-name">
-            {beautifiedName}
-          </Name>
+          <CustomHeading data-testid="profile-snippet-name">{beautifiedName}</CustomHeading>
           {recordName && (
             <NameRecord data-testid="profile-snippet-nickname">{recordName}</NameRecord>
           )}
         </DetailStack>
         {description && (
-          <Typography data-testid="profile-snippet-description">{description}</Typography>
+          <CustomTypography data-testid="profile-snippet-description">
+            {description}
+          </CustomTypography>
         )}
         {(url || location) && (
           <LocationAndUrl>
             {location && (
-              <Typography id="profile-loc" data-testid="profile-snippet-location">
+              <CustomTypography id="profile-loc" data-testid="profile-snippet-location">
                 {location}
-              </Typography>
+              </CustomTypography>
             )}
             {url && (
               <a href={url} data-testid="profile-snippet-url" target="_blank" rel="noreferrer">
-                <Typography color="blue" id="profile-url">
+                <CustomTypography color="blue" id="profile-url">
                   {url?.replace(/http(s?):\/\//g, '').replace(/\/$/g, '')}
-                </Typography>
+                </CustomTypography>
               </a>
             )}
           </LocationAndUrl>

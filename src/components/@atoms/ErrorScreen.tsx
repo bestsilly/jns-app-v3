@@ -2,7 +2,9 @@ import Link from 'next/link'
 import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { AlertSVG, QuestionCircleSVG, Typography } from '@ensdomains/thorin'
+import { AlertSVG, QuestionCircleSVG } from '@ensdomains/thorin'
+
+import { CustomTypography } from '../customs'
 
 const Container = styled.div(
   ({ theme }) => css`
@@ -53,8 +55,8 @@ const ErrorScreen = ({ errorType }: { errorType: ErrorType }) => {
   return (
     <Container className={errorType}>
       {errorType === 'not-found' ? <QuestionCircleSVG /> : <AlertSVG />}
-      <Typography fontVariant="headingOne">{t('title')}</Typography>
-      <Typography fontVariant="body">
+      <CustomTypography fontVariant="headingOne">{t('title')}</CustomTypography>
+      <CustomTypography fontVariant="body">
         <Trans
           t={t}
           i18nKey="message"
@@ -64,7 +66,7 @@ const ErrorScreen = ({ errorType }: { errorType: ErrorType }) => {
             SupportLink: <a href="https://support.ens.domains" />,
           }}
         />
-      </Typography>
+      </CustomTypography>
     </Container>
   )
 }

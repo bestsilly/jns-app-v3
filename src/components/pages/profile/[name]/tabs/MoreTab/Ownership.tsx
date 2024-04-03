@@ -3,13 +3,14 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useAccount, useQueryClient } from 'wagmi'
 
-import { Button, Helper, Tag, Typography, mq } from '@ensdomains/thorin'
+import { Button, Helper, Tag, mq } from '@ensdomains/thorin'
 
 import AeroplaneSVG from '@app/assets/Aeroplane.svg'
 import { BaseLinkWithHistory } from '@app/components/@atoms/BaseLink'
 import { cacheableComponentStyles } from '@app/components/@atoms/CacheableComponent'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
 import { AvatarWithZorb } from '@app/components/AvatarWithZorb'
+import { CustomTypography } from '@app/components/customs'
 import { useChainId } from '@app/hooks/useChainId'
 import useDNSProof from '@app/hooks/useDNSProof'
 import useOwners from '@app/hooks/useOwners'
@@ -91,7 +92,7 @@ const OwnerContainer = styled.div(
   `,
 )
 
-const Name = styled(Typography)(
+const Name = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.text};
     font-weight: ${theme.fontWeights.bold};
@@ -145,9 +146,9 @@ const Owner = ({ address, label }: ReturnType<typeof useOwners>[0]) => {
               {primary.data?.beautifiedName || shortenAddress(address)}
             </Name>
             {primary.data?.name && (
-              <Typography data-testid={`owner-button-address-${label}`}>
+              <CustomTypography data-testid={`owner-button-address-${label}`}>
                 {shortenAddress(address)}
-              </Typography>
+              </CustomTypography>
             )}
           </TextContainer>
         </OwnerDetailContainer>
@@ -284,7 +285,9 @@ const Ownership = ({
   return (
     <Container $isCached={isCachedData}>
       <HeadingContainer>
-        <Typography fontVariant="headingFour">{t('tabs.more.ownership.label')}</Typography>
+        <CustomTypography fontVariant="headingFour">
+          {t('tabs.more.ownership.label')}
+        </CustomTypography>
         <div>
           {canSend && (
             <Button
