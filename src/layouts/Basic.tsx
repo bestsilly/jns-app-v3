@@ -49,16 +49,16 @@ const ContentWrapper = styled.div(
   `,
 )
 
-const BottomPlaceholder = styled.div(
-  ({ theme }) => css`
-    height: ${theme.space['14']};
-    ${mq.sm.min(
-      css`
-        height: ${theme.space['12']};
-      `,
-    )}
-  `,
-)
+// const BottomPlaceholder = styled.div(
+//   ({ theme }) => css`
+//     height: ${theme.space['14']};
+//     ${mq.sm.min(
+//       css`
+//         height: ${theme.space['12']};
+//       `,
+//     )}
+//   `,
+// )
 
 export const StyledFeedbackSVG = styled(FeedbackSVG)(() => css``)
 
@@ -116,10 +116,10 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
     <>
       <Navigation />
       <Container className="min-safe" style={{ position: 'relative' }}>
-        <ContentWrapper style={{ display: 'flex', justifyContent: 'center ' }}>
+        <ContentWrapper>
           {error ? <ErrorScreen errorType="application-error" /> : children}
         </ContentWrapper>
-        <BottomPlaceholder />
+        {/* <BottomPlaceholder /> */}
       </Container>
     </>
   )

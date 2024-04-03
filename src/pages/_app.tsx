@@ -5,10 +5,10 @@ import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { ReactElement, ReactNode } from 'react'
 import { I18nextProvider } from 'react-i18next'
-import { ThemeProvider, createGlobalStyle, keyframes } from 'styled-components'
+import { ThemeProvider, createGlobalStyle, css, keyframes } from 'styled-components'
 import { WagmiConfig } from 'wagmi'
 
-import { ThorinGlobalStyles, darkTheme as thorinDarkTheme } from '@ensdomains/thorin'
+import { ThorinGlobalStyles, mq, darkTheme as thorinDarkTheme } from '@ensdomains/thorin'
 
 import { Notifications } from '@app/components/Notifications'
 import { TransactionStoreProvider } from '@app/hooks/transactions/TransactionStoreContext'
@@ -37,6 +37,14 @@ const thorinGlobalTheme: typeof thorinDarkTheme = merge(thorinDarkTheme, {
     textSecondary: '#3e4042',
   },
 })
+
+const breakpoints = {
+  xs: '(min-width: 360px)',
+  sm: '(min-width: 640px)',
+  md: '(min-width: 768px)',
+  lg: '(min-width: 1024px)',
+  xl: '(min-width: 1280px)',
+}
 
 const rainbowKitTheme = merge(
   darkTheme({ accentColor: thorinGlobalTheme.colors.accent, borderRadius: 'medium' }),
@@ -90,8 +98,17 @@ const GlobalStyle = createGlobalStyle`
     background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(19,5,59,1) 100%);
   }
 
+
+
+  
   body, .min-safe {
-    min-height: calc(100vh);
+    
+    ${mq.sm.max(css`
+      min-height: calc(100vh);
+    `)}
+
+    min-height: calc(100vh - 80px);
+   
     /* stylelint-disable-next-line value-no-vendor-prefix */
     @supports (-webkit-touch-callout: none) {
       /* stylelint-disable-next-line value-no-vendor-prefix */
@@ -128,14 +145,6 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 `
-
-const breakpoints = {
-  xs: '(min-width: 360px)',
-  sm: '(min-width: 640px)',
-  md: '(min-width: 768px)',
-  lg: '(min-width: 1024px)',
-  xl: '(min-width: 1280px)',
-}
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode

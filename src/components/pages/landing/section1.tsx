@@ -157,6 +157,7 @@ const Container = styled.div(
     width: 100%;
     position: relative;
     z-index: 1;
+    min-height: calc(100vh - 80px - 64px);
   `,
 )
 
