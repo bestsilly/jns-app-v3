@@ -244,7 +244,9 @@ export const TransactionSection = () => {
                     onClick={() => setViewAmt((curr) => curr + 5)}
                     data-testid="transaction-view-more-button"
                   >
-                    <ViewMoreInner weight="bold">{tc('transaction.viewMore')}</ViewMoreInner>
+                    <ViewMoreInner weight="bold">
+                      <CustomTypography>{tc('transaction.viewMore')}</CustomTypography>
+                    </ViewMoreInner>
                   </TransactionContainer>
                 )}
               </>

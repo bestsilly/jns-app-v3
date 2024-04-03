@@ -102,9 +102,10 @@ const GlobalStyle = createGlobalStyle`
 
   
   body, .min-safe {
-    
+ 
     ${mq.sm.max(css`
       min-height: calc(100vh);
+      padding-bottom: 50px;
     `)}
 
     min-height: calc(100vh - 80px);

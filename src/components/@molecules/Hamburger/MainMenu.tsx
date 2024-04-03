@@ -2,7 +2,7 @@ import ISO6391 from 'iso-639-1'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { LanguageSVG, RightChevronSVG, Spinner, mq } from '@ensdomains/thorin'
+import { LanguageSVG, RightChevronSVG, Spinner, Typography, mq } from '@ensdomains/thorin'
 
 import SocialDiscord from '@app/assets/social/SocialDiscord.svg'
 import SocialDiscourse from '@app/assets/social/SocialDiscourse.svg'
@@ -219,13 +219,11 @@ const NetworkSection = () => {
     <NetworkSectionContainer>
       <NetworkSectionRow>
         {graphOutOfSync && <Spinner color="accent" />}
-        <CustomTypography id="chain-name" weight="bold" color="text">
+        <Typography id="chain-name" weight="bold" style={{ color: '#8a8a8a' }}>
           {chainName}
-        </CustomTypography>
+        </Typography>
         {gasPrice && (
-          <CustomTypography color="grey">
-            {makeDisplay(gasPrice, undefined, 'Gwei', 9)}
-          </CustomTypography>
+          <Typography color="grey">{makeDisplay(gasPrice, undefined, 'Gwei', 9)}</Typography>
         )}
       </NetworkSectionRow>
       {graphOutOfSync && (
