@@ -99,7 +99,9 @@ export const OptionButton = ({
   return (
     <Container type="button" disabled={disabled} $selected={selected} {...props}>
       <OptionIcon>{Icon}</OptionIcon>
-      <OptionLabel $uppercase={!_label}>{label === 'ETH' ? 'JFIN' : label}</OptionLabel>
+      <OptionLabel $uppercase={!_label}>
+        <span style={{ color: '#000000' }}>{label === 'ETH' ? 'JFIN' : label}</span>
+      </OptionLabel>
     </Container>
   )
 }

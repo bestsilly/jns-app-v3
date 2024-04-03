@@ -17,7 +17,7 @@ div[data-testid='dropdown-menu'] a:hover {
   color: #000 !important;
 }
 
-.modal form > div:first-child *,
-.modal div:last-child {
-  color: #f2f2f2 !important;
+/* .modal div:last-child form > div:first-child * */
+.modal div:last-child form > div > div:first-child {
+  color: #f2f2f2;
 }

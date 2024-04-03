@@ -2,24 +2,11 @@ import { useFieldArray, useFormContext, useFormState } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Dialog, ScrollBox, mq } from '@ensdomains/thorin'
+import { Button, Dialog, ScrollBox } from '@ensdomains/thorin'
 
 import type { EditRolesForm } from '../../EditRoles-flow'
 import { EditRolesFooter } from '../../components/EditRolesFooter'
 import { RoleCard } from './components/RoleCard'
-
-const HeadingWrapper = styled.div(({ theme }) => [
-  css`
-    width: calc(100% + 2 * ${theme.space['4']});
-    margin: 0 -${theme.space['4']};
-    padding-bottom: ${theme.space['4']};
-    border-bottom: 1px solid ${theme.colors.border};
-  `,
-  mq.sm.min(css`
-    width: calc(100% + 2 * ${theme.space['6']});
-    margin: 0 -${theme.space['6']};
-  `),
-])
 
 const StyledScrollBox = styled(ScrollBox)(
   ({ theme }) => css`
@@ -35,15 +22,6 @@ const ScrollBoxContent = styled.div(
     flex-direction: column;
     gap: ${theme.space[4]};
     padding: ${theme.space[4]} 0;
-  `,
-)
-
-const Content = styled.div(
-  () => css`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
   `,
 )
 
@@ -64,10 +42,8 @@ export const MainView = ({ onSelectIndex, onCancel, onSave }: Props) => {
   const isDirty = !!formState.dirtyFields?.roles?.some((role) => !!role.address)
 
   return (
-    <Content>
-      <HeadingWrapper>
-        <Dialog.Heading title="Edit roles" />
-      </HeadingWrapper>
+    <>
+      <Dialog.Heading title="Edit roles" />
       <StyledScrollBox hideDividers>
         <ScrollBoxContent>
           {roles.map((role, index) => (
@@ -93,6 +69,6 @@ export const MainView = ({ onSelectIndex, onCancel, onSave }: Props) => {
           </Button>
         }
       />
-    </Content>
+    </>
   )
 }
