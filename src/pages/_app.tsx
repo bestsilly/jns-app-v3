@@ -27,8 +27,9 @@ import '../styles.css'
 
 const thorinGlobalTheme: typeof thorinDarkTheme = merge(thorinDarkTheme, {
   colors: {
-    accentPrimary: '#5536ae',
+    accentPrimary: '#3c32bb',
     accent: '#3c32bb',
+    accentLight: '#4134eb',
     background: '#101112',
     backgroundPrimary: '#101112',
     backgroundSecondary: '#fff',

@@ -28,17 +28,19 @@ const Container = styled.button<{ $selected?: boolean }>(
 
     &:hover {
       background-color: ${theme.colors.backgroundSecondary};
-      color: ${theme.colors.textSecondary};
+      color: ${theme.colors.textPrimary};
       transform: translateY(-1px);
     }
 
     ${$selected &&
     css`
-      border-color: ${theme.colors.accent};
-      background-color: ${theme.colors.accentSurface};
+      border: 3px solid ${theme.colors.accent};
+
+      & > div span {
+        color: ${theme.colors.accent} !important;
+      }
 
       &:hover {
-        background-color: ${theme.colors.accentLight};
         color: ${theme.colors.textSecondary};
       }
     `}
