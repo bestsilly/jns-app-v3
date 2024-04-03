@@ -136,7 +136,8 @@ const Info = ({
   })
 
   const profile = JSON.parse(localStorage.getItem('profile') || 'null')
-  const isAllow = profile && profile.level !== 'BRONZE'
+  const isAllow = profile
+  // const isAllow = profile && profile.level !== 'BRONZE'
 
   const handleJoin = () => {
     if (isJoin) {
