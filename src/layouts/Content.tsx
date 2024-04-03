@@ -71,7 +71,8 @@ const ContentPlaceholder = styled.div(
 )
 
 const WarningWrapper = styled.div(
-  () => css`
+  ({ theme }) => css`
+    color: ${theme.colors.textSecondary};
     width: 100%;
     grid-column: span 1;
     height: min-content;
@@ -134,6 +135,14 @@ const Title = styled(Typography)(
       font-size: ${theme.fontSizes.headingTwo};
       line-height: ${theme.lineHeights.headingTwo};
     `)}
+  `,
+)
+
+const CustomBanner = styled(Banner)(
+  ({ theme }) => css`
+    div {
+      color: ${theme.colors.textPrimary} !important;
+    }
   `,
 )
 
@@ -262,14 +271,14 @@ export const Content = ({
   const warning = useContentWarning([children.warning])
   const WarningComponent = !loading && warning && (
     <WarningWrapper>
-      <Banner title={warning.title} alert={warning.type}>
+      <CustomBanner title={warning.title} alert={warning.type}>
         {warning.message}
-      </Banner>
+      </CustomBanner>
     </WarningWrapper>
   )
 
   const InfoComponent = !loading && children.info && (
-    <WarningWrapper>{children.info}</WarningWrapper>
+    <WarningWrapper>{children.info}fewfwefwe</WarningWrapper>
   )
 
   let LeadingComponent: ReactNode = children.leading ? (
