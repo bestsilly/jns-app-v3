@@ -31,7 +31,9 @@ const NameItemWrapper = styled.div<{ $highlight: boolean; $disabled: boolean }>(
       background: ${$highlight
         ? theme.colors.backgroundSecondary
         : theme.colors.backgroundSecondary};
-      color: ${theme.colors.textSecondary};
+      span {
+        color: ${theme.colors.textSecondary} !important;
+      }
     }
     &:last-of-type {
       border: none;
