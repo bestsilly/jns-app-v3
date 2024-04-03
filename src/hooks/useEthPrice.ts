@@ -7,10 +7,11 @@ import AggregatorInterface from '@ensdomains/ens-contracts/build/contracts/Aggre
 // import { useChainId } from '@app/hooks/useChainId'
 import { useEns } from '@app/utils/EnsProvider'
 import { useQueryKeys } from '@app/utils/cacheKeyFactory'
+import { CONTRACT_ADDRESSES } from '@app/utils/constants'
 
 // const ORACLE_ENS = 'eth-usd.data.eth'
 // const ORACLE_GOERLI = '0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e'
-const ORACLE_DUMMY = '0x1AB6637a8886170F51E9B091523cB597032F93fc'
+const ORACLE_DUMMY = CONTRACT_ADDRESSES.dummyOracle
 
 export const useEthPrice = () => {
   const provider = useProvider()
