@@ -7,6 +7,7 @@ import { Button, Dialog, mq } from '@ensdomains/thorin'
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
 import { Card } from '@app/components/Card'
 import { CustomHeading, CustomTypography } from '@app/components/customs'
+import { useChainId } from '@app/hooks/useChainId'
 import { useEstimateFullRegistration } from '@app/hooks/useEstimateRegistration'
 import { useJoin } from '@app/hooks/useJoin'
 import { useNameDetails } from '@app/hooks/useNameDetails'
@@ -115,6 +116,8 @@ const Info = ({
   onProfileClick,
 }: Props) => {
   const { t } = useTranslation('register')
+  const chainId = useChainId()
+  const isTestnet = chainId === 3502
 
   const estimate = useEstimateFullRegistration({
     name: normalisedName,
@@ -136,8 +139,7 @@ const Info = ({
   })
 
   const profile = JSON.parse(localStorage.getItem('profile') || 'null')
-  // const isAllow = profile && profile.level !== 'BRONZE'
-  const isAllow = profile
+  const isAllow = profile && isTestnet ? true : profile.level !== 'BRONZE'
 
   const handleJoin = () => {
     if (isJoin) {
