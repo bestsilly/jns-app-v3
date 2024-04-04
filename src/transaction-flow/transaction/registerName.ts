@@ -11,22 +11,22 @@ const displayItems = (
   { name, duration }: Data,
   t: TFunction<'translation', undefined>,
 ): TransactionDisplayItem[] => [
-    {
-      label: 'name',
-      value: name,
-      type: 'name',
-    },
-    {
-      label: 'action',
-      value: t('transaction.description.registerName'),
-    },
-    {
-      label: 'duration',
-      value: t(secondsToYears(duration) > 1 ? 'unit.years_other' : 'unit.years_one', {
-        count: secondsToYears(duration),
-      }),
-    },
-  ]
+  {
+    label: 'name',
+    value: name,
+    type: 'name',
+  },
+  {
+    label: 'action',
+    value: t('transaction.description.registerName'),
+  },
+  {
+    label: 'duration',
+    value: t(secondsToYears(duration) > 1 ? 'unit.years_other' : 'unit.years_one', {
+      count: secondsToYears(duration),
+    }),
+  },
+]
 
 const transaction = async (signer: JsonRpcSigner, ens: PublicENS, data: Data) => {
   const price = await ens.getPrice(data.name.split('.')[0], data.duration)
