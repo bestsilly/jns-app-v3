@@ -87,13 +87,6 @@ const LoadingContainer = styled(InnerDialog)(
   `,
 )
 
-const HeaderWrapper = styled.div(
-  ({ theme }) =>
-    css`
-      margin: 0 -${theme.space['4']};
-    `,
-)
-
 const ContentContainer = styled.form(({ theme }) => [
   css`
     width: 100%;
@@ -329,9 +322,7 @@ const SelectPrimaryName = ({ data: { address }, dispatch, onDismiss }: Props) =>
     />
   ) : (
     <>
-      <HeaderWrapper>
-        <Dialog.Heading title={t('input.selectPrimaryName.title')} />
-      </HeaderWrapper>
+      <Dialog.Heading title={t('input.selectPrimaryName.title')} />
       <ContentContainer ref={formRef} onSubmit={handleSubmit((data) => mutateName(data))}>
         <Divider />
         {showHeader && (

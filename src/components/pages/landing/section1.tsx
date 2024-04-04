@@ -173,7 +173,7 @@ export default function LandingSection1() {
             <span style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
               Your <StyleGradientTitle> web3 </StyleGradientTitle>
             </span>
-            <span>Experince</span>
+            <span>Experience</span>
           </Title>
           <SubtitleWrapper>
             <StyleDescription>{t('description')}</StyleDescription>
