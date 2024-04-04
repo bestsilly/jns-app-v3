@@ -170,7 +170,7 @@ const Transactions = ({ registrationData, nameDetails, callback, onStart }: Prop
 
   const makeRegisterNameFlow = () => {
     createTransactionFlow(registerKey, {
-      transactions: [makeTransactionItem('registerName', registrationParams)],
+      transactions: [makeTransactionItem('registerNameWithId', registrationParams)],
       requiresManualCleanup: true,
       autoClose: true,
       resumeLink: `/register/${nameDetails.normalisedName}`,

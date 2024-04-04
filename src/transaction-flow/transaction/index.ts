@@ -9,7 +9,7 @@ import importDNSSECName from './importDNSSECName'
 import migrateProfile from './migrateProfile'
 import migrateProfileWithEthAddress from './migrateProfileWithEthAddress'
 import migrateProfileWithReset from './migrateProfileWithReset'
-import registerName from './registerName'
+import registerNameWithId from './registerName'
 import resetPrimaryName from './resetPrimaryName'
 import resetProfile from './resetProfile'
 import resetProfileWithRecords from './resetProfileWithRecords'
@@ -38,7 +38,8 @@ export const transactions = {
   migrateProfile,
   migrateProfileWithEthAddress,
   migrateProfileWithReset,
-  registerName,
+  // registerName,
+  registerNameWithId,
   resetPrimaryName,
   resetProfile,
   resetProfileWithRecords,
