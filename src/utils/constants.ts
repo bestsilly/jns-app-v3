@@ -1,8 +1,8 @@
 import { EthAddress } from '@app/types'
 
 export const CONTRACT_ADDRESSES = {
-  publicResolver: '0x9E7f75493c2f9247BC178a8943A106B733B83DA0',
-  dummyOracle: '0xEab36A1fCaB6B61CE05063ff5637a2188e4a7E7E',
+  publicResolver: '0x9273d1417C3E45FCcC5A5b278ea7d2a08Af7Df8D',
+  dummyOracle: '0x8efefF1c45f8A86bC3Bf6Ea9517dFF9a34C3B0A9',
 }
 
 export const emptyAddress = '0x0000000000000000000000000000000000000000'
