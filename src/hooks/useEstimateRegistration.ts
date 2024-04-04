@@ -22,7 +22,7 @@ import useRegistrationParams from './useRegistrationParams'
 const gasLimitDictionary = {
   COMMIT: 42000,
   RENEW: 61818,
-  REGISTER: 265428,
+  REGISTER: 365428,
 }
 
 export type RegistrationProps = Omit<

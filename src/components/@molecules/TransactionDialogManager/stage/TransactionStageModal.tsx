@@ -307,7 +307,7 @@ export const transactionSuccessHandler =
 
 export const registrationGasFeeModifier = (gasLimit: BigNumber, transactionName: string) =>
   // this addition is arbitrary, something to do with a gas refund but not 100% sure
-  transactionName === 'registerName' ? gasLimit.add(1000000) : gasLimit
+  transactionName === 'registerNameWithId' ? gasLimit.add(1000000) : gasLimit
 
 export const calculateGasLimit = async ({
   isSafeApp,
