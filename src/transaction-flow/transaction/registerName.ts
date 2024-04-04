@@ -33,11 +33,17 @@ const transaction = async (signer: JsonRpcSigner, ens: PublicENS, data: Data) =>
   const value = price!.base.add(price!.premium)
   const valueWithBuffer = calculateValueWithBuffer(value)
 
-  return ens.registerName.populateTransaction(data.name, {
-    signer,
-    ...data,
-    value: valueWithBuffer,
-  })
+  if (typeof localStorage !== 'undefined') {
+    const profileData = localStorage.getItem('profile')
+    const profile = profileData ? JSON.parse(profileData) : {}
+
+    return ens.registerNameWithId.populateTransaction(data.name, {
+      signer,
+      ...data,
+      id: profile.id,
+      value: valueWithBuffer,
+    })
+  }
 }
 
 export default { displayItems, transaction } as Transaction<Data>

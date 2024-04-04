@@ -73,7 +73,7 @@
     "@ethersproject/transactions": "^5.7.0",
     "@ethersproject/units": "^5.7.0",
     "@ethersproject/web": "^5.7.1",
-    "@jfinchain/jnsjs": "3.0.0-alpha.65",
+    "@jfinchain/jnsjs": "^1.0.0",
     "@metamask/inpage-provider": "^8.1.0",
     "@metamask/mobile-provider": "^2.1.0",
     "@metamask/post-message-stream": "^6.1.2",
