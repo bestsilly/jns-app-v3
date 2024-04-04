@@ -234,7 +234,7 @@ const ExtendNames = ({ data: { names, isSelf }, dispatch, onDismiss }: Props) =>
     {
       label: t('input.extendNames.invoice.extension', { count: years }),
       value: totalRentFee,
-      bufferPercentage: 102,
+      bufferPercentage: 100,
     },
     {
       label: t('input.extendNames.invoice.transaction'),

@@ -527,7 +527,7 @@ const Pricing = ({
   const { hasPremium, premiumFee, gasPrice, yearlyFee, totalYearlyFee, estimatedGasFee } =
     fullEstimate
 
-  const yearlyRequiredBalance = totalYearlyFee?.mul(110).div(100)
+  const yearlyRequiredBalance = totalYearlyFee?.mul(100).div(100)
   const totalRequiredBalance = yearlyRequiredBalance?.add(premiumFee || 0).add(estimatedGasFee || 0)
 
   const showPaymentChoice = !isPrimaryLoading && address
