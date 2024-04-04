@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-import { Typography } from '@ensdomains/thorin'
-
+import { CustomTypography } from '@app/components/customs'
 import { GRACE_PERIOD } from '@app/utils/constants'
 import { formatDateTime, formatExpiry } from '@app/utils/utils'
 
@@ -15,9 +14,9 @@ export const GraceEndDate = ({ expiryDate }: { expiryDate: Date }) => {
 
   return (
     <DateLayout>
-      <Typography>{t('name.graceEnd')}</Typography>
-      <Typography>{formatExpiry(graceEndDate)}</Typography>
-      <Typography>{formatDateTime(graceEndDate)}</Typography>
+      <CustomTypography>{t('name.graceEnd')}</CustomTypography>
+      <CustomTypography>{formatExpiry(graceEndDate)}</CustomTypography>
+      <CustomTypography>{formatDateTime(graceEndDate)}</CustomTypography>
     </DateLayout>
   )
 }

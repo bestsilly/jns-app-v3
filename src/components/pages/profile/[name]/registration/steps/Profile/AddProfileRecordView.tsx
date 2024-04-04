@@ -7,6 +7,7 @@ import { Button, Dialog, Input, MagnifyingGlassSimpleSVG, ScrollBox, mq } from '
 
 import DismissDialogButton from '@app/components/@atoms/DismissDialogButton/DismissDialogButton'
 import { Spacer } from '@app/components/@atoms/Spacer'
+import { CustomHeading } from '@app/components/customs'
 import {
   ProfileRecord,
   ProfileRecordGroup,
@@ -291,7 +292,7 @@ export const AddProfileRecordView = ({ control, onAdd, onClose, showDismiss }: P
 
   return (
     <Container>
-      <Dialog.Heading title={t('steps.profile.addProfile')} />
+      <CustomHeading>{t('steps.profile.addProfile')}</CustomHeading>
       <Spacer $height="6" />
       <Input
         label=""

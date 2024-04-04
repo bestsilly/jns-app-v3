@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
-
 import { AvatarWithZorb } from '@app/components/AvatarWithZorb'
+import { CustomTypography } from '@app/components/customs'
 import { useChainId } from '@app/hooks/useChainId'
 import { usePrimary } from '@app/hooks/usePrimary'
 import { QuerySpace } from '@app/types'
@@ -68,14 +67,18 @@ export const AvatarWithIdentifier = ({
         {isTitleFullAddress ? (
           <AddressTitleContainer data-testid="avatar-label-title">{_title}</AddressTitleContainer>
         ) : (
-          <Typography fontVariant="bodyBold" ellipsis data-testid="avatar-label-title">
+          <CustomTypography fontVariant="bodyBold" ellipsis data-testid="avatar-label-title">
             {_title}
-          </Typography>
+          </CustomTypography>
         )}
         {_subtitle && (
-          <Typography fontVariant="extraSmall" color="grey" data-testid="avatar-label-subtitle">
+          <CustomTypography
+            fontVariant="extraSmall"
+            color="grey"
+            data-testid="avatar-label-subtitle"
+          >
             {_subtitle}
-          </Typography>
+          </CustomTypography>
         )}
       </TextContainer>
     </Container>

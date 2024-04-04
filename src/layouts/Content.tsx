@@ -2,11 +2,12 @@ import Head from 'next/head'
 import { ComponentProps, ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
 
-import { Banner, Button, Skeleton, Typography, mq } from '@ensdomains/thorin'
+import { Banner, Button, Skeleton, mq } from '@ensdomains/thorin'
 
 import Hamburger from '@app/components/@molecules/Hamburger/Hamburger'
 import { IconCopyAnimated } from '@app/components/IconCopyAnimated'
 import { LeadingHeading } from '@app/components/LeadingHeading'
+import { CustomTypography } from '@app/components/customs'
 import { useContentWarning } from '@app/hooks/useContentWarning'
 import { useCopied } from '@app/hooks/useCopied'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
@@ -71,8 +72,10 @@ const ContentPlaceholder = styled.div(
 )
 
 const WarningWrapper = styled.div(
-  () => css`
+  ({ theme }) => css`
+    color: ${theme.colors.textSecondary};
     width: 100%;
+    max-width: 48rem !important;
     grid-column: span 1;
     height: min-content;
     ${mq.sm.min(css`
@@ -122,7 +125,7 @@ const TitleWrapper = styled.div(
   `,
 )
 
-const Title = styled(Typography)(
+const Title = styled(CustomTypography)(
   ({ theme }) => css`
     font-size: ${theme.fontSizes.headingThree};
     line-height: ${theme.lineHeights.headingThree};
@@ -137,7 +140,15 @@ const Title = styled(Typography)(
   `,
 )
 
-const Subtitle = styled(Typography)(
+const CustomBanner = styled(Banner)(
+  ({ theme }) => css`
+    div {
+      color: ${theme.colors.textPrimary} !important;
+    }
+  `,
+)
+
+const Subtitle = styled(CustomTypography)(
   ({ theme }) => css`
     line-height: ${theme.lineHeights.body};
     color: ${theme.colors.greyPrimary};
@@ -262,14 +273,14 @@ export const Content = ({
   const warning = useContentWarning([children.warning])
   const WarningComponent = !loading && warning && (
     <WarningWrapper>
-      <Banner title={warning.title} alert={warning.type}>
+      <CustomBanner title={warning.title} alert={warning.type}>
         {warning.message}
-      </Banner>
+      </CustomBanner>
     </WarningWrapper>
   )
 
   const InfoComponent = !loading && children.info && (
-    <WarningWrapper>{children.info}</WarningWrapper>
+    <WarningWrapper>{children.info}fewfwefwe</WarningWrapper>
   )
 
   let LeadingComponent: ReactNode = children.leading ? (

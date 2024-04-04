@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { RightArrowSVG, Typography } from '@ensdomains/thorin'
+import { RightArrowSVG } from '@ensdomains/thorin'
 
 import { AvatarWithIdentifier } from '@app/components/@molecules/AvatarWithIdentifier/AvatarWithIdentifier'
+import { CustomTypography } from '@app/components/customs'
 import type { Role } from '@app/hooks/ownership/useRoles/useRoles'
 import { emptyAddress } from '@app/utils/constants'
 
@@ -17,7 +18,7 @@ const InfoContainer = styled.div(
   `,
 )
 
-const Title = styled(Typography)(
+const Title = styled(CustomTypography)(
   () => css`
     ::first-letter {
       text-transform: capitalize;
@@ -100,9 +101,9 @@ export const RoleCard = ({ address, role, dirty, onClick }: Props) => {
     <Container $dirty={dirty} data-testid={`role-card-${role}`}>
       <InfoContainer>
         <Title fontVariant="bodyBold">{t(`roles.${role}.title`, { ns: 'common' })}</Title>
-        <Typography fontVariant="small" color="grey">
+        <CustomTypography fontVariant="small" color="grey">
           {t(`roles.${role}.description`, { ns: 'common' })}
-        </Typography>
+        </CustomTypography>
       </InfoContainer>
       <Divider />
       <Footer data-testid="role-card-change-button" type="button" onClick={onClick}>
@@ -110,9 +111,9 @@ export const RoleCard = ({ address, role, dirty, onClick }: Props) => {
           <>
             <NoneSetAvatarWithIdentifier size="8" dirty={dirty} />
             <FooterRight>
-              <Typography fontVariant="bodyBold" color="accent">
+              <CustomTypography fontVariant="bodyBold" color="accent">
                 {t('action.add', { ns: 'common' })}
-              </Typography>
+              </CustomTypography>
               <RightArrowSVG />
             </FooterRight>
           </>
@@ -120,9 +121,9 @@ export const RoleCard = ({ address, role, dirty, onClick }: Props) => {
           <>
             <AvatarWithIdentifier address={address} size="8" />
             <FooterRight>
-              <Typography fontVariant="bodyBold" color="accent">
+              <CustomTypography fontVariant="bodyBold" color="accent">
                 {t('action.change', { ns: 'common' })}
-              </Typography>
+              </CustomTypography>
               <RightArrowSVG />
             </FooterRight>
           </>

@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
 import styled, { css } from 'styled-components'
 
-import { Colors, Skeleton } from '@ensdomains/thorin'
+import { Colors, Skeleton, Typography } from '@ensdomains/thorin'
 
 import { CurrencyDisplay } from '@app/types'
 
@@ -61,7 +61,7 @@ export const Invoice = ({ totalLabel = 'Estimated total', unit = 'eth', items }:
     <Container>
       {items.map(({ label, value, bufferPercentage, color }, inx) => (
         <LineItem data-testid={`invoice-item-${inx}`} $color={color} key={label}>
-          <div>{label}</div>
+          <Typography>{label}</Typography>
           <Skeleton loading={!value}>
             <div data-testid={`invoice-item-${inx}-amount`}>
               <CurrencyText
@@ -75,7 +75,7 @@ export const Invoice = ({ totalLabel = 'Estimated total', unit = 'eth', items }:
         </LineItem>
       ))}
       <Total>
-        <div>{totalLabel}</div>
+        <Typography>{totalLabel}</Typography>
         <Skeleton loading={hasEmptyItems}>
           <div data-testid="invoice-total">
             <CurrencyText eth={hasEmptyItems ? BigNumber.from(0) : total} currency={unit} />

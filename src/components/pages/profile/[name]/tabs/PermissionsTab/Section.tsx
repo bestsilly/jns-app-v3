@@ -1,7 +1,9 @@
 import { PropsWithChildren } from 'react'
 import styled, { css } from 'styled-components'
 
-import { DisabledSVG, InfoCircleSVG, Typography } from '@ensdomains/thorin'
+import { DisabledSVG, InfoCircleSVG } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 type Screen = 'desktop' | 'mobile'
 
@@ -122,9 +124,9 @@ const SectionListContainer = styled.div(
 export const SectionList = ({ title, children }: PropsWithChildren<SectionListProps>) => {
   return (
     <SectionListContainer>
-      <Typography fontVariant="smallBold" color="text">
+      <CustomTypography fontVariant="smallBold" color="text">
         {title}
-      </Typography>
+      </CustomTypography>
       <ul>{children}</ul>
     </SectionListContainer>
   )

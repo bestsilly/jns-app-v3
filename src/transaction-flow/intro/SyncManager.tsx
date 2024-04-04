@@ -1,11 +1,12 @@
 import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Helper, Typography } from '@ensdomains/thorin'
+import { Helper } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { shortenAddress } from '@app/utils/utils'
 
-const StyledTypography = styled(Typography)(
+const StyledTypography = styled(CustomTypography)(
   () => css`
     text-align: center;
   `,

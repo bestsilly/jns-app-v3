@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next'
 import useWindowSize from 'react-use/lib/useWindowSize'
 import styled, { css } from 'styled-components'
 
-import { Typography, mq } from '@ensdomains/thorin'
+import { mq } from '@ensdomains/thorin'
 
 import { Spacer } from '@app/components/@atoms/Spacer'
 import NFTTemplate from '@app/components/@molecules/NFTTemplate/NFTTemplate'
+import { CustomTypography } from '@app/components/customs'
 import { useRouterWithHistory } from '@app/hooks/useRouterWithHistory'
 
 import { ButtonContainer, CheckButton } from './shared'
@@ -29,7 +30,7 @@ const Container = styled.div`
   text-align: center;
 `
 
-const FunkyTypography = styled(Typography)`
+const FunkyTypography = styled(CustomTypography)`
   /* stylelint-disable */
   background: linear-gradient(330.4deg, #44bcf0 4.54%, #7298f8 59.2%, #a099ff 148.85%);
   -webkit-background-clip: text;
@@ -80,13 +81,15 @@ export const ClaimComplete = ({ name }: { name: string }) => {
         {name && <NFTTemplate backgroundImage={undefined} name={name} isNormalised />}
       </NFTTemplateContainer>
       <Spacer $height="5" />
-      <Typography fontVariant="headingFour">{t('claimComplete.title')}</Typography>{' '}
+      <CustomTypography fontVariant="headingFour">{t('claimComplete.title')}</CustomTypography>{' '}
       <DomainTextContainer>
-        <Typography fontVariant="extraLargeBold">{t('claimComplete.ownerOf')}</Typography>
+        <CustomTypography fontVariant="extraLargeBold">
+          {t('claimComplete.ownerOf')}
+        </CustomTypography>
         <FunkyTypography fontVariant="extraLargeBold">{name}</FunkyTypography>
       </DomainTextContainer>
       <Spacer $height="4" />
-      <Typography>{t('claimComplete.successMessage')}</Typography>
+      <CustomTypography>{t('claimComplete.successMessage')}</CustomTypography>
       <Spacer $height="5" />
       <ButtonContainer>
         <CheckButton

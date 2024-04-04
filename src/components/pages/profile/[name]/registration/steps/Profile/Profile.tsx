@@ -5,11 +5,12 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useAccount } from 'wagmi'
 
-import { Button, Dialog, PlusSVG, Typography, mq } from '@ensdomains/thorin'
+import { Button, Dialog, PlusSVG, mq } from '@ensdomains/thorin'
 
 import { ConfirmationDialogView } from '@app/components/@molecules/ConfirmationDialogView/ConfirmationDialogView'
 import { AvatarClickType } from '@app/components/@molecules/ProfileEditor/Avatar/AvatarButton'
 import { AvatarViewManager } from '@app/components/@molecules/ProfileEditor/Avatar/AvatarViewManager'
+import { CustomTypography } from '@app/components/customs'
 import { ProfileRecord } from '@app/constants/profileRecordOptions'
 import { useContractAddress } from '@app/hooks/useContractAddress'
 import { useLocalStorage } from '@app/hooks/useLocalStorage'
@@ -47,7 +48,7 @@ const StyledCard = styled.form(({ theme }) => [
   `),
 ])
 
-const CenterAlignedTypography = styled(Typography)(
+const CenterAlignedTypography = styled(CustomTypography)(
   ({ theme }) => css`
     text-align: center;
     color: ${theme.colors.textPrimary};

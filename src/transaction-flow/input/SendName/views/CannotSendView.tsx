@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Dialog, Typography } from '@ensdomains/thorin'
+import { Button, Dialog } from '@ensdomains/thorin'
 
-const CenteredTypography = styled(Typography)(
+import { CustomTypography } from '@app/components/customs'
+
+const CenteredTypography = styled(CustomTypography)(
   () => css`
     text-align: center;
   `,

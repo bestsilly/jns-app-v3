@@ -2,10 +2,11 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Spinner, Typography, mq } from '@ensdomains/thorin'
+import { Button, Spinner, mq } from '@ensdomains/thorin'
 
 import { Card } from '@app/components/Card'
 import { Outlink } from '@app/components/Outlink'
+import { CustomTypography } from '@app/components/customs'
 import { useClearRecentTransactions } from '@app/hooks/transactions/useClearRecentTransactions'
 import { useRecentTransactions } from '@app/hooks/transactions/useRecentTransactions'
 import { useChainName } from '@app/hooks/useChainName'
@@ -40,7 +41,7 @@ const TransactionSectionInner = styled.div(
   `,
 )
 
-const RecentTransactionsMessage = styled(Typography)(
+const RecentTransactionsMessage = styled(CustomTypography)(
   ({ theme }) => css`
     display: flex;
     justify-content: center;
@@ -111,7 +112,7 @@ const ContinueContainer = styled.div(({ theme }) => [
   `),
 ])
 
-const ViewMoreInner = styled(Typography)(
+const ViewMoreInner = styled(CustomTypography)(
   ({ theme }) => css`
     width: 100%;
     text-align: center;
@@ -216,9 +217,9 @@ export const TransactionSection = () => {
                           <Spinner data-testid="pending-spinner" color="accent" />
                         )}
                         <TransactionInfoContainer>
-                          <Typography weight="bold">{`${tc(
+                          <CustomTypography weight="bold">{`${tc(
                             `transaction.description.${action}`,
-                          )}${getTransactionExtraInfo(action, key)}`}</Typography>
+                          )}${getTransactionExtraInfo(action, key)}`}</CustomTypography>
                           <StyledOutlink
                             $error={status === 'failed'}
                             href={makeEtherscanLink(hash, chainName)}
@@ -243,7 +244,9 @@ export const TransactionSection = () => {
                     onClick={() => setViewAmt((curr) => curr + 5)}
                     data-testid="transaction-view-more-button"
                   >
-                    <ViewMoreInner weight="bold">{tc('transaction.viewMore')}</ViewMoreInner>
+                    <ViewMoreInner weight="bold">
+                      <CustomTypography>{tc('transaction.viewMore')}</CustomTypography>
+                    </ViewMoreInner>
                   </TransactionContainer>
                 )}
               </>

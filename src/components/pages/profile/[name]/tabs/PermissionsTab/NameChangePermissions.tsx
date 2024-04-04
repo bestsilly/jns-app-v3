@@ -2,8 +2,9 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Typography } from '@ensdomains/thorin'
+import { Button } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import type { useFusesStates } from '@app/hooks/fuses/useFusesStates'
 import type { useGetFusesSetDates } from '@app/hooks/fuses/useGetFusesSetDates'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
@@ -64,7 +65,7 @@ const PERMISSION_TRANSLATION_KEY: {
   },
 }
 
-const TypographyGreyDim = styled(Typography)(
+const TypographyGreyDim = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.greyDim};
   `,
@@ -153,35 +154,35 @@ export const NameChangePermissions = ({
     <Section>
       {permissions.unburned.map(({ translationKey, fuse }) => (
         <SectionItem key={fuse} icon="info" data-testid={`unburned-${fuse}`}>
-          <Typography fontVariant="bodyBold">
+          <CustomTypography fontVariant="bodyBold">
             {t(`tabs.permissions.nameChangePermissions.permissions.${translationKey}.label`)}
-          </Typography>
-          <Typography fontVariant="small">
+          </CustomTypography>
+          <CustomTypography fontVariant="small">
             {t(`tabs.permissions.nameChangePermissions.permissions.${translationKey}.description`, {
               owner: isParentLocked
                 ? t('tabs.permissions.role.owner')
                 : t('tabs.permissions.role.parent'),
             })}
-          </Typography>
+          </CustomTypography>
         </SectionItem>
       ))}
       {permissions.burned.map(({ translationKey, fuse }) => (
         <SectionItem key={fuse} icon="disabled" data-testid={`burned-${fuse}`}>
-          <Typography fontVariant="bodyBold">
+          <CustomTypography fontVariant="bodyBold">
             {t(`tabs.permissions.nameChangePermissions.permissions.${translationKey}.label`)}
-          </Typography>
+          </CustomTypography>
           {fusesSetDates[fuse] && (
             <TypographyGreyDim fontVariant="extraSmall">
               {t('tabs.permissions.revokedLabel', { date: fusesSetDates[fuse] })}
             </TypographyGreyDim>
           )}
-          <Typography fontVariant="small">
+          <CustomTypography fontVariant="small">
             {t(`tabs.permissions.nameChangePermissions.permissions.${translationKey}.description`, {
               owner: isParentLocked
                 ? t('tabs.permissions.role.owner')
                 : t('tabs.permissions.role.parent'),
             })}
-          </Typography>
+          </CustomTypography>
         </SectionItem>
       ))}
       {ButtonComponent && (

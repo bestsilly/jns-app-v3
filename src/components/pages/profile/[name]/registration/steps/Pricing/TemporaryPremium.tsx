@@ -12,10 +12,11 @@ import {
 import { useTranslation } from 'react-i18next'
 import styled, { DefaultTheme, css } from 'styled-components'
 
-import { Button, Dropdown, Helper, Input, Typography, mq } from '@ensdomains/thorin'
+import { Button, Dropdown, Helper, Input, mq } from '@ensdomains/thorin'
 
 import CalendarSVG from '@app/assets/Calendar.svg'
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
+import { CustomTypography } from '@app/components/customs'
 import useCurrentBlockTimestamp from '@app/hooks/useCurrentBlockTimestamp'
 import { useEthPrice } from '@app/hooks/useEthPrice'
 import { makeDisplay } from '@app/utils/currency'
@@ -195,8 +196,8 @@ const Tooltip = () => {
             <rect x="4" y="2" width="170" height="56" rx="8" fill="white" />
             <foreignObject x="4" y="2" width="170" height="56">
               <InnerTooltip>
-                <Typography />
-                <Typography />
+                <CustomTypography />
+                <CustomTypography />
               </InnerTooltip>
             </foreignObject>
           </g>
@@ -238,7 +239,7 @@ const inputStyle = ({ theme }: { theme: DefaultTheme }) => css`
   height: ${theme.space['11']};
 `
 
-const TimezoneText = styled(Typography)(
+const TimezoneText = styled(CustomTypography)(
   ({ theme }) => css`
     margin-top: -${theme.space['2']};
     color: ${theme.colors.textTertiary};
@@ -541,8 +542,8 @@ const TemporaryPremium = ({ startDate, name }: Props) => {
     <Helper style={{ overflow: 'hidden' }} type="info">
       <Container>
         <HeadingContainer>
-          <Typography weight="bold">{t('steps.pricing.premium.heading')}</Typography>
-          <Typography>{t('steps.pricing.premium.subheading')}</Typography>
+          <CustomTypography weight="bold">{t('steps.pricing.premium.heading')}</CustomTypography>
+          <CustomTypography>{t('steps.pricing.premium.subheading')}</CustomTypography>
         </HeadingContainer>
         <InputContainer>
           <Input

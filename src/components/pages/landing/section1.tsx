@@ -157,6 +157,7 @@ const Container = styled.div(
     width: 100%;
     position: relative;
     z-index: 1;
+    min-height: calc(100vh - 80px - 64px);
   `,
 )
 
@@ -172,7 +173,7 @@ export default function LandingSection1() {
             <span style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
               Your <StyleGradientTitle> web3 </StyleGradientTitle>
             </span>
-            <span>Experince</span>
+            <span>Experience</span>
           </Title>
           <SubtitleWrapper>
             <StyleDescription>{t('description')}</StyleDescription>

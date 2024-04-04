@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
-
 import { QuestionTooltip } from '@app/components/@molecules/QuestionTooltip/QuestionTooltip'
+import { CustomTypography } from '@app/components/customs'
 import { getSupportLink } from '@app/utils/supportLinks'
 
 export const Container = styled.div(
@@ -18,9 +17,9 @@ export const Header = () => {
   const { t } = useTranslation('profile')
   return (
     <Container>
-      <Typography fontVariant="headingFour">
+      <CustomTypography fontVariant="headingFour">
         {t('tabs.ownership.sections.contract.title')}
-      </Typography>
+      </CustomTypography>
       <QuestionTooltip
         content={t('tabs.ownership.sections.contract.tooltip')}
         link={getSupportLink('contract-address')}

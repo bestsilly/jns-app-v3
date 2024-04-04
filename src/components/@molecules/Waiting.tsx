@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components'
 
-import { Spinner, Typography } from '@ensdomains/thorin'
+import { Spinner } from '@ensdomains/thorin'
+
+import { CustomTypography } from '../customs'
 
 const WaitingContainer = styled.div(
   () => css`
@@ -34,8 +36,8 @@ export const Waiting = ({ title, subtitle }: { title: string; subtitle: string }
     <WaitingContainer data-testid="waiting-container">
       <StyledSpinner color="accent" />
       <WaitingTextContainer>
-        <Typography weight="bold">{title}</Typography>
-        <Typography>{subtitle}</Typography>
+        <CustomTypography weight="bold">{title}</CustomTypography>
+        <CustomTypography>{subtitle}</CustomTypography>
       </WaitingTextContainer>
     </WaitingContainer>
   )

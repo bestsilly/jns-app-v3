@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
-
 import ClockSVG from '@app/assets/Clock.svg'
+import { CustomTypography } from '@app/components/customs'
 import { secondsToDays, secondsToHours } from '@app/utils/utils'
 
 import { useBlockTimestamp } from '../../../hooks/useBlockTimestamp'
@@ -30,7 +29,7 @@ const ClockIcon = styled.div<{ $color: Color }>(
   `,
 )
 
-const ExpiryText = styled(Typography)<{
+const ExpiryText = styled(CustomTypography)<{
   $color: Color
 }>(
   ({ theme, $color }) => css`
@@ -129,19 +128,19 @@ export const ReadableExpiry = ({ expiry }: { expiry: Date }) => {
   return (
     <ExpiryWrapper>
       <ExpiryClock expiry={expiry} />
-      <Typography weight="bold" color="textSecondary">
+      <CustomTypography weight="bold" color="textSecondary">
         {`${expiry.toLocaleDateString(undefined, {
           month: 'short',
           day: 'numeric',
         })}, ${expiry.getFullYear()}`}
-      </Typography>
-      <Typography weight="bold" color="textTertiary">
+      </CustomTypography>
+      <CustomTypography weight="bold" color="textTertiary">
         {`at ${expiry.toLocaleTimeString(undefined, {
           hour: '2-digit',
           minute: '2-digit',
           timeZoneName: 'short',
         })}`}
-      </Typography>
+      </CustomTypography>
     </ExpiryWrapper>
   )
 }

@@ -11,8 +11,9 @@ import useTransition, { TransitionState } from 'react-transition-state'
 import styled, { css } from 'styled-components'
 import { useQueryClient } from 'wagmi'
 
-import { BackdropSurface, Portal, Typography, mq } from '@ensdomains/thorin'
+import { BackdropSurface, Portal, mq } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { useLocalStorage } from '@app/hooks/useLocalStorage'
 import { useRouterWithHistory } from '@app/hooks/useRouterWithHistory'
 import { ValidationResult, useValidate, validate } from '@app/hooks/useValidate'
@@ -110,7 +111,7 @@ const InputAndCancel = styled.div(
   `,
 )
 
-const CancelButton = styled(Typography)(
+const CancelButton = styled(CustomTypography)(
   ({ theme }) => css`
     padding: ${theme.space['3']};
   `,

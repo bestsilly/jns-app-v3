@@ -1,7 +1,9 @@
 import { ComponentProps, forwardRef } from 'react'
 import styled, { css } from 'styled-components'
 
-import { Toggle, Typography } from '@ensdomains/thorin'
+import { Toggle } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 const Container = styled.div(
   ({ theme }) => css`
@@ -41,8 +43,8 @@ export const DetailedSwitch = forwardRef<HTMLInputElement, Props>(
     return (
       <Container data-testid="detailed-switch">
         <ContentContainer>
-          {title && <Typography fontVariant="bodyBold">{title}</Typography>}{' '}
-          {description && <Typography fontVariant="small">{description}</Typography>}
+          {title && <CustomTypography fontVariant="bodyBold">{title}</CustomTypography>}{' '}
+          {description && <CustomTypography fontVariant="small">{description}</CustomTypography>}
         </ContentContainer>
         <StyledToggle ref={ref} {...toggleProps} size="large" />
       </Container>

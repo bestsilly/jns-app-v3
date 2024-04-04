@@ -3,11 +3,10 @@ import { ComponentProps } from 'react'
 import styled, { css } from 'styled-components'
 import type { UrlObject } from 'url'
 
-import { Typography } from '@ensdomains/thorin'
-
 import OutlinkSVG from '@app/assets/Outlink.svg'
 
 import BaseLink from './@atoms/BaseLink'
+import { CustomTypography } from './customs'
 
 export const StyledAnchor = styled.a(
   ({ theme }) => css`
@@ -29,7 +28,7 @@ const OutlinkIcon = styled.div(
   `,
 )
 
-export const OutlinkTypography = styled(Typography)(
+export const OutlinkTypography = styled(CustomTypography)(
   () => css`
     display: inline-block;
   `,

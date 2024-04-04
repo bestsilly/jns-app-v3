@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { Dialog } from '@ensdomains/thorin'
 
+import { CustomHeading } from '@app/components/customs'
 import { getSupportLink } from '@app/utils/supportLinks'
 
 import { CenterAlignedTypography } from '../components/CenterAlignedTypography'
@@ -21,7 +22,9 @@ export const RevokeWarningView = () => {
     <>
       <Dialog.Heading
         alert="error"
-        title={t('input.revokePermissions.views.revokeWarning.title')}
+        title={
+          <CustomHeading>{t('input.revokePermissions.views.revokeWarning.title')}</CustomHeading>
+        }
       />
       <CenterAlignedTypography fontVariant="bodyBold">
         {t('input.revokePermissions.views.revokeWarning.subtitle')}

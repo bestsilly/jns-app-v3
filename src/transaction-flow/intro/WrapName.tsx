@@ -1,10 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
-
 import { WrapNameGift } from '@app/assets/WrapNameGift'
 import { Outlink } from '@app/components/Outlink'
+import { CustomTypography } from '@app/components/customs'
 import { useNFTImage } from '@app/hooks/useAvatar'
 import { useChainId } from '@app/hooks/useChainId'
 import { getSupportLink } from '@app/utils/supportLinks'
@@ -16,7 +15,7 @@ const GiftWrapper = styled.div(
   `,
 )
 
-const DescriptionWrapper = styled(Typography)(
+const DescriptionWrapper = styled(CustomTypography)(
   ({ theme }) => css`
     display: inline;
     text-align: center;
@@ -38,14 +37,14 @@ export const WrapName = ({ name }: { name: string }) => {
         <WrapNameGift imageSrc={nftUrl.image || '/other/TemplateNFTImage.svg'} />
       </GiftWrapper>
       <DescriptionWrapper>
-        <Typography>
+        <CustomTypography>
           {t('details.wrap.description')}{' '}
           <span>
             <Outlink href={getSupportLink('nameWrapper')}>
               {t('action.learnMore', { ns: 'common' })}
             </Outlink>
           </span>
-        </Typography>
+        </CustomTypography>
       </DescriptionWrapper>
     </>
   )

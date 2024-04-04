@@ -2,8 +2,9 @@ import { TOptions } from 'i18next'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { OutlinkSVG, QuestionCircleSVG, Tooltip, Typography } from '@ensdomains/thorin'
+import { OutlinkSVG, QuestionCircleSVG, Tooltip } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { Role } from '@app/hooks/ownership/useRoles/useRoles'
 import { parentName } from '@app/utils/name'
 import { getSupportLink } from '@app/utils/supportLinks'
@@ -29,7 +30,7 @@ const Link = styled.a(
   `,
 )
 
-const RoleLabel = styled(Typography)(
+const RoleLabel = styled(CustomTypography)(
   () => css`
     ::first-letter {
       text-transform: uppercase;
@@ -67,14 +68,14 @@ export const RoleTag = ({
       content={
         <TooltipContent>
           <QuestionCircleSVG />
-          <Typography color="text" fontVariant="small">
+          <CustomTypography color="text" fontVariant="small">
             {t(`tabs.ownership.tooltips.${_role}`, tOptions)}
-          </Typography>
+          </CustomTypography>
           {link && (
             <Link href={link} target="_blank" rel="noreferrer noopener">
-              <Typography color="indigo" fontVariant="small">
+              <CustomTypography color="indigo" fontVariant="small">
                 {t('action.learnMore', { ns: 'common' })}
-              </Typography>
+              </CustomTypography>
               <OutlinkSVG />
             </Link>
           )}

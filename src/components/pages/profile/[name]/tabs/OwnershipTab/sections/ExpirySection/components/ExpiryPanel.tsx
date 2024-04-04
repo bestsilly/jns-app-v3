@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { OutlinkSVG, Typography, mq } from '@ensdomains/thorin'
+import { OutlinkSVG, mq } from '@ensdomains/thorin'
 
 import { QuestionTooltip } from '@app/components/@molecules/QuestionTooltip/QuestionTooltip'
+import { CustomTypography } from '@app/components/customs'
 import { safeDateObj } from '@app/utils/date'
 
 type Props = {
@@ -66,9 +67,9 @@ export const ExpiryPanel = ({ type, date, link, tooltip, supportLink }: Props) =
   return (
     <Container data-testid={`expiry-panel-${type}`} data-timestamp={timestamp}>
       <Header>
-        <Typography fontVariant="bodyBold" color="text">
+        <CustomTypography fontVariant="bodyBold" color="text">
           {t(`tabs.ownership.sections.expiry.panel.${type}.title`)}
-        </Typography>
+        </CustomTypography>
         {link && (
           <Link
             target="_blank"
@@ -76,23 +77,23 @@ export const ExpiryPanel = ({ type, date, link, tooltip, supportLink }: Props) =
             rel="noreferrer"
             data-testid="etherscan-registration-link"
           >
-            <Typography fontVariant="smallBold" color="accent">
+            <CustomTypography fontVariant="smallBold" color="accent">
               {t('action.view', { ns: 'common' })}
-            </Typography>
+            </CustomTypography>
             <OutlinkSVG />
           </Link>
         )}
         {tooltip && <QuestionTooltip content={tooltip} link={supportLink} />}
       </Header>
       <Body>
-        <Typography fontVariant="body" color="text">
+        <CustomTypography fontVariant="body" color="text">
           {_date?.toLocaleDateString(undefined, {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
           })}
-        </Typography>
-        <Typography fontVariant="small" color="grey">
+        </CustomTypography>
+        <CustomTypography fontVariant="small" color="grey">
           {_date?.toLocaleTimeString(undefined, {
             hour: 'numeric',
             minute: 'numeric',
@@ -100,7 +101,7 @@ export const ExpiryPanel = ({ type, date, link, tooltip, supportLink }: Props) =
             timeZoneName: 'short',
             hour12: false,
           })}
-        </Typography>
+        </CustomTypography>
       </Body>
     </Container>
   )

@@ -2,9 +2,10 @@ import { useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Typography } from '@ensdomains/thorin'
+import { Button } from '@ensdomains/thorin'
 
 import { StyledLink } from '@app/components/@atoms/StyledLink'
+import { CustomTypography } from '@app/components/customs'
 import type { useFusesStates } from '@app/hooks/fuses/useFusesStates'
 import type { useGetFusesSetDates } from '@app/hooks/fuses/useGetFusesSetDates'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
@@ -24,7 +25,7 @@ type Props = {
   fusesSetDates: FusesSetDates
 } & FusesStatus
 
-const TypographyGreyDim = styled(Typography)(
+const TypographyGreyDim = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.greyDim};
   `,
@@ -131,14 +132,14 @@ export const OwnershipPermissions = ({
     <Section>
       {ownershipStatus === 'parent-cannot-control' && (
         <SectionItem icon="disabled" data-testid="parent-cannot-control">
-          <Typography fontVariant="bodyBold">
+          <CustomTypography fontVariant="bodyBold">
             <Trans
               t={t}
               i18nKey="tabs.permissions.ownership.parentCannotControl.label"
               values={{ parent: parentName }}
               components={{ parentLink: <StyledLink href={`/${parentName}`} /> }}
             />
-          </Typography>
+          </CustomTypography>
           {fusesSetDates.PARENT_CANNOT_CONTROL && (
             <TypographyGreyDim fontVariant="extraSmall">
               {t('tabs.permissions.revokedLabel', {
@@ -146,9 +147,9 @@ export const OwnershipPermissions = ({
               })}
             </TypographyGreyDim>
           )}
-          <Typography fontVariant="small">
+          <CustomTypography fontVariant="small">
             {t('tabs.permissions.ownership.parentCannotControl.sublabel')}
-          </Typography>
+          </CustomTypography>
           <SectionList title={t('tabs.permissions.ownership.parentCannotControl.list.title')}>
             <li>
               {t('tabs.permissions.ownership.parentCannotControl.list.item1', {
@@ -166,14 +167,14 @@ export const OwnershipPermissions = ({
       )}
       {ownershipStatus === 'parent-can-control' && (
         <SectionItem icon="info" data-testid="parent-can-control">
-          <Typography fontVariant="bodyBold">
+          <CustomTypography fontVariant="bodyBold">
             <Trans
               t={t}
               i18nKey="tabs.permissions.ownership.parentCanControl.label"
               values={{ parent: parentName }}
               components={{ parentLink: <StyledLink href={`/${parentName}`} /> }}
             />
-          </Typography>
+          </CustomTypography>
           <SectionList title={t('tabs.permissions.ownership.parentCanControl.list.title')}>
             <li>{t('tabs.permissions.ownership.parentCanControl.list.item1')}</li>
             <li>{t('tabs.permissions.ownership.parentCanControl.list.item2')}</li>
@@ -183,9 +184,9 @@ export const OwnershipPermissions = ({
       )}
       {editorStatus === 'owner-can-change-permissions' && (
         <SectionItem icon="info" data-testid="owner-can-change-permissions">
-          <Typography fontVariant="bodyBold">
+          <CustomTypography fontVariant="bodyBold">
             {t('tabs.permissions.ownership.ownerCanChange.label')}
-          </Typography>
+          </CustomTypography>
           <SectionList title={t('tabs.permissions.ownership.ownerCanChange.list.title')}>
             <li>{t('tabs.permissions.ownership.ownerCanChange.list.item1')}</li>
             <li>{t('tabs.permissions.ownership.ownerCanChange.list.item2')}</li>
@@ -194,9 +195,9 @@ export const OwnershipPermissions = ({
       )}
       {editorStatus === 'owner-cannot-change-permissions' && (
         <SectionItem icon="disabled" data-testid="owner-cannot-change-permissions">
-          <Typography fontVariant="bodyBold">
+          <CustomTypography fontVariant="bodyBold">
             {t('tabs.permissions.ownership.ownerCannotChange.label')}
-          </Typography>
+          </CustomTypography>
           {fusesSetDates.CANNOT_BURN_FUSES && (
             <TypographyGreyDim fontVariant="extraSmall">
               {t('tabs.permissions.revokedLabel', { date: fusesSetDates.CANNOT_BURN_FUSES })}
@@ -210,14 +211,14 @@ export const OwnershipPermissions = ({
       )}
       {editorStatus === 'parent-can-change-permissions' && (
         <SectionItem icon="info" data-testid="parent-can-change-permissions">
-          <Typography fontVariant="bodyBold">
+          <CustomTypography fontVariant="bodyBold">
             <Trans
               t={t}
               i18nKey="tabs.permissions.ownership.parentCanChange.label"
               values={{ parent: parentName }}
               components={{ parentLink: <StyledLink href={`/${parentName}`} /> }}
             />
-          </Typography>
+          </CustomTypography>
           <SectionList title={t('tabs.permissions.ownership.parentCanChange.list.title')}>
             <li>{t('tabs.permissions.ownership.parentCanChange.list.item1')}</li>
             <li>{t('tabs.permissions.ownership.parentCanChange.list.item2')}</li>

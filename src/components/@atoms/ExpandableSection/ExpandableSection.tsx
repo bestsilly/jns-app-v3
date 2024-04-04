@@ -2,7 +2,9 @@ import { PropsWithChildren, useRef, useState } from 'react'
 import { TransitionState, useTransition } from 'react-transition-state'
 import styled, { css } from 'styled-components'
 
-import { DownChevronSVG, Typography } from '@ensdomains/thorin'
+import { DownChevronSVG } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 const Container = styled.div(
   ({ theme }) => css`
@@ -103,7 +105,7 @@ export const ExpandableSection = ({ title, children }: PropsWithChildren<Props>)
   return (
     <Container>
       <Header type="button" onClick={() => toggle()}>
-        <Typography>{title}</Typography>
+        <CustomTypography>{title}</CustomTypography>
         <IconWrapper $open={open}>
           <DownChevronSVG />
         </IconWrapper>

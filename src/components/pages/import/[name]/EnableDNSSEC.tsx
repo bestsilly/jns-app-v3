@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { Helper, Typography } from '@ensdomains/thorin'
+import { Helper } from '@ensdomains/thorin'
 
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { Outlink } from '@app/components/Outlink'
+import { CustomTypography } from '@app/components/customs'
 
 import { Steps } from './Steps'
 import { AlignedDropdown, ButtonContainer, CheckButton } from './shared'
@@ -86,11 +87,11 @@ export const EnableDNSSEC = ({
 
   return (
     <Container>
-      <Typography fontVariant="extraLargeBold">{t('enableDNSSEC.title')}</Typography>
+      <CustomTypography fontVariant="extraLargeBold">{t('enableDNSSEC.title')}</CustomTypography>
       <Spacer $height="4" />
-      <Typography>{t('enableDNSSEC.instruction')}</Typography>
+      <CustomTypography>{t('enableDNSSEC.instruction')}</CustomTypography>
       <Spacer $height="3" />
-      <Typography>{t('enableDNSSEC.registrarHelp')}</Typography>
+      <CustomTypography>{t('enableDNSSEC.registrarHelp')}</CustomTypography>
       <Spacer $height="5" />
       <AlignedDropdown
         width={200}

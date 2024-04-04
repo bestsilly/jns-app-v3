@@ -3,20 +3,12 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useAccount } from 'wagmi'
 
-import {
-  AlertSVG,
-  Button,
-  CountdownCircle,
-  Dialog,
-  Heading,
-  Spinner,
-  Typography,
-  mq,
-} from '@ensdomains/thorin'
+import { AlertSVG, Button, CountdownCircle, Dialog, Spinner, mq } from '@ensdomains/thorin'
 
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
 import { Card } from '@app/components/Card'
+import { CustomHeading, CustomTypography } from '@app/components/customs'
 import { useNameDetails } from '@app/hooks/useNameDetails'
 import useRegistrationParams from '@app/hooks/useRegistrationParams'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
@@ -75,7 +67,7 @@ const StyledCountdown = styled(CountdownCircle)(
   `,
 )
 
-const DialogTitle = styled(Typography)(
+const DialogTitle = styled(CustomTypography)(
   ({ theme }) => css`
     font-size: ${theme.fontSizes.headingThree};
     font-weight: bold;
@@ -105,7 +97,7 @@ const DialogHeading = styled.div(
   `,
 )
 
-const DialogContent = styled(Typography)(
+const DialogContent = styled(CustomTypography)(
   () => css`
     text-align: center;
   `,
@@ -323,7 +315,7 @@ const Transactions = ({ registrationData, nameDetails, callback, onStart }: Prop
           />
         </InnerDialog>
       </Dialog>
-      <Heading>{t('steps.transactions.heading')}</Heading>
+      <CustomHeading>{t('steps.transactions.heading')}</CustomHeading>
       <StyledCountdown
         countdownSeconds={60}
         disabled={!commitTimestamp}
@@ -331,7 +323,7 @@ const Transactions = ({ registrationData, nameDetails, callback, onStart }: Prop
         size="large"
         callback={() => setCommitComplete(true)}
       />
-      <Typography>{t('steps.transactions.subheading')}</Typography>
+      <CustomTypography>{t('steps.transactions.subheading')}</CustomTypography>
       <ButtonContainer>
         {BackButton}
         {ActionButton}

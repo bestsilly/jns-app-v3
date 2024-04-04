@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Dialog, OutlinkSVG, QuestionSVG, Typography } from '@ensdomains/thorin'
+import { Button, Dialog, OutlinkSVG, QuestionSVG } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { getSupportLink } from '@app/utils/supportLinks'
 
-const CenteredTypography = styled(Typography)(
+const CenteredTypography = styled(CustomTypography)(
   () => css`
     text-align: center;
   `,
@@ -68,9 +69,9 @@ export const ConfirmationView = ({ onConfirm, onBack }: Props) => {
           <IconWrapper>
             <QuestionSVG />
           </IconWrapper>
-          <Typography fontVariant="body" color="indigo">
+          <CustomTypography fontVariant="body" color="indigo">
             {t('input.sendName.views.confirmation.learnMore')}
-          </Typography>
+          </CustomTypography>
           <OutlinkWrapper as={OutlinkSVG} />
         </Link>
       )}
