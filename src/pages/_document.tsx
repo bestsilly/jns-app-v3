@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-title-in-document-head */
 import { AppPropsType, AppType } from 'next/dist/shared/lib/utils'
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
