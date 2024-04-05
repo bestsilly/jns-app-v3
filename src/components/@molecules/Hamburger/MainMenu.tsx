@@ -4,13 +4,10 @@ import styled, { css } from 'styled-components'
 import { Spinner, Typography, mq } from '@ensdomains/thorin'
 
 import SocialDiscord from '@app/assets/social/SocialDiscord.svg'
-import SocialDiscourse from '@app/assets/social/SocialDiscourse.svg'
-import SocialDiscourseColour from '@app/assets/social/SocialDiscourseColour.svg'
+import SocialFacebook from '@app/assets/social/SocialFacebook.svg'
 import SocialGithub from '@app/assets/social/SocialGithub.svg'
-import SocialMirror from '@app/assets/social/SocialMirror.svg'
-import SocialMirrorColour from '@app/assets/social/SocialMirrorColour.svg'
+import SocialTelegram from '@app/assets/social/SocialTelegram.svg'
 import SocialTwitter from '@app/assets/social/SocialTwitter.svg'
-import SocialYoutube from '@app/assets/social/SocialYoutube.svg'
 import BaseLink from '@app/components/@atoms/BaseLink'
 import { SocialIcon } from '@app/components/SocialIcon'
 import { CustomTypography } from '@app/components/customs'
@@ -178,23 +175,35 @@ const MainMenu = ({ setCurrentView }: { setCurrentView: (view: 'main' | 'languag
         ))}
       </RoutesSection>
       <SocialSection>
-        <SocialIcon Icon={SocialTwitter} color="#5298FF" href="https://twitter.com/ensdomains" />
-        <SocialIcon Icon={SocialGithub} color="#0F0F0F" href="https://github.com/ensdomains" />
-        <SocialIcon Icon={SocialDiscord} color="#7F83FF" href="https://chat.ens.domains" />
         <SocialIcon
-          Icon={SocialMirror}
-          ColoredIcon={SocialMirrorColour}
-          href="https://ens.mirror.xyz"
+          Icon={SocialTwitter}
+          key="twitter"
+          color="#5298FF"
+          href="https://twitter.com/JFinofficial"
         />
         <SocialIcon
-          Icon={SocialDiscourse}
-          ColoredIcon={SocialDiscourseColour}
-          href="https://discuss.ens.domains/"
+          Icon={SocialGithub}
+          key="git"
+          color="#f2f2f2"
+          href="https://github.com/jfincoin"
         />
         <SocialIcon
-          Icon={SocialYoutube}
-          color="#EE1919"
-          href="https://www.youtube.com/ensdomains"
+          Icon={SocialDiscord}
+          key="discord"
+          color="#7F83FF"
+          href="https://discord.com/invite/kyuEAa69Su"
+        />
+        <SocialIcon
+          Icon={SocialFacebook}
+          color="#1877F2"
+          key="facebook"
+          href="https://www.facebook.com/JFINofficial"
+        />
+        <SocialIcon
+          Icon={SocialTelegram}
+          key="telegram"
+          color="#24A1DE"
+          href="https://t.me/Jfincoin"
         />
       </SocialSection>
       <NetworkSection />
