@@ -9,6 +9,7 @@ import CropBorderSVG from '@app/assets/CropBorder.svg'
 import CropFrameSVG from '@app/assets/CropFrame.svg'
 import MinusCircleSVG from '@app/assets/MinusCircle.svg'
 import PlusCircleSVG from '@app/assets/PlusCircle.svg'
+import { CustomTypography } from '@app/components/customs'
 import useDebouncedCallback from '@app/hooks/useDebouncedCallback'
 import { calcMomentum, getVars } from '@app/utils/avatarUpload'
 
@@ -406,7 +407,9 @@ export const CropComponent = ({
             </ImageContainer>
           </ImageWrapper>
           <SliderContainer>
-            <MinusCircleSVG />
+            <CustomTypography>
+              <MinusCircleSVG />
+            </CustomTypography>
             <Slider
               label="zoom"
               hideLabel
@@ -415,7 +418,9 @@ export const CropComponent = ({
               min={100}
               max={200}
             />
-            <PlusCircleSVG />
+            <CustomTypography>
+              <PlusCircleSVG />
+            </CustomTypography>
           </SliderContainer>
         </EditImageContainer>
       </AvatarScrollBox>
