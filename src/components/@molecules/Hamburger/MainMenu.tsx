@@ -1,8 +1,7 @@
-import ISO6391 from 'iso-639-1'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { LanguageSVG, RightChevronSVG, Spinner, Typography, mq } from '@ensdomains/thorin'
+import { Spinner, Typography, mq } from '@ensdomains/thorin'
 
 import SocialDiscord from '@app/assets/social/SocialDiscord.svg'
 import SocialDiscourse from '@app/assets/social/SocialDiscourse.svg'
@@ -44,82 +43,6 @@ const Container = styled.div(
         border-bottom: none;
       }
     `)}
-  `,
-)
-
-const SettingsSection = styled.div(
-  ({ theme }) => css`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    padding: 0;
-    margin-bottom: ${theme.space['2']};
-    gap: ${theme.space['2']};
-
-    ${mq.sm.min(css`
-      padding: ${theme.space['2']};
-      margin: 0;
-      gap: 0;
-    `)}
-  `,
-)
-
-const SettingsItem = styled.div(
-  ({ theme }) => css`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: ${theme.space['4']};
-    height: ${theme.space['13']};
-
-    border-radius: ${theme.radii.large};
-    border: 1px solid ${theme.colors.border};
-
-    & > div:first-child {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-      gap: ${theme.space['2']};
-
-      svg {
-        display: block;
-      }
-    }
-
-    ${mq.sm.min(css`
-      border: none;
-    `)}
-  `,
-)
-
-const HoverableSettingsItem = styled(SettingsItem)(
-  ({ theme }) => css`
-    transition: all 0.1s ease-in-out;
-    cursor: pointer;
-
-    & > div:last-child {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-end;
-      gap: ${theme.space['1']};
-
-      svg {
-        width: ${theme.space['3']};
-        height: ${theme.space['3']};
-        display: block;
-      }
-    }
-
-    &:hover {
-      background-color: ${theme.colors.greySurface};
-      color: ${theme.colors.textSecondary};
-    }
   `,
 )
 
@@ -239,26 +162,12 @@ const disconnectedRoutes = routes.filter(
   (route) => route.name !== 'search' && route.connected === false,
 )
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const MainMenu = ({ setCurrentView }: { setCurrentView: (view: 'main' | 'language') => void }) => {
-  const { t, i18n } = useTranslation('common')
-  const language = i18n.resolvedLanguage || 'en'
+  const { t } = useTranslation('common')
 
   return (
     <Container>
-      <SettingsSection>
-        <HoverableSettingsItem onClick={() => setCurrentView('language')}>
-          <div>
-            <LanguageSVG />
-            <CustomTypography weight="bold">{t('navigation.language')}</CustomTypography>
-          </div>
-          <div>
-            <CustomTypography>
-              {ISO6391.getNativeName(language)} ({language.toLocaleUpperCase()})
-            </CustomTypography>
-            <RightChevronSVG />
-          </div>
-        </HoverableSettingsItem>
-      </SettingsSection>
       <RoutesSection>
         {disconnectedRoutes.map((route) => (
           <BaseLink href={route.href} passHref key={route.href}>
