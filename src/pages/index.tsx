@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import styled, { css } from 'styled-components'
 
 import { mq } from '@ensdomains/thorin'
@@ -41,9 +40,6 @@ export default function Page() {
   return (
     <>
       <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
-        <Head>
-          <title>JNS</title>
-        </Head>
         <StyledLeadingHeading>
           <LogoAndLanguage>
             <StyledENS as={ENSFull} />
