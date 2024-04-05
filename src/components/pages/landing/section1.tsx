@@ -36,6 +36,14 @@ const Title = styled.h1(
   `,
 )
 
+const BackgroundContainer = styled.div(
+  () => css`
+    ${mq.sm.max(css`
+      display: none;
+    `)}
+  `,
+)
+
 const GradientTitle = styled.h1(
   ({ theme }) => css`
     font-size: ${theme.fontSizes.headingTwo};
@@ -189,16 +197,18 @@ export default function LandingSection1() {
         </Stack>
       </Container>
 
-      <Background>
-        <Background01 width="100%" height="70%" />
-      </Background>
+      <BackgroundContainer>
+        <Background>
+          <Background01 width="100%" height="70%" />
+        </Background>
 
-      <BackgroundObject1>
-        <Object01 width="100%" height="100%" />
-      </BackgroundObject1>
-      <BackgroundObject2>
-        <Object02 width="100%" height="100%" />
-      </BackgroundObject2>
+        <BackgroundObject1>
+          <Object01 width="100%" height="100%" />
+        </BackgroundObject1>
+        <BackgroundObject2>
+          <Object02 width="100%" height="100%" />
+        </BackgroundObject2>
+      </BackgroundContainer>
     </div>
   )
 }
