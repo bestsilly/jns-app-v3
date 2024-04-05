@@ -191,9 +191,9 @@ export default function LandingSection1() {
           <SearchInput size="medium" />
           <StyledSearchTitle>Find Your Secure Wallet Name</StyledSearchTitle>
 
-          <div style={{ color: '#B6B6BE', textAlign: 'center' }}>
+          {/* <div style={{ color: '#B6B6BE', textAlign: 'center' }}>
             Promotion Fixed price regardless of name length{' '}
-          </div>
+          </div> */}
         </Stack>
       </Container>
 
