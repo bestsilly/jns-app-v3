@@ -407,7 +407,7 @@ export const CropComponent = ({
             </ImageContainer>
           </ImageWrapper>
           <SliderContainer>
-            <CustomTypography>
+            <CustomTypography style={{ width: '20px', height: '20px' }}>
               <MinusCircleSVG />
             </CustomTypography>
             <Slider
@@ -418,7 +418,7 @@ export const CropComponent = ({
               min={100}
               max={200}
             />
-            <CustomTypography>
+            <CustomTypography style={{ width: '20px', height: '20px' }}>
               <PlusCircleSVG />
             </CustomTypography>
           </SliderContainer>
