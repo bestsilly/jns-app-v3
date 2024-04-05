@@ -249,7 +249,7 @@ const Hamburger = () => {
           isOpen={isOpen}
           anchorRef={btnRef}
           popover={
-            <DesktopDropdownCard ref={containerRef} style={{ height: height || undefined }}>
+            <DesktopDropdownCard ref={containerRef} style={{ height: 'auto' }}>
               {componentWithAnimation}
             </DesktopDropdownCard>
           }
