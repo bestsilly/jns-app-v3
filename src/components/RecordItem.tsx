@@ -26,6 +26,7 @@ const RecordItem = ({
       data-testid={
         itemKey ? `name-details-${type}-${itemKey.toLowerCase()}` : `name-details-${type}`
       }
+      id="record-item"
     >
       {value}
     </ThorinRecordItem>
