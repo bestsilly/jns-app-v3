@@ -177,11 +177,11 @@ export default function LandingSection1() {
       <Container>
         <Stack style={{ marginTop: '3rem' }}>
           <Title>
-            <span>Secure</span>
+            <span>Personalize</span>
             <span style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
               Your <StyleGradientTitle> web3 </StyleGradientTitle>
             </span>
-            <span>Experience</span>
+            <span>Identity</span>
           </Title>
           <SubtitleWrapper>
             <StyleDescription>{t('description')}</StyleDescription>
@@ -189,7 +189,7 @@ export default function LandingSection1() {
 
           <div style={{ marginTop: '3rem' }} />
           <SearchInput size="medium" />
-          <StyledSearchTitle>Find Your Secure Wallet Name</StyledSearchTitle>
+          <StyledSearchTitle>Find Your Personalize Wallet Name</StyledSearchTitle>
 
           {/* <div style={{ color: '#B6B6BE', textAlign: 'center' }}>
             Promotion Fixed price regardless of name length{' '}
