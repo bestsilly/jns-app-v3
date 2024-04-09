@@ -42,9 +42,11 @@ export const useJoin = () => {
     window.location.replace((result as any).url)
   }
 
-  const logout = () => {
+  const logout = (callback: () => void) => {
     localStorage.removeItem('sessionId')
     localStorage.removeItem('profile')
+
+    callback()
   }
 
   const getProfile = async () => {

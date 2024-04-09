@@ -103,6 +103,7 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
       const fetchData = async () => {
         const result: any = await getProfile()
         localStorage.setItem('profile', JSON.stringify(result.data))
+        window.dispatchEvent(new Event('storage'))
         window.history.replaceState({}, document.title, window.location.pathname)
       }
 
