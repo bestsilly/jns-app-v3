@@ -45,13 +45,12 @@ const Container = styled.div(
 
 const miscSectionStyle = css(
   ({ theme }) => css`
-    background-color: ${theme.colors.greySurface};
     color: ${theme.colors.textSecondary};
     border-radius: ${theme.radii.large};
-
+    border: 1px solid ${theme.colors.border};
     ${mq.sm.min(css`
-      background-color: transparent;
       border-radius: none;
+      border: none;
     `)}
   `,
 )
