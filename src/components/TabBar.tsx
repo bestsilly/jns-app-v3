@@ -3,12 +3,14 @@ import { useRouter } from 'next/router'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 
-import { CrossSVG, LeftChevronSVG, PersonSVG, mq } from '@ensdomains/thorin'
+import { Button, CrossSVG, Dialog, LeftChevronSVG, PersonSVG, mq } from '@ensdomains/thorin'
 
+import JoinIcon from '@app/../public/icon/JoinIcon.png'
 import useHasPendingTransactions from '@app/hooks/transactions/useHasPendingTransactions'
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import { useAvatar } from '@app/hooks/useAvatar'
 import { useChainId } from '@app/hooks/useChainId'
+import { useJoin } from '@app/hooks/useJoin'
 import { usePrimary } from '@app/hooks/usePrimary'
 import { useZorb } from '@app/hooks/useZorb'
 import { getDestination, getRoute, legacyFavouritesRoute } from '@app/routes'
@@ -45,6 +47,24 @@ const AvatarWrapper = styled.div(
     width: ${theme.space['10']};
     height: ${theme.space['10']};
     background-color: rgba(196, 196, 196, 1);
+    border-radius: ${theme.radii.full};
+
+    img {
+      width: ${theme.space['10']};
+      height: ${theme.space['10']};
+    }
+  `,
+)
+
+const JoinAvatarWrapper = styled.div(
+  ({ theme }) => css`
+    position: relative;
+    overflow: hidden;
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center horizontally */
+    min-width: ${theme.space['8']};
+    width: ${theme.space['8']};
+    height: ${theme.space['8']};
     border-radius: ${theme.radii.full};
 
     img {
@@ -185,29 +205,97 @@ const TabBarProfile = ({
   const { avatar } = useAvatar(name, chainId)
   const zorb = useZorb(address, 'address')
   const hasPendingTransactions = useHasPendingTransactions()
+  const [isJoin, setIsJoin] = useState(false)
+  const [joinModalOpen, setJoinModalOpen] = useState(false)
+  const { login, logout } = useJoin()
+  const [profile, setProfile] = useState(null) as any
+
+  const handleStorageChange = () => {
+    if (!localStorage.getItem('sessionId')) {
+      setIsJoin(false)
+    } else {
+      setIsJoin(true)
+      const profileData = localStorage.getItem('profile')
+      setProfile(profileData ? JSON.parse(profileData) : {})
+    }
+  }
+
+  useEffect(() => {
+    handleStorageChange()
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('storage', handleStorageChange)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+    }
+  }, [])
 
   return (
-    <ExtraNavWrapper $isOpen={isOpen}>
-      <AvatarWrapper onClick={() => setIsOpen((prev) => !prev)}>
-        <ArrowOverlay as={CrossSVG} $isOpen={isOpen} />
-        {avatar ? (
-          <img loading="eager" decoding="sync" alt="avatar" src={avatar} />
-        ) : (
+    <>
+      <Dialog
+        leading={
+          <Button
+            colorStyle="accentSecondary"
+            onClick={() => {
+              if (isJoin) {
+                logout(handleStorageChange)
+              } else {
+                login()
+              }
+            }}
+          >
+            {isJoin ? 'Logout Join' : 'Connect Join'}
+          </Button>
+        }
+        open={joinModalOpen}
+        variant="actionable"
+        onDismiss={() => setJoinModalOpen(false)}
+        onClose={() => setJoinModalOpen(false)}
+      >
+        {isJoin && (
           <>
-            <ArrowOverlay as={PersonSVG} $isOpen={!isOpen} />
-            <img loading="eager" decoding="sync" alt="zorb" src={zorb} />
+            <img
+              alt="joinIconMobile"
+              src={JoinIcon.src}
+              style={{ width: '30px', height: '30px' }}
+            />
+            <span>{profile?.contactNumber || ''}</span>
           </>
         )}
-      </AvatarWrapper>
-      {name && (
-        <RouteItem
-          route={profileRoute}
-          active={router.asPath === getDestination(`/profile/${name}`)}
-        />
-      )}
-      <RouteItem route={getRoute('settings')} hasNotification={hasPendingTransactions} />
-      <DisconnectButton />
-    </ExtraNavWrapper>
+      </Dialog>
+      <ExtraNavWrapper $isOpen={isOpen}>
+        <AvatarWrapper onClick={() => setIsOpen((prev) => !prev)}>
+          <ArrowOverlay as={CrossSVG} $isOpen={isOpen} />
+          {avatar ? (
+            <img loading="eager" decoding="sync" alt="avatar" src={avatar} />
+          ) : (
+            <>
+              <ArrowOverlay as={PersonSVG} $isOpen={!isOpen} />
+              <img loading="eager" decoding="sync" alt="zorb" src={zorb} />
+            </>
+          )}
+        </AvatarWrapper>
+        <JoinAvatarWrapper onClick={() => setJoinModalOpen(true)}>
+          <img
+            loading="eager"
+            decoding="sync"
+            alt="avatar"
+            src={JoinIcon.src}
+            style={{ width: '35px', height: '35px' }}
+          />
+        </JoinAvatarWrapper>
+        {name && (
+          <RouteItem
+            route={profileRoute}
+            active={router.asPath === getDestination(`/profile/${name}`)}
+          />
+        )}
+        <RouteItem route={getRoute('settings')} hasNotification={hasPendingTransactions} />
+        <DisconnectButton />
+      </ExtraNavWrapper>
+    </>
   )
 }
 
