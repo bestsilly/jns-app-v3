@@ -120,8 +120,8 @@ export default function LandingSection2() {
               </PriceContainer>
             </Card>
             <Card>
-              <CustomHeading>5 Letters</CustomHeading>
-              <SmallCustomTypography>5 Letter for 1 year register</SmallCustomTypography>
+              <CustomHeading>5 Letters +</CustomHeading>
+              <SmallCustomTypography>5 Letter+ for 1 year register</SmallCustomTypography>
               <PriceContainer>
                 <CustomTypography style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
                   *30 JFIN
