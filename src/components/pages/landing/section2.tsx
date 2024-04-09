@@ -98,7 +98,7 @@ export default function LandingSection2() {
           </CustomTypography>
           <CardContainer>
             <Card>
-              <CustomHeading>3 Letters</CustomHeading>
+              <CustomHeading>3 Letter</CustomHeading>
               <SmallCustomTypography>3 Letter for 1 year register</SmallCustomTypography>
               <PriceContainer>
                 <CustomTypography style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
@@ -109,7 +109,7 @@ export default function LandingSection2() {
               </PriceContainer>
             </Card>
             <Card>
-              <CustomHeading>4 Letters</CustomHeading>
+              <CustomHeading>4 Letter</CustomHeading>
               <SmallCustomTypography>4 Letter for 1 year register</SmallCustomTypography>
               <PriceContainer>
                 <CustomTypography style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
@@ -120,7 +120,7 @@ export default function LandingSection2() {
               </PriceContainer>
             </Card>
             <Card>
-              <CustomHeading>5 Letters +</CustomHeading>
+              <CustomHeading>5 Letter +</CustomHeading>
               <SmallCustomTypography>5 Letter+ for 1 year register</SmallCustomTypography>
               <PriceContainer>
                 <CustomTypography style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
