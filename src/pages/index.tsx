@@ -6,6 +6,7 @@ import FaucetBanner from '@app/components/@molecules/FaucetBanner'
 import Hamburger from '@app/components/@molecules/Hamburger/Hamburger'
 import { LeadingHeading } from '@app/components/LeadingHeading'
 import LandingSection1 from '@app/components/pages/landing/section1'
+import LandingSection2 from '@app/components/pages/landing/section2'
 
 import ENSFull from '../assets/ENSFull.svg'
 
@@ -48,6 +49,7 @@ export default function Page() {
         </StyledLeadingHeading>
         <FaucetBanner />
         <LandingSection1 />
+        <LandingSection2 />
       </div>
     </>
   )

@@ -165,7 +165,7 @@ const Container = styled.div(
     width: 100%;
     position: relative;
     z-index: 1;
-    min-height: calc(100vh - 80px - 64px);
+    min-height: calc(100vh - 80px - 32px);
   `,
 )
 
@@ -173,7 +173,7 @@ export default function LandingSection1() {
   const { t } = useTranslation('common')
 
   return (
-    <div id="page-section-1">
+    <div id="page-section-1" style={{ position: 'relative' }}>
       <Container>
         <Stack style={{ marginTop: '3rem' }}>
           <Title>
