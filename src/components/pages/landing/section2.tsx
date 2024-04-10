@@ -1,3 +1,5 @@
+import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
+import { useCallback, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import { mq } from '@ensdomains/thorin'
@@ -28,7 +30,7 @@ export default function LandingSection2() {
       align-items: center;
       justify-content: center;
       gap: ${theme.space['3']};
-      max-width: ${theme.breakpoints.sm}px;
+      max-width: ${theme.breakpoints.md}px;
     `,
   )
 
@@ -86,6 +88,87 @@ export default function LandingSection2() {
     `,
   )
 
+  const PriceValue = styled(CustomTypography)(
+    () => css`
+      position: 'relative';
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    `,
+  )
+
+  const PriceDiscount = styled.div(
+    () => css`
+      position: relative;
+      top: -6px;
+      left: 5px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    `,
+  )
+
+  const [prices, setPrices] = useState<
+    { letter3: number; letter4: number; letter5: number } | undefined
+  >()
+  const [originalPrices] = useState({ letter3: 2500, letter4: 500, letter5: 30 })
+  const [discount, setDiscount] = useState({ letter3: 0, letter4: 0, letter5: 0 })
+
+  const handleCalculateDiff = (value1: number, value2: number) => {
+    return Math.ceil((value1 / value2) * 100) * (value1 > value2 ? 1 : -1)
+  }
+  const handleCalculateDiscount = useCallback(() => {
+    if (prices) {
+      const discountLetter3 = handleCalculateDiff(prices.letter3, originalPrices.letter3)
+      const discountLetter4 = handleCalculateDiff(prices.letter4, originalPrices.letter4)
+      const discountLetter5 = handleCalculateDiff(prices.letter5, originalPrices.letter5)
+
+      setDiscount(() => ({
+        letter3: discountLetter3,
+        letter4: discountLetter4,
+        letter5: discountLetter5,
+      }))
+    }
+  }, [prices, originalPrices])
+
+  const handleFetchPrice = useCallback(async () => {
+    try {
+      // const resp = await fetch('https://jns-bridge-testnet.jfin.workers.dev/get-rent-prices', {
+      //   method: 'POST',
+      // })
+      // const data = (await resp.json()) as any
+      const data = ['0', '0', '1250000000000', '250000000000', '45000000000']
+
+      const letter3 = BigNumber.from(data[2])
+        .div(10 ** 9)
+        .toNumber()
+
+      const letter4 = BigNumber.from(data[3])
+        .div(10 ** 9)
+        .toNumber()
+
+      const letter5 = BigNumber.from(data[4])
+        .div(10 ** 9)
+        .toNumber()
+
+      setPrices(() => ({
+        letter3,
+        letter4,
+        letter5,
+      }))
+      Promise.resolve()
+    } catch (e) {
+      setPrices(undefined)
+    }
+  }, [])
+
+  useEffect(() => {
+    handleFetchPrice()
+  }, [handleFetchPrice])
+
+  useEffect(() => {
+    handleCalculateDiscount()
+  }, [handleCalculateDiscount])
+
   return (
     <div id="page-section-2" style={{ position: 'relative' }}>
       <Container>
@@ -96,41 +179,52 @@ export default function LandingSection2() {
             has been the standard dummy text ever since the 1500s, when an unknown printer took a
             galley of type and scrambled it to make
           </CustomTypography>
-          <CardContainer>
-            <Card>
-              <CustomHeading>3 Letter</CustomHeading>
-              <SmallCustomTypography>3 Letter for 1 year register</SmallCustomTypography>
-              <PriceContainer>
-                <CustomTypography style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
-                  *2,500 JFIN
-                </CustomTypography>
-                <AccentTypography>1,250 JFIN</AccentTypography>
-                <CustomTypography>Per year</CustomTypography>
-              </PriceContainer>
-            </Card>
-            <Card>
-              <CustomHeading>4 Letter</CustomHeading>
-              <SmallCustomTypography>4 Letter for 1 year register</SmallCustomTypography>
-              <PriceContainer>
-                <CustomTypography style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
-                  *500 JFIN
-                </CustomTypography>
-                <AccentTypography>250 JFIN</AccentTypography>
-                <CustomTypography>Per year</CustomTypography>
-              </PriceContainer>
-            </Card>
-            <Card>
-              <CustomHeading>5 Letter +</CustomHeading>
-              <SmallCustomTypography>5 Letter+ for 1 year register</SmallCustomTypography>
-              <PriceContainer>
-                <CustomTypography style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
-                  *30 JFIN
-                </CustomTypography>
-                <AccentTypography>15 JFIN</AccentTypography>
-                <CustomTypography>Per year</CustomTypography>
-              </PriceContainer>
-            </Card>
-          </CardContainer>
+          {prices && (
+            <CardContainer>
+              <Card>
+                <CustomHeading>3 Letter</CustomHeading>
+                <SmallCustomTypography>3 Letter for 1 year register</SmallCustomTypography>
+                <PriceContainer>
+                  <PriceValue>
+                    <span style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
+                      *{originalPrices.letter3.toLocaleString()} JFIN
+                    </span>
+                    <PriceDiscount>{discount.letter3}%</PriceDiscount>
+                  </PriceValue>
+                  <AccentTypography>{prices.letter3.toLocaleString()} JFIN</AccentTypography>
+                  <CustomTypography>Per year</CustomTypography>
+                </PriceContainer>
+              </Card>
+              <Card>
+                <CustomHeading>4 Letter</CustomHeading>
+                <SmallCustomTypography>4 Letter for 1 year register</SmallCustomTypography>
+                <PriceContainer>
+                  <PriceValue>
+                    <span style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
+                      *{originalPrices.letter4.toLocaleString()} JFIN
+                    </span>
+                    <PriceDiscount>{discount.letter4}%</PriceDiscount>
+                  </PriceValue>
+                  <AccentTypography>{prices.letter4.toLocaleString()} JFIN</AccentTypography>
+                  <CustomTypography>Per year</CustomTypography>
+                </PriceContainer>
+              </Card>
+              <Card>
+                <CustomHeading>5 Letter +</CustomHeading>
+                <SmallCustomTypography>5 Letter+ for 1 year register</SmallCustomTypography>
+                <PriceContainer>
+                  <PriceValue>
+                    <span style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
+                      *{originalPrices.letter5.toLocaleString()} JFIN
+                    </span>
+                    <PriceDiscount>{discount.letter5}%</PriceDiscount>
+                  </PriceValue>
+                  <AccentTypography>{prices.letter5.toLocaleString()} JFIN</AccentTypography>
+                  <CustomTypography>Per year</CustomTypography>
+                </PriceContainer>
+              </Card>
+            </CardContainer>
+          )}
         </Stack>
       </Container>
     </div>
