@@ -1,8 +1,9 @@
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
 import { useCallback, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
+import useSWR from 'swr/immutable'
 
-import { mq } from '@ensdomains/thorin'
+import { AlertSVG, Skeleton, mq } from '@ensdomains/thorin'
 
 import { CustomHeading, CustomTypography } from '@app/components/customs'
 
@@ -130,44 +131,39 @@ export default function LandingSection2() {
     }
   }, [prices, originalPrices])
 
-  const handleFetchPrice = useCallback(async () => {
-    try {
-      // const resp = await fetch('https://jns-bridge-testnet.jfin.workers.dev/get-rent-prices', {
-      //   method: 'POST',
-      // })
-      // const data = (await resp.json()) as any
-      const data = ['0', '0', '1250000000000', '250000000000', '45000000000']
+  const { data, isLoading, error } = useSWR<string[]>(
+    'https://jns-bridge-testnet.jfin.workers.dev/get-rent-prices',
+    (url: string) =>
+      fetch(url, { method: 'POST' }).then((res) => res.json() as unknown as string[]),
+  )
 
-      const letter3 = BigNumber.from(data[2])
-        .div(10 ** 9)
-        .toNumber()
+  const handleCalculatePrice = useCallback(() => {
+    if (!data) return
+    const letter3 = BigNumber.from(data[2])
+      .div(10 ** 9)
+      .toNumber()
 
-      const letter4 = BigNumber.from(data[3])
-        .div(10 ** 9)
-        .toNumber()
+    const letter4 = BigNumber.from(data[3])
+      .div(10 ** 9)
+      .toNumber()
 
-      const letter5 = BigNumber.from(data[4])
-        .div(10 ** 9)
-        .toNumber()
-
-      setPrices(() => ({
-        letter3,
-        letter4,
-        letter5,
-      }))
-      Promise.resolve()
-    } catch (e) {
-      setPrices(undefined)
-    }
-  }, [])
-
-  useEffect(() => {
-    handleFetchPrice()
-  }, [handleFetchPrice])
+    const letter5 = BigNumber.from(data[4])
+      .div(10 ** 9)
+      .toNumber()
+    setPrices(() => ({
+      letter3,
+      letter4,
+      letter5,
+    }))
+  }, [data])
 
   useEffect(() => {
     handleCalculateDiscount()
   }, [handleCalculateDiscount])
+
+  useEffect(() => {
+    handleCalculatePrice()
+  }, [handleCalculatePrice])
 
   return (
     <div id="page-section-2" style={{ position: 'relative' }}>
@@ -179,52 +175,75 @@ export default function LandingSection2() {
             has been the standard dummy text ever since the 1500s, when an unknown printer took a
             galley of type and scrambled it to make
           </CustomTypography>
-          {prices && (
-            <CardContainer>
-              <Card>
-                <CustomHeading>3 Letter</CustomHeading>
-                <SmallCustomTypography>3 Letter for 1 year register</SmallCustomTypography>
-                <PriceContainer>
-                  <PriceValue>
-                    <span style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
-                      *{originalPrices.letter3.toLocaleString()} JFIN
-                    </span>
-                    <PriceDiscount>{discount.letter3}%</PriceDiscount>
-                  </PriceValue>
-                  <AccentTypography>{prices.letter3.toLocaleString()} JFIN</AccentTypography>
-                  <CustomTypography>Per year</CustomTypography>
-                </PriceContainer>
+
+          <Skeleton loading={isLoading} style={{ width: '100%' }}>
+            {error ? (
+              <Card style={{ width: '100%', paddingTop: '2rem', paddingBottom: '2rem' }}>
+                <CustomHeading
+                  style={{
+                    display: 'flex',
+                    gap: '0.5rem',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    color: 'orange',
+                    paddingBottom: '0.5rem',
+                  }}
+                >
+                  <AlertSVG />
+                  Updating pricing datas
+                </CustomHeading>
+                <CustomTypography>
+                  We are updating pricing data which may not be available at this time. Please try
+                  again later.
+                </CustomTypography>
               </Card>
-              <Card>
-                <CustomHeading>4 Letter</CustomHeading>
-                <SmallCustomTypography>4 Letter for 1 year register</SmallCustomTypography>
-                <PriceContainer>
-                  <PriceValue>
-                    <span style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
-                      *{originalPrices.letter4.toLocaleString()} JFIN
-                    </span>
-                    <PriceDiscount>{discount.letter4}%</PriceDiscount>
-                  </PriceValue>
-                  <AccentTypography>{prices.letter4.toLocaleString()} JFIN</AccentTypography>
-                  <CustomTypography>Per year</CustomTypography>
-                </PriceContainer>
-              </Card>
-              <Card>
-                <CustomHeading>5 Letter +</CustomHeading>
-                <SmallCustomTypography>5 Letter+ for 1 year register</SmallCustomTypography>
-                <PriceContainer>
-                  <PriceValue>
-                    <span style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
-                      *{originalPrices.letter5.toLocaleString()} JFIN
-                    </span>
-                    <PriceDiscount>{discount.letter5}%</PriceDiscount>
-                  </PriceValue>
-                  <AccentTypography>{prices.letter5.toLocaleString()} JFIN</AccentTypography>
-                  <CustomTypography>Per year</CustomTypography>
-                </PriceContainer>
-              </Card>
-            </CardContainer>
-          )}
+            ) : (
+              <CardContainer>
+                <Card>
+                  <CustomHeading>3 Letter</CustomHeading>
+                  <SmallCustomTypography>3 Letter for 1 year register</SmallCustomTypography>
+                  <PriceContainer>
+                    <PriceValue>
+                      <span style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
+                        *{originalPrices.letter3.toLocaleString()} JFIN
+                      </span>
+                      <PriceDiscount>{discount.letter3}%</PriceDiscount>
+                    </PriceValue>
+                    <AccentTypography>{prices?.letter3.toLocaleString()} JFIN</AccentTypography>
+                    <CustomTypography>Per year</CustomTypography>
+                  </PriceContainer>
+                </Card>
+                <Card>
+                  <CustomHeading>4 Letter</CustomHeading>
+                  <SmallCustomTypography>4 Letter for 1 year register</SmallCustomTypography>
+                  <PriceContainer>
+                    <PriceValue>
+                      <span style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
+                        *{originalPrices.letter4.toLocaleString()} JFIN
+                      </span>
+                      <PriceDiscount>{discount.letter4}%</PriceDiscount>
+                    </PriceValue>
+                    <AccentTypography>{prices?.letter4.toLocaleString()} JFIN</AccentTypography>
+                    <CustomTypography>Per year</CustomTypography>
+                  </PriceContainer>
+                </Card>
+                <Card>
+                  <CustomHeading>5 Letter +</CustomHeading>
+                  <SmallCustomTypography>5 Letter+ for 1 year register</SmallCustomTypography>
+                  <PriceContainer>
+                    <PriceValue>
+                      <span style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
+                        *{originalPrices.letter5.toLocaleString()} JFIN
+                      </span>
+                      <PriceDiscount>{discount.letter5}%</PriceDiscount>
+                    </PriceValue>
+                    <AccentTypography>{prices?.letter5.toLocaleString()} JFIN</AccentTypography>
+                    <CustomTypography>Per year</CustomTypography>
+                  </PriceContainer>
+                </Card>
+              </CardContainer>
+            )}
+          </Skeleton>
         </Stack>
       </Container>
     </div>
