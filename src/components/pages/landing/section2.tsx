@@ -7,107 +7,107 @@ import { AlertSVG, Skeleton, mq } from '@ensdomains/thorin'
 
 import { CustomHeading, CustomTypography } from '@app/components/customs'
 
+const Container = styled.div(
+  () => css`
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    min-height: calc(65vh);
+    background-image: url('/background02.svg');
+    background-size: cover;
+    background-position: center;
+  `,
+)
+
+const Stack = styled.div(
+  ({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: ${theme.space['3']};
+    max-width: ${theme.breakpoints.md}px;
+  `,
+)
+
+const Card = styled.div(
+  ({ theme }) => css`
+    padding: ${theme.space['4']};
+    text-align: center;
+    border: 1px solid #9790ac;
+    border-radius: 5px;
+    box-shadow: 0 0 50px 5px #9086af95;
+    background: #0e04287a;
+    width: 100%;
+  `,
+)
+
+const CardContainer = styled.div(
+  ({ theme }) => css`
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-gap: ${theme.space['4']};
+    margin-top: ${theme.space['10']};
+
+    ${mq.md.max(
+      css`
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      `,
+    )}
+  `,
+)
+
+const SmallCustomTypography = styled(CustomTypography)(
+  () => css`
+    font-size: 0.8rem;
+  `,
+)
+
+const AccentTypography = styled(CustomTypography)(
+  ({ theme }) => css`
+    color: ${theme.colors.accentLight};
+    font-weight: bold;
+    font-size: 1.5rem;
+  `,
+)
+
+const PriceContainer = styled.div(
+  ({ theme }) => css`
+    padding-top: ${theme.space['4']};
+    padding-bottom: ${theme.space['4']};
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    width: 100%;
+    gap: ${theme.space['1']};
+  `,
+)
+
+const PriceValue = styled(CustomTypography)(
+  () => css`
+    position: 'relative';
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  `,
+)
+
+const PriceDiscount = styled.div(
+  () => css`
+    position: relative;
+    top: -6px;
+    left: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+  `,
+)
+
 export default function LandingSection2() {
-  const Container = styled.div(
-    () => css`
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      position: relative;
-      z-index: 1;
-      min-height: calc(65vh);
-      background-image: url('/background02.svg');
-      background-size: cover;
-      background-position: center;
-    `,
-  )
-
-  const Stack = styled.div(
-    ({ theme }) => css`
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: ${theme.space['3']};
-      max-width: ${theme.breakpoints.md}px;
-    `,
-  )
-
-  const Card = styled.div(
-    ({ theme }) => css`
-      padding: ${theme.space['4']};
-      text-align: center;
-      border: 1px solid #9790ac;
-      border-radius: 5px;
-      box-shadow: 0 0 50px 5px #9086af95;
-      background: #0e04287a;
-      width: 100%;
-    `,
-  )
-
-  const CardContainer = styled.div(
-    ({ theme }) => css`
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      grid-gap: ${theme.space['4']};
-      margin-top: ${theme.space['10']};
-
-      ${mq.md.max(
-        css`
-          grid-template-columns: repeat(1, minmax(0, 1fr));
-        `,
-      )}
-    `,
-  )
-
-  const SmallCustomTypography = styled(CustomTypography)(
-    () => css`
-      font-size: 0.8rem;
-    `,
-  )
-
-  const AccentTypography = styled(CustomTypography)(
-    ({ theme }) => css`
-      color: ${theme.colors.accentLight};
-      font-weight: bold;
-      font-size: 1.5rem;
-    `,
-  )
-
-  const PriceContainer = styled.div(
-    ({ theme }) => css`
-      padding-top: ${theme.space['4']};
-      padding-bottom: ${theme.space['4']};
-      display: flex;
-      text-align: center;
-      flex-direction: column;
-      width: 100%;
-      gap: ${theme.space['1']};
-    `,
-  )
-
-  const PriceValue = styled(CustomTypography)(
-    () => css`
-      position: 'relative';
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-    `,
-  )
-
-  const PriceDiscount = styled.div(
-    () => css`
-      position: relative;
-      top: -6px;
-      left: 5px;
-      font-weight: bold;
-      font-size: 0.9rem;
-    `,
-  )
-
   const [prices, setPrices] = useState<
     { letter3: number; letter4: number; letter5: number } | undefined
   >()
