@@ -37,7 +37,7 @@ export const NameTableFooter = ({
   const { t } = useTranslation('common')
   const breakpoints = useBreakpoint()
 
-  const pageSizeOptions = [5, 10, 25, 50, 100].map((value) => ({
+  const pageSizeOptions = [5, 10, 25, 50].map((value) => ({
     label: t('unit.perPage', { count: value }),
     value: value.toString(),
   }))
