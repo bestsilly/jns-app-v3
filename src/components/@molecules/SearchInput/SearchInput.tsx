@@ -21,7 +21,7 @@ import { useElementSize } from '@app/hooks/useWindowSize'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
 import { useQueryKeys } from '@app/utils/cacheKeyFactory'
 import { getRegistrationStatus } from '@app/utils/registrationStatus'
-import { isBlacklisted, isEnglish } from '@app/utils/wording'
+import { getTakendownList, isBlacklisted, isEnglish } from '@app/utils/wording'
 
 import { FakeSearchInputBox, SearchInputBox } from './SearchInputBox'
 import { SearchResult } from './SearchResult'
@@ -225,6 +225,22 @@ export const SearchInput = ({
     [inputIsAddress, inputVal, name],
   )
 
+  const [takenDownList, setTakenDownList] = useState<string[]>([])
+
+  // fetch the word list from the API when the component mounts
+  useEffect(() => {
+    const fetchWordList = async () => {
+      try {
+        const response = await getTakendownList()
+        setTakenDownList(response)
+      } catch {
+        // fetch list failed
+      }
+    }
+
+    fetchWordList()
+  }, [])
+
   const searchItem: SearchItem = useMemo(() => {
     if (isEmpty) {
       return {
@@ -237,7 +253,13 @@ export const SearchInput = ({
         type: 'address',
       }
     }
-    if (!isValid || isBlacklisted(inputVal) || !isEnglish(inputVal)) {
+    if (
+      !isValid ||
+      isBlacklisted(inputVal) ||
+      !isEnglish(inputVal) ||
+      takenDownList?.includes(inputVal.toLowerCase()) ||
+      takenDownList?.includes(inputVal.replace(/\.jfin$/, ''))
+    ) {
       return {
         type: 'error',
         value: t('search.errors.invalid'),
