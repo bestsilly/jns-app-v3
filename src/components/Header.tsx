@@ -124,6 +124,13 @@ const SearchWrapper = styled.div<{ $state: TransitionState }>(
   `,
 )
 
+const CustomConditionalWrapper = styled(ConditionalWrapper)(
+  () => css`
+    /* display: none !important; */
+    /* ${mq.md.min(css``)} */
+  `,
+)
+
 const routesNoSearch = routes.filter(
   (route) => route.name !== 'search' && route.icon && !route.onlyDropdown && !route.disabled,
 )
@@ -194,7 +201,7 @@ export const Header = () => {
   return (
     <HeaderWrapper id="header">
       <NavContainer>
-        <ConditionalWrapper
+        <CustomConditionalWrapper
           condition={router.asPath !== '/'}
           wrapper={(children) => (
             <BaseLink passHref href="/">
@@ -207,7 +214,7 @@ export const Header = () => {
           ) : (
             <ENSWithGradient height={space['12']} />
           )}
-        </ConditionalWrapper>
+        </CustomConditionalWrapper>
         {router.asPath !== '/' && breakpoints.sm && (
           <>
             <SearchWrapper

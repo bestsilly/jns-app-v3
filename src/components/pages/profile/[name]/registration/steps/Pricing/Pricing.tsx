@@ -5,16 +5,7 @@ import usePrevious from 'react-use/lib/usePrevious'
 import styled, { css } from 'styled-components'
 import { useBalance } from 'wagmi'
 
-import {
-  Button,
-  Field,
-  Heading,
-  Helper,
-  RadioButton,
-  RadioButtonGroup,
-  Toggle,
-  mq,
-} from '@ensdomains/thorin'
+import { Button, Field, Heading, Helper, RadioButtonGroup, Toggle, mq } from '@ensdomains/thorin'
 
 // import MoonpayLogo from '@app/assets/MoonpayLogo.svg'
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
@@ -23,7 +14,7 @@ import { RegistrationTimeComparisonBanner } from '@app/components/@atoms/Registr
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { Card } from '@app/components/Card'
 import { ConnectButton } from '@app/components/ConnectButton'
-import { CustomTypography } from '@app/components/customs'
+import { CustomTypography, CustomTypographyBlack } from '@app/components/customs'
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import { useContractAddress } from '@app/hooks/useContractAddress'
 import { useEstimateFullRegistration } from '@app/hooks/useEstimateRegistration'
@@ -104,7 +95,7 @@ const StyledRadioButtonGroup = styled(RadioButtonGroup)(
   `,
 )
 
-const StyledRadioButton = styled(RadioButton)``
+// const StyledRadioButton = styled(RadioButton)``
 
 const RadioButtonContainer = styled.div(
   ({ theme }) => css`
@@ -115,16 +106,16 @@ const RadioButtonContainer = styled.div(
   `,
 )
 
-const StyledTitle = styled(CustomTypography)`
-  margin-left: 15px;
-`
+// const StyledTitle = styled(CustomTypography)`
+//   margin-left: 15px;
+// `
 
-const RadioLabel = styled(CustomTypography)(
-  ({ theme }) => css`
-    margin-right: 10px;
-    color: ${theme.colors.text};
-  `,
-)
+// const RadioLabel = styled(CustomTypography)(
+//   ({ theme }) => css`
+//     margin-right: 10px;
+//     color: ${theme.colors.text};
+//   `,
+// )
 
 // const MoonpayContainer = styled.div`
 //   display: flex;
@@ -256,6 +247,7 @@ const PaymentChoice = ({
   paymentMethodChoice,
   setPaymentMethodChoice,
   hasEnoughEth,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   hasPendingMoonpayTransaction,
   address,
   hasPrimaryName,
@@ -278,23 +270,12 @@ const PaymentChoice = ({
 
   return (
     <PaymentChoiceContainer>
-      <StyledTitle color="textTertiary" weight="bold">
-        {t('steps.info.paymentMethod')}
-      </StyledTitle>
       <Spacer $height="2" />
       <StyledRadioButtonGroup
         value={paymentMethodChoice}
         onChange={(e) => setPaymentMethodChoice(e.target.value as PaymentMethod)}
       >
         <RadioButtonContainer>
-          <StyledRadioButton
-            data-testid="payment-choice-ethereum"
-            label={<RadioLabel>{t('steps.info.jfin')}</RadioLabel>}
-            name="RadioButtonGroup"
-            value={PaymentMethod.ethereum}
-            disabled={hasPendingMoonpayTransaction}
-            checked={paymentMethodChoice === PaymentMethod.ethereum || undefined}
-          />
           {paymentMethodChoice === PaymentMethod.ethereum && !hasEnoughEth && (
             <>
               <Spacer $height="4" />
@@ -309,55 +290,20 @@ const PaymentChoice = ({
               <Spacer $height="4" />
               <OutlinedContainer>
                 <OutlinedContainerTitle $name="title">
-                  {t('steps.pricing.primaryName')}
+                  <CustomTypographyBlack>{t('steps.pricing.primaryName')}</CustomTypographyBlack>
                 </OutlinedContainerTitle>
                 <EthInnerCheckbox
                   {...{ address, hasPrimaryName, reverseRecord, setReverseRecord, started }}
                 />
                 <OutlinedContainerDescription $name="description">
-                  {t('steps.pricing.primaryNameMessage')}
+                  <CustomTypographyBlack>
+                    {t('steps.pricing.primaryNameMessage')}
+                  </CustomTypographyBlack>
                 </OutlinedContainerDescription>
               </OutlinedContainer>
               <Spacer $height="2" />
             </>
           )}
-        </RadioButtonContainer>
-        <RadioButtonContainer>
-          {/* <StyledRadioButton
-            label={
-              <LabelContainer>
-                <RadioLabel>{t('steps.info.creditOrDebit')}</RadioLabel>
-                <CustomTypography color="textTertiary" weight="light">
-                  ({t('steps.info.additionalFee')})
-                </CustomTypography>
-              </LabelContainer>
-            }
-            name="RadioButtonGroup"
-            value={PaymentMethod.moonpay}
-            checked={paymentMethodChoice === PaymentMethod.moonpay || undefined}
-          /> */}
-          {/* {paymentMethodChoice === PaymentMethod.moonpay && (
-            <>
-              <Spacer $height="4" />
-              <InfoItems>
-                {moonpayInfoItems.map((item, idx) => (
-                  <InfoItem key={item}>
-                    <CustomTypography>{idx + 1}</CustomTypography>
-                    <CustomTypography>{t(item)}</CustomTypography>
-                  </InfoItem>
-                ))}
-              </InfoItems>
-              <Spacer $height="4" />
-              {hasFailedMoonpayTransaction && (
-                <Helper type="error">{t('steps.info.failedMoonpayTransaction')}</Helper>
-              )}
-              <Spacer $height="4" />
-              <MoonpayContainer>
-                {t('steps.info.poweredBy')}
-                <MoonpayLogo />
-              </MoonpayContainer>
-            </>
-          )} */}
         </RadioButtonContainer>
       </StyledRadioButtonGroup>
     </PaymentChoiceContainer>
