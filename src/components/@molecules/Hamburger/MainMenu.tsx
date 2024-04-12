@@ -164,6 +164,13 @@ const MainMenu = ({ setCurrentView }: { setCurrentView: (view: 'main' | 'languag
 
   return (
     <Container>
+      <NetworkSectionContainer>
+        <BaseLink href="/" passHref key="/">
+          <RouteItem style={{ width: '100%', textAlign: 'center' }}>
+            <CustomTypography>Home</CustomTypography>
+          </RouteItem>
+        </BaseLink>
+      </NetworkSectionContainer>
       <RoutesSection>
         {disconnectedRoutes.map((route) => (
           <BaseLink href={route.href} passHref key={route.href}>
