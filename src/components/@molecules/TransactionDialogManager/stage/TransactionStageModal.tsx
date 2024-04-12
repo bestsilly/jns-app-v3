@@ -352,7 +352,7 @@ export const calculateGasLimit = async ({
     throw new Error('Signer not found')
   }
   let gasEstimate
-  if (transactionName !== 'registerName') {
+  if (transactionName !== 'registerNameWithId') {
     gasEstimate = await signer.estimateGas(txWithZeroGas)
   } else {
     gasEstimate = BigNumber.from(0)

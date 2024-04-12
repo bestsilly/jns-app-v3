@@ -1,8 +1,8 @@
 import { EthAddress } from '@app/types'
 
 export const CONTRACT_ADDRESSES = {
-  publicResolver: '0x9273d1417C3E45FCcC5A5b278ea7d2a08Af7Df8D',
-  dummyOracle: '0x8efefF1c45f8A86bC3Bf6Ea9517dFF9a34C3B0A9',
+  publicResolver: '0xCA7Ae468e91aa385Aa903B02FfBae67298beC0e2',
+  dummyOracle: '0xbA489235c366647be13cC012aF5bE443Ff9DEf93',
 }
 
 export const emptyAddress = '0x0000000000000000000000000000000000000000'
@@ -102,7 +102,7 @@ export const MOONPAY_WORKER_URL: { [key: number]: string } = {
 
 export const FAUCET_WORKER_URL = 'https://ens-faucet.ens-cf.workers.dev'
 
-export const WC_PROJECT_ID = '9b14144d470af1e03ab9d88aaa127332'
+export const WC_PROJECT_ID = '8d7de75a9afb30b1e7e685a7231fdbda'
 
 // 102% of price as buffer for fluctuations
 export const CURRENCY_FLUCTUATION_BUFFER_PERCENTAGE = 100
