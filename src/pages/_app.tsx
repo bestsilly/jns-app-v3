@@ -165,16 +165,16 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Head>
-        <title>JNS</title>
+        <title>JNS - JFIN Name Service</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta name="title" content="JNS" />
+        <meta name="title" content="JNS - JFIN Name Service" />
         <meta
           name="description"
           content="JNS is your unified gateway to the decentralized web. A singular name for all your blockchain addresses and your portal to a decentralized presence."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://jns-app.pages.dev/" />
-        <meta property="og:title" content="JNS" />
+        <meta property="og:title" content="JNS - JFIN Name Service" />
         <meta
           property="og:description"
           content="JNS is your unified gateway to the decentralized web. A singular name for all your blockchain addresses and your portal to a decentralized presence."
@@ -182,7 +182,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <meta property="og:image" content="/cover.png" />
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://jns-app.pages.dev/" />
-        <meta property="twitter:title" content="JNS" />
+        <meta property="twitter:title" content="JNS - JFIN Name Service" />
         <meta
           property="twitter:description"
           content="JNS is your unified gateway to the decentralized web. A singular name for all your blockchain addresses and your portal to a decentralized presence."

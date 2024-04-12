@@ -165,7 +165,7 @@ const Container = styled.div(
     width: 100%;
     position: relative;
     z-index: 1;
-    min-height: calc(100vh - 80px - 64px);
+    min-height: calc(100vh - 80px - 32px);
   `,
 )
 
@@ -173,15 +173,15 @@ export default function LandingSection1() {
   const { t } = useTranslation('common')
 
   return (
-    <div id="page-section-1">
+    <div id="page-section-1" style={{ position: 'relative' }}>
       <Container>
         <Stack style={{ marginTop: '3rem' }}>
           <Title>
-            <span>Secure</span>
+            <span>Personalize</span>
             <span style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
               Your <StyleGradientTitle> web3 </StyleGradientTitle>
             </span>
-            <span>Experience</span>
+            <span>Identity</span>
           </Title>
           <SubtitleWrapper>
             <StyleDescription>{t('description')}</StyleDescription>
@@ -189,7 +189,7 @@ export default function LandingSection1() {
 
           <div style={{ marginTop: '3rem' }} />
           <SearchInput size="medium" />
-          <StyledSearchTitle>Find Your Secure Wallet Name</StyledSearchTitle>
+          <StyledSearchTitle>Find Your Personalize Wallet Name</StyledSearchTitle>
 
           {/* <div style={{ color: '#B6B6BE', textAlign: 'center' }}>
             Promotion Fixed price regardless of name length{' '}

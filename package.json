@@ -112,6 +112,7 @@
     "react-use-error-boundary": "^3.0.0",
     "react-use-intercom": "^5.1.4",
     "styled-components": "^5.3.5",
+    "swr": "^2.2.5",
     "ts-pattern": "^4.2.2",
     "use-immer": "^0.7.0",
     "wagmi": "0.12.13",

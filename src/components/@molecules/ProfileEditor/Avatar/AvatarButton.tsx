@@ -132,11 +132,11 @@ const AvatarButton = ({
     <LegacyDropdown
       items={
         [
-          {
-            label: t('input.profileEditor.tabs.avatar.dropdown.selectNFT'),
-            color: 'black',
-            onClick: handleSelectOption('nft'),
-          },
+          // {
+          //   label: t('input.profileEditor.tabs.avatar.dropdown.selectNFT'),
+          //   color: 'black',
+          //   onClick: handleSelectOption('nft'),
+          // },
           {
             label: t('input.profileEditor.tabs.avatar.dropdown.uploadImage'),
             color: 'black',

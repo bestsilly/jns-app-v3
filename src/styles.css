@@ -22,3 +22,7 @@ div[data-testid='dropdown-menu'] a:hover {
 .modal div:last-child:not(form) > div > div {
   color: #f2f2f2;
 }
+
+#record-item:hover {
+  background: #f2f2f2;
+}
