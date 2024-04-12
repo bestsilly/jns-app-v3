@@ -320,7 +320,7 @@ export const KNOWN_RESOLVER_DATA: KnownResolverData = {
   // ],
   '3502': [
     {
-      address: '0x2F4AEB94C3198e66aDEaefF7C66e9451c116D7dc', // JNS PublicResolver Address
+      address: '0x689E8D7B4Bc8635A8De9fA0dc6D50BfCC0b59AF6', // JNS PublicResolver Address
       deployer: 'ENS Labs',
       tag: 'latest',
       isNameWrapperAware: true,
