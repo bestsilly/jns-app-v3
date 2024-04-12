@@ -79,13 +79,6 @@ export const Notifications = () => {
                 {t('transaction.viewEtherscan')}
               </Button>
             </a>
-            <Button
-              size="small"
-              data-testid="notification-continue-button"
-              onClick={() => resumeTransactionFlow(key)}
-            >
-              {t('action.continue')}
-            </Button>
           </ButtonContainer>
         ) : (
           <a target="_blank" href={makeEtherscanLink(hash, chainName)} rel="noreferrer">
