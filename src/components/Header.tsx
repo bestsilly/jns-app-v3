@@ -53,11 +53,10 @@ const NavContainer = styled.div(
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    flex-gap: ${theme.space['3']};
     gap: ${theme.space['3']};
     height: ${theme.space['12']};
     margin: auto;
-    max-width: ${theme.breakpoints.lg}px;
+    max-width: ${theme.breakpoints.xl}px;
 
     ${mq.lg.min(css`
       flex-gap: ${theme.space['6']};
