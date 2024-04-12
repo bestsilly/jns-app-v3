@@ -19,7 +19,13 @@ export const CustomHeading = styled(Heading)(
 
 export const CustomTypography = styled(Typography)(
   ({ theme }) => css`
-    color: ${theme.colors.textTertiary};
+    color: ${theme.colors.textSecondary};
+  `,
+)
+
+export const CustomTypographyBlack = styled(CustomTypography)(
+  ({ theme }) => css`
+    color: ${theme.colors.backgroundPrimary};
   `,
 )
 

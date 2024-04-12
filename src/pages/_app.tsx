@@ -39,7 +39,8 @@ const thorinGlobalTheme: typeof thorinDarkTheme = merge(thorinDarkTheme, {
     backgroundPrimary: '#101112',
     backgroundSecondary: '#fff',
     greySurface: 'white',
-    textSecondary: '#3e4042',
+    textSecondary: '#e1e4e8',
+    textPrimary: '#fff',
   },
 })
 

@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
 
-import { CustomTypography } from '@app/components/customs'
+import { CustomTypographyBlack } from '@app/components/customs'
 import { useEthPrice } from '@app/hooks/useEthPrice'
 import { CurrencyDisplay } from '@app/types'
 import { makeDisplay } from '@app/utils/currency'
@@ -26,12 +26,14 @@ export const CurrencyText = ({
   if (currency === 'eth') {
     // replace eth symbol with jfin
     return (
-      <CustomTypography>
+      <CustomTypographyBlack>
         {makeDisplay(eth.mul(bufferPercentage).div(100), 5, 'jfin', 18, rounding)}
-      </CustomTypography>
+      </CustomTypographyBlack>
     )
   }
   return (
-    <CustomTypography>{makeDisplay(eth.mul(ethPrice).div(1e8), 2, currency, 18)}</CustomTypography>
+    <CustomTypographyBlack>
+      {makeDisplay(eth.mul(ethPrice).div(1e8), 2, currency, 18)}
+    </CustomTypographyBlack>
   )
 }

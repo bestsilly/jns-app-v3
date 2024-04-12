@@ -12,6 +12,7 @@ import styled, { css } from 'styled-components'
 
 import MinusIcon from '@app/assets/Minus.svg'
 import PlusIcon from '@app/assets/Plus.svg'
+import { CustomHeading } from '@app/components/customs'
 import { useDefaultRef } from '@app/hooks/useDefaultRef'
 import { createChangeEvent } from '@app/utils/syntheticEvent'
 
@@ -113,7 +114,7 @@ const LabelInput = styled.input<{ $highlighted?: boolean }>(
     color: ${$highlighted ? theme.colors.accent : theme.colors.text};
     opacity: 0;
     transition: opacity 150ms ease-in-out;
-    background-color: ${theme.colors.accentSurface};
+    background-color: ${theme.colors.accent};
 
     /* stylelint-disable property-no-vendor-prefix */
     ::-webkit-outer-spin-button,
@@ -251,8 +252,11 @@ export const PlusMinusControl = forwardRef(
               setFocused(true)
             }}
             onBlur={handleBlur}
+            style={{ color: '#fff' }}
           />
-          <Label $highlighted={highlighted}>{t(`unit.${unit}`, { count: value })}</Label>
+          <Label $highlighted={highlighted}>
+            <CustomHeading>{t(`unit.${unit}`, { count: value })}</CustomHeading>
+          </Label>
         </LabelContainer>
         <Button
           type="button"
