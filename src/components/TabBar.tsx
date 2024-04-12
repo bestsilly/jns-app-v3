@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components'
 
 import { Button, CrossSVG, Dialog, LeftChevronSVG, PersonSVG, mq } from '@ensdomains/thorin'
 
-import JoinIcon from '@app/../public/icon/JoinIcon.png'
 import useHasPendingTransactions from '@app/hooks/transactions/useHasPendingTransactions'
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import { useAvatar } from '@app/hooks/useAvatar'
@@ -207,7 +206,7 @@ const TabBarProfile = ({
   const hasPendingTransactions = useHasPendingTransactions()
   const [isJoin, setIsJoin] = useState(false)
   const [joinModalOpen, setJoinModalOpen] = useState(false)
-  const { login, logout } = useJoin()
+  const { login, logout, useJoinListener } = useJoin()
   const [profile, setProfile] = useState(null) as any
 
   const handleStorageChange = () => {
@@ -220,17 +219,7 @@ const TabBarProfile = ({
     }
   }
 
-  useEffect(() => {
-    handleStorageChange()
-  }, [])
-
-  useEffect(() => {
-    window.addEventListener('storage', handleStorageChange)
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-    }
-  }, [])
+  useJoinListener(handleStorageChange)
 
   return (
     <>
@@ -240,7 +229,7 @@ const TabBarProfile = ({
             colorStyle="accentSecondary"
             onClick={() => {
               if (isJoin) {
-                logout(handleStorageChange)
+                logout()
               } else {
                 login()
               }
@@ -258,7 +247,7 @@ const TabBarProfile = ({
           <>
             <img
               alt="joinIconMobile"
-              src={JoinIcon.src}
+              src="https://jfinscan.com/static/apps/joinwallet.png"
               style={{ width: '30px', height: '30px' }}
             />
             <span>{profile?.contactNumber || ''}</span>
@@ -282,7 +271,7 @@ const TabBarProfile = ({
             loading="eager"
             decoding="sync"
             alt="avatar"
-            src={JoinIcon.src}
+            src="https://jfinscan.com/static/apps/joinwallet.png"
             style={{ width: '35px', height: '35px' }}
           />
         </JoinAvatarWrapper>

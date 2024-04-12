@@ -98,12 +98,13 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
     const sessionId = urlParams.get('sessionId')
     if (sessionId) {
       localStorage.setItem('sessionId', sessionId)
+      window.dispatchEvent(new StorageEvent('storage', { key: 'sessionId' }))
       const profile = localStorage.getItem('profile')
 
       const fetchData = async () => {
         const result: any = await getProfile()
         localStorage.setItem('profile', JSON.stringify(result.data))
-        window.dispatchEvent(new Event('storage'))
+        window.dispatchEvent(new StorageEvent('storage', { key: 'profile' }))
         window.history.replaceState({}, document.title, window.location.pathname)
       }
 

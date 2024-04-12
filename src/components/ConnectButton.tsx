@@ -1,5 +1,5 @@
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { Key, ReactNode, useEffect, useState } from 'react'
+import { Key, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useDisconnect } from 'wagmi'
@@ -16,7 +16,6 @@ import {
 } from '@ensdomains/thorin'
 import { DropdownItem } from '@ensdomains/thorin/dist/types/components/molecules/Dropdown/Dropdown'
 
-import JoinIcon from '@app/../public/icon/JoinIcon.png'
 import useHasPendingTransactions from '@app/hooks/transactions/useHasPendingTransactions'
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import { useAvatar } from '@app/hooks/useAvatar'
@@ -143,7 +142,7 @@ export const JoinConnectButton = ({ isTabBar, large, inHeader }: Props) => {
         style={{ backgroundColor: '#3c32bb' }}
       >
         <img
-          src={JoinIcon.src}
+          src="https://jfinscan.com/static/apps/joinwallet.png"
           alt="joinIcon"
           style={{ width: '25px', height: '25px', verticalAlign: 'top', marginRight: '5px' }}
         />
@@ -153,7 +152,7 @@ export const JoinConnectButton = ({ isTabBar, large, inHeader }: Props) => {
   )
 }
 
-const JoinHeaderProfile = ({ profile, handleStorageChange }: any) => {
+const JoinHeaderProfile = ({ profile }: any) => {
   const { logout } = useJoin()
 
   const CustomProfile = styled(Profile)(
@@ -175,14 +174,14 @@ const JoinHeaderProfile = ({ profile, handleStorageChange }: any) => {
             label: 'Logout Join',
             color: 'red',
             onClick: () => {
-              logout(handleStorageChange)
+              logout()
             },
             icon: <ExitSVG />,
           },
         ] as DropdownItem[]
       }
       avatar={{
-        src: profile?.protraitUrl || JoinIcon.src,
+        src: profile?.protraitUrl || 'https://jfinscan.com/static/apps/joinwallet.png',
         decoding: 'sync',
         loading: 'eager',
         noBorder: false,
@@ -277,6 +276,7 @@ export const HeaderConnect = () => {
   const { address } = useAccountSafely()
   const [isJoin, setIsJoin] = useState(false)
   const [profile, setProfile] = useState(null) as any
+  const { useJoinListener } = useJoin()
 
   const handleStorageChange = () => {
     if (!localStorage.getItem('sessionId')) {
@@ -288,13 +288,7 @@ export const HeaderConnect = () => {
     }
   }
 
-  useEffect(() => {
-    window.addEventListener('storage', handleStorageChange)
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-    }
-  }, [])
+  useJoinListener(handleStorageChange)
 
   if (!address) {
     return <ConnectButton inHeader />

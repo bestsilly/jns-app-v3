@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
@@ -125,7 +125,7 @@ const Info = ({
     price: priceData,
   })
 
-  const { login } = useJoin()
+  const { login, useJoinListener } = useJoin()
   const breakpoints = useBreakpoint()
   const [isJoin, setIsJoin] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -142,13 +142,7 @@ const Info = ({
     }
   }
 
-  useEffect(() => {
-    window.addEventListener('storage', handleStorageChange)
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-    }
-  }, [])
+  useJoinListener(handleStorageChange)
 
   const handleJoin = () => {
     if (isJoin) {
@@ -215,11 +209,28 @@ const Info = ({
           <MobileFullWidth>
             <Button
               data-testid="next-button"
+              style={{ backgroundColor: '#3c32bb' }}
               onClick={() => {
                 handleJoin()
               }}
             >
-              {isJoin ? t('action.begin', { ns: 'common' }) : 'Connect Join'}
+              {isJoin ? (
+                t('action.begin', { ns: 'common' })
+              ) : (
+                <>
+                  <img
+                    src="https://jfinscan.com/static/apps/joinwallet.png"
+                    alt="joinIcon"
+                    style={{
+                      width: '25px',
+                      height: '25px',
+                      verticalAlign: 'top',
+                      marginRight: '5px',
+                    }}
+                  />
+                  <span style={{ verticalAlign: 'middle' }}>Connect Join</span>
+                </>
+              )}
             </Button>
           </MobileFullWidth>
         </ButtonContainer>

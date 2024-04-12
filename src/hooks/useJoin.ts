@@ -1,8 +1,26 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import crypto from 'crypto'
 import moment from 'moment'
+import { useEffect } from 'react'
 
 export const useJoin = () => {
+  const useJoinListener = (handleStorageChange: any) => {
+    useEffect(() => {
+      handleStorageChange()
+      const handleStorageChanged = (event: StorageEvent) => {
+        if (event.key === 'sessionId' || event.key === 'profile') {
+          handleStorageChange()
+        }
+      }
+
+      window.addEventListener('storage', handleStorageChanged)
+
+      return () => {
+        window.removeEventListener('storage', handleStorageChanged)
+      }
+    }, [])
+  }
+
   const generateEncryptedToken = () => {
     const inputData = moment().add(7, 'hours').toISOString()
 
@@ -42,11 +60,11 @@ export const useJoin = () => {
     window.location.replace((result as any).url)
   }
 
-  const logout = (callback: () => void) => {
+  const logout = () => {
     localStorage.removeItem('sessionId')
     localStorage.removeItem('profile')
 
-    callback()
+    window.dispatchEvent(new StorageEvent('storage', { key: 'sessionId' }))
   }
 
   const getProfile = async () => {
@@ -62,5 +80,5 @@ export const useJoin = () => {
     }).then((res) => res.json())
   }
 
-  return { login, logout, getProfile }
+  return { login, logout, getProfile, useJoinListener }
 }

@@ -6,7 +6,7 @@
     "dev:https": "next-dev-https --https --qr --port 3000",
     "dev:nlocal": "NEXT_PUBLIC_PROVIDER=https://rpc.testnet.jfinchain.com NEXT_PUBLIC_AVUP_ENDPOINT=https://jns-avatar-upload.jfin.workers.dev pnpm dev",
     "dev:localname": "NEXT_PUBLIC_PROVIDER=\"http://$(\"hostname\"):8545\" && NEXT_PUBLIC_AVUP_ENDPOINT=\"http://$(\"hostname\"):8787\" && NEXT_PUBLIC_GRAPH_URI=\"http://$(\"hostname\"):8000/subgraphs/name/graphprotocol/ens\" && pnpm dev",
-    "dev:glocal": "rm -rf .next && NEXT_PUBLIC_GRAPH_URI=https://termite-intense-monarch.ngrok-free.app/subgraphs/name/graphprotocol/ens pnpm dev:nlocal",
+    "dev:glocal": "rm -rf .next && NEXT_PUBLIC_GRAPH_URI=http://localhost:8000/subgraphs/name/graphprotocol/ens pnpm dev:nlocal",
     "dev:gonline": "NEXT_PUBLIC_GRAPH_URI=https://api.thegraph.com/subgraphs/name/tateb/temp-goerli-ens pnpm dev",
     "build": "next build",
     "build:preview": "NEXT_PUBLIC_ENSJS_DEBUG=true next build --profile",
@@ -114,7 +114,8 @@
     "styled-components": "^5.3.5",
     "ts-pattern": "^4.2.2",
     "use-immer": "^0.7.0",
-    "wagmi": "0.12.13"
+    "wagmi": "0.12.13",
+    "ethers": "^5.7.2"
   },
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "*",
@@ -172,7 +173,6 @@
     "eslint-plugin-react": "^7.31.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-testing-library": "^4.12.4",
-    "ethers": "^5.7.2",
     "ganache": "^7.4.1",
     "graphql-request": "5.1.0",
     "hardhat": "^2.10.2",
