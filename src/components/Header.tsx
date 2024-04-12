@@ -126,7 +126,7 @@ const SearchWrapper = styled.div<{ $state: TransitionState }>(
 
 const CustomConditionalWrapper = styled(ConditionalWrapper)(
   () => css`
-    display: none !important;
+    /* display: none !important; */
     /* ${mq.md.min(css``)} */
   `,
 )
