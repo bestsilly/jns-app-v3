@@ -125,21 +125,24 @@ const Info = ({
     price: priceData,
   })
 
-  const { login } = useJoin()
+  const { login, useJoinListener } = useJoin()
   const breakpoints = useBreakpoint()
   const [isJoin, setIsJoin] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [profile, setProfile] = useState(null) as any
+  const isAllow = isTestnet ? true : profile && profile.level !== 'BRONZE'
 
-  window.addEventListener('storage', () => {
+  const handleStorageChange = () => {
     if (!localStorage.getItem('sessionId')) {
       setIsJoin(false)
     } else {
       setIsJoin(true)
+      const profileData = localStorage.getItem('profile')
+      setProfile(profileData ? JSON.parse(profileData) : {})
     }
-  })
+  }
 
-  const profile = JSON.parse(localStorage.getItem('profile') || 'null')
-  const isAllow = isTestnet ? true : profile && profile.level !== 'BRONZE'
+  useJoinListener(handleStorageChange)
 
   const handleJoin = () => {
     if (isJoin) {
@@ -167,13 +170,13 @@ const Info = ({
             alert="warning"
             title={
               <CustomHeading style={{ textAlign: 'center', fontSize: '20px' }}>
-                Action Required: Upgrade JOIN account
+                Action Required: Upgrade Join account
               </CustomHeading>
             }
           />
           <CustomTypography style={breakpoints.sm ? { width: '500px' } : { padding: '16px' }}>
-            Your JOIN account is currently BRONZE. To access this feature, your account must be at
-            least SILVER. You can upgrade your account with the JOIN application.
+            Your Join account is currently BRONZE. To access this feature, your account must be at
+            least SILVER. You can upgrade your account with the Join application.
           </CustomTypography>
         </Dialog>
       </div>
@@ -206,11 +209,28 @@ const Info = ({
           <MobileFullWidth>
             <Button
               data-testid="next-button"
+              style={{ backgroundColor: '#3c32bb' }}
               onClick={() => {
                 handleJoin()
               }}
             >
-              {isJoin ? t('action.begin', { ns: 'common' }) : 'Connect JOIN'}
+              {isJoin ? (
+                t('action.begin', { ns: 'common' })
+              ) : (
+                <>
+                  <img
+                    src="https://jfinscan.com/static/apps/joinwallet.png"
+                    alt="joinIcon"
+                    style={{
+                      width: '25px',
+                      height: '25px',
+                      verticalAlign: 'top',
+                      marginRight: '5px',
+                    }}
+                  />
+                  <span style={{ verticalAlign: 'middle' }}>Connect Join</span>
+                </>
+              )}
             </Button>
           </MobileFullWidth>
         </ButtonContainer>

@@ -134,22 +134,25 @@ export const JoinConnectButton = ({ isTabBar, large, inHeader }: Props) => {
   return (
     <StyledButtonWrapper $large={large} $isTabBar={isTabBar}>
       <Button
-        colorStyle="indigoPrimary"
         data-testid={calculateTestId(isTabBar, inHeader)}
         onClick={() => login()}
         size={breakpoints.sm || large ? 'medium' : 'small'}
         width={inHeader ? '45' : undefined}
         shape="rounded"
+        style={{ backgroundColor: '#3c32bb' }}
       >
-        Connect JOIN
+        <img
+          src="https://jfinscan.com/static/apps/joinwallet.png"
+          alt="joinIcon"
+          style={{ width: '25px', height: '25px', verticalAlign: 'top', marginRight: '5px' }}
+        />
+        <span style={{ verticalAlign: 'middle' }}>Connect Join</span>
       </Button>
     </StyledButtonWrapper>
   )
 }
 
-const JoinHeaderProfile = ({ setIsJoin }: any) => {
-  const profileData = localStorage.getItem('profile')
-  const profile = profileData ? JSON.parse(profileData) : {}
+const JoinHeaderProfile = ({ profile }: any) => {
   const { logout } = useJoin()
 
   const CustomProfile = styled(Profile)(
@@ -168,16 +171,21 @@ const JoinHeaderProfile = ({ setIsJoin }: any) => {
       dropdownItems={
         [
           {
-            label: 'Logout JOIN',
+            label: 'Logout Join',
             color: 'red',
             onClick: () => {
-              setIsJoin(false)
               logout()
             },
             icon: <ExitSVG />,
           },
         ] as DropdownItem[]
       }
+      avatar={{
+        src: profile?.protraitUrl || 'https://jfinscan.com/static/apps/joinwallet.png',
+        decoding: 'sync',
+        loading: 'eager',
+        noBorder: false,
+      }}
       size="medium"
       alignDropdown="left"
       data-testid="join-header-profile"
@@ -249,7 +257,7 @@ const HeaderProfile = ({ address }: { address: string }) => {
         src: avatar || zorb,
         decoding: 'sync',
         loading: 'eager',
-        noBorder: true,
+        noBorder: false,
         overlay: avatar ? undefined : (
           <PersonOverlay>
             <PersonSVG />
@@ -267,16 +275,20 @@ const HeaderProfile = ({ address }: { address: string }) => {
 export const HeaderConnect = () => {
   const { address } = useAccountSafely()
   const [isJoin, setIsJoin] = useState(false)
+  const [profile, setProfile] = useState(null) as any
+  const { useJoinListener } = useJoin()
 
-  if (typeof window !== 'undefined') {
-    window.addEventListener('storage', () => {
-      if (!localStorage.getItem('sessionId')) {
-        setIsJoin(false)
-      } else {
-        setIsJoin(true)
-      }
-    })
+  const handleStorageChange = () => {
+    if (!localStorage.getItem('sessionId')) {
+      setIsJoin(false)
+    } else {
+      setIsJoin(true)
+      const profileData = localStorage.getItem('profile')
+      setProfile(profileData ? JSON.parse(profileData) : {})
+    }
   }
+
+  useJoinListener(handleStorageChange)
 
   if (!address) {
     return <ConnectButton inHeader />
@@ -284,7 +296,11 @@ export const HeaderConnect = () => {
 
   return (
     <>
-      {isJoin ? <JoinHeaderProfile setIsJoin={setIsJoin} /> : <JoinConnectButton />}
+      {isJoin ? (
+        <JoinHeaderProfile profile={profile} handleStorageChange={handleStorageChange} />
+      ) : (
+        <JoinConnectButton />
+      )}
       <HeaderProfile address={address} />
     </>
   )

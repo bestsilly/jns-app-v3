@@ -115,7 +115,8 @@
     "swr": "^2.2.5",
     "ts-pattern": "^4.2.2",
     "use-immer": "^0.7.0",
-    "wagmi": "0.12.13"
+    "wagmi": "0.12.13",
+    "ethers": "^5.7.2"
   },
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "*",
@@ -173,7 +174,6 @@
     "eslint-plugin-react": "^7.31.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-testing-library": "^4.12.4",
-    "ethers": "^5.7.2",
     "ganache": "^7.4.1",
     "graphql-request": "5.1.0",
     "hardhat": "^2.10.2",
