@@ -291,10 +291,7 @@ export const SearchInput = ({
       }
       return [_searchItem]
     }
-    const _searchItems: AnyItem[] =
-      _searchItem.type === 'nameWithDotEth'
-        ? [_searchItem, { type: 'name', isHistory: false }]
-        : [_searchItem]
+    const _searchItems: AnyItem[] = [_searchItem]
     return [..._searchItems, ...extraItems].slice(0, 5)
   }, [searchItem, extraItems])
 
