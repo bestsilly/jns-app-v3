@@ -1,14 +1,13 @@
 import { UrlObject } from 'url'
 
 import {
+  BrowserSVG,
   CogActiveSVG,
   CogSVG,
   DotGridActiveSVG,
   DotGridSVG,
   HeartActiveSVG,
   HeartSVG,
-  MagnifyingGlassActiveSVG,
-  MagnifyingGlassSVG,
   PersonActiveSVG,
   PersonSVG,
 } from '@ensdomains/thorin'
@@ -49,8 +48,8 @@ export const routes: RouteItemObj[] = [
     disabled: false,
     connected: false,
     icon: {
-      inactive: MagnifyingGlassSVG,
-      active: MagnifyingGlassActiveSVG,
+      inactive: BrowserSVG,
+      active: BrowserSVG,
     },
   },
   {
