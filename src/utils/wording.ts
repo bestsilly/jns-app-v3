@@ -1,4 +1,4 @@
-import { ethers } from 'ethers'
+import { ethers, utils } from 'ethers'
 
 const Filter = require('bad-words')
 
@@ -128,14 +128,21 @@ export const getTempTakedownList = () => {
   return []
 }
 
-export const checkTakedownName = (input: string): boolean => {
-  const list = JSON.parse(localStorage.getItem('hashedTakedownList') || '[]')
-  return list.includes(input)
+export const isTakedownName = (input: string): boolean => {
+  if (typeof window !== 'undefined') {
+    const list = JSON.parse(window?.localStorage?.getItem('hashedTakedownList') || '[]')
+    const name = input ? input?.replace('.jfin', '') : ''
+    return list?.includes(utils.id(name))
+  }
+  return false
 }
 
 export const checkRestrictWords = (input: string): boolean => {
-  const list = JSON.parse(localStorage.getItem('hashedRestrictWords') || '[]')
-  return list.includes(input)
+  if (typeof window !== 'undefined') {
+    const list = JSON.parse(window?.localStorage?.getItem('hashedRestrictWords') || '[]')
+    return list?.includes(input)
+  }
+  return false
 }
 
 export const isEnglish = (input: string): boolean => {
