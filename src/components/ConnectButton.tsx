@@ -153,7 +153,7 @@ export const JoinConnectButton = ({ isTabBar, large, inHeader }: Props) => {
 }
 
 const JoinHeaderProfile = ({ profile }: any) => {
-  const { logout } = useJoin()
+  const { maskPhoneNumber, logout } = useJoin()
 
   const CustomProfile = styled(Profile)(
     ({ theme }) => css`
@@ -166,7 +166,7 @@ const JoinHeaderProfile = ({ profile }: any) => {
   return (
     <CustomProfile
       address={profile?.contactNumber || ''}
-      ensName={profile?.contactNumber || ''}
+      ensName={maskPhoneNumber(profile?.contactNumber) || ''}
       style={{ color: '#fff !important' }}
       dropdownItems={
         [

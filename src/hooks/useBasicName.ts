@@ -8,6 +8,7 @@ import { useQueryKeys } from '@app/utils/cacheKeyFactory'
 import { emptyAddress } from '@app/utils/constants'
 import { getRegistrationStatus } from '@app/utils/registrationStatus'
 import { isLabelTooLong, yearsToSeconds } from '@app/utils/utils'
+import { isTakedownName } from '@app/utils/wording'
 
 import { useGlobalErrorFunc } from './errors/useGlobalErrorFunc'
 import { usePccExpired } from './fuses/usePccExpired'
@@ -64,6 +65,13 @@ export const useBasicName = (name?: string | null, options: UseBasicNameOptions 
   const { name: _normalisedName, isValid, ...validation } = useValidate(name!, !name)
 
   const normalisedName = normalised ? name! : _normalisedName
+
+  const _isTakedownName = isTakedownName(normalisedName)
+    ? normalisedName.replace(
+        new RegExp(normalisedName, 'g'),
+        `${'*'.repeat(normalisedName.length)}.jfin`,
+      )
+    : normalisedName
 
   const { data: supportedTLD, isLoading: supportedTLDLoading } = useSupportsTLD(normalisedName)
 
@@ -136,7 +144,7 @@ export const useBasicName = (name?: string | null, options: UseBasicNameOptions 
       })
     : undefined
 
-  const truncatedName = normalisedName ? truncateFormat(normalisedName) : undefined
+  const truncatedName = _isTakedownName ? truncateFormat(_isTakedownName) : undefined
 
   const nameWrapperAddress = useContractAddress('NameWrapper')
   const isWrapped = ownerData?.ownershipLevel === 'nameWrapper'
@@ -158,7 +166,7 @@ export const useBasicName = (name?: string | null, options: UseBasicNameOptions 
 
   return {
     ...validation,
-    normalisedName,
+    normalisedName: _isTakedownName,
     isValid,
     ownerData,
     wrapperData,

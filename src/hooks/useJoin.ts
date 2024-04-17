@@ -21,6 +21,15 @@ export const useJoin = () => {
     }, [])
   }
 
+  const maskPhoneNumber = (phoneNumber?: string): string => {
+    if (!phoneNumber) {
+      return ''
+    }
+
+    const maskedNumber: string = `***${phoneNumber.substring(3, 6)}****`
+    return maskedNumber
+  }
+
   const generateEncryptedToken = () => {
     const inputData = moment().add(7, 'hours').toISOString()
 
@@ -80,5 +89,5 @@ export const useJoin = () => {
     }).then((res) => res.json())
   }
 
-  return { login, logout, getProfile, useJoinListener }
+  return { login, logout, maskPhoneNumber, getProfile, useJoinListener }
 }

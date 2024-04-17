@@ -60,7 +60,7 @@ if (process.env.NEXT_PUBLIC_PROVIDER) {
 const { provider, chains } = configureChains([jfintestnet], providerArray)
 
 const connectors = getDefaultWallets({
-  appName: 'ENS',
+  appName: 'JNS',
   projectId: WC_PROJECT_ID,
   chains,
 })
