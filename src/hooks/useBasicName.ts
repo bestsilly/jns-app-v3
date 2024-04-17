@@ -164,8 +164,6 @@ export const useBasicName = (name?: string | null, options: UseBasicNameOptions 
 
   const isLoading = !ens.ready || batchLoading || supportedTLDLoading
 
-  console.log(_isTakedownName)
-
   return {
     ...validation,
     normalisedName: _isTakedownName,
