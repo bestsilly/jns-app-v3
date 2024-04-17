@@ -206,7 +206,7 @@ const TabBarProfile = ({
   const hasPendingTransactions = useHasPendingTransactions()
   const [isJoin, setIsJoin] = useState(false)
   const [joinModalOpen, setJoinModalOpen] = useState(false)
-  const { login, logout, useJoinListener } = useJoin()
+  const { maskPhoneNumber, login, logout, useJoinListener } = useJoin()
   const [profile, setProfile] = useState(null) as any
 
   const handleStorageChange = () => {
@@ -250,7 +250,7 @@ const TabBarProfile = ({
               src="https://jfinscan.com/static/apps/joinwallet.png"
               style={{ width: '30px', height: '30px' }}
             />
-            <span>{profile?.contactNumber || ''}</span>
+            <span>{maskPhoneNumber(profile?.contactNumber) || ''}</span>
           </>
         )}
       </Dialog>
