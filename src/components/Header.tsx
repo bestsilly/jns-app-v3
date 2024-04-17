@@ -113,7 +113,7 @@ const SearchWrapper = styled.div<{ $state: TransitionState }>(
     }
 
     transition: margin 0.15s ease-in-out;
-    margin-right: ${theme.space['24']};
+    margin-right: ${theme.space['12']};
     ${$state !== 'entered' &&
     css`
       margin-right: 0;
@@ -124,10 +124,11 @@ const SearchWrapper = styled.div<{ $state: TransitionState }>(
   `,
 )
 
-const CustomConditionalWrapper = styled(ConditionalWrapper)(
+const CustomBrandWrapper = styled.div(
   () => css`
-    /* display: none !important; */
-    /* ${mq.md.min(css``)} */
+    ${mq.lg.max(css`
+      display: none !important;
+    `)}
   `,
 )
 
@@ -201,7 +202,7 @@ export const Header = () => {
   return (
     <HeaderWrapper id="header">
       <NavContainer>
-        <CustomConditionalWrapper
+        <ConditionalWrapper
           condition={router.asPath !== '/'}
           wrapper={(children) => (
             <BaseLink passHref href="/">
@@ -209,12 +210,14 @@ export const Header = () => {
             </BaseLink>
           )}
         >
-          {router.asPath === '/' ? (
-            <ENSFull height={space['12']} />
-          ) : (
-            <ENSWithGradient height={space['12']} />
-          )}
-        </CustomConditionalWrapper>
+          <CustomBrandWrapper>
+            {router.asPath === '/' ? (
+              <ENSFull height={space['12']} />
+            ) : (
+              <ENSWithGradient height={space['12']} />
+            )}
+          </CustomBrandWrapper>
+        </ConditionalWrapper>
         {router.asPath !== '/' && breakpoints.sm && (
           <>
             <SearchWrapper
