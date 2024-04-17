@@ -51,13 +51,14 @@ const StyledCountdown = styled(CountdownCircle)(
       font-weight: ${theme.fontWeights.bold};
       width: ${theme.space['52']};
       height: ${theme.space['52']};
-      color: ${theme.colors.accent};
+      color: #fff;
       ${disabled &&
       css`
         color: ${theme.colors.grey};
       `}
     }
     svg {
+      color: #fff;
       stroke-width: ${theme.space['0.5']};
       ${disabled &&
       css`

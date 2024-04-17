@@ -224,13 +224,13 @@ export const LoadBar = ({ status, sendTime }: { status: Status; sendTime: number
 
   const EndElement = useMemo(() => {
     if (status === 'complete') {
-      return <CircleIcon as={CircleTickSVG} />
+      return <CircleIcon as={CircleTickSVG} style={{ color: '#fff' }} />
     }
     if (status === 'failed') {
-      return <CircleIcon as={CrossCircleSVG} />
+      return <CircleIcon as={CrossCircleSVG} style={{ color: '#fff' }} />
     }
     if (progress !== 100) {
-      return <AeroplaneIcon as={AeroplaneSVG} />
+      return <AeroplaneIcon as={AeroplaneSVG} style={{ color: '#fff' }} />
     }
     return <Spinner color="background" size="small" />
   }, [progress, status])

@@ -231,6 +231,7 @@ const EthInnerCheckbox = ({
             disabled={!address}
             size={breakpoints.sm ? 'large' : 'medium'}
             checked={reverseRecord}
+            color="accent"
             onChange={(e) => {
               e.stopPropagation()
               setReverseRecord(e.target.checked)

@@ -66,9 +66,9 @@ const ProfileSection = ({
 }) => {
   const { t } = useTranslation('profile')
   const ButtonComponent = button
-  const supportedArray = supported
-    ? array.filter((x) => supported.includes(x.key.toLowerCase()))
-    : array
+  const supportedArray = (
+    supported ? array.filter((x) => supported.includes(x.key.toLowerCase())) : array
+  ).filter((s) => s.value !== '[root]')
   const unsupportedArray = supported
     ? array.filter((x) => !supported.includes(x.key.toLowerCase())).map((x) => ({ ...x, type }))
     : []

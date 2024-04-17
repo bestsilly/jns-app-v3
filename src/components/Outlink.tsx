@@ -25,12 +25,14 @@ const OutlinkIcon = styled.div(
     width: ${theme.space['3.5']};
     height: ${theme.space['3.5']};
     opacity: 0.5;
+    color: #fff !important;
   `,
 )
 
 export const OutlinkTypography = styled(CustomTypography)(
-  () => css`
+  ({ theme }) => css`
     display: inline-block;
+    color: ${theme.colors.accentLight} !important;
   `,
 )
 
@@ -44,9 +46,7 @@ export const Outlink = ({
   }) => {
   const InnerContent = (
     <StyledAnchor {...props} rel="noreferrer noopener" target="_blank" role="link">
-      <OutlinkTypography fontVariant="smallBold" color="blue">
-        {children}
-      </OutlinkTypography>
+      <OutlinkTypography fontVariant="smallBold">{children}</OutlinkTypography>
       <OutlinkIcon as={OutlinkSVG} />
     </StyledAnchor>
   )

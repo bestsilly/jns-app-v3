@@ -187,7 +187,7 @@ const Info = ({
         <InfoItems>
           {infoItemArr.map((item, inx) => (
             <InfoItem key={item}>
-              <CustomTypography>{inx + 1}</CustomTypography>
+              <CustomTypography style={{ color: '#fff' }}>{inx + 1}</CustomTypography>
               <CustomTypography>{t(item)}</CustomTypography>
             </InfoItem>
           ))}

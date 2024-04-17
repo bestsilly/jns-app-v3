@@ -119,7 +119,7 @@ const pathRewriter: PagesFunction = async ({ request, next }) => {
 
     if (url.pathname === '/profile') {
       const decodedName = decodeURIComponent(isTLD ? paths[2] : paths[1])
-      let newTitle = 'Invalid Name - JNS'
+      let newTitle = 'Invalid Name - JFIN Name Service'
       let newDescription = 'An error occurred'
       try {
         const { normalise } = await import('@jfinchain/jnsjs/utils/normalise')

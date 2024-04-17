@@ -28,9 +28,7 @@ const NameItemWrapper = styled.div<{ $highlight: boolean; $disabled: boolean }>(
     background: ${$highlight ? theme.colors.blueSurface : theme.colors.backgroundPrimary};
     cursor: ${$disabled ? 'not-allowed' : 'pointer'};
     &:hover {
-      background: ${$highlight
-        ? theme.colors.backgroundSecondary
-        : theme.colors.backgroundSecondary};
+      background: ${$highlight ? theme.colors.accent : '#474747'};
       span {
         color: ${theme.colors.textSecondary} !important;
       }

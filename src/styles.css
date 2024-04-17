@@ -17,6 +17,30 @@ div[data-testid='dropdown-menu'] a:hover {
   color: #000 !important;
 }
 
+div[data-testid='select-container'] button:hover,
+div[data-testid='select-container'] button:hover svg,
+div[data-testid='select-container'] a:hover svg,
+div[data-testid='select-container'] a:hover {
+  color: #000 !important;
+}
+
+div[class^='LegacyDropdown'] button:hover {
+  color: #000 !important;
+}
+
+div[class*='MainMenu__Container'] a:hover * {
+  color: #000 !important;
+}
+
+div[class^='ProfileDetails'] a:hover,
+div[class^='ProfileDetails'] button:hover {
+  background: #f2f2f2 !important;
+}
+
+label[id='permissions-label'] * {
+  color: #f2f2f2 !important;
+}
+
 /* .modal div:last-child form > div:first-child * */
 .modal div:last-child form > div > div:first-child,
 .modal div:last-child:not(form) > div > div {

@@ -170,11 +170,6 @@ export default function LandingSection2() {
       <Container>
         <Stack>
           <CustomHeading>Pricing</CustomHeading>
-          <CustomTypography>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-            has been the standard dummy text ever since the 1500s, when an unknown printer took a
-            galley of type and scrambled it to make
-          </CustomTypography>
 
           <Skeleton loading={isLoading} style={{ width: '100%' }}>
             {error ? (
