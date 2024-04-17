@@ -4,6 +4,7 @@
 
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 import { isAddress } from '@ethersproject/address'
+import { utils } from 'ethers'
 import debounce from 'lodash/debounce'
 import { RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -21,7 +22,13 @@ import { useElementSize } from '@app/hooks/useWindowSize'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
 import { useQueryKeys } from '@app/utils/cacheKeyFactory'
 import { getRegistrationStatus } from '@app/utils/registrationStatus'
-import { getTakendownList, isBlacklisted, isEnglish } from '@app/utils/wording'
+import {
+  getRestrictWords,
+  getTakendownList,
+  getTempRestrictWords,
+  isBlacklisted,
+  isEnglish,
+} from '@app/utils/wording'
 
 import { FakeSearchInputBox, SearchInputBox } from './SearchInputBox'
 import { SearchResult } from './SearchResult'
@@ -225,14 +232,12 @@ export const SearchInput = ({
     [inputIsAddress, inputVal, name],
   )
 
-  const [takenDownList, setTakenDownList] = useState<string[]>([])
-
   // fetch the word list from the API when the component mounts
   useEffect(() => {
     const fetchWordList = async () => {
       try {
-        const response = await getTakendownList()
-        setTakenDownList(response)
+        await getTakendownList()
+        await getRestrictWords()
       } catch {
         // fetch list failed
       }
@@ -253,12 +258,13 @@ export const SearchInput = ({
         type: 'address',
       }
     }
+    const _tempRestrictWords = getTempRestrictWords()
     if (
       !isValid ||
       isBlacklisted(inputVal) ||
       !isEnglish(inputVal) ||
-      takenDownList?.includes(inputVal.toLowerCase()) ||
-      takenDownList?.includes(inputVal.replace(/\.jfin$/, ''))
+      _tempRestrictWords?.includes(utils.id(inputVal.toLowerCase())) ||
+      _tempRestrictWords?.includes(utils.id(inputVal.replace(/\.jfin$/, '')))
     ) {
       return {
         type: 'error',

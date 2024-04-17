@@ -1,3 +1,4 @@
+import { utils } from 'ethers'
 import { ReactElement, useEffect } from 'react'
 import { useAccount } from 'wagmi'
 
@@ -8,7 +9,7 @@ import { useNameDetails } from '@app/hooks/useNameDetails'
 import { getSelectedIndex } from '@app/hooks/useRegistrationReducer'
 import { useRouterWithHistory } from '@app/hooks/useRouterWithHistory'
 import { ContentGrid } from '@app/layouts/ContentGrid'
-import { getTakendownList } from '@app/utils/wording'
+import { getTempRestrictWords, getTempTakedownList } from '@app/utils/wording'
 
 export default function Page() {
   const router = useRouterWithHistory()
@@ -25,10 +26,15 @@ export default function Page() {
   const isLoading = detailsLoading || initial
 
   useEffect(() => {
+    const _tempRestrictWords = getTempRestrictWords()
+    const _tempTakedownList = getTempTakedownList()
     const fetchWordList = async () => {
       try {
-        const response = await getTakendownList()
-        if (response?.includes(name.replace(/\.jfin$/, ''))) {
+        if (
+          [..._tempRestrictWords, ..._tempTakedownList]?.includes(
+            utils.id(name.replace(/\.jfin$/, '')),
+          )
+        ) {
           router.push(`/profile/invalid`)
         }
       } catch {
