@@ -91,9 +91,9 @@ const StyledOutlink = styled(Outlink)<{ $error: boolean }>(
     $error &&
     css`
       > div {
-        color: ${theme.colors.red};
+        color: ${theme.colors.red} !important;
       }
-      color: ${theme.colors.red};
+      color: ${theme.colors.red} !important;
     `,
 )
 
