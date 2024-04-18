@@ -14,8 +14,8 @@ export const getSupportedNetworkName = (networkId: number) =>
 
 const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
 const baseMetadataURL = isTestnet
-  ? 'https://jns-metadata.jfinchain.com'
-  : 'https://jns-metadata.testnet.jfinchain.com'
+  ? 'https://jns-metadata.testnet.jfinchain.com'
+  : 'https://jns-metadata.jfinchain.com'
 
 // eslint-disable-next-line consistent-return
 export function imageUrlUnknownRecord(name: string, network: number) {
