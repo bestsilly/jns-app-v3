@@ -27,7 +27,7 @@ import {
   getTakendownList,
   getTempRestrictWords,
   isBlacklisted,
-  isEnglish,
+  isEnglishLowerCaseAndNumeric,
 } from '@app/utils/wording'
 
 import { FakeSearchInputBox, SearchInputBox } from './SearchInputBox'
@@ -262,7 +262,7 @@ export const SearchInput = ({
     if (
       !isValid ||
       isBlacklisted(inputVal) ||
-      !isEnglish(inputVal) ||
+      !isEnglishLowerCaseAndNumeric(inputVal) ||
       _tempRestrictWords?.includes(utils.id(inputVal.toLowerCase())) ||
       _tempRestrictWords?.includes(utils.id(inputVal.replace(/\.jfin$/, '')))
     ) {
