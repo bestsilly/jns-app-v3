@@ -112,28 +112,30 @@ const ProfileTab = ({ nameDetails, name }: Props) => {
           </Helper>
         )}
       </ProfileSnippet>
-      <ProfileDetails
-        expiryDate={validateExpiry(
-          normalisedName,
-          wrapperData,
-          expiryDate || wrapperData?.expiryDate,
-          pccExpired,
-        )}
-        pccExpired={!!pccExpired}
-        isCached={profileIsCachedData || basicIsCachedData || abilities.isCachedData}
-        addresses={(transformedProfile?.records?.coinTypes || []).map((item: any) => ({
-          key: item.coin,
-          value: item.addr,
-        }))}
-        textRecords={(transformedProfile?.records?.texts || [])
-          .map((item: any) => ({ key: item.key, value: item.value }))
-          .filter((item: any) => item.value !== null)}
-        contentHash={profile?.records?.contentHash}
-        owners={owners}
-        name={normalisedName}
-        actions={profileActions.profileActions}
-        gracePeriodEndDate={gracePeriodEndDate}
-      />
+      <div id="ProfileDetails">
+        <ProfileDetails
+          expiryDate={validateExpiry(
+            normalisedName,
+            wrapperData,
+            expiryDate || wrapperData?.expiryDate,
+            pccExpired,
+          )}
+          pccExpired={!!pccExpired}
+          isCached={profileIsCachedData || basicIsCachedData || abilities.isCachedData}
+          addresses={(transformedProfile?.records?.coinTypes || []).map((item: any) => ({
+            key: item.coin,
+            value: item.addr,
+          }))}
+          textRecords={(transformedProfile?.records?.texts || [])
+            .map((item: any) => ({ key: item.key, value: item.value }))
+            .filter((item: any) => item.value !== null)}
+          contentHash={profile?.records?.contentHash}
+          owners={owners}
+          name={normalisedName}
+          actions={profileActions.profileActions}
+          gracePeriodEndDate={gracePeriodEndDate}
+        />
+      </div>
     </DetailsWrapper>
   )
 }

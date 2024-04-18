@@ -130,6 +130,7 @@ const AvatarButton = ({
 
   return (
     <LegacyDropdown
+      id="LegacyDropdown"
       items={
         [
           // {
