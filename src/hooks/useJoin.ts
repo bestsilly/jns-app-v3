@@ -26,7 +26,7 @@ export const useJoin = () => {
       return ''
     }
 
-    const maskedNumber: string = `***${phoneNumber.substring(3, 6)}****`
+    const maskedNumber: string = phoneNumber.replace(/(\d{3})(\d+)(\d{4})/, '$1***$3')
     return maskedNumber
   }
 
