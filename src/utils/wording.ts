@@ -145,10 +145,15 @@ export const checkRestrictWords = (input: string): boolean => {
   return false
 }
 
-export const isEnglish = (input: string): boolean => {
-  return input.split('').every((char) => {
-    const charCode = char.charCodeAt(0)
-    return charCode >= 32 && charCode <= 126
+export const isEnglishLowerCaseAndNumeric = (input: string): boolean => {
+  const name = input.split('.jfin')
+  return name.every((part) => {
+    return part.split('').every((char) => {
+      const charCode = char.charCodeAt(0)
+      const isLowerCase = charCode >= 97 && charCode <= 122
+      const isNumeric = charCode >= 48 && charCode <= 57
+      return isLowerCase || isNumeric
+    })
   })
 }
 
