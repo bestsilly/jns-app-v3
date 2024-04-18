@@ -29,12 +29,12 @@ import '../styles.css'
 
 const thorinGlobalTheme: typeof thorinDarkTheme = merge(thorinDarkTheme, {
   colors: {
-    accentPrimary: '#3c32bb',
-    accentSecondary: '#3c32bb',
+    accentPrimary: '#5647ff',
+    accentSecondary: '#5647ff',
     accentActive: '#2015bd',
     accentBright: '#4336e3',
-    accent: '#3c32bb',
-    accentLight: '#4134eb',
+    accent: '#5647ff',
+    accentLight: '#564aff',
     background: '#101112',
     backgroundPrimary: '#101112',
     backgroundSecondary: '#fff',
