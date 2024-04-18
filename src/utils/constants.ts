@@ -1,5 +1,18 @@
 import { EthAddress } from '@app/types'
 
+export const CONTRACT_ADDRESSES = {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  '3501': {
+    publicResolver: '0x0292DC69f99b90d97aDD773cC2A0c1b251D0e235',
+    dummyOracle: '0x3C26106427ddD5bce4F371b38987115b85ec8b24',
+  },
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  '3502': {
+    publicResolver: '0xad9dA8192B750aD7eFF975ec00BD94783fbC2C53',
+    dummyOracle: '0xE3f7B0902edeE415053B5D582322d1420FD26D85',
+  },
+}
+
 export const emptyAddress = '0x0000000000000000000000000000000000000000'
 
 export const networkName = {
@@ -58,7 +71,9 @@ export const RESOLVER_ADDRESSES: ResolverAddresses = {
   //   '0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB',
   // ],
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '3502': ['0x5477CD223E5F4Df55ED738C0E21E9341A5a134A9'],
+  '3501': [CONTRACT_ADDRESSES[3501].publicResolver], // JNS PublicResolver Address
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  '3502': [CONTRACT_ADDRESSES[3502].publicResolver], // JNS PublicResolver Address
 }
 
 export const NAMEWRAPPER_AWARE_RESOLVERS: ResolverAddresses = {
@@ -75,7 +90,9 @@ export const NAMEWRAPPER_AWARE_RESOLVERS: ResolverAddresses = {
   // // eslint-disable-next-line @typescript-eslint/naming-convention
   // '1337': ['0x0E801D84Fa97b50751Dbf25036d067dCf18858bF'],
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '3502': ['0x5477CD223E5F4Df55ED738C0E21E9341A5a134A9'],
+  '3501': [CONTRACT_ADDRESSES[3501].publicResolver], // JNS PublicResolver Address
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  '3502': [CONTRACT_ADDRESSES[3502].publicResolver], // JNS PublicResolver Address
 }
 
 export const RESOLVER_INTERFACE_IDS = {
@@ -97,7 +114,7 @@ export const MOONPAY_WORKER_URL: { [key: number]: string } = {
 
 export const FAUCET_WORKER_URL = 'https://ens-faucet.ens-cf.workers.dev'
 
-export const WC_PROJECT_ID = '9b14144d470af1e03ab9d88aaa127332'
+export const WC_PROJECT_ID = '8d7de75a9afb30b1e7e685a7231fdbda'
 
 // 102% of price as buffer for fluctuations
 export const CURRENCY_FLUCTUATION_BUFFER_PERCENTAGE = 100

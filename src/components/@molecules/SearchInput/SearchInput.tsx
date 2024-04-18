@@ -4,6 +4,7 @@
 
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 import { isAddress } from '@ethersproject/address'
+import { utils } from 'ethers'
 import debounce from 'lodash/debounce'
 import { RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,8 +12,9 @@ import useTransition, { TransitionState } from 'react-transition-state'
 import styled, { css } from 'styled-components'
 import { useQueryClient } from 'wagmi'
 
-import { BackdropSurface, Portal, Typography, mq } from '@ensdomains/thorin'
+import { BackdropSurface, Portal, mq } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { useLocalStorage } from '@app/hooks/useLocalStorage'
 import { useRouterWithHistory } from '@app/hooks/useRouterWithHistory'
 import { ValidationResult, useValidate, validate } from '@app/hooks/useValidate'
@@ -20,6 +22,13 @@ import { useElementSize } from '@app/hooks/useWindowSize'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
 import { useQueryKeys } from '@app/utils/cacheKeyFactory'
 import { getRegistrationStatus } from '@app/utils/registrationStatus'
+import {
+  getRestrictWords,
+  getTakendownList,
+  getTempRestrictWords,
+  isBlacklisted,
+  isEnglishLowerCaseAndNumeric,
+} from '@app/utils/wording'
 
 import { FakeSearchInputBox, SearchInputBox } from './SearchInputBox'
 import { SearchResult } from './SearchResult'
@@ -109,7 +118,7 @@ const InputAndCancel = styled.div(
   `,
 )
 
-const CancelButton = styled(Typography)(
+const CancelButton = styled(CustomTypography)(
   ({ theme }) => css`
     padding: ${theme.space['3']};
   `,
@@ -141,6 +150,7 @@ const MobileSearchInput = ({
   return (
     <>
       <FakeSearchInputBox
+        size="medium"
         onClick={(e) => {
           toggle(true)
           // MOBILE SAFARI FIX:
@@ -222,6 +232,20 @@ export const SearchInput = ({
     [inputIsAddress, inputVal, name],
   )
 
+  // fetch the word list from the API when the component mounts
+  useEffect(() => {
+    const fetchWordList = async () => {
+      try {
+        await getTakendownList()
+        await getRestrictWords()
+      } catch {
+        // fetch list failed
+      }
+    }
+
+    fetchWordList()
+  }, [])
+
   const searchItem: SearchItem = useMemo(() => {
     if (isEmpty) {
       return {
@@ -234,7 +258,14 @@ export const SearchInput = ({
         type: 'address',
       }
     }
-    if (!isValid) {
+    const _tempRestrictWords = getTempRestrictWords()
+    if (
+      !isValid ||
+      isBlacklisted(inputVal) ||
+      !isEnglishLowerCaseAndNumeric(inputVal) ||
+      _tempRestrictWords?.includes(utils.id(inputVal.toLowerCase())) ||
+      _tempRestrictWords?.includes(utils.id(inputVal.replace(/\.jfin$/, '')))
+    ) {
       return {
         type: 'error',
         value: t('search.errors.invalid'),
@@ -254,7 +285,7 @@ export const SearchInput = ({
     return {
       type: 'name',
     }
-  }, [isEmpty, inputIsAddress, isValid, isETH, is2LD, isShort, type, t])
+  }, [isEmpty, inputIsAddress, isValid, isETH, is2LD, isShort, type, t, inputVal])
 
   const extraItems = useMemo(() => {
     if (history.length > 0) {
@@ -288,10 +319,7 @@ export const SearchInput = ({
       }
       return [_searchItem]
     }
-    const _searchItems: AnyItem[] =
-      _searchItem.type === 'nameWithDotEth'
-        ? [_searchItem, { type: 'name', isHistory: false }]
-        : [_searchItem]
+    const _searchItems: AnyItem[] = [_searchItem]
     return [..._searchItems, ...extraItems].slice(0, 5)
   }, [searchItem, extraItems])
 

@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useAccount } from 'wagmi'
 
-import { Dialog, Helper, Typography, mq } from '@ensdomains/thorin'
+import { Dialog, Helper, mq } from '@ensdomains/thorin'
 
 import { BaseLinkWithHistory } from '@app/components/@atoms/BaseLink'
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
+import { CustomTypography } from '@app/components/customs'
 import { ProfileRecord } from '@app/constants/profileRecordOptions'
 import { useChainId } from '@app/hooks/useChainId'
 import { useContractAddress } from '@app/hooks/useContractAddress'
@@ -256,9 +257,9 @@ const Registration = ({ nameDetails, isLoading }: Props) => {
             <ViewProfileContainer>
               <BaseLinkWithHistory href={`/expired-profile/${normalisedName}`} passHref>
                 <a>
-                  <Typography color="accent" weight="bold">
+                  <CustomTypography color="accent" weight="bold">
                     {t('wallet.viewProfile', { ns: 'common' })}
-                  </Typography>
+                  </CustomTypography>
                 </a>
               </BaseLinkWithHistory>
             </ViewProfileContainer>
@@ -322,13 +323,13 @@ const Registration = ({ nameDetails, isLoading }: Props) => {
       >
         <StyledInnerDialog>
           <MoonPayHeader>
-            <Typography fontVariant="bodyBold" color="grey">
+            <CustomTypography fontVariant="bodyBold" color="grey">
               {t('steps.info.moonpayModalHeader')}
-            </Typography>
+            </CustomTypography>
             {chainId === 5 && (
-              <Typography fontVariant="body" color="grey">
+              <CustomTypography fontVariant="body" color="grey">
                 {`${t('steps.info.moonpayTestCard')}: 4000 0209 5159 5032, 12/2030, 123`}
-              </Typography>
+              </CustomTypography>
             )}
           </MoonPayHeader>
           <MoonPayIFrame

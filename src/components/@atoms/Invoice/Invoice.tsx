@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
 import styled, { css } from 'styled-components'
 
-import { Colors, Skeleton } from '@ensdomains/thorin'
+import { Colors, Skeleton, Typography } from '@ensdomains/thorin'
 
 import { CurrencyDisplay } from '@app/types'
 
@@ -20,17 +20,17 @@ const Container = styled.div(
 )
 
 const LineItem = styled.div<{ $color?: Colors }>(
-  ({ theme, $color }) => css`
+  ({ theme }) => css`
     display: flex;
     justify-content: space-between;
     line-height: ${theme.space['5']};
-    color: ${$color ? theme.colors[$color] : theme.colors.textTertiary};
+    color: ${theme.colors.textSecondary};
   `,
 )
 
 const Total = styled(LineItem)(
   ({ theme }) => css`
-    color: ${theme.colors.text};
+    color: ${theme.colors.textTertiary};
   `,
 )
 
@@ -61,20 +61,21 @@ export const Invoice = ({ totalLabel = 'Estimated total', unit = 'eth', items }:
     <Container>
       {items.map(({ label, value, bufferPercentage, color }, inx) => (
         <LineItem data-testid={`invoice-item-${inx}`} $color={color} key={label}>
-          <div>{label}</div>
+          <Typography>{label}</Typography>
           <Skeleton loading={!value}>
             <div data-testid={`invoice-item-${inx}-amount`}>
               <CurrencyText
                 bufferPercentage={bufferPercentage}
                 eth={value || BigNumber.from(0)}
                 currency={unit}
+                rounding={false}
               />
             </div>
           </Skeleton>
         </LineItem>
       ))}
       <Total>
-        <div>{totalLabel}</div>
+        <Typography>{totalLabel}</Typography>
         <Skeleton loading={hasEmptyItems}>
           <div data-testid="invoice-total">
             <CurrencyText eth={hasEmptyItems ? BigNumber.from(0) : total} currency={unit} />

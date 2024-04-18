@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Typography, mq } from '@ensdomains/thorin'
+import { mq } from '@ensdomains/thorin'
 
 import { cacheableComponentStyles } from '@app/components/@atoms/CacheableComponent'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
 import RecordItem from '@app/components/RecordItem'
+import { CustomTypography } from '@app/components/customs'
 import { useHasGlobalError } from '@app/hooks/errors/useHasGlobalError'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
 
@@ -89,9 +90,9 @@ const Resolver = ({
     <Container $isCached={isCachedData}>
       <HeadingContainer>
         <InnerHeading>
-          <Typography color="text" fontVariant="headingFour" weight="bold">
+          <CustomTypography color="text" fontVariant="headingFour" weight="bold">
             {t('tabs.more.resolver.label')}
-          </Typography>
+          </CustomTypography>
         </InnerHeading>
         {canEdit && !hasGlobalError && (
           <>

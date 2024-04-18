@@ -5,17 +5,7 @@ import usePrevious from 'react-use/lib/usePrevious'
 import styled, { css } from 'styled-components'
 import { useBalance } from 'wagmi'
 
-import {
-  Button,
-  Field,
-  Heading,
-  Helper,
-  RadioButton,
-  RadioButtonGroup,
-  Toggle,
-  Typography,
-  mq,
-} from '@ensdomains/thorin'
+import { Button, Field, Heading, Helper, RadioButtonGroup, Toggle, mq } from '@ensdomains/thorin'
 
 // import MoonpayLogo from '@app/assets/MoonpayLogo.svg'
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
@@ -24,6 +14,7 @@ import { RegistrationTimeComparisonBanner } from '@app/components/@atoms/Registr
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { Card } from '@app/components/Card'
 import { ConnectButton } from '@app/components/ConnectButton'
+import { CustomTypography, CustomTypographyBlack } from '@app/components/customs'
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import { useContractAddress } from '@app/hooks/useContractAddress'
 import { useEstimateFullRegistration } from '@app/hooks/useEstimateRegistration'
@@ -74,9 +65,10 @@ const OutlinedContainer = styled.div(
 )
 
 const StyledHeading = styled(Heading)(
-  () => css`
+  ({ theme }) => css`
     width: 100%;
     word-break: break-all;
+    color: ${theme.colors.textTertiary};
 
     @supports (overflow-wrap: anywhere) {
       overflow-wrap: anywhere;
@@ -103,7 +95,7 @@ const StyledRadioButtonGroup = styled(RadioButtonGroup)(
   `,
 )
 
-const StyledRadioButton = styled(RadioButton)``
+// const StyledRadioButton = styled(RadioButton)``
 
 const RadioButtonContainer = styled.div(
   ({ theme }) => css`
@@ -114,16 +106,16 @@ const RadioButtonContainer = styled.div(
   `,
 )
 
-const StyledTitle = styled(Typography)`
-  margin-left: 15px;
-`
+// const StyledTitle = styled(CustomTypography)`
+//   margin-left: 15px;
+// `
 
-const RadioLabel = styled(Typography)(
-  ({ theme }) => css`
-    margin-right: 10px;
-    color: ${theme.colors.text};
-  `,
-)
+// const RadioLabel = styled(CustomTypography)(
+//   ({ theme }) => css`
+//     margin-right: 10px;
+//     color: ${theme.colors.text};
+//   `,
+// )
 
 // const MoonpayContainer = styled.div`
 //   display: flex;
@@ -196,9 +188,9 @@ const CheckboxWrapper = styled.div(
   gridAreaStyle,
 )
 
-const OutlinedContainerDescription = styled(Typography)(gridAreaStyle)
+const OutlinedContainerDescription = styled(CustomTypography)(gridAreaStyle)
 
-const OutlinedContainerTitle = styled(Typography)(
+const OutlinedContainerTitle = styled(CustomTypography)(
   ({ theme }) => css`
     font-size: ${theme.fontSizes.large};
     font-weight: ${theme.fontWeights.bold};
@@ -239,6 +231,7 @@ const EthInnerCheckbox = ({
             disabled={!address}
             size={breakpoints.sm ? 'large' : 'medium'}
             checked={reverseRecord}
+            color="accent"
             onChange={(e) => {
               e.stopPropagation()
               setReverseRecord(e.target.checked)
@@ -255,6 +248,7 @@ const PaymentChoice = ({
   paymentMethodChoice,
   setPaymentMethodChoice,
   hasEnoughEth,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   hasPendingMoonpayTransaction,
   address,
   hasPrimaryName,
@@ -277,23 +271,12 @@ const PaymentChoice = ({
 
   return (
     <PaymentChoiceContainer>
-      <StyledTitle color="textTertiary" weight="bold">
-        {t('steps.info.paymentMethod')}
-      </StyledTitle>
       <Spacer $height="2" />
       <StyledRadioButtonGroup
         value={paymentMethodChoice}
         onChange={(e) => setPaymentMethodChoice(e.target.value as PaymentMethod)}
       >
         <RadioButtonContainer>
-          <StyledRadioButton
-            data-testid="payment-choice-ethereum"
-            label={<RadioLabel>{t('steps.info.jfin')}</RadioLabel>}
-            name="RadioButtonGroup"
-            value={PaymentMethod.ethereum}
-            disabled={hasPendingMoonpayTransaction}
-            checked={paymentMethodChoice === PaymentMethod.ethereum || undefined}
-          />
           {paymentMethodChoice === PaymentMethod.ethereum && !hasEnoughEth && (
             <>
               <Spacer $height="4" />
@@ -308,55 +291,20 @@ const PaymentChoice = ({
               <Spacer $height="4" />
               <OutlinedContainer>
                 <OutlinedContainerTitle $name="title">
-                  {t('steps.pricing.primaryName')}
+                  <CustomTypographyBlack>{t('steps.pricing.primaryName')}</CustomTypographyBlack>
                 </OutlinedContainerTitle>
                 <EthInnerCheckbox
                   {...{ address, hasPrimaryName, reverseRecord, setReverseRecord, started }}
                 />
                 <OutlinedContainerDescription $name="description">
-                  {t('steps.pricing.primaryNameMessage')}
+                  <CustomTypographyBlack>
+                    {t('steps.pricing.primaryNameMessage')}
+                  </CustomTypographyBlack>
                 </OutlinedContainerDescription>
               </OutlinedContainer>
               <Spacer $height="2" />
             </>
           )}
-        </RadioButtonContainer>
-        <RadioButtonContainer>
-          {/* <StyledRadioButton
-            label={
-              <LabelContainer>
-                <RadioLabel>{t('steps.info.creditOrDebit')}</RadioLabel>
-                <Typography color="textTertiary" weight="light">
-                  ({t('steps.info.additionalFee')})
-                </Typography>
-              </LabelContainer>
-            }
-            name="RadioButtonGroup"
-            value={PaymentMethod.moonpay}
-            checked={paymentMethodChoice === PaymentMethod.moonpay || undefined}
-          /> */}
-          {/* {paymentMethodChoice === PaymentMethod.moonpay && (
-            <>
-              <Spacer $height="4" />
-              <InfoItems>
-                {moonpayInfoItems.map((item, idx) => (
-                  <InfoItem key={item}>
-                    <Typography>{idx + 1}</Typography>
-                    <Typography>{t(item)}</Typography>
-                  </InfoItem>
-                ))}
-              </InfoItems>
-              <Spacer $height="4" />
-              {hasFailedMoonpayTransaction && (
-                <Helper type="error">{t('steps.info.failedMoonpayTransaction')}</Helper>
-              )}
-              <Spacer $height="4" />
-              <MoonpayContainer>
-                {t('steps.info.poweredBy')}
-                <MoonpayLogo />
-              </MoonpayContainer>
-            </>
-          )} */}
         </RadioButtonContainer>
       </StyledRadioButtonGroup>
     </PaymentChoiceContainer>
@@ -526,7 +474,7 @@ const Pricing = ({
   const { hasPremium, premiumFee, gasPrice, yearlyFee, totalYearlyFee, estimatedGasFee } =
     fullEstimate
 
-  const yearlyRequiredBalance = totalYearlyFee?.mul(110).div(100)
+  const yearlyRequiredBalance = totalYearlyFee?.mul(100).div(100)
   const totalRequiredBalance = yearlyRequiredBalance?.add(premiumFee || 0).add(estimatedGasFee || 0)
 
   const showPaymentChoice = !isPrimaryLoading && address

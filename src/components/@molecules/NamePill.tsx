@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
-
 import { NameAvatar } from '../AvatarWithZorb'
+import { CustomTypography } from '../customs'
 
 const Container = styled.div(
   ({ theme }) => css`
@@ -51,7 +50,7 @@ export const NamePill = ({
         <NameAvatar label={name} name={truncatedName} network={network} />
       </AvatarWrapper>
       <TypographyWrapper>
-        <Typography ellipsis>{truncatedName}</Typography>
+        <CustomTypography ellipsis>{truncatedName}</CustomTypography>
       </TypographyWrapper>
     </Container>
   )

@@ -5,11 +5,12 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useAccount, useInfiniteQuery } from 'wagmi'
 
-import { Button, Dialog, Heading, Input, Typography, mq } from '@ensdomains/thorin'
+import { Button, Dialog, Heading, Input, mq } from '@ensdomains/thorin'
 
 import MagnifyingGlassSVG from '@app/assets/MagnifyingGlass.svg'
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
 import { ScrollBoxWithSpinner, SpinnerRow } from '@app/components/@molecules/ScrollBoxWithSpinner'
+import { CustomTypography } from '@app/components/customs'
 import { useChainName } from '@app/hooks/useChainName'
 
 type OwnedNFT = {
@@ -95,7 +96,7 @@ const NFTImage = styled.img(
   `,
 )
 
-const NFTName = styled(Typography)(
+const NFTName = styled(CustomTypography)(
   ({ theme }) => css`
     max-width: 100%;
     white-space: nowrap;
@@ -232,10 +233,10 @@ export const AvatarNFT = ({
           <SelectedNFTImageWrapper>
             <SelectedNFTImage src={nftReference.media[0].gateway} />
           </SelectedNFTImageWrapper>
-          <Typography weight="bold">
+          <CustomTypography weight="bold">
             {nftReference.title || t('input.profileEditor.tabs.avatar.nft.unknown')}
-          </Typography>
-          <Typography>{nftReference.description}</Typography>
+          </CustomTypography>
+          <CustomTypography>{nftReference.description}</CustomTypography>
         </SelectedNFTContainer>
         <Dialog.Footer
           leading={
@@ -256,7 +257,7 @@ export const AvatarNFT = ({
   if (isLoading) {
     innerContent = (
       <LoadingContainer>
-        <Heading>{t('input.profileEditor.tabs.avatar.nft.loading')}</Heading>
+        <div>{t('input.profileEditor.tabs.avatar.nft.loading')}</div>
         <SpinnerRow />
       </LoadingContainer>
     )
@@ -306,15 +307,14 @@ export const AvatarNFT = ({
   } else {
     innerContent = (
       <LoadingContainer>
-        <Heading>{t('input.profileEditor.tabs.avatar.nft.noNFTs')}</Heading>
+        <div>{t('input.profileEditor.tabs.avatar.nft.noNFTs')}</div>
       </LoadingContainer>
     )
   }
-
   return (
     <>
-      <Dialog.Heading title={t('input.profileEditor.tabs.avatar.nft.title')} />
-      {innerContent}
+      <div style={{ fontSize: '25px' }}>{t('input.profileEditor.tabs.avatar.nft.title')}</div>
+      <div>{innerContent}</div>
       <Dialog.Footer
         leading={
           <Button colorStyle="accentSecondary" onClick={handleCancel}>

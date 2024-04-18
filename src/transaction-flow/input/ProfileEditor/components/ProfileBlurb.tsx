@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components'
 
-import { Avatar, Typography } from '@ensdomains/thorin'
+import { Avatar } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { useAvatarFromRecord } from '@app/hooks/useAvatarFromRecord'
 import { useProfile } from '@app/hooks/useProfile'
 import { useZorb } from '@app/hooks/useZorb'
@@ -64,13 +65,13 @@ export const ProfileBlurb = ({ name, resolver }: Props) => {
         <Avatar label="profile-button-avatar" src={avatar || zorb} noBorder />
       </AvatarWrapper>
       <InfoContainer>
-        <Typography fontVariant="extraLargeBold">{name}</Typography>
-        {nickname && <Typography color="grey">{nickname}</Typography>}
-        {description && <Typography ellipsis>{description}</Typography>}
+        <CustomTypography fontVariant="extraLargeBold">{name}</CustomTypography>
+        {nickname && <CustomTypography color="grey">{nickname}</CustomTypography>}
+        {description && <CustomTypography ellipsis>{description}</CustomTypography>}
         {url && (
-          <Typography fontVariant="bodyBold" color="blue">
+          <CustomTypography fontVariant="bodyBold" color="blue">
             {url}
-          </Typography>
+          </CustomTypography>
         )}
       </InfoContainer>
     </Container>

@@ -2,10 +2,11 @@ import { RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { RadioButton, Typography } from '@ensdomains/thorin'
+import { RadioButton } from '@ensdomains/thorin'
 
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { Outlink } from '@app/components/Outlink'
+import { CustomTypography } from '@app/components/customs'
 import { useChainName } from '@app/hooks/useChainName'
 import useResolverEditor from '@app/hooks/useResolverEditor'
 import { makeEtherscanLink } from '@app/utils/utils'
@@ -35,7 +36,7 @@ const LatestResolverTitle = styled.span(
   `,
 )
 
-const LatestResolverSubtitle = styled(Typography)(
+const LatestResolverSubtitle = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.textSecondary};
   `,

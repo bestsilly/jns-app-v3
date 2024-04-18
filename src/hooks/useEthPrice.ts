@@ -7,26 +7,17 @@ import AggregatorInterface from '@ensdomains/ens-contracts/build/contracts/Aggre
 // import { useChainId } from '@app/hooks/useChainId'
 import { useEns } from '@app/utils/EnsProvider'
 import { useQueryKeys } from '@app/utils/cacheKeyFactory'
+import { CONTRACT_ADDRESSES } from '@app/utils/constants'
 
-// const ORACLE_ENS = 'eth-usd.data.eth'
-// const ORACLE_GOERLI = '0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e'
-const ORACLE_DUMMY = '0x1AB6637a8886170F51E9B091523cB597032F93fc'
+const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
+const ORACLE_DUMMY = CONTRACT_ADDRESSES[isTestnet].dummyOracle
 
 export const useEthPrice = () => {
   const provider = useProvider()
-  // const { getAddr, ready } = useEns()
-  // const chainId = useChainId()
   const { ready } = useEns()
   const { data, isLoading: loading } = useQuery(
     useQueryKeys().ethPrice,
     async () => {
-      // let address
-      // // Goerli
-      // if (chainId === 5) {
-      //   address = ORACLE_GOERLI
-      // } else {
-      //   address = await getAddr(ORACLE_ENS)
-      // }
       const address = ORACLE_DUMMY
       if (!address) throw new Error('Contract address not found')
       if (typeof address !== 'string') throw new Error('Contract address is wrong type')

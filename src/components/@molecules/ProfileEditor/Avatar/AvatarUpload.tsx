@@ -7,6 +7,7 @@ import { useMutation, useQueryClient, useSignTypedData } from 'wagmi'
 
 import { Button, Dialog, mq } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { useChainName } from '@app/hooks/useChainName'
 
 import { useQueryKeys } from '../../../../utils/cacheKeyFactory'
@@ -109,7 +110,11 @@ const UploadComponent = ({
     <>
       <Dialog.Heading
         title={t('input.profileEditor.tabs.avatar.image.upload.title')}
-        subtitle={t('input.profileEditor.tabs.avatar.image.upload.subtitle')}
+        subtitle={
+          <CustomTypography>
+            {t('input.profileEditor.tabs.avatar.image.upload.subtitle')}
+          </CustomTypography>
+        }
       />
       <Container>
         <CroppedImagePreview data-testid="cropped-image-preview" src={dataURL} />

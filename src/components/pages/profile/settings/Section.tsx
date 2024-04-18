@@ -1,9 +1,8 @@
 import { ComponentProps, ReactNode } from 'react'
 import styled, { css } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
-
 import { Card } from '@app/components/Card'
+import { CustomTypography } from '@app/components/customs'
 import { useInitial } from '@app/hooks/useInitial'
 
 const StyledCard = styled(Card)(
@@ -85,7 +84,9 @@ export const SectionContainer = ({
   return (
     <StyledCard {...props}>
       <SectionHeader $hideBorder={hideBorder}>
-        <Typography fontVariant="largeBold">{title}</Typography>
+        <CustomTypography fontVariant="largeBold" color="greyPrimary">
+          {title}
+        </CustomTypography>
         <div>{action}</div>
       </SectionHeader>
       {InnerContent}

@@ -25,7 +25,7 @@ const AddressWrapper = styled.div(
 const UnsupportedAddressWrapper = styled.div(
   ({ theme }) => css`
     background-color: ${theme.colors.textTertiary};
-    color: ${theme.colors.backgroundPrimary};
+    color: ${theme.colors.textPrimary};
     border-radius: ${theme.radii.large};
     font-size: 1rem;
     font-weight: ${theme.fontWeights.normal};

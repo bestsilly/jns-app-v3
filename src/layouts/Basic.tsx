@@ -9,6 +9,7 @@ import { mq } from '@ensdomains/thorin'
 
 import FeedbackSVG from '@app/assets/Feedback.svg'
 import ErrorScreen from '@app/components/@atoms/ErrorScreen'
+import { useJoin } from '@app/hooks/useJoin'
 
 import { Navigation } from './Navigation'
 
@@ -37,7 +38,6 @@ const Container = styled.div(
 
 const ContentWrapper = styled.div(
   ({ theme }) => css`
-    max-width: ${theme.space['192']};
     width: 100%;
     align-self: center;
     flex-grow: 1;
@@ -45,19 +45,20 @@ const ContentWrapper = styled.div(
     flex-direction: column;
     gap: ${theme.space['4']};
     flex-gap: ${theme.space['4']};
+    align-items: center;
   `,
 )
 
-const BottomPlaceholder = styled.div(
-  ({ theme }) => css`
-    height: ${theme.space['14']};
-    ${mq.sm.min(
-      css`
-        height: ${theme.space['12']};
-      `,
-    )}
-  `,
-)
+// const BottomPlaceholder = styled.div(
+//   ({ theme }) => css`
+//     height: ${theme.space['14']};
+//     ${mq.sm.min(
+//       css`
+//         height: ${theme.space['12']};
+//       `,
+//     )}
+//   `,
+// )
 
 export const StyledFeedbackSVG = styled(FeedbackSVG)(() => css``)
 
@@ -66,7 +67,8 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
   const { switchNetwork } = useSwitchNetwork()
   const router = useRouter()
   const [error] = useErrorBoundary()
-  // const { boot } = useIntercom()
+  const { getProfile } = useJoin()
+  const chainId = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
 
   useEffect(() => {
     // Do not initialise with uid and email without implementing identity verification first
@@ -85,19 +87,42 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
         (currentChain?.id === 3501 || currentChain?.id === 3502)
       )
     ) {
-      switchNetwork?.(3502)
+      switchNetwork?.(chainId)
       router.push('/unsupportedNetwork')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChain?.id, router.pathname])
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const sessionId = urlParams.get('sessionId')
+    if (sessionId) {
+      localStorage.setItem('sessionId', sessionId)
+      window.dispatchEvent(new StorageEvent('storage', { key: 'sessionId' }))
+      const profile = localStorage.getItem('profile')
+
+      const fetchData = async () => {
+        const result: any = await getProfile()
+        localStorage.setItem('profile', JSON.stringify(result.data))
+        window.dispatchEvent(new StorageEvent('storage', { key: 'profile' }))
+        window.history.replaceState({}, document.title, window.location.pathname)
+      }
+
+      if (!profile) {
+        fetchData()
+      }
+    }
+  }, [])
+
   return (
-    <Container className="min-safe">
+    <>
       <Navigation />
-      <ContentWrapper>
-        {error ? <ErrorScreen errorType="application-error" /> : children}
-      </ContentWrapper>
-      <BottomPlaceholder />
-    </Container>
+      <Container className="min-safe" style={{ position: 'relative' }}>
+        <ContentWrapper>
+          {error ? <ErrorScreen errorType="application-error" /> : children}
+        </ContentWrapper>
+        {/* <BottomPlaceholder /> */}
+      </Container>
+    </>
   )
 })

@@ -29,6 +29,7 @@ const Button = styled.button<{ $active: boolean }>(
 
     &:hover {
       background-color: ${theme.colors.greyLight};
+      color: ${theme.colors.textSecondary};
     }
 
     ${$active &&
@@ -248,7 +249,7 @@ const Hamburger = () => {
           isOpen={isOpen}
           anchorRef={btnRef}
           popover={
-            <DesktopDropdownCard ref={containerRef} style={{ height: height || undefined }}>
+            <DesktopDropdownCard ref={containerRef} style={{ height: 'auto' }}>
               {componentWithAnimation}
             </DesktopDropdownCard>
           }

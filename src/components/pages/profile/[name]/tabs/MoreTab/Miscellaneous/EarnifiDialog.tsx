@@ -4,11 +4,12 @@ import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { P, match } from 'ts-pattern'
 
-import { Button, Dialog, Input, Typography, mq } from '@ensdomains/thorin'
+import { Button, Dialog, Input, mq } from '@ensdomains/thorin'
 
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { Outlink } from '@app/components/Outlink'
+import { CustomTypography } from '@app/components/customs'
 import { useSubscribeToEarnifi } from '@app/components/pages/profile/[name]/tabs/MoreTab/Miscellaneous/useSubscribeToEarnifi'
 import { useChainId } from '@app/hooks/useChainId'
 
@@ -79,7 +80,7 @@ export const EarnifiDialog = ({ name, open, onDismiss }: Props) => {
             ref={formRef}
             onSubmit={handleSubmit(({ email }) => subscribe({ email, address: name, chainId }))}
           >
-            <Typography style={{ textAlign: 'center' }}>
+            <CustomTypography style={{ textAlign: 'center' }}>
               <Trans
                 style={{ textAlign: 'center' }}
                 i18nKey="tabs.more.misc.earnfi.enterEmail"
@@ -88,7 +89,7 @@ export const EarnifiDialog = ({ name, open, onDismiss }: Props) => {
                   a: <Outlink href={EARNIFI_OUTLINK} role="link" />,
                 }}
               />
-            </Typography>
+            </CustomTypography>
             <Spacer $height="3" />
             <Input
               type="email"

@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components'
 
-import { RightArrowSVG, Typography } from '@ensdomains/thorin'
+import { RightArrowSVG } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 const Container = styled.button(
   ({ theme }) => css`
@@ -15,12 +17,13 @@ const Container = styled.button(
 
     &:hover {
       background-color: ${theme.colors.yellowLight};
+      color: ${theme.colors.textSecondary};
       transform: translateY(-1px);
     }
   `,
 )
 
-const StyledTypography = styled(Typography)(
+const StyledTypography = styled(CustomTypography)(
   () => css`
     flex: 1;
     text-align: left;
@@ -48,9 +51,9 @@ export const SkipButton = ({ description, actionLabel = 'Skip', onClick, ...prop
     <Container type="button" onClick={onClick} {...props}>
       <StyledTypography fontVariant="small">{description}</StyledTypography>
       <SkipLabel>
-        <Typography fontVariant="bodyBold" color="yellowDim">
+        <CustomTypography fontVariant="bodyBold" color="yellowDim">
           {actionLabel}
-        </Typography>
+        </CustomTypography>
         <RightArrowSVG />
       </SkipLabel>
     </Container>

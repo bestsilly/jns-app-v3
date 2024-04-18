@@ -55,6 +55,7 @@ const InnerButtonWrapper = styled.div<{ $disabled?: boolean }>(
 
     &:hover {
       background: ${theme.colors.greySurface};
+      color: ${theme.colors.textSecondary};
       transform: translateY(-1px);
     }
 

@@ -5,7 +5,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useAccount } from 'wagmi'
 
-import { Banner, CheckCircleSVG, Typography } from '@ensdomains/thorin'
+import { Banner, CheckCircleSVG } from '@ensdomains/thorin'
 
 import BaseLink from '@app/components/@atoms/BaseLink'
 import { useAbilities } from '@app/hooks/abilities/useAbilities'
@@ -53,7 +53,7 @@ const TabButton = styled.button<{ $selected: boolean }>(
     padding: 0;
     margin: 0;
     background: none;
-    color: ${$selected ? theme.colors.accent : theme.colors.greyPrimary};
+    color: ${$selected ? theme.colors.accentLight : theme.colors.greyPrimary};
     font-size: ${theme.fontSizes.extraLarge};
     transition: all 0.15s ease-in-out;
     cursor: pointer;
@@ -252,9 +252,10 @@ const ProfileContent = ({ isSelf, isLoading: _isLoading, name }: Props) => {
                   $selected={tabItem === tab}
                   onClick={() => setTab(tabItem)}
                 >
-                  <Typography fontVariant="extraLargeBold" color="inherit">
-                    {t(`tabs.${tabItem}.name`)}
-                  </Typography>
+                  {/* <CustomTypography fontVariant="extraLargeBold" color="inherit"> */}
+                  {/* <span style={{ fontSize: '1.2rem' }}>{t(`tabs.${tabItem}.name`)}</span> */}
+                  {t(`tabs.${tabItem}.name`)}
+                  {/* </CustomTypography> */}
                 </TabButton>
               ))}
             </TabButtonContainer>

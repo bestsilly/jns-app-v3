@@ -9,6 +9,25 @@ import { makePersistent } from '@app/utils/persist'
 import { WC_PROJECT_ID } from './constants'
 import { getDefaultWallets } from './getDefaultWallets'
 
+const jfin: Chain = {
+  id: 3501,
+  name: 'jfin',
+  nativeCurrency: {
+    name: 'JFIN',
+    symbol: 'JFIN',
+    decimals: 18,
+  },
+  network: 'JFIN',
+  rpcUrls: {
+    default: {
+      http: ['https://rpc.jfinchain.com'],
+    },
+    public: {
+      http: ['https://rpc.jfinchain.com'],
+    },
+  },
+}
+
 const jfintestnet: Chain = {
   id: 3502,
   name: 'jfintestnet',
@@ -57,10 +76,10 @@ if (process.env.NEXT_PUBLIC_PROVIDER) {
   )
 }
 
-const { provider, chains } = configureChains([jfintestnet], providerArray)
+const { provider, chains } = configureChains([jfin, jfintestnet], providerArray)
 
 const connectors = getDefaultWallets({
-  appName: 'ENS',
+  appName: 'JNS',
   projectId: WC_PROJECT_ID,
   chains,
 })

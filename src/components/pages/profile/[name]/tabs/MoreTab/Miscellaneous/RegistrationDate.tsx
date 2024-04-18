@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
 
-import { OutlinkSVG, Typography } from '@ensdomains/thorin'
+import { OutlinkSVG } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { useChainName } from '@app/hooks/useChainName'
 import type useRegistrationDate from '@app/hooks/useRegistrationData'
 import { formatDateTime, formatExpiry, makeEtherscanLink } from '@app/utils/utils'
@@ -18,9 +19,9 @@ export const RegistrationDate = ({
   if (!registrationData) return null
   return (
     <DateLayout>
-      <Typography>{t('name.registered')}</Typography>
-      <Typography>{formatExpiry(registrationData.registrationDate)}</Typography>
-      <Typography>{formatDateTime(registrationData.registrationDate)}</Typography>
+      <CustomTypography>{t('name.registered')}</CustomTypography>
+      <CustomTypography>{formatExpiry(registrationData.registrationDate)}</CustomTypography>
+      <CustomTypography>{formatDateTime(registrationData.registrationDate)}</CustomTypography>
       <a
         target="_blank"
         href={makeEtherscanLink(registrationData.transactionHash, chainName)}

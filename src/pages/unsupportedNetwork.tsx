@@ -40,6 +40,8 @@ export default function Page() {
   const { t } = useTranslation()
   const router = useRouter()
 
+  const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
+
   useEffect(() => {
     if (
       // currentChain?.id === 1 ||
@@ -55,7 +57,7 @@ export default function Page() {
   }, [currentChain?.id])
 
   const handleChangeNetwork = () => {
-    switchNetwork?.(3502)
+    switchNetwork?.(isTestnet)
   }
 
   return (

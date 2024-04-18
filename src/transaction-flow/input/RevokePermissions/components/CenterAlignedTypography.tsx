@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
+import { CustomTypography } from '@app/components/customs'
 
-export const CenterAlignedTypography = styled(Typography)(
+export const CenterAlignedTypography = styled(CustomTypography)(
   () => css`
     text-align: center;
   `,

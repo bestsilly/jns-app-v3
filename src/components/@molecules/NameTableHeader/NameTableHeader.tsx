@@ -2,11 +2,12 @@ import { PropsWithChildren } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Input, MagnifyingGlassSimpleSVG, Select, mq } from '@ensdomains/thorin'
+import { Input, MagnifyingGlassSimpleSVG, mq } from '@ensdomains/thorin'
 
 import DownDirectionSVG from '@app/assets/SortAscending.svg'
 import UpDirectionSVG from '@app/assets/SortDescending.svg'
 import { CheckButton } from '@app/components/@atoms/CheckButton/CheckButton'
+import { CustomSelect } from '@app/components/customs'
 
 const TableHeader = styled.div<{
   $desktopGap?: 'small' | 'medium'
@@ -103,7 +104,7 @@ const DirectionButton = styled.button<{ $active: boolean }>(
       width: ${theme.space['3']};
       height: ${theme.space['3']};
       path {
-        fill: ${$active ? theme.colors.accent : theme.colors.textTertiary};
+        fill: ${$active ? theme.colors.accentLight : theme.colors.textTertiary};
       }
     }
     &:hover {
@@ -174,7 +175,7 @@ export const NameTableHeader = ({
             <div>{t('unit.selected', { count: selectedCount })}</div>
           ) : (
             <TableHeaderLeftControlsContainer $isFullWidth={!selectable}>
-              <Select
+              <CustomSelect
                 value={sortType}
                 size="small"
                 label="Sort by"

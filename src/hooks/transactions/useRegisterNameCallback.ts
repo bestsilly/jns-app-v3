@@ -10,7 +10,7 @@ export const useRegisterNameCallback = () => {
   const queryKeys = useQueryKeys()
   return useCallback(
     (transaction: Transaction) => {
-      if (transaction.action !== 'registerName' || transaction.status !== 'confirmed') return
+      if (transaction.action !== 'registerNameWithId' || transaction.status !== 'confirmed') return
 
       const name = transaction.key?.match(/-(.*)-/)?.[1]
       if (!name) return

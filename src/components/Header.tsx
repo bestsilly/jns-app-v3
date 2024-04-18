@@ -22,7 +22,8 @@ import { HeaderConnect } from './ConnectButton'
 
 const HeaderWrapper = styled.header(
   ({ theme }) => css`
-    height: ${theme.space['12']};
+    background-color: #010101;
+    padding: ${theme.space['4']};
 
     ${mq.sm.max(css`
       display: none;
@@ -52,9 +53,10 @@ const NavContainer = styled.div(
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    flex-gap: ${theme.space['3']};
     gap: ${theme.space['3']};
     height: ${theme.space['12']};
+    margin: auto;
+    max-width: ${theme.breakpoints.xl}px;
 
     ${mq.lg.min(css`
       flex-gap: ${theme.space['6']};
@@ -111,13 +113,21 @@ const SearchWrapper = styled.div<{ $state: TransitionState }>(
     }
 
     transition: margin 0.15s ease-in-out;
-    margin-right: ${theme.space['24']};
+    margin-right: ${theme.space['12']};
     ${$state !== 'entered' &&
     css`
       margin-right: 0;
     `}
     ${mq.lg.min(css`
       margin-right: 0;
+    `)}
+  `,
+)
+
+const CustomBrandWrapper = styled.div(
+  () => css`
+    ${mq.lg.max(css`
+      display: none !important;
     `)}
   `,
 )
@@ -200,11 +210,13 @@ export const Header = () => {
             </BaseLink>
           )}
         >
-          {router.asPath === '/' ? (
-            <ENSFull height={space['12']} />
-          ) : (
-            <ENSWithGradient height={space['12']} />
-          )}
+          <CustomBrandWrapper>
+            {router.asPath === '/' ? (
+              <ENSFull height={space['12']} />
+            ) : (
+              <ENSWithGradient height={space['12']} />
+            )}
+          </CustomBrandWrapper>
         </ConditionalWrapper>
         {router.asPath !== '/' && breakpoints.sm && (
           <>

@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Card, CrossSVG, PersonPlusSVG, Skeleton, Typography, mq } from '@ensdomains/thorin'
+import { Button, Card, CrossSVG, PersonPlusSVG, Skeleton, mq } from '@ensdomains/thorin'
 
 import { AvatarWithLink } from '@app/components/@molecules/AvatarWithLink/AvatarWithLink'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
+import { CustomTypography } from '@app/components/customs'
 import { useHasGlobalError } from '@app/hooks/errors/useHasGlobalError'
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import { useBasicName } from '@app/hooks/useBasicName'
@@ -36,9 +37,10 @@ const NoNameContainer = styled.div(({ theme }) => [
   `),
 ])
 
-const NoNameTitle = styled(Typography)(({ theme }) => [
+const NoNameTitle = styled(CustomTypography)(({ theme }) => [
   css`
     grid-area: title;
+    color: ${theme.colors.greyPrimary};
   `,
   mq.sm.min(css`
     line-height: ${theme.space['10']};
@@ -65,9 +67,10 @@ const NoNameDisabledButtonContainer = styled.div(() => [
   `),
 ])
 
-const NoNameDescription = styled(Typography)(
+const NoNameDescription = styled(CustomTypography)(
   () => css`
     grid-area: description;
+    color: ${({ theme }) => theme.colors.greyDim};
   `,
 )
 
@@ -162,18 +165,22 @@ export const PrimarySection = () => {
     })
   }
 
+  const CustomTitle = styled(CustomTypography)(
+    ({ theme }) => css`
+      color: ${theme.colors.greyPrimary};
+    `,
+  )
+
   return (
     <Skeleton loading={isLoading} as={SkeletonFiller as any}>
       <Card>
         {primary.data?.name ? (
           <PrimaryNameContainer data-testid="primary-name-section">
             <PrimaryNameInfo>
-              <Typography fontVariant="bodyBold" color="grey">
-                {t('section.primary.title')}
-              </Typography>
-              <Typography data-testid="primary-name-label" fontVariant="headingTwo" ellipsis>
+              <CustomTitle fontVariant="bodyBold">{t('section.primary.title')}</CustomTitle>
+              <CustomTypography data-testid="primary-name-label" fontVariant="headingTwo" ellipsis>
                 {truncatedName}
-              </Typography>
+              </CustomTypography>
             </PrimaryNameInfo>
             <AvatarContainer>
               <AvatarWithLink name={primary.data?.name} label="primary name avatar" />

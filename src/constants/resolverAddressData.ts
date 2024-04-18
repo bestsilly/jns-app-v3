@@ -318,9 +318,28 @@ export const KNOWN_RESOLVER_DATA: KnownResolverData = {
   //     ],
   //   },
   // ],
+  '3501': [
+    {
+      address: '0x0292DC69f99b90d97aDD773cC2A0c1b251D0e235', // JNS PublicResolver Address
+      deployer: 'ENS Labs',
+      tag: 'latest',
+      isNameWrapperAware: true,
+      supportedInterfaces: [
+        RESOLVER_INTERFACE_IDS.AddressResolver,
+        RESOLVER_INTERFACE_IDS.MultiCoinAddressResolver,
+        RESOLVER_INTERFACE_IDS.NameResolver,
+        RESOLVER_INTERFACE_IDS.AbiResolver,
+        RESOLVER_INTERFACE_IDS.TextResolver,
+        RESOLVER_INTERFACE_IDS.ContentHashResolver,
+        RESOLVER_INTERFACE_IDS.DnsRecordResolver,
+        RESOLVER_INTERFACE_IDS.InterfaceResolver,
+        RESOLVER_INTERFACE_IDS.VersionableResolver,
+      ],
+    },
+  ],
   '3502': [
     {
-      address: '0x5477CD223E5F4Df55ED738C0E21E9341A5a134A9',
+      address: '0xad9dA8192B750aD7eFF975ec00BD94783fbC2C53', // JNS PublicResolver Address
       deployer: 'ENS Labs',
       tag: 'latest',
       isNameWrapperAware: true,

@@ -5,11 +5,12 @@ import styled, { css } from 'styled-components'
 import { useAccount } from 'wagmi'
 
 import { DNSProver } from '@ensdomains/dnsprovejs'
-import { Button, Helper, Typography } from '@ensdomains/thorin'
+import { Button, Helper } from '@ensdomains/thorin'
 
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { IconCopyAnimated } from '@app/components/IconCopyAnimated'
 import { Outlink } from '@app/components/Outlink'
+import { CustomTypography } from '@app/components/customs'
 import { useCopied } from '@app/hooks/useCopied'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
 import { shortenAddress } from '@app/utils/utils'
@@ -106,9 +107,9 @@ const Copyable = ({
   return (
     <Button colorStyle="background" onClick={() => copy(value)} size="flexible" fullWidthContent>
       <ButtonInner>
-        <Typography>{label}</Typography>
+        <CustomTypography>{label}</CustomTypography>
         <CopyableRightContainer>
-          <Typography fontVariant="small">{displayValue}</Typography>
+          <CustomTypography fontVariant="small">{displayValue}</CustomTypography>
           <IconCopyAnimated color="grey" copied={copied} size="3.5" />
         </CopyableRightContainer>
       </ButtonInner>
@@ -181,9 +182,9 @@ export const AddTextRecord = ({
 
   return (
     <Container>
-      <Typography fontVariant="headingFour">{t('addTextRecord.title')}</Typography>
+      <CustomTypography fontVariant="headingFour">{t('addTextRecord.title')}</CustomTypography>
       <Spacer $height="3" />
-      <Typography>{t('addTextRecord.explanation')}</Typography>
+      <CustomTypography>{t('addTextRecord.explanation')}</CustomTypography>
       <Spacer $height="3" />
       <AlignedDropdown
         // needed for no line breaks in buttons
@@ -216,8 +217,8 @@ export const AddTextRecord = ({
       <ButtonRow>
         <Button colorStyle="background" size="flexible" fullWidthContent>
           <ButtonInner>
-            <Typography>{t('addTextRecord.type')}</Typography>
-            <Typography fontVariant="small">{t('addTextRecord.txt')}</Typography>
+            <CustomTypography>{t('addTextRecord.type')}</CustomTypography>
+            <CustomTypography fontVariant="small">{t('addTextRecord.txt')}</CustomTypography>
           </ButtonInner>
         </Button>
         <Copyable {...{ label: 'Name', value: '_ens', displayValue: '_ens' }} />
@@ -238,10 +239,10 @@ export const AddTextRecord = ({
       {syncWarning && (
         <>
           <Helper type="warning" style={{ textAlign: 'center' }}>
-            <Typography>{t('addTextRecord.syncWarningOne')}</Typography>
-            <Typography fontVariant="small" color="grey">
+            <CustomTypography>{t('addTextRecord.syncWarningOne')}</CustomTypography>
+            <CustomTypography fontVariant="small" color="grey">
               {t('addTextRecord.syncWarningTwo')}
-            </Typography>
+            </CustomTypography>
           </Helper>
           <Spacer $height="6" />
         </>
@@ -249,10 +250,10 @@ export const AddTextRecord = ({
       {errorState !== Errors.NOT_CHECKED && (
         <>
           <Helper type="error" style={{ textAlign: 'center' }}>
-            <Typography>{t(`addTextRecord.errors.${errorState}.title`)}</Typography>
-            <Typography fontVariant="small" color="grey">
+            <CustomTypography>{t(`addTextRecord.errors.${errorState}.title`)}</CustomTypography>
+            <CustomTypography fontVariant="small" color="grey">
               {t(`addTextRecord.errors.${errorState}.content`)}
-            </Typography>
+            </CustomTypography>
           </Helper>
           <Spacer $height="6" />
         </>

@@ -7,8 +7,9 @@ import { forwardRef, useCallback, useEffect, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Avatar, Spinner, Tag, Typography } from '@ensdomains/thorin'
+import { Avatar, Spinner, Tag } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { useAvatar } from '@app/hooks/useAvatar'
 import { useBasicName } from '@app/hooks/useBasicName'
 import useBeautifiedName from '@app/hooks/useBeautifiedName'
@@ -71,7 +72,7 @@ const SearchItem = styled.div<{
   `,
 )
 
-const NoInputYetTypography = styled(Typography)(
+const NoInputYetTypography = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.textTertiary};
   `,
@@ -162,7 +163,9 @@ const AddressResultItem = ({ address }: { address: string }) => {
           <Avatar src={avatar || zorb} label="avatar" />
         </AvatarWrapper>
         <AddressAndName>
-          <Typography weight="bold">{shortenAddress(address, undefined, 8, 6)}</Typography>
+          <CustomTypography weight="bold">
+            {shortenAddress(address, undefined, 8, 6)}
+          </CustomTypography>
           {primary.data?.name && <AddressPrimary>{primary.data?.beautifiedName}</AddressPrimary>}
         </AddressAndName>
       </LeadingSearchItem>
@@ -217,6 +220,7 @@ const TextWrapper = styled.div(
       text-overflow: clip;
       text-align: left;
       direction: rtl;
+      color: white;
       &::before {
         content: '‎';
       }
@@ -235,7 +239,7 @@ const PlaceholderResultItem = ({ input }: { input: string }) => {
           <Avatar src={zorb} label="name" />
         </AvatarWrapper>
         <TextWrapper>
-          <Typography weight="bold">{beautifiedName}</Typography>
+          <CustomTypography weight="bold">{beautifiedName}</CustomTypography>
         </TextWrapper>
       </LeadingSearchItem>
       <SpinnerWrapper>
@@ -264,7 +268,9 @@ const NameResultItem = forwardRef<HTMLDivElement, { name: string; $selected: boo
             <Avatar src={avatar || zorb} label="name" />
           </AvatarWrapper>
           <TextWrapper>
-            <Typography weight="bold">{beautifiedName}</Typography>
+            <CustomTypography weight="bold" color="text">
+              {beautifiedName}
+            </CustomTypography>
           </TextWrapper>
         </LeadingSearchItem>
         {!isLoading && registrationStatus ? (
@@ -355,7 +361,7 @@ export const SearchResult = ({
   if (type === 'error') {
     return (
       <SearchItem data-testid="search-result-error" $selected $error>
-        <Typography weight="bold">{value}</Typography>
+        <CustomTypography weight="bold">{value}</CustomTypography>
       </SearchItem>
     )
   }

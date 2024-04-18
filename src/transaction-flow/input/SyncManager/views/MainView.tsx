@@ -1,7 +1,9 @@
 import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Dialog, Helper, Typography } from '@ensdomains/thorin'
+import { Button, Dialog, Helper } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 const Container = styled.div(
   ({ theme }) => css`
@@ -29,9 +31,9 @@ export const MainView = ({ manager, showWarning, onCancel, onConfirm }: Props) =
   return (
     <Container>
       <Description>
-        <Typography color="text">
+        <CustomTypography color="text">
           <Trans t={t} i18nKey="input.syncManager.description" values={{ manager }} />
-        </Typography>
+        </CustomTypography>
       </Description>
       {showWarning && <Helper type="warning">{t('input.syncManager.warning')}</Helper>}
       <Dialog.Footer

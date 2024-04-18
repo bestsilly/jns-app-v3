@@ -52,16 +52,18 @@ export default function Page() {
   const showDevPanel = process.env.NEXT_PUBLIC_ENSJS_DEBUG
 
   return (
-    <Content singleColumnContent title={t('title')}>
-      {{
-        trailing: (
-          <OtherWrapper>
-            <PrimarySection />
-            <TransactionSection />
-            {showDevPanel && <DevSection />}
-          </OtherWrapper>
-        ),
-      }}
-    </Content>
+    <div style={{ maxWidth: '48rem' }}>
+      <Content singleColumnContent title={t('title')}>
+        {{
+          trailing: (
+            <OtherWrapper>
+              <PrimarySection />
+              <TransactionSection />
+              {showDevPanel && <DevSection />}
+            </OtherWrapper>
+          ),
+        }}
+      </Content>
+    </div>
   )
 }

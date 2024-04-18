@@ -12,7 +12,10 @@ import {
 export const getSupportedNetworkName = (networkId: number) =>
   networkName[`${networkId}` as keyof typeof networkName] || 'unknown'
 
-const baseMetadataURL = 'https://jns-metadata-service-i2utwvqgjq-as.a.run.app'
+const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
+const baseMetadataURL = isTestnet
+  ? 'https://jns-metadata.jfinchain.com'
+  : 'https://jns-metadata.testnet.jfinchain.com'
 
 // eslint-disable-next-line consistent-return
 export function imageUrlUnknownRecord(name: string, network: number) {
@@ -136,8 +139,8 @@ export const validateExpiry = (
 
 export const canEditRecordsWhenWrappedCalc = (
   isWrapped: boolean,
-  resolverAddress: string = RESOLVER_ADDRESSES['3502']?.[0],
-  chainId: number = 3502,
+  resolverAddress: string = RESOLVER_ADDRESSES[isTestnet]?.[0],
+  chainId: number = isTestnet,
 ) => {
   if (!isWrapped) return true
   return NAMEWRAPPER_AWARE_RESOLVERS[chainId]?.includes(resolverAddress)

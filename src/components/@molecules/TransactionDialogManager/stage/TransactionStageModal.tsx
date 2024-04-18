@@ -9,13 +9,14 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useProvider, useQuery, useSendTransaction, useSigner } from 'wagmi'
 
-import { Button, CrossCircleSVG, Dialog, Helper, Spinner, Typography } from '@ensdomains/thorin'
+import { Button, CrossCircleSVG, Dialog, Helper, Spinner } from '@ensdomains/thorin'
 
 import AeroplaneSVG from '@app/assets/Aeroplane.svg'
 import CircleTickSVG from '@app/assets/CircleTick.svg'
 import WalletSVG from '@app/assets/Wallet.svg'
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
 import { Outlink } from '@app/components/Outlink'
+import { CustomHeading, CustomTypography } from '@app/components/customs'
 import { useAddRecentTransaction } from '@app/hooks/transactions/useAddRecentTransaction'
 import { useRecentTransactions } from '@app/hooks/transactions/useRecentTransactions'
 import { useChainName } from '@app/hooks/useChainName'
@@ -74,14 +75,14 @@ const Bar = styled.div<{ $status: Status }>(
   `,
 )
 
-const BarTypography = styled(Typography)(
+const BarTypography = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.background};
     font-weight: ${theme.fontWeights.bold};
   `,
 )
 
-const ProgressTypography = styled(Typography)(
+const ProgressTypography = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.accent};
     font-weight: ${theme.fontWeights.bold};
@@ -105,9 +106,10 @@ const CircleIcon = styled.svg(
   `,
 )
 
-const MessageTypography = styled(Typography)(
-  () => css`
+const MessageTypography = styled(CustomTypography)(
+  ({ theme }) => css`
     text-align: center;
+    color: ${theme.colors.textTertiary};
   `,
 )
 
@@ -222,13 +224,13 @@ export const LoadBar = ({ status, sendTime }: { status: Status; sendTime: number
 
   const EndElement = useMemo(() => {
     if (status === 'complete') {
-      return <CircleIcon as={CircleTickSVG} />
+      return <CircleIcon as={CircleTickSVG} style={{ color: '#fff' }} />
     }
     if (status === 'failed') {
-      return <CircleIcon as={CrossCircleSVG} />
+      return <CircleIcon as={CrossCircleSVG} style={{ color: '#fff' }} />
     }
     if (progress !== 100) {
-      return <AeroplaneIcon as={AeroplaneSVG} />
+      return <AeroplaneIcon as={AeroplaneSVG} style={{ color: '#fff' }} />
     }
     return <Spinner color="background" size="small" />
   }, [progress, status])
@@ -307,7 +309,7 @@ export const transactionSuccessHandler =
 
 export const registrationGasFeeModifier = (gasLimit: BigNumber, transactionName: string) =>
   // this addition is arbitrary, something to do with a gas refund but not 100% sure
-  transactionName === 'registerName' ? gasLimit.add(1000000) : gasLimit
+  transactionName === 'registerNameWithId' ? gasLimit.add(1000000) : gasLimit
 
 export const calculateGasLimit = async ({
   isSafeApp,
@@ -350,7 +352,7 @@ export const calculateGasLimit = async ({
     throw new Error('Signer not found')
   }
   let gasEstimate
-  if (transactionName !== 'registerName') {
+  if (transactionName !== 'registerNameWithId') {
     gasEstimate = await signer.estimateGas(txWithZeroGas)
   } else {
     gasEstimate = BigNumber.from(0)
@@ -496,7 +498,7 @@ export const TransactionStageModal = ({
     return (
       <>
         <WalletIcon as={WalletSVG} />
-        <MessageTypography>{t('transaction.dialog.confirm.message')}</MessageTypography>
+        <CustomTypography>{t('transaction.dialog.confirm.message')}</CustomTypography>
       </>
     )
   }, [stage, t, transaction.sendTime])
@@ -631,7 +633,9 @@ export const TransactionStageModal = ({
 
   return (
     <>
-      <Dialog.Heading title={t(`transaction.dialog.${stage}.title`)} />
+      <Dialog.Heading
+        title={<CustomHeading>{t(`transaction.dialog.${stage}.title`)}</CustomHeading>}
+      />
       <InnerDialog data-testid="transaction-modal-inner">
         {MiddleContent}
         {upperError && <Helper type="error">{t(upperError)}</Helper>}

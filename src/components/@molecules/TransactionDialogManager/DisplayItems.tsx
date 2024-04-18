@@ -2,9 +2,8 @@ import { useMemo } from 'react'
 import { TFunction, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
-
 import { AvatarWithZorb, NameAvatar } from '@app/components/AvatarWithZorb'
+import { CustomTypography } from '@app/components/customs'
 import useBeautifiedName from '@app/hooks/useBeautifiedName'
 import { useChainId } from '@app/hooks/useChainId'
 import { usePrimary } from '@app/hooks/usePrimary'
@@ -50,9 +49,9 @@ const DisplayItemContainer = styled.div<{ $shrink?: boolean; $fade?: boolean }>(
   `,
 )
 
-const DisplayItemLabel = styled(Typography)(
+const DisplayItemLabel = styled(CustomTypography)(
   ({ theme }) => css`
-    color: ${theme.colors.textSecondary};
+    color: ${theme.colors.textPrimary};
     justify-self: flex-start;
   `,
 )
@@ -85,17 +84,18 @@ const InnerValueWrapper = styled.div(
   `,
 )
 
-const ValueTypography = styled(Typography)(
+const ValueTypography = styled(CustomTypography)(
   ({ theme }) => css`
     overflow-wrap: anywhere;
     text-align: right;
     margin-left: ${theme.space['2']};
+    color: ${theme.colors.textPrimary};
   `,
 )
 
-const AddressSubtitle = styled(Typography)(
+const AddressSubtitle = styled(CustomTypography)(
   ({ theme }) => css`
-    color: ${theme.colors.textSecondary};
+    color: ${theme.colors.textPrimary};
     font-weight: ${theme.fontWeights.bold};
   `,
 )
@@ -107,7 +107,7 @@ const AddressValue = ({ value }: { value: string }) => {
   const AddressTypography = useMemo(
     () =>
       primary.data?.name ? (
-        <AddressSubtitle color="grey">{shortenAddress(value)}</AddressSubtitle>
+        <AddressSubtitle>{shortenAddress(value)}</AddressSubtitle>
       ) : (
         <ValueTypography fontVariant="bodyBold">{shortenAddress(value)}</ValueTypography>
       ),
@@ -183,9 +183,9 @@ const ListValue = ({ value }: { value: string[] }) => {
         const key = idx
         if (idx === 0) {
           return (
-            <Typography key={key} fontVariant="bodyBold">
+            <CustomTypography key={key} fontVariant="bodyBold">
               {val}
-            </Typography>
+            </CustomTypography>
           )
         }
         return <ValueTypography key={key}>{`${val}${!isLast ? ',' : ''}`}</ValueTypography>
@@ -217,13 +217,13 @@ const RecordsValue = ({ value }: { value: [string, string | undefined][] }) => {
     <RecordsContainer>
       {value.map(([key, val]) => (
         <RecordContainer key={`${key}-${val}`}>
-          <Typography ellipsis>
+          <CustomTypography ellipsis>
             <strong>
               {key}
               {!!val && ':'}
             </strong>{' '}
             {!!val && val}
-          </Typography>
+          </CustomTypography>
         </RecordContainer>
       ))}
     </RecordsContainer>
@@ -267,7 +267,9 @@ export const DisplayItem = ({
       key={`${label}-${value}`}
     >
       <DisplayItemLabel>
-        {useRawLabel ? label : t(`transaction.itemLabel.${label}`)}
+        <CustomTypography>
+          {useRawLabel ? label : t(`transaction.itemLabel.${label}`)}
+        </CustomTypography>
       </DisplayItemLabel>
       <DisplayItemValue {...{ value, type }} />
     </DisplayItemContainer>

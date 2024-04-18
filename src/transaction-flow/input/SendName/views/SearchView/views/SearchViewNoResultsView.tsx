@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { AlertSVG, Typography } from '@ensdomains/thorin'
+import { AlertSVG } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 const Container = styled.div(
   () => css`
@@ -34,9 +36,9 @@ export const SearchViewNoResultsView = () => {
     <Container>
       <Message>
         <AlertSVG />
-        <Typography fontVariant="body">
+        <CustomTypography fontVariant="body">
           {t('input.sendName.views.search.views.noResults.message')}
-        </Typography>
+        </CustomTypography>
       </Message>
     </Container>
   )

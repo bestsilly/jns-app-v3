@@ -28,9 +28,10 @@ const NameItemWrapper = styled.div<{ $highlight: boolean; $disabled: boolean }>(
     background: ${$highlight ? theme.colors.blueSurface : theme.colors.backgroundPrimary};
     cursor: ${$disabled ? 'not-allowed' : 'pointer'};
     &:hover {
-      background: ${$highlight
-        ? theme.colors.backgroundSecondary
-        : theme.colors.backgroundSecondary};
+      background: ${$highlight ? theme.colors.accent : '#474747'};
+      span {
+        color: ${theme.colors.textSecondary} !important;
+      }
     }
     &:last-of-type {
       border: none;
@@ -76,8 +77,9 @@ const NameItemContent = styled.div(
 )
 
 const TitleWrapper = styled(StyledName)(
-  () => css`
+  ({ theme }) => css`
     font-size: 1rem;
+    color: ${theme.colors.textPrimary};
   `,
 )
 

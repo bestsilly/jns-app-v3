@@ -1,13 +1,16 @@
-import { RainbowKitProvider, Theme, lightTheme } from '@rainbow-me/rainbowkit'
+/* eslint-disable @next/next/no-title-in-document-head */
+import { RainbowKitProvider, Theme, darkTheme } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
+import { merge } from 'lodash'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import { ReactElement, ReactNode } from 'react'
 import { I18nextProvider } from 'react-i18next'
-import { ThemeProvider, createGlobalStyle, keyframes } from 'styled-components'
+import { ThemeProvider, createGlobalStyle, css, keyframes } from 'styled-components'
 import { WagmiConfig } from 'wagmi'
 
-import { ThorinGlobalStyles, baseTheme, lightTheme as thorinLightTheme } from '@ensdomains/thorin'
+import { ThorinGlobalStyles, mq, darkTheme as thorinDarkTheme } from '@ensdomains/thorin'
 
 import { Notifications } from '@app/components/Notifications'
 import { TransactionStoreProvider } from '@app/hooks/transactions/TransactionStoreContext'
@@ -24,22 +27,39 @@ import { chains, wagmiClient } from '@app/utils/query'
 import i18n from '../i18n'
 import '../styles.css'
 
-// const INTERCOM_ID = process.env.NEXT_PUBLIC_INTERCOM_ID || 'eotmigir'
-
-const rainbowKitTheme: Theme = {
-  ...lightTheme({
-    accentColor: thorinLightTheme.colors.purple,
-    borderRadius: 'medium',
-  }),
-  fonts: {
-    body: 'Satoshi, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+const thorinGlobalTheme: typeof thorinDarkTheme = merge(thorinDarkTheme, {
+  colors: {
+    accentPrimary: '#5647ff',
+    accentSecondary: '#5647ff',
+    accentActive: '#2015bd',
+    accentBright: '#4336e3',
+    accent: '#5647ff',
+    accentLight: '#564aff',
+    background: '#101112',
+    backgroundPrimary: '#101112',
+    backgroundSecondary: '#fff',
+    greySurface: 'white',
+    textSecondary: '#e1e4e8',
+    textPrimary: '#fff',
   },
+})
+
+const breakpoints = {
+  xs: '(min-width: 360px)',
+  sm: '(min-width: 640px)',
+  md: '(min-width: 768px)',
+  lg: '(min-width: 1024px)',
+  xl: '(min-width: 1280px)',
 }
 
-const thorinGlobalTheme = {
-  ...baseTheme,
-  ...thorinLightTheme,
-}
+const rainbowKitTheme = merge(
+  darkTheme({ accentColor: thorinGlobalTheme.colors.accent, borderRadius: 'medium' }),
+  {
+    fonts: {
+      body: 'Satoshi, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+    },
+  } as Theme,
+)
 
 const anim = keyframes`
   0% {
@@ -81,11 +101,21 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: radial-gradient(50% 50% at 50% 50%, rgba(82, 152, 255, 0.062) 0%, rgba(255, 255, 255, 0) 100%), #F7F7F7;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(19,5,59,1) 100%);
   }
 
+
+
+  
   body, .min-safe {
-    min-height: 100vh;
+ 
+    ${mq.sm.max(css`
+      min-height: calc(100vh);
+      padding-bottom: 50px;
+    `)}
+
+    min-height: calc(100vh - 80px);
+   
     /* stylelint-disable-next-line value-no-vendor-prefix */
     @supports (-webkit-touch-callout: none) {
       /* stylelint-disable-next-line value-no-vendor-prefix */
@@ -123,14 +153,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const breakpoints = {
-  xs: '(min-width: 360px)',
-  sm: '(min-width: 640px)',
-  md: '(min-width: 768px)',
-  lg: '(min-width: 1024px)',
-  xl: '(min-width: 1280px)',
-}
-
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
 }
@@ -145,32 +167,76 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
 
   return (
-    <I18nextProvider i18n={i18n}>
-      <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider theme={rainbowKitTheme} chains={chains}>
-          <TransactionStoreProvider>
-            <EnsProvider>
-              <ThemeProvider theme={thorinLightTheme}>
-                <BreakpointProvider queries={breakpoints}>
-                  <GlobalStyle />
-                  <ThorinGlobalStyles theme={thorinGlobalTheme} />
-                  <GlobalErrorProvider>
-                    <SyncProvider>
-                      <TransactionFlowProvider>
-                        <SyncDroppedTransaction>
-                          <Notifications />
-                          <Basic>{getLayout(<Component {...pageProps} />)}</Basic>
-                        </SyncDroppedTransaction>
-                      </TransactionFlowProvider>
-                    </SyncProvider>
-                  </GlobalErrorProvider>
-                </BreakpointProvider>
-              </ThemeProvider>
-            </EnsProvider>
-          </TransactionStoreProvider>
-        </RainbowKitProvider>
-      </WagmiConfig>
-    </I18nextProvider>
+    <>
+      <Head>
+        <title>JNS - JFIN Name Service</title>
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta name="title" content="JNS - JFIN Name Service" />
+        <meta
+          name="description"
+          content="JNS is your unified gateway to the decentralized web. A singular name for all your blockchain addresses and your portal to a decentralized presence."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://jns-app.pages.dev/" />
+        <meta property="og:title" content="JNS - JFIN Name Service" />
+        <meta
+          property="og:description"
+          content="JNS is your unified gateway to the decentralized web. A singular name for all your blockchain addresses and your portal to a decentralized presence."
+        />
+        <meta property="og:image" content="/cover.png" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://jns-app.pages.dev/" />
+        <meta property="twitter:title" content="JNS - JFIN Name Service" />
+        <meta
+          property="twitter:description"
+          content="JNS is your unified gateway to the decentralized web. A singular name for all your blockchain addresses and your portal to a decentralized presence."
+        />
+        <meta property="twitter:image" content="/cover.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+        <meta name="theme-color" content="#ffffff" />
+      </Head>
+      <I18nextProvider i18n={i18n}>
+        <WagmiConfig client={wagmiClient}>
+          <RainbowKitProvider theme={rainbowKitTheme} chains={chains}>
+            <TransactionStoreProvider>
+              <EnsProvider>
+                <ThemeProvider theme={thorinGlobalTheme}>
+                  <BreakpointProvider queries={breakpoints}>
+                    <GlobalStyle />
+                    <ThorinGlobalStyles theme={thorinGlobalTheme} />
+                    <GlobalErrorProvider>
+                      <SyncProvider>
+                        <TransactionFlowProvider>
+                          <SyncDroppedTransaction>
+                            <Notifications />
+                            <Basic>{getLayout(<Component {...pageProps} />)}</Basic>
+                          </SyncDroppedTransaction>
+                        </TransactionFlowProvider>
+                      </SyncProvider>
+                    </GlobalErrorProvider>
+                  </BreakpointProvider>
+                </ThemeProvider>
+              </EnsProvider>
+            </TransactionStoreProvider>
+          </RainbowKitProvider>
+        </WagmiConfig>
+      </I18nextProvider>
+    </>
   )
 }
 

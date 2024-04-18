@@ -1,12 +1,17 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Heading, Typography, mq } from '@ensdomains/thorin'
+import { Button, Dialog, mq } from '@ensdomains/thorin'
 
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
 import { Card } from '@app/components/Card'
+import { CustomHeading, CustomTypography } from '@app/components/customs'
+import { useChainId } from '@app/hooks/useChainId'
 import { useEstimateFullRegistration } from '@app/hooks/useEstimateRegistration'
+import { useJoin } from '@app/hooks/useJoin'
 import { useNameDetails } from '@app/hooks/useNameDetails'
+import { useBreakpoint } from '@app/utils/BreakpointProvider'
 
 import FullInvoice from '../FullInvoice'
 import { RegistrationReducerDataItem } from '../types'
@@ -111,6 +116,8 @@ const Info = ({
   onProfileClick,
 }: Props) => {
   const { t } = useTranslation('register')
+  const chainId = useChainId()
+  const isTestnet = chainId === 3502
 
   const estimate = useEstimateFullRegistration({
     name: normalisedName,
@@ -118,39 +125,117 @@ const Info = ({
     price: priceData,
   })
 
+  const { login, useJoinListener } = useJoin()
+  const breakpoints = useBreakpoint()
+  const [isJoin, setIsJoin] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [profile, setProfile] = useState(null) as any
+  const isAllow = isTestnet ? true : profile && profile.level !== 'BRONZE'
+
+  const handleStorageChange = () => {
+    if (!localStorage.getItem('sessionId')) {
+      setIsJoin(false)
+    } else {
+      setIsJoin(true)
+      const profileData = localStorage.getItem('profile')
+      setProfile(profileData ? JSON.parse(profileData) : {})
+    }
+  }
+
+  useJoinListener(handleStorageChange)
+
+  const handleJoin = () => {
+    if (isJoin) {
+      if (isAllow) {
+        callback({ back: false })
+      } else {
+        setDialogOpen(true)
+      }
+    } else {
+      login()
+    }
+  }
+
+  const CustomDialogHeading = styled(Dialog.Heading)(
+    ({ theme }) => css`
+      color: ${theme.colors.textPrimary} !important;
+    `,
+  )
+
   return (
-    <StyledCard>
-      <Heading>{t('steps.info.heading')}</Heading>
-      <Typography>{t('steps.info.subheading')}</Typography>
-      <InfoItems>
-        {infoItemArr.map((item, inx) => (
-          <InfoItem key={item}>
-            <Typography>{inx + 1}</Typography>
-            <Typography>{t(item)}</Typography>
-          </InfoItem>
-        ))}
-      </InfoItems>
-      <FullInvoice {...estimate} />
-      {!registrationData.queue.includes('profile') && (
-        <ProfileButton data-testid="setup-profile-button" onClick={onProfileClick}>
-          <Typography weight="bold" color="accent">
-            {t('steps.info.setupProfile')}
-          </Typography>
-        </ProfileButton>
-      )}
-      <ButtonContainer>
-        <MobileFullWidth>
-          <Button colorStyle="accentSecondary" onClick={() => callback({ back: true })}>
-            {t('action.back', { ns: 'common' })}
-          </Button>
-        </MobileFullWidth>
-        <MobileFullWidth>
-          <Button data-testid="next-button" onClick={() => callback({ back: false })}>
-            {t('action.begin', { ns: 'common' })}
-          </Button>
-        </MobileFullWidth>
-      </ButtonContainer>
-    </StyledCard>
+    <>
+      <div>
+        <Dialog open={dialogOpen} variant="closable" onDismiss={() => setDialogOpen(false)}>
+          <CustomDialogHeading
+            alert="warning"
+            title={
+              <CustomHeading style={{ textAlign: 'center', fontSize: '20px' }}>
+                Action Required: Upgrade Join account
+              </CustomHeading>
+            }
+          />
+          <CustomTypography style={breakpoints.sm ? { width: '500px' } : { padding: '16px' }}>
+            Your Join account is currently BRONZE. To access this feature, your account must be at
+            least SILVER. You can upgrade your account with the Join application.
+          </CustomTypography>
+        </Dialog>
+      </div>
+
+      <StyledCard>
+        <CustomHeading>{t('steps.info.heading')}</CustomHeading>
+        <CustomTypography>{t('steps.info.subheading')}</CustomTypography>
+        <InfoItems>
+          {infoItemArr.map((item, inx) => (
+            <InfoItem key={item}>
+              <CustomTypography style={{ color: '#fff' }}>{inx + 1}</CustomTypography>
+              <CustomTypography>{t(item)}</CustomTypography>
+            </InfoItem>
+          ))}
+        </InfoItems>
+        <FullInvoice {...estimate} />
+        {!registrationData.queue.includes('profile') && (
+          <ProfileButton data-testid="setup-profile-button" onClick={onProfileClick}>
+            <CustomTypography weight="bold" color="accent">
+              {t('steps.info.setupProfile')}
+            </CustomTypography>
+          </ProfileButton>
+        )}
+        <ButtonContainer>
+          <MobileFullWidth>
+            <Button colorStyle="accentSecondary" onClick={() => callback({ back: true })}>
+              {t('action.back', { ns: 'common' })}
+            </Button>
+          </MobileFullWidth>
+          <MobileFullWidth>
+            <Button
+              data-testid="next-button"
+              style={{ backgroundColor: '#3c32bb' }}
+              onClick={() => {
+                handleJoin()
+              }}
+            >
+              {isJoin ? (
+                t('action.begin', { ns: 'common' })
+              ) : (
+                <>
+                  <img
+                    src="https://jfinscan.com/static/apps/joinwallet.png"
+                    alt="joinIcon"
+                    style={{
+                      width: '25px',
+                      height: '25px',
+                      verticalAlign: 'top',
+                      marginRight: '5px',
+                    }}
+                  />
+                  <span style={{ verticalAlign: 'middle' }}>Connect Join</span>
+                </>
+              )}
+            </Button>
+          </MobileFullWidth>
+        </ButtonContainer>
+      </StyledCard>
+    </>
   )
 }
 

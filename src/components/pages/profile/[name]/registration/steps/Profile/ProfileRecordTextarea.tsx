@@ -52,6 +52,7 @@ const InnerButtonWrapper = styled.div(
 
     &:hover {
       background: ${theme.colors.greySurface};
+      color: ${theme.colors.textSecondary};
       transform: translateY(-1px);
     }
   `,

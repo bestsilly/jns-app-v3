@@ -1,7 +1,9 @@
 import { HTMLAttributes } from 'react'
 import styled, { css } from 'styled-components'
 
-import { Button, Dialog, Typography, mq } from '@ensdomains/thorin'
+import { Button, Dialog, mq } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 const Container = styled.div(({ theme }) => [
   css`
@@ -16,12 +18,6 @@ const Container = styled.div(({ theme }) => [
     max-width: ${theme.space['128']};
   `),
 ])
-
-const Description = styled(Typography)(
-  () => css`
-    text-align: center;
-  `,
-)
 
 type Props = {
   title?: string
@@ -43,8 +39,11 @@ export const ConfirmationDialogView = ({
 }: Props) => {
   return (
     <Container {...props}>
-      <Dialog.Heading title={title} alert="warning" />
-      <Description>{description}</Description>
+      <Dialog.Heading
+        title={<span style={{ fontSize: '25px', color: '#fff' }}>{title}</span>}
+        alert="warning"
+      />
+      <CustomTypography>{description}</CustomTypography>
       <Dialog.Footer
         leading={
           <Button

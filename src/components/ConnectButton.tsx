@@ -1,5 +1,5 @@
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { Key, ReactNode } from 'react'
+import { Key, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useDisconnect } from 'wagmi'
@@ -21,12 +21,14 @@ import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import { useAvatar } from '@app/hooks/useAvatar'
 import { useChainId } from '@app/hooks/useChainId'
 import { useCopied } from '@app/hooks/useCopied'
+import { useJoin } from '@app/hooks/useJoin'
 import { usePrimary } from '@app/hooks/usePrimary'
 import { useZorb } from '@app/hooks/useZorb'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
 import { shortenAddress } from '@app/utils/utils'
 
 import BaseLink from './@atoms/BaseLink'
+import JNSGradientButton from './jns/button'
 
 const StyledButtonWrapper = styled.div<{ $isTabBar?: boolean; $large?: boolean }>(
   ({ theme, $isTabBar, $large }) => [
@@ -112,8 +114,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
 
   return (
     <StyledButtonWrapper $large={large} $isTabBar={isTabBar}>
-      <Button
-        colorStyle="indigoPrimary"
+      <JNSGradientButton
         data-testid={calculateTestId(isTabBar, inHeader)}
         onClick={() => openConnectModal?.()}
         size={breakpoints.sm || large ? 'medium' : 'small'}
@@ -121,8 +122,74 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
         shape="rounded"
       >
         {t('wallet.connect')}
+      </JNSGradientButton>
+    </StyledButtonWrapper>
+  )
+}
+
+export const JoinConnectButton = ({ isTabBar, large, inHeader }: Props) => {
+  const breakpoints = useBreakpoint()
+  const { login } = useJoin()
+
+  return (
+    <StyledButtonWrapper $large={large} $isTabBar={isTabBar}>
+      <Button
+        data-testid={calculateTestId(isTabBar, inHeader)}
+        onClick={() => login()}
+        size={breakpoints.sm || large ? 'medium' : 'small'}
+        width={inHeader ? '45' : undefined}
+        shape="rounded"
+        style={{ backgroundColor: '#3c32bb' }}
+      >
+        <img
+          src="https://jfinscan.com/static/apps/joinwallet.png"
+          alt="joinIcon"
+          style={{ width: '25px', height: '25px', verticalAlign: 'top', marginRight: '5px' }}
+        />
+        <span style={{ verticalAlign: 'middle' }}>Connect Join</span>
       </Button>
     </StyledButtonWrapper>
+  )
+}
+
+const JoinHeaderProfile = ({ profile }: any) => {
+  const { maskPhoneNumber, logout } = useJoin()
+
+  const CustomProfile = styled(Profile)(
+    ({ theme }) => css`
+      * {
+        color: ${theme.colors.textPrimary} !important;
+      }
+    `,
+  )
+
+  return (
+    <CustomProfile
+      address={profile?.contactNumber || ''}
+      ensName={maskPhoneNumber(profile?.contactNumber) || ''}
+      style={{ color: '#fff !important' }}
+      dropdownItems={
+        [
+          {
+            label: 'Logout Join',
+            color: 'red',
+            onClick: () => {
+              logout()
+            },
+            icon: <ExitSVG />,
+          },
+        ] as DropdownItem[]
+      }
+      avatar={{
+        src: profile?.protraitUrl || 'https://jfinscan.com/static/apps/joinwallet.png',
+        decoding: 'sync',
+        loading: 'eager',
+        noBorder: false,
+      }}
+      size="medium"
+      alignDropdown="left"
+      data-testid="join-header-profile"
+    />
   )
 }
 
@@ -139,6 +206,7 @@ const HeaderProfile = ({ address }: { address: string }) => {
 
   return (
     <Profile
+      style={{ color: '#fff !important' }}
       address={address}
       ensName={primary.data?.beautifiedName}
       dropdownItems={
@@ -189,7 +257,7 @@ const HeaderProfile = ({ address }: { address: string }) => {
         src: avatar || zorb,
         decoding: 'sync',
         loading: 'eager',
-        noBorder: true,
+        noBorder: false,
         overlay: avatar ? undefined : (
           <PersonOverlay>
             <PersonSVG />
@@ -198,6 +266,7 @@ const HeaderProfile = ({ address }: { address: string }) => {
       }}
       size="medium"
       alignDropdown="left"
+      indicatorColor="accent"
       data-testid="header-profile"
     />
   )
@@ -205,10 +274,34 @@ const HeaderProfile = ({ address }: { address: string }) => {
 
 export const HeaderConnect = () => {
   const { address } = useAccountSafely()
+  const [isJoin, setIsJoin] = useState(false)
+  const [profile, setProfile] = useState(null) as any
+  const { useJoinListener } = useJoin()
+
+  const handleStorageChange = () => {
+    if (!localStorage.getItem('sessionId')) {
+      setIsJoin(false)
+    } else {
+      setIsJoin(true)
+      const profileData = localStorage.getItem('profile')
+      setProfile(profileData ? JSON.parse(profileData) : {})
+    }
+  }
+
+  useJoinListener(handleStorageChange)
 
   if (!address) {
     return <ConnectButton inHeader />
   }
 
-  return <HeaderProfile address={address} />
+  return (
+    <>
+      {isJoin ? (
+        <JoinHeaderProfile profile={profile} handleStorageChange={handleStorageChange} />
+      ) : (
+        <JoinConnectButton />
+      )}
+      <HeaderProfile address={address} />
+    </>
+  )
 }

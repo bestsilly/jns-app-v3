@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Avatar, Typography } from '@ensdomains/thorin'
+import { Avatar } from '@ensdomains/thorin'
+
+import { CustomTypography } from '../customs'
 
 const Container = styled.div(
   ({ theme }) => css`
@@ -51,9 +53,9 @@ const NoProfileSnippet = () => {
       </AvatarContainer>
       <ProfileContent>
         <ProfileTitle>{t('noProfile.title')}</ProfileTitle>
-        <Typography fontVariant="small" color="text">
+        <CustomTypography fontVariant="small" color="text">
           {t('noProfile.message')}
-        </Typography>
+        </CustomTypography>
       </ProfileContent>
     </Container>
   )

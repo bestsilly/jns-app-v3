@@ -3,11 +3,12 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { RecordItem, Typography } from '@ensdomains/thorin'
+import { RecordItem } from '@ensdomains/thorin'
 
 import { DynamicAddressIcon } from '@app/assets/address/DynamicAddressIcon'
 import { dynamicAddressIcons } from '@app/assets/address/dynamicAddressIcons'
 import { DynamicSocialIcon, socialIconTypes } from '@app/assets/social/DynamicSocialIcon'
+import { CustomTypography } from '@app/components/customs'
 import { usePrimary } from '@app/hooks/usePrimary'
 import { getDestination } from '@app/routes'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
@@ -86,14 +87,14 @@ const OtherContainer = styled.div(
   `,
 )
 
-const OtherContainerAddressPrefix = styled(Typography)(
+const OtherContainerAddressPrefix = styled(CustomTypography)(
   ({ theme }) => css`
     color: ${theme.colors.backgroundPrimary};
     font-size: ${theme.fontSizes.extraSmall};
   `,
 )
 
-const OtherContainerTextPrefix = styled(Typography)(
+const OtherContainerTextPrefix = styled(CustomTypography)(
   ({ theme }) => css`
     padding-left: ${theme.space['0.5']};
   `,

@@ -3,7 +3,9 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { CheckCircleSVG, LanguageSVG, LeftArrowSVG, Typography, mq } from '@ensdomains/thorin'
+import { CheckCircleSVG, LanguageSVG, LeftArrowSVG, mq } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 const Container = styled.div(
   ({ theme }) => css`
@@ -46,10 +48,6 @@ const Heading = styled.div(
 
     cursor: pointer;
     transition: all 0.1s ease-in-out;
-
-    &:hover {
-      background-color: ${theme.colors.greySurface};
-    }
 
     & > svg {
       color: ${theme.colors.grey};
@@ -110,10 +108,6 @@ const LanguageItem = styled.div(
     transition: all 0.1s ease-in-out;
     cursor: pointer;
 
-    &:hover {
-      background-color: ${theme.colors.greySurface};
-    }
-
     & > div {
       display: flex;
       flex-direction: row;
@@ -123,6 +117,16 @@ const LanguageItem = styled.div(
       svg {
         display: block;
         color: ${theme.colors.green};
+      }
+    }
+
+    &:hover {
+      background-color: ${theme.colors.backgroundSecondary};
+      & > div {
+        color: ${theme.colors.textSecondary} !important;
+      }
+      & > div > div {
+        color: ${theme.colors.textSecondary} !important;
       }
     }
 
@@ -161,7 +165,9 @@ const LanguageMenu = ({
           <LeftArrowSVG />
           <InnerHeading>
             <LanguageSVG />
-            <Typography weight="bold">{t('navigation.language')}</Typography>
+            <CustomTypography weight="bold" style={{ color: '#fff' }}>
+              {t('navigation.language')}
+            </CustomTypography>
           </InnerHeading>
         </Heading>
       </HeadingWrapper>
@@ -173,9 +179,13 @@ const LanguageMenu = ({
                 as={CheckCircleSVG}
                 style={{ display: i18n.resolvedLanguage === lang ? 'block' : 'none' }}
               />
-              <Typography>{ISO6391.getNativeName(lang)}</Typography>
+              <CustomTypography style={{ color: '#fff' }}>
+                {ISO6391.getNativeName(lang)}
+              </CustomTypography>
             </div>
-            <Typography>{lang.toLocaleUpperCase()}</Typography>
+            <CustomTypography style={{ color: '#f2f2f2' }}>
+              {lang.toLocaleUpperCase()}
+            </CustomTypography>
           </LanguageItem>
         ))}
       </LanguagesContainer>

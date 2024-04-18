@@ -3,11 +3,10 @@ import { ComponentProps } from 'react'
 import styled, { css } from 'styled-components'
 import type { UrlObject } from 'url'
 
-import { Typography } from '@ensdomains/thorin'
-
 import OutlinkSVG from '@app/assets/Outlink.svg'
 
 import BaseLink from './@atoms/BaseLink'
+import { CustomTypography } from './customs'
 
 export const StyledAnchor = styled.a(
   ({ theme }) => css`
@@ -26,12 +25,14 @@ const OutlinkIcon = styled.div(
     width: ${theme.space['3.5']};
     height: ${theme.space['3.5']};
     opacity: 0.5;
+    color: #fff !important;
   `,
 )
 
-export const OutlinkTypography = styled(Typography)(
-  () => css`
+export const OutlinkTypography = styled(CustomTypography)(
+  ({ theme }) => css`
     display: inline-block;
+    color: ${theme.colors.accentLight} !important;
   `,
 )
 
@@ -45,9 +46,7 @@ export const Outlink = ({
   }) => {
   const InnerContent = (
     <StyledAnchor {...props} rel="noreferrer noopener" target="_blank" role="link">
-      <OutlinkTypography fontVariant="smallBold" color="blue">
-        {children}
-      </OutlinkTypography>
+      <OutlinkTypography fontVariant="smallBold">{children}</OutlinkTypography>
       <OutlinkIcon as={OutlinkSVG} />
     </StyledAnchor>
   )

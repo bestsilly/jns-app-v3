@@ -2,8 +2,9 @@ import { ComponentProps } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { PageButtons, Select } from '@ensdomains/thorin'
+import { PageButtons } from '@ensdomains/thorin'
 
+import { CustomSelect } from '@app/components/customs'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
 
 const Container = styled.div(
@@ -36,7 +37,7 @@ export const NameTableFooter = ({
   const { t } = useTranslation('common')
   const breakpoints = useBreakpoint()
 
-  const pageSizeOptions = [5, 10, 25, 50, 100].map((value) => ({
+  const pageSizeOptions = [5, 10, 25, 50].map((value) => ({
     label: t('unit.perPage', { count: value }),
     value: value.toString(),
   }))
@@ -57,7 +58,7 @@ export const NameTableFooter = ({
         showEllipsis={breakpoints.sm}
       />
       <div data-testid="select-page-size">
-        <Select
+        <CustomSelect
           hideLabel
           label="Results per page"
           direction="up"

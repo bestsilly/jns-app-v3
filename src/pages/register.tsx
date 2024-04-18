@@ -1,4 +1,5 @@
-import { ReactElement } from 'react'
+import { utils } from 'ethers'
+import { ReactElement, useEffect } from 'react'
 import { useAccount } from 'wagmi'
 
 import Registration from '@app/components/pages/profile/[name]/registration/Registration'
@@ -8,6 +9,7 @@ import { useNameDetails } from '@app/hooks/useNameDetails'
 import { getSelectedIndex } from '@app/hooks/useRegistrationReducer'
 import { useRouterWithHistory } from '@app/hooks/useRouterWithHistory'
 import { ContentGrid } from '@app/layouts/ContentGrid'
+import { getTempRestrictWords, getTempTakedownList } from '@app/utils/wording'
 
 export default function Page() {
   const router = useRouterWithHistory()
@@ -22,6 +24,28 @@ export default function Page() {
   const { isLoading: detailsLoading, registrationStatus } = nameDetails
 
   const isLoading = detailsLoading || initial
+
+  useEffect(() => {
+    const _tempRestrictWords = getTempRestrictWords()
+    const _tempTakedownList = getTempTakedownList()
+    const fetchWordList = async () => {
+      try {
+        if (
+          [..._tempRestrictWords, ..._tempTakedownList]?.includes(
+            utils.id(name.replace(/\.jfin$/, '')),
+          )
+        ) {
+          router.push(`/profile/invalid`)
+        }
+      } catch {
+        // fetch list failed
+      }
+    }
+
+    if (name) {
+      fetchWordList()
+    }
+  }, [name])
 
   if (!isLoading && registrationStatus !== 'available' && registrationStatus !== 'premium') {
     let redirect = true
@@ -44,7 +68,7 @@ export default function Page() {
       }
     }
 
-    if (redirect) {
+    if (redirect && name) {
       router.push(`/profile/${name}`)
     }
   }

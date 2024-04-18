@@ -5,8 +5,9 @@ import { UseFormReturn, useFieldArray } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Dialog, Input, Typography, mq } from '@ensdomains/thorin'
+import { Button, Dialog, Input, mq } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { isLabelTooLong } from '@app/utils/utils'
 
 const Container = styled.div(
@@ -144,7 +145,7 @@ export const UnknownLabelsForm = forwardRef<HTMLFormElement, Props>(
       <>
         <Dialog.Heading title={t('input.unknownLabels.title')} />
         <Container>
-          <Typography>{t('input.unknownLabels.subtitle')}</Typography>
+          <CustomTypography>{t('input.unknownLabels.subtitle')}</CustomTypography>
           <LabelsContainer
             ref={ref}
             onSubmit={handleSubmit(onSubmit)}

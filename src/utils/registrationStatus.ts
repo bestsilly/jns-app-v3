@@ -4,6 +4,7 @@ import { ParsedInputResult } from '@jfinchain/jnsjs/utils/validation'
 import type { ReturnedENS } from '@app/types/index'
 
 import { emptyAddress } from './constants'
+import { isBlacklisted, isEnglishLowerCaseAndNumeric } from './wording'
 
 export type RegistrationStatus =
   | 'invalid'
@@ -26,6 +27,7 @@ export const getRegistrationStatus = ({
   expiryData,
   priceData,
   supportedTLD,
+  normalisedName,
 }: {
   timestamp: number
   validation: Partial<Omit<ParsedInputResult, 'normalised' | 'isValid'>>
@@ -34,9 +36,14 @@ export const getRegistrationStatus = ({
   expiryData?: ReturnedENS['getExpiry']
   priceData?: ReturnedENS['getPrice']
   supportedTLD?: boolean | null
+  normalisedName?: string | null
 }): RegistrationStatus => {
   if (isETH && is2LD && isShort) {
     return 'short'
+  }
+
+  if (isBlacklisted(normalisedName || '') || !isEnglishLowerCaseAndNumeric(normalisedName || '')) {
+    return 'invalid'
   }
 
   if (!ownerData && !wrapperData) return 'invalid'

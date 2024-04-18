@@ -2,7 +2,9 @@ import { UseFormRegister } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { CheckboxRow, Dialog, Typography } from '@ensdomains/thorin'
+import { CheckboxRow, Dialog } from '@ensdomains/thorin'
+
+import { CustomTypography } from '@app/components/customs'
 
 import type { FormData } from '../RevokePermissions-flow'
 
@@ -10,7 +12,7 @@ type Props = {
   register: UseFormRegister<FormData>
 }
 
-const CenterAlignedTypography = styled(Typography)(
+const CenterAlignedTypography = styled(CustomTypography)(
   () => css`
     text-align: center;
   `,

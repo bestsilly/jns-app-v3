@@ -9,8 +9,9 @@ import {
 import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Dialog, Input, RadioButton, Typography } from '@ensdomains/thorin'
+import { Dialog, Input, RadioButton } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { dateTimeLocalToDate, dateToDateTimeLocal, stripDateMs } from '@app/utils/datetime-local'
 
 import type { FormData } from '../RevokePermissions-flow'
@@ -119,18 +120,18 @@ export const SetExpiryView = ({
           data-testid="radio-max"
           value="max"
           label={
-            <Typography fontVariant="bodyBold" color="text">
+            <CustomTypography fontVariant="bodyBold" color="text">
               {t('input.revokePermissions.views.setExpiry.options.max')}
-            </Typography>
+            </CustomTypography>
           }
           description={
             <DateContainer>
-              <Typography fontVariant="smallBold" color="text">
+              <CustomTypography fontVariant="smallBold" color="text">
                 {maxDateLabel}
-              </Typography>
-              <Typography fontVariant="small" color="grey">
+              </CustomTypography>
+              <CustomTypography fontVariant="small" color="grey">
                 {maxTimeLabel}
-              </Typography>
+              </CustomTypography>
             </DateContainer>
           }
           {...register('expiryType', {
@@ -143,9 +144,9 @@ export const SetExpiryView = ({
           data-testid="radio-custom"
           value="custom"
           label={
-            <Typography fontVariant="bodyBold" color="text">
+            <CustomTypography fontVariant="bodyBold" color="text">
               {t('input.revokePermissions.views.setExpiry.options.custom')}
-            </Typography>
+            </CustomTypography>
           }
           description={
             <>

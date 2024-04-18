@@ -2,8 +2,9 @@ import { CalendarEvent, google, ics, office365, outlook, yahoo } from 'calendar-
 import type { Dispatch, SetStateAction } from 'react'
 import type { TFunction } from 'react-i18next'
 
-import { CalendarSVG, Dropdown, Typography } from '@ensdomains/thorin'
+import { CalendarSVG, Dropdown } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { formatDateTime, formatExpiry } from '@app/utils/utils'
 
 import { DateLayout } from './components/DateLayout'
@@ -55,9 +56,9 @@ export const ExpirationDate = ({
   t: TFunction<'common', undefined>
 }) => (
   <DateLayout>
-    <Typography>{t('name.expires')}</Typography>
-    <Typography data-testid="expiry-data">{formatExpiry(expiryDate)}</Typography>
-    <Typography>{formatDateTime(expiryDate)}</Typography>
+    <CustomTypography>{t('name.expires')}</CustomTypography>
+    <CustomTypography data-testid="expiry-data">{formatExpiry(expiryDate)}</CustomTypography>
+    <CustomTypography>{formatDateTime(expiryDate)}</CustomTypography>
     <Dropdown
       shortThrow
       keepMenuOnTop

@@ -2,11 +2,12 @@ import { ReactElement, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { P, match } from 'ts-pattern'
 
-import { Helper, Typography } from '@ensdomains/thorin'
+import { Helper } from '@ensdomains/thorin'
 
 import { TaggedNameItem } from '@app/components/@atoms/NameDetailItem/TaggedNameItem'
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { Outlink } from '@app/components/Outlink'
+import { CustomTypography } from '@app/components/customs'
 import { useChainId } from '@app/hooks/useChainId'
 import { Content } from '@app/layouts/Content'
 import { ContentGrid } from '@app/layouts/ContentGrid'
@@ -47,13 +48,13 @@ export default function Page() {
         trailing: (
           <>
             <Helper type="warning" style={{ textAlign: 'center' }}>
-              <Typography>
+              <CustomTypography>
                 Your favourites have been carried over from{' '}
                 <Outlink href="https://legacy.ens.domains" target="_blank" rel="noreferrer">
                   Legacy ENS
                 </Outlink>
                 . These will be uneditable until favourites are fully implemented.
-              </Typography>
+              </CustomTypography>
             </Helper>
             <Spacer $height="3" />
             {match(favourites)

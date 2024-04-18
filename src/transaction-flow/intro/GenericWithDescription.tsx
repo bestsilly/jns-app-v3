@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components'
 
-import { Typography } from '@ensdomains/thorin'
+import { CustomTypography } from '@app/components/customs'
 
-const DescriptionWrapper = styled(Typography)(
+const DescriptionWrapper = styled(CustomTypography)(
   ({ theme }) => css`
     display: inline;
     text-align: center;
@@ -16,7 +16,7 @@ const DescriptionWrapper = styled(Typography)(
 export const GenericWithDescription = ({ description }: { description: string }) => {
   return (
     <DescriptionWrapper>
-      <Typography>{description}</Typography>
+      <CustomTypography>{description}</CustomTypography>
     </DescriptionWrapper>
   )
 }

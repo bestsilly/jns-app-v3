@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, DownChevronSVG, Typography } from '@ensdomains/thorin'
+import { Button, DownChevronSVG } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
 
 const AccordionTitle = styled.div<{
@@ -118,7 +119,7 @@ const Chevron = styled(DownChevronSVG)<{
   `,
 )
 
-const UnwrappedIndicator = styled(Typography)(
+const UnwrappedIndicator = styled(CustomTypography)(
   ({ theme }) => `
     background: ${theme.colors.grey};
     padding: ${theme.space[1]} ${theme.space[3]};
@@ -186,9 +187,9 @@ const Accordion = ({ data, name }: AccordionProps) => {
             return (
               <AccordionItem data-testid={`accordion-${item.title}-disabled`} key={item.title}>
                 <AccordionTitle $isDisabled>
-                  <Typography fontVariant="headingFour" color="grey">
+                  <CustomTypography fontVariant="headingFour" color="grey">
                     {item.title}
-                  </Typography>
+                  </CustomTypography>
                   <UnwrappedIndicator color="textSecondary">
                     {t('details.notWrapped')}
                   </UnwrappedIndicator>
@@ -206,7 +207,7 @@ const Accordion = ({ data, name }: AccordionProps) => {
               >
                 <AccordionTitle {...{ isActive }}>
                   <TitleAndButtonContainer>
-                    <Typography fontVariant="headingFour">{item.title}</Typography>
+                    <CustomTypography fontVariant="headingFour">{item.title}</CustomTypography>
                     {item.canEdit && (
                       <EditButton
                         data-testid={`accordion-${item.name}-edit`}
