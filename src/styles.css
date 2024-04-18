@@ -24,16 +24,16 @@ div[data-testid='select-container'] a:hover {
   color: #000 !important;
 }
 
-div[class^='LegacyDropdown'] button:hover {
+div[id='LegacyDropdown'] button:hover {
   color: #000 !important;
 }
 
-div[class*='MainMenu__Container'] a:hover * {
+div[id^='popoverContainer'] a:hover * {
   color: #000 !important;
 }
 
-div[class^='ProfileDetails'] a:hover,
-div[class^='ProfileDetails'] button:hover {
+div[id='ProfileDetails'] a:hover,
+div[id='ProfileDetails'] button:hover {
   background: #f2f2f2 !important;
 }
 
