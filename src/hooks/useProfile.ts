@@ -17,11 +17,13 @@ type UseProfileOptions = {
   skipGraph?: boolean
 }
 
+const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
+
 export const useProfile = (
   name: string,
   {
     skip,
-    resolverAddress = RESOLVER_ADDRESSES['3502']?.[0],
+    resolverAddress = RESOLVER_ADDRESSES[isTestnet]?.[0],
     skipGraph = false,
   }: UseProfileOptions = {},
 ) => {

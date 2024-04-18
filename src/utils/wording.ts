@@ -148,7 +148,9 @@ export const checkRestrictWords = (input: string): boolean => {
 export const isEnglish = (input: string): boolean => {
   return input.split('').every((char) => {
     const charCode = char.charCodeAt(0)
-    return charCode >= 32 && charCode <= 126
+    const isLowerCase = charCode >= 97 && charCode <= 122
+    const isNumeric = charCode >= 48 && charCode <= 57
+    return isLowerCase || isNumeric
   })
 }
 

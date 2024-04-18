@@ -68,7 +68,7 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
   const router = useRouter()
   const [error] = useErrorBoundary()
   const { getProfile } = useJoin()
-  // const { boot } = useIntercom()
+  const chainId = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
 
   useEffect(() => {
     // Do not initialise with uid and email without implementing identity verification first
@@ -87,7 +87,7 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
         (currentChain?.id === 3501 || currentChain?.id === 3502)
       )
     ) {
-      switchNetwork?.(3502)
+      switchNetwork?.(chainId)
       router.push('/unsupportedNetwork')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,8 +1,16 @@
 import { EthAddress } from '@app/types'
 
 export const CONTRACT_ADDRESSES = {
-  publicResolver: '0xad9dA8192B750aD7eFF975ec00BD94783fbC2C53',
-  dummyOracle: '0xE3f7B0902edeE415053B5D582322d1420FD26D85',
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  '3501': {
+    publicResolver: '0x0292DC69f99b90d97aDD773cC2A0c1b251D0e235',
+    dummyOracle: '0x3C26106427ddD5bce4F371b38987115b85ec8b24',
+  },
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  '3502': {
+    publicResolver: '0xad9dA8192B750aD7eFF975ec00BD94783fbC2C53',
+    dummyOracle: '0xE3f7B0902edeE415053B5D582322d1420FD26D85',
+  },
 }
 
 export const emptyAddress = '0x0000000000000000000000000000000000000000'
@@ -63,7 +71,9 @@ export const RESOLVER_ADDRESSES: ResolverAddresses = {
   //   '0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB',
   // ],
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '3502': [CONTRACT_ADDRESSES.publicResolver], // JNS PublicResolver Address
+  '3501': [CONTRACT_ADDRESSES[3501].publicResolver], // JNS PublicResolver Address
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  '3502': [CONTRACT_ADDRESSES[3502].publicResolver], // JNS PublicResolver Address
 }
 
 export const NAMEWRAPPER_AWARE_RESOLVERS: ResolverAddresses = {
@@ -80,7 +90,9 @@ export const NAMEWRAPPER_AWARE_RESOLVERS: ResolverAddresses = {
   // // eslint-disable-next-line @typescript-eslint/naming-convention
   // '1337': ['0x0E801D84Fa97b50751Dbf25036d067dCf18858bF'],
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '3502': [CONTRACT_ADDRESSES.publicResolver], // JNS PublicResolver Address
+  '3501': [CONTRACT_ADDRESSES[3501].publicResolver], // JNS PublicResolver Address
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  '3502': [CONTRACT_ADDRESSES[3502].publicResolver], // JNS PublicResolver Address
 }
 
 export const RESOLVER_INTERFACE_IDS = {
