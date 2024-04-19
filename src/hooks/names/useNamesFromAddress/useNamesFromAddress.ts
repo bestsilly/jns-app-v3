@@ -50,7 +50,7 @@ export const useNamesFromAddress = ({
     () =>
       watchedGetNames({
         address: address!,
-        type: 'wrappedOwner',
+        type: 'resolvedAddress',
         orderBy: 'labelName',
         orderDirection: 'desc',
       }).then((r) => r || null),
