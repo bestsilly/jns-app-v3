@@ -1,60 +1,79 @@
 import { mockFunction, render, screen } from '@app/test-utils'
 
-import { useGetFusesSetDates } from '@app/hooks/fuses/useGetFusesSetDates'
-import { useAccountSafely } from '@app/hooks/useAccountSafely'
-import { useBasicName } from '@app/hooks/useBasicName'
-import { DeepPartial } from '@app/types/index'
-import type { useEns } from '@app/utils/EnsProvider'
+import { mock } from '@wagmi/core'
+import { describe, expect, it, vi } from 'vitest'
 
+import { GetWrapperDataReturnType } from '@ensdomains/ensjs/public'
+
+import { useAbilities } from '@app/hooks/abilities/useAbilities'
+import { useAccountSafely } from '@app/hooks/account/useAccountSafely'
+import { useFusesSetDates } from '@app/hooks/fuses/useFusesSetDates'
+import { useParentBasicName } from '@app/hooks/useParentBasicName'
+import { DeepPartial } from '@app/types/index'
+import { createDateAndValue } from '@app/utils/utils'
+
+import { makeMockUseAbilitiesData } from '../../../../../../../test/mock/makeMockUseAbilitiesData'
 import { PermissionsTab } from './PermissionsTab'
 
-type WrapperData = Awaited<ReturnType<ReturnType<typeof useEns>['getWrapperData']>>
+type WrapperData = GetWrapperDataReturnType
 
 const makeWrapperData = (override: DeepPartial<WrapperData> = {}) => {
-  const defaultData: DeepPartial<WrapperData> = {
-    parent: {
-      PARENT_CANNOT_CONTROL: false,
-      CAN_EXTEND_EXPIRY: false,
+  const defaultData = {
+    fuses: {
+      parent: {
+        PARENT_CANNOT_CONTROL: false,
+        CAN_EXTEND_EXPIRY: false,
+      },
+      child: {
+        CANNOT_UNWRAP: false,
+        CANNOT_CREATE_SUBDOMAIN: false,
+        CANNOT_TRANSFER: false,
+        CANNOT_SET_RESOLVER: false,
+        CANNOT_SET_TTL: false,
+        CANNOT_APPROVE: false,
+        CANNOT_BURN_FUSES: false,
+      },
     },
-    child: {
-      CANNOT_UNWRAP: false,
-      CANNOT_CREATE_SUBDOMAIN: false,
-      CANNOT_TRANSFER: false,
-      CANNOT_SET_RESOLVER: false,
-      CANNOT_SET_TTL: false,
-      CANNOT_APPROVE: false,
-      CANNOT_BURN_FUSES: false,
-    },
-    expiryDate: new Date('2021-01-01T00:00:00.000Z'),
+    expiry: createDateAndValue(BigInt(new Date('2021-01-01T00:00:00.000Z').getTime())),
     owner: '0x123',
-  }
+  } satisfies DeepPartial<WrapperData>
   return {
     ...defaultData,
     ...override,
-    parent: {
-      ...defaultData.parent,
-      ...override.parent,
-    },
-    child: {
-      ...defaultData.child,
-      ...override.child,
+    fuses: {
+      ...defaultData.fuses,
+      ...override?.fuses,
+      parent: {
+        ...defaultData.fuses.parent,
+        ...override?.fuses?.parent,
+      },
+      child: {
+        ...defaultData.fuses.child,
+        ...override?.fuses?.child,
+      },
     },
   } as WrapperData
 }
 
-jest.mock('@app/hooks/fuses/useGetFusesSetDates')
-jest.mock('@app/hooks/useAccountSafely')
-jest.mock('@app/hooks/useBasicName')
+vi.mock('@app/hooks/fuses/useFusesSetDates')
+vi.mock('@app/hooks/account/useAccountSafely')
+vi.mock('@app/hooks/useParentBasicName')
+vi.mock('@app/hooks/abilities/useAbilities')
 
-const mockUseGetFusesSetDates = mockFunction(useGetFusesSetDates)
-mockUseGetFusesSetDates.mockReturnValue({ fusesSetDates: {} })
+const mockUseGetFusesSetDates = mockFunction(useFusesSetDates)
+mockUseGetFusesSetDates.mockReturnValue({ data: {} })
 
 const mockUseAccountSafely = mockFunction(useAccountSafely)
 mockUseAccountSafely.mockReturnValue({
   address: '0xOwner',
 })
 
-const mockUseBasicName = mockFunction(useBasicName)
+const mockUseParentBasicName = mockFunction(useParentBasicName)
+const mockUseAbilities = mockFunction(useAbilities)
+mockUseAbilities.mockReturnValue({
+  data: makeMockUseAbilitiesData('eth-emancipated-2ld'),
+  isLoading: false,
+})
 
 const components = [
   'banner-parent-not-locked',
@@ -64,7 +83,7 @@ const components = [
   'button-revoke-permissions-disabled',
   'button-revoke-permissions',
 ] as const
-type Component = typeof components[number]
+type Component = (typeof components)[number]
 const expectFunc = (visible: Component[] = []) => {
   for (const component of components) {
     if (visible.includes(component)) {
@@ -78,13 +97,15 @@ const expectFunc = (visible: Component[] = []) => {
 describe('<PermissionsTab>', () => {
   describe('2LDEths', () => {
     it('should display the correct info', () => {
-      mockUseBasicName.mockReturnValue({})
+      mockUseParentBasicName.mockReturnValue({})
       render(
         <PermissionsTab
           name="test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              PARENT_CANNOT_CONTROL: true,
+            fuses: {
+              parent: {
+                PARENT_CANNOT_CONTROL: true,
+              },
             },
           })}
           isCached={false}
@@ -102,9 +123,11 @@ describe('<PermissionsTab>', () => {
 
   describe('Subnames', () => {
     it('Should show the correct info if the parent name is in wrapped state', () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {},
+          fuses: {
+            parent: {},
+          },
         }),
       })
       render(
@@ -116,10 +139,12 @@ describe('<PermissionsTab>', () => {
     })
 
     it('Should show the correct info if the parent name is in emancipated state', () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
           },
         }),
       })
@@ -132,13 +157,15 @@ describe('<PermissionsTab>', () => {
     })
 
     it('Should show the correct info if the parent name is locked', () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -151,13 +178,15 @@ describe('<PermissionsTab>', () => {
     })
 
     it('Should show the correct info if the name is in emancipated state', () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -165,8 +194,10 @@ describe('<PermissionsTab>', () => {
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              PARENT_CANNOT_CONTROL: true,
+            fuses: {
+              parent: {
+                PARENT_CANNOT_CONTROL: true,
+              },
             },
           })}
           isCached={false}
@@ -178,13 +209,15 @@ describe('<PermissionsTab>', () => {
     })
 
     it('Should show the correct info if can extend expiry is burned', () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -192,9 +225,11 @@ describe('<PermissionsTab>', () => {
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              PARENT_CANNOT_CONTROL: true,
-              CAN_EXTEND_EXPIRY: true,
+            fuses: {
+              parent: {
+                PARENT_CANNOT_CONTROL: true,
+                CAN_EXTEND_EXPIRY: true,
+              },
             },
           })}
           isCached={false}
@@ -206,13 +241,15 @@ describe('<PermissionsTab>', () => {
     })
 
     it('Should show the correct info if the name is locked', () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -220,12 +257,14 @@ describe('<PermissionsTab>', () => {
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              PARENT_CANNOT_CONTROL: true,
-              CAN_EXTEND_EXPIRY: true,
-            },
-            child: {
-              CANNOT_UNWRAP: true,
+            fuses: {
+              parent: {
+                PARENT_CANNOT_CONTROL: true,
+                CAN_EXTEND_EXPIRY: true,
+              },
+              child: {
+                CANNOT_UNWRAP: true,
+              },
             },
           })}
           isCached={false}
@@ -237,13 +276,15 @@ describe('<PermissionsTab>', () => {
     })
 
     it('Should show the correct info if the name is locked', () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -251,13 +292,15 @@ describe('<PermissionsTab>', () => {
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              PARENT_CANNOT_CONTROL: true,
-              CAN_EXTEND_EXPIRY: true,
-            },
-            child: {
-              CANNOT_UNWRAP: true,
-              CANNOT_BURN_FUSES: true,
+            fuses: {
+              parent: {
+                PARENT_CANNOT_CONTROL: true,
+                CAN_EXTEND_EXPIRY: true,
+              },
+              child: {
+                CANNOT_UNWRAP: true,
+                CANNOT_BURN_FUSES: true,
+              },
             },
           })}
           isCached={false}
@@ -271,7 +314,7 @@ describe('<PermissionsTab>', () => {
 
   describe('Child fuses', () => {
     it('should display unburned permissions correctly', () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({}),
       })
       render(
@@ -291,20 +334,22 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should display burned permissions correctly', () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({}),
       })
       render(
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            child: {
-              CANNOT_UNWRAP: true,
-              CANNOT_CREATE_SUBDOMAIN: true,
-              CANNOT_TRANSFER: true,
-              CANNOT_SET_RESOLVER: true,
-              CANNOT_SET_TTL: true,
-              CANNOT_APPROVE: true,
+            fuses: {
+              child: {
+                CANNOT_UNWRAP: true,
+                CANNOT_CREATE_SUBDOMAIN: true,
+                CANNOT_TRANSFER: true,
+                CANNOT_SET_RESOLVER: true,
+                CANNOT_SET_TTL: true,
+                CANNOT_APPROVE: true,
+              },
             },
           })}
           isCached={false}
@@ -326,7 +371,7 @@ describe('<PermissionsTab>', () => {
 
   describe('user is parent name owner', () => {
     it('should show banner if parent has not burned any fuses', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
           owner: '0xOwner',
         }),
@@ -338,11 +383,13 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should show banner if parent has burned pcc', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
           owner: '0xOwner',
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
           },
         }),
       })
@@ -353,14 +400,16 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should show `give up ownership` and `extend expiry` buttons if parent is locked', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
           owner: '0xOwner',
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -371,14 +420,16 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should show `give up ownership` if parent is locked and CEE is burned', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
           owner: '0xOwner',
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -386,8 +437,10 @@ describe('<PermissionsTab>', () => {
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              CAN_EXTEND_EXPIRY: true,
+            fuses: {
+              parent: {
+                CAN_EXTEND_EXPIRY: true,
+              },
             },
           })}
           isCached={false}
@@ -397,14 +450,16 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should show no buttons if PCC is burned', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
           owner: '0xOwner',
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -412,8 +467,10 @@ describe('<PermissionsTab>', () => {
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              PARENT_CANNOT_CONTROL: true,
+            fuses: {
+              parent: {
+                PARENT_CANNOT_CONTROL: true,
+              },
             },
           })}
           isCached={false}
@@ -425,7 +482,7 @@ describe('<PermissionsTab>', () => {
 
   describe('user is name owner', () => {
     it('should not show any buttons if no fuses have been burned', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({}),
       })
       render(
@@ -439,10 +496,12 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should show no buttons if parent has burned pcc', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
           },
         }),
       })
@@ -457,20 +516,22 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should show no buttons if parent is locked', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
       render(
         <PermissionsTab
           name="sub.test.eth"
-          wrapperData={makeWrapperData({ owner: 'OxOwner' })}
+          wrapperData={makeWrapperData({ owner: '0xOwner' })}
           isCached={false}
         />,
       )
@@ -478,13 +539,15 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should show no buttons if parent is locked and CEE is burned', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -492,8 +555,10 @@ describe('<PermissionsTab>', () => {
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              CAN_EXTEND_EXPIRY: true,
+            fuses: {
+              parent: {
+                CAN_EXTEND_EXPIRY: true,
+              },
             },
             owner: '0xOwner',
           })}
@@ -504,13 +569,15 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should show `revoke permissions` button if PCC is burned', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -518,8 +585,10 @@ describe('<PermissionsTab>', () => {
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              PARENT_CANNOT_CONTROL: true,
+            fuses: {
+              parent: {
+                PARENT_CANNOT_CONTROL: true,
+              },
             },
             owner: '0xOwner',
           })}
@@ -530,13 +599,15 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should show `revoke change fuses` and `revoke permissions` buttons if name is locked', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -544,11 +615,13 @@ describe('<PermissionsTab>', () => {
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              PARENT_CANNOT_CONTROL: true,
-            },
-            child: {
-              CANNOT_UNWRAP: true,
+            fuses: {
+              parent: {
+                PARENT_CANNOT_CONTROL: true,
+              },
+              child: {
+                CANNOT_UNWRAP: true,
+              },
             },
             owner: '0xOwner',
           })}
@@ -559,13 +632,15 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should show `disabled revoke permissions` buttons if CBF is burned', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -573,12 +648,14 @@ describe('<PermissionsTab>', () => {
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              PARENT_CANNOT_CONTROL: true,
-            },
-            child: {
-              CANNOT_UNWRAP: true,
-              CANNOT_BURN_FUSES: true,
+            fuses: {
+              parent: {
+                PARENT_CANNOT_CONTROL: true,
+              },
+              child: {
+                CANNOT_UNWRAP: true,
+                CANNOT_BURN_FUSES: true,
+              },
             },
             owner: '0xOwner',
           })}
@@ -589,13 +666,15 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should show only show `revoke change fuses` button if all the child fuses except CBF is burned ', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -603,16 +682,18 @@ describe('<PermissionsTab>', () => {
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              PARENT_CANNOT_CONTROL: true,
-            },
-            child: {
-              CANNOT_UNWRAP: true,
-              CANNOT_CREATE_SUBDOMAIN: true,
-              CANNOT_SET_RESOLVER: true,
-              CANNOT_SET_TTL: true,
-              CANNOT_TRANSFER: true,
-              CANNOT_APPROVE: true,
+            fuses: {
+              parent: {
+                PARENT_CANNOT_CONTROL: true,
+              },
+              child: {
+                CANNOT_UNWRAP: true,
+                CANNOT_CREATE_SUBDOMAIN: true,
+                CANNOT_SET_RESOLVER: true,
+                CANNOT_SET_TTL: true,
+                CANNOT_TRANSFER: true,
+                CANNOT_APPROVE: true,
+              },
             },
             owner: '0xOwner',
           })}
@@ -623,13 +704,15 @@ describe('<PermissionsTab>', () => {
     })
 
     it('should show no buttons if all the child fuses are burned ', async () => {
-      mockUseBasicName.mockReturnValue({
+      mockUseParentBasicName.mockReturnValue({
         wrapperData: makeWrapperData({
-          parent: {
-            PARENT_CANNOT_CONTROL: true,
-          },
-          child: {
-            CANNOT_UNWRAP: true,
+          fuses: {
+            parent: {
+              PARENT_CANNOT_CONTROL: true,
+            },
+            child: {
+              CANNOT_UNWRAP: true,
+            },
           },
         }),
       })
@@ -637,17 +720,19 @@ describe('<PermissionsTab>', () => {
         <PermissionsTab
           name="sub.test.eth"
           wrapperData={makeWrapperData({
-            parent: {
-              PARENT_CANNOT_CONTROL: true,
-            },
-            child: {
-              CANNOT_UNWRAP: true,
-              CANNOT_CREATE_SUBDOMAIN: true,
-              CANNOT_SET_RESOLVER: true,
-              CANNOT_SET_TTL: true,
-              CANNOT_APPROVE: true,
-              CANNOT_TRANSFER: true,
-              CANNOT_BURN_FUSES: true,
+            fuses: {
+              parent: {
+                PARENT_CANNOT_CONTROL: true,
+              },
+              child: {
+                CANNOT_UNWRAP: true,
+                CANNOT_CREATE_SUBDOMAIN: true,
+                CANNOT_SET_RESOLVER: true,
+                CANNOT_SET_TTL: true,
+                CANNOT_APPROVE: true,
+                CANNOT_TRANSFER: true,
+                CANNOT_BURN_FUSES: true,
+              },
             },
             owner: '0xOwner',
           })}

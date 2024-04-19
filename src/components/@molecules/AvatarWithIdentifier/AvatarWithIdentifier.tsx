@@ -1,12 +1,11 @@
 import styled, { css } from 'styled-components'
+import { Address } from 'viem'
 
 import { Typography } from '@ensdomains/thorin'
 
 import { AvatarWithZorb } from '@app/components/AvatarWithZorb'
-import { useChainId } from '@app/hooks/useChainId'
-import { usePrimary } from '@app/hooks/usePrimary'
+import { usePrimaryName } from '@app/hooks/ensjs/public/usePrimaryName'
 import { QuerySpace } from '@app/types'
-import { emptyAddress } from '@app/utils/constants'
 import { shortenAddress } from '@app/utils/utils'
 
 const Container = styled.div(
@@ -37,7 +36,7 @@ const AddressTitleContainer = styled.div(
 )
 
 type Props = {
-  address: string
+  address: Address
   name?: string
   subtitle?: string
   size?: QuerySpace
@@ -51,19 +50,20 @@ export const AvatarWithIdentifier = ({
   size = '10',
   shortenAddressAsTitle = true,
 }: Props) => {
-  const primary = usePrimary(address, !address || !!name || address === emptyAddress)
-  const network = useChainId()
+  const primary = usePrimaryName({
+    address,
+    enabled: !name,
+  })
 
-  const _name = name || primary.data?.beautifiedName
+  const _name = primary.data?.beautifiedName || name
   const _title = _name || (shortenAddressAsTitle ? shortenAddress(address) : address)
-  const _subtitle =
-    subtitle || (primary.data?.beautifiedName || name ? shortenAddress(address) : undefined)
+  const _subtitle = subtitle || (_name ? shortenAddress(address) : undefined)
 
   const isTitleFullAddress = !shortenAddressAsTitle && !_name
 
   return (
     <Container>
-      <AvatarWithZorb label={_title} address={address} name={_name} size={size} network={network} />
+      <AvatarWithZorb label={_title} address={address} name={_name} size={size} />
       <TextContainer>
         {isTitleFullAddress ? (
           <AddressTitleContainer data-testid="avatar-label-title">{_title}</AddressTitleContainer>

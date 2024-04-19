@@ -3,14 +3,14 @@ import { Control, useWatch } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Dialog, Input, MagnifyingGlassSimpleSVG, ScrollBox, mq } from '@ensdomains/thorin'
+import { Button, Dialog, Input, MagnifyingGlassSimpleSVG, mq, ScrollBox } from '@ensdomains/thorin'
 
 import DismissDialogButton from '@app/components/@atoms/DismissDialogButton/DismissDialogButton'
 import { Spacer } from '@app/components/@atoms/Spacer'
 import {
+  grouped as options,
   ProfileRecord,
   ProfileRecordGroup,
-  grouped as options,
 } from '@app/constants/profileRecordOptions'
 import { ProfileEditorForm } from '@app/hooks/useProfileEditorForm'
 
@@ -154,10 +154,19 @@ export const AddProfileRecordView = ({ control, onAdd, onClose, showDismiss }: P
     return options.map((option) => {
       // If search matches group label, return all items
       if (matchSearch(t(`steps.profile.options.groups.${option.group}.label`))) return option
+      if (option.group === 'address') {
+        const items = option.items.filter(
+          (item) => matchSearch(item.key) || matchSearch(item.longName),
+        )
+        return {
+          ...option,
+          items,
+        }
+      }
       const items = option.items.filter((item) => {
         const { key: record, group } = item
-        // if website or address match the record name, else match the translated record name
-        if (['address', 'website'].includes(group)) return matchSearch(record)
+        // if website - match the record name, else match the translated record name
+        if (group === 'website') return matchSearch(record)
         return matchSearch(t(`steps.profile.options.groups.${option.group}.items.${record}`))
       })
       return {

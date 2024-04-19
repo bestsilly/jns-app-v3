@@ -1,14 +1,21 @@
-import { render, screen, userEvent, waitFor } from '@app/test-utils'
+import { fireEvent, mockFunction, render, screen, userEvent, waitFor } from '@app/test-utils'
 
-import { makeTransactionItem } from '@app/transaction-flow/transaction'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { usePrimaryName } from '@app/hooks/ensjs/public/usePrimaryName'
+import { createTransactionItem } from '@app/transaction-flow/transaction'
 import { DeepPartial } from '@app/types'
 
 import RevokePermissions, { Props } from './RevokePermissions-flow'
 
-jest.spyOn(Date, 'now').mockImplementation(() => new Date('2023-01-01').getTime())
+vi.mock('@app/hooks/ensjs/public/usePrimaryName')
 
-const mockDispatch = jest.fn()
-const mockOnDismiss = jest.fn()
+vi.spyOn(Date, 'now').mockImplementation(() => new Date('2023-01-01').getTime())
+
+const mockUsePrimaryName = mockFunction(usePrimaryName)
+
+const mockDispatch = vi.fn()
+const mockOnDismiss = vi.fn()
 
 type Data = Props['data']
 const makeData = (overrides: DeepPartial<Data> = {}) => {
@@ -46,8 +53,12 @@ const makeData = (overrides: DeepPartial<Data> = {}) => {
   } as Data
 }
 
+beforeEach(() => {
+  mockUsePrimaryName.mockReturnValue({ data: null, isLoading: false })
+})
+
 afterEach(() => {
-  jest.clearAllMocks()
+  vi.clearAllMocks()
 })
 
 describe('RevokePermissions', () => {
@@ -127,22 +138,28 @@ describe('RevokePermissions', () => {
 
       await userEvent.click(nextButton)
 
+      const nameConfirmation = screen.getByTestId('input-name-confirmation')
+
+      fireEvent.change(nameConfirmation, { target: { value: 'sub.test.eth' } })
+
+      await userEvent.click(nextButton)
+
       await waitFor(() => {
         expect(mockDispatch).toBeCalledWith({
           name: 'setTransactions',
           payload: [
-            makeTransactionItem('changePermissions', {
+            createTransactionItem('changePermissions', {
               name: 'sub.test.eth',
               contract: 'setChildFuses',
               fuses: {
                 parent: ['PARENT_CANNOT_CONTROL', 'CAN_EXTEND_EXPIRY'],
                 child: [
                   'CANNOT_UNWRAP',
-                  'CANNOT_CREATE_SUBDOMAIN',
+                  'CANNOT_BURN_FUSES',
                   'CANNOT_TRANSFER',
                   'CANNOT_SET_RESOLVER',
                   'CANNOT_SET_TTL',
-                  'CANNOT_BURN_FUSES',
+                  'CANNOT_CREATE_SUBDOMAIN',
                 ],
               },
               expiry: 1675238574,
@@ -235,11 +252,19 @@ describe('RevokePermissions', () => {
       await userEvent.click(screen.getByTestId('checkbox-CANNOT_UNWRAP'))
       await userEvent.click(nextButton)
 
+      await userEvent.click(nextButton)
+
+      const nameConfirmation = screen.getByTestId('input-name-confirmation')
+
+      fireEvent.change(nameConfirmation, { target: { value: 'sub.test.eth' } })
+
+      await userEvent.click(nextButton)
+
       await waitFor(() => {
         expect(mockDispatch).toBeCalledWith({
           name: 'setTransactions',
           payload: [
-            makeTransactionItem('changePermissions', {
+            createTransactionItem('changePermissions', {
               name: 'sub.test.eth',
               contract: 'setChildFuses',
               fuses: {
@@ -316,7 +341,7 @@ describe('RevokePermissions', () => {
         expect(mockDispatch).toBeCalledWith({
           name: 'setTransactions',
           payload: [
-            makeTransactionItem('changePermissions', {
+            createTransactionItem('changePermissions', {
               name: 'sub.test.eth',
               contract: 'setChildFuses',
               fuses: {
@@ -372,7 +397,7 @@ describe('RevokePermissions', () => {
         expect(mockDispatch).toBeCalledWith({
           name: 'setTransactions',
           payload: [
-            makeTransactionItem('changePermissions', {
+            createTransactionItem('changePermissions', {
               name: 'sub.test.eth',
               contract: 'setChildFuses',
               fuses: {
@@ -444,19 +469,25 @@ describe('RevokePermissions', () => {
       })
       await userEvent.click(nextButton)
 
+      const nameConfirmation = screen.getByTestId('input-name-confirmation')
+
+      fireEvent.change(nameConfirmation, { target: { value: 'sub.test.eth' } })
+
+      await userEvent.click(nextButton)
+
       await waitFor(() => {
         expect(mockDispatch).toBeCalledWith({
           name: 'setTransactions',
           payload: [
-            makeTransactionItem('changePermissions', {
+            createTransactionItem('changePermissions', {
               name: 'sub.test.eth',
               contract: 'setFuses',
               fuses: [
                 'CANNOT_UNWRAP',
-                'CANNOT_CREATE_SUBDOMAIN',
                 'CANNOT_TRANSFER',
                 'CANNOT_SET_RESOLVER',
                 'CANNOT_SET_TTL',
+                'CANNOT_CREATE_SUBDOMAIN',
               ],
             }),
           ],
@@ -509,18 +540,24 @@ describe('RevokePermissions', () => {
       })
       await userEvent.click(nextButton)
 
+      const nameConfirmation = screen.getByTestId('input-name-confirmation')
+
+      fireEvent.change(nameConfirmation, { target: { value: 'sub.test.eth' } })
+
+      await userEvent.click(nextButton)
+
       await waitFor(() => {
         expect(mockDispatch).toBeCalledWith({
           name: 'setTransactions',
           payload: [
-            makeTransactionItem('changePermissions', {
+            createTransactionItem('changePermissions', {
               name: 'sub.test.eth',
               contract: 'setFuses',
               fuses: [
-                'CANNOT_CREATE_SUBDOMAIN',
                 'CANNOT_TRANSFER',
                 'CANNOT_SET_RESOLVER',
                 'CANNOT_SET_TTL',
+                'CANNOT_CREATE_SUBDOMAIN',
               ],
             }),
           ],
@@ -577,11 +614,17 @@ describe('RevokePermissions', () => {
       })
       await userEvent.click(nextButton)
 
+      const nameConfirmation = screen.getByTestId('input-name-confirmation')
+
+      fireEvent.change(nameConfirmation, { target: { value: 'sub.test.eth' } })
+
+      await userEvent.click(nextButton)
+
       await waitFor(() => {
         expect(mockDispatch).toBeCalledWith({
           name: 'setTransactions',
           payload: [
-            makeTransactionItem('changePermissions', {
+            createTransactionItem('changePermissions', {
               name: 'sub.test.eth',
               contract: 'setFuses',
               fuses: ['CANNOT_SET_RESOLVER', 'CANNOT_SET_TTL'],
@@ -644,11 +687,17 @@ describe('RevokePermissions', () => {
       })
       await userEvent.click(nextButton)
 
+      const nameConfirmation = screen.getByTestId('input-name-confirmation')
+
+      fireEvent.change(nameConfirmation, { target: { value: 'sub.test.eth' } })
+
+      await userEvent.click(nextButton)
+
       await waitFor(() => {
         expect(mockDispatch).toBeCalledWith({
           name: 'setTransactions',
           payload: [
-            makeTransactionItem('changePermissions', {
+            createTransactionItem('changePermissions', {
               name: 'sub.test.eth',
               contract: 'setFuses',
               fuses: ['CANNOT_BURN_FUSES'],

@@ -1,14 +1,15 @@
-import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useErrorBoundary, withErrorBoundary } from 'react-use-error-boundary'
 import { useIntercom } from 'react-use-intercom'
 import styled, { css } from 'styled-components'
-import { useNetwork, useSwitchNetwork } from 'wagmi'
+import { useAccount, useSwitchChain } from 'wagmi'
 
 import { mq } from '@ensdomains/thorin'
 
-import FeedbackSVG from '@app/assets/Feedback.svg'
 import ErrorScreen from '@app/components/@atoms/ErrorScreen'
+import { getSupportedChainById } from '@app/constants/chains'
+import { useRouterWithHistory } from '@app/hooks/useRouterWithHistory'
+import { IS_DEV_ENVIRONMENT } from '@app/utils/constants'
 
 import { Navigation } from './Navigation'
 
@@ -51,44 +52,59 @@ const ContentWrapper = styled.div(
 const BottomPlaceholder = styled.div(
   ({ theme }) => css`
     height: ${theme.space['14']};
-    ${mq.sm.min(
-      css`
-        height: ${theme.space['12']};
-      `,
-    )}
+    ${mq.sm.min(css`
+      height: ${theme.space['12']};
+    `)}
   `,
 )
 
-export const StyledFeedbackSVG = styled(FeedbackSVG)(() => css``)
+const shouldSwitchChain = ({
+  isConnected,
+  hasProgrammaticChainSwitching,
+  isPending,
+  isError,
+  chainId,
+}: {
+  isConnected: boolean
+  hasProgrammaticChainSwitching: boolean
+  isPending: boolean
+  isError: boolean
+  chainId?: number
+}) =>
+  isConnected &&
+  hasProgrammaticChainSwitching &&
+  !isPending &&
+  !isError &&
+  !getSupportedChainById(chainId)
 
 export const Basic = withErrorBoundary(({ children }: { children: React.ReactNode }) => {
-  const { chain: currentChain } = useNetwork()
-  const { switchNetwork } = useSwitchNetwork()
-  const router = useRouter()
+  const { chainId, connector, isConnected } = useAccount()
+  const hasProgrammaticChainSwitching = Boolean(connector?.switchChain)
+  const { switchChain, isPending, isError } = useSwitchChain()
+
+  const router = useRouterWithHistory()
   const [error] = useErrorBoundary()
   const { boot } = useIntercom()
 
   useEffect(() => {
     // Do not initialise with uid and email without implementing identity verification first
-    boot()
+    if (!IS_DEV_ENVIRONMENT) boot()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     if (
-      currentChain &&
-      !(
-        currentChain?.id === 1 ||
-        currentChain?.id === 5 ||
-        currentChain?.id === 11155111 ||
-        currentChain?.id === 1337
-      )
+      shouldSwitchChain({ isConnected, hasProgrammaticChainSwitching, isPending, isError, chainId })
     ) {
-      switchNetwork?.(1)
+      switchChain({ chainId: 1 })
+    }
+  }, [isConnected, hasProgrammaticChainSwitching, isPending, isError, chainId, switchChain])
+
+  useEffect(() => {
+    if (isConnected && !getSupportedChainById(chainId)) {
       router.push('/unsupportedNetwork')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentChain?.id, router.pathname])
+  }, [isConnected, chainId, router])
 
   return (
     <Container className="min-safe">

@@ -1,19 +1,30 @@
-import { isAddress } from '@ethersproject/address'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useCopyToClipboard } from 'react-use'
 import styled, { css } from 'styled-components'
+import { Address, isAddress } from 'viem'
+import { useChainId } from 'wagmi'
 
-import { RecordItem, Typography } from '@ensdomains/thorin'
+import { getProtocolType } from '@ensdomains/ensjs/utils'
+import {
+  CopySVG,
+  Dropdown,
+  RecordItem,
+  Typography,
+  UpRightArrowSVG,
+  VerticalDotsSVG,
+} from '@ensdomains/thorin'
+import { DropdownItem } from '@ensdomains/thorin/dist/types/components/molecules/Dropdown/Dropdown'
 
 import { DynamicAddressIcon } from '@app/assets/address/DynamicAddressIcon'
 import { dynamicAddressIcons } from '@app/assets/address/dynamicAddressIcons'
 import { DynamicSocialIcon, socialIconTypes } from '@app/assets/social/DynamicSocialIcon'
-import { usePrimary } from '@app/hooks/usePrimary'
+import { usePrimaryName } from '@app/hooks/ensjs/public/usePrimaryName'
 import { getDestination } from '@app/routes'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
-import { getContentHashLink, getProtocolTypeAndContentId } from '@app/utils/contenthash'
+import { getContentHashLink } from '@app/utils/contenthash'
 import { getSocialData } from '@app/utils/getSocialData'
-import { shortenAddress } from '@app/utils/utils'
+import { makeEtherscanLink, shortenAddress } from '@app/utils/utils'
 
 const StyledAddressIcon = styled(DynamicAddressIcon)(
   ({ theme }) => css`
@@ -103,11 +114,14 @@ export const OtherProfileButton = ({
   iconKey,
   value,
   type = 'text',
+  name,
 }: {
   iconKey: string
   value: string
   type?: 'text' | 'address' | 'contenthash'
+  name: string
 }) => {
+  const chainId = useChainId()
   const breakpoints = useBreakpoint()
   const isLink =
     value?.startsWith('http://') || value?.startsWith('https://') || type === 'contenthash'
@@ -125,8 +139,9 @@ export const OtherProfileButton = ({
   const linkProps = useMemo(() => {
     if (!isLink) return {}
     if (type === 'contenthash') {
-      const { protocolType, contentId } = getProtocolTypeAndContentId(value)
-      const _link = getContentHashLink('', 0, { protocolType, decoded: contentId })
+      const decodedContentHash = getProtocolType(value)
+      if (!decodedContentHash) return {}
+      const _link = getContentHashLink({ name, chainId, decodedContentHash })
       if (!_link) return {}
       return {
         as: 'a',
@@ -137,7 +152,7 @@ export const OtherProfileButton = ({
       as: 'a',
       link: value,
     } as const
-  }, [value, type, isLink])
+  }, [isLink, type, value, name, chainId])
 
   return (
     <RecordItem
@@ -189,9 +204,12 @@ export const OwnerProfileButton = ({
     return isTLD ? 'tld' : 'name'
   }, [addressOrNameOrDate, label])
 
-  const primary = usePrimary(addressOrNameOrDate, dataType !== 'address')
+  const primary = usePrimaryName({
+    address: addressOrNameOrDate as Address,
+    enabled: dataType === 'address',
+  })
 
-  const recordItemPartialProps = useMemo(() => {
+  const { link, ...recordItemPartialProps } = useMemo(() => {
     const base = {
       keyLabel: t(label).toLocaleLowerCase(),
       value: addressOrNameOrDate,
@@ -221,7 +239,6 @@ export const OwnerProfileButton = ({
     if (dataType === 'address')
       return {
         ...base,
-        as: 'a',
         link: primary.data?.name
           ? (getDestination(`/profile/${primary.data?.name}`) as string)
           : (getDestination(`/address/${addressOrNameOrDate}`) as string),
@@ -231,7 +248,6 @@ export const OwnerProfileButton = ({
       } as const
     return {
       ...base,
-      as: 'a',
       link: getDestination(`/profile/${addressOrNameOrDate}`) as string,
       children: addressOrNameOrDate,
     } as const
@@ -245,13 +261,66 @@ export const OwnerProfileButton = ({
     t,
   ])
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, copy] = useCopyToClipboard()
+
+  const items = [
+    link
+      ? {
+          icon: <UpRightArrowSVG />,
+          label: 'View profile',
+          href: link,
+        }
+      : undefined,
+    primary.data?.name
+      ? {
+          icon: <CopySVG />,
+          label: 'Copy name',
+          onClick: () => copy(primary.data?.name!),
+        }
+      : undefined,
+    ...(dataType === 'address'
+      ? ([
+          {
+            icon: <UpRightArrowSVG />,
+            label: 'View address',
+            href: getDestination(`/${addressOrNameOrDate}`) as string,
+          },
+          {
+            icon: <CopySVG />,
+            label: 'Copy address',
+            onClick: () => copy(addressOrNameOrDate),
+          },
+          {
+            icon: <UpRightArrowSVG />,
+            label: 'View on Etherscan',
+            href: makeEtherscanLink(addressOrNameOrDate, 'mainnet', 'address'),
+          },
+        ] as DropdownItem[])
+      : []),
+  ].filter((item) => item !== undefined) as DropdownItem[]
+
+  if (dataType === 'expiry') {
+    return (
+      <RecordItem
+        {...recordItemPartialProps}
+        data-testid={`owner-profile-button-${label}`}
+        data-timestamp={timestamp}
+        inline
+        size={breakpoints.sm ? 'large' : 'small'}
+      />
+    )
+  }
   return (
-    <RecordItem
-      {...recordItemPartialProps}
-      data-testid={`owner-profile-button-${label}`}
-      data-timestamp={timestamp}
-      inline
-      size={breakpoints.sm ? 'large' : 'small'}
-    />
+    <Dropdown width={200} items={items} direction="up">
+      <RecordItem
+        {...recordItemPartialProps}
+        postfixIcon={VerticalDotsSVG}
+        data-testid={`owner-profile-button-${label}`}
+        data-timestamp={timestamp}
+        inline
+        size={breakpoints.sm ? 'large' : 'small'}
+      />
+    </Dropdown>
   )
 }

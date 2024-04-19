@@ -2,12 +2,13 @@ import Head from 'next/head'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Typography, mq } from '@ensdomains/thorin'
+import { mq, Typography } from '@ensdomains/thorin'
 
 import FaucetBanner from '@app/components/@molecules/FaucetBanner'
 import Hamburger from '@app/components/@molecules/Hamburger/Hamburger'
 import { SearchInput } from '@app/components/@molecules/SearchInput/SearchInput'
 import { LeadingHeading } from '@app/components/LeadingHeading'
+import { Banner } from '@app/components/pages/Banner'
 
 import ENSFull from '../assets/ENSFull.svg'
 
@@ -80,11 +81,9 @@ const LogoAndLanguage = styled.div(
 
 const StyledLeadingHeading = styled(LeadingHeading)(
   () => css`
-    ${mq.sm.min(
-      css`
-        display: none;
-      `,
-    )}
+    ${mq.sm.min(css`
+      display: none;
+    `)}
   `,
 )
 
@@ -112,6 +111,7 @@ export default function Page() {
             </Typography>
           </SubtitleWrapper>
           <SearchInput />
+          <Banner />
         </Stack>
       </Container>
     </>

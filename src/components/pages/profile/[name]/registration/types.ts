@@ -1,6 +1,7 @@
-import { ChildFuses } from '@ensdomains/ensjs'
+import { Address, Hex } from 'viem'
 
 import { ProfileRecord } from '@app/constants/profileRecordOptions'
+import { CurrentChildFuses } from '@app/types'
 
 export type RegistrationStep = 'pricing' | 'profile' | 'info' | 'transactions' | 'complete'
 
@@ -26,12 +27,12 @@ export type RegistrationStepData = {
   profile: {
     records: ProfileRecord[]
     clearRecords?: boolean
-    resolver?: string
-    permissions?: ChildFuses['current']
+    resolverAddress?: Address
+    permissions?: CurrentChildFuses
   }
   info: {}
   transactions: {
-    secret: string
+    secret: Hex
     started: boolean
   }
   complete: {}
@@ -41,7 +42,11 @@ export type BackObj = { back: boolean }
 
 export type RegistrationData = Prettify<UnionToIntersection<RegistrationStepData[RegistrationStep]>>
 
-export type SelectedItemProperties = { address: string; name: string; chainId: number }
+export type SelectedItemProperties = {
+  address: string
+  name: string
+  chainId: number
+}
 
 export type RegistrationReducerDataItem = Prettify<
   Omit<RegistrationData, 'paymentMethodChoice'> & {
@@ -49,6 +54,7 @@ export type RegistrationReducerDataItem = Prettify<
     queue: RegistrationStep[]
     isMoonpayFlow: boolean
     externalTransactionId: string
+    version: number
   } & SelectedItemProperties
 >
 

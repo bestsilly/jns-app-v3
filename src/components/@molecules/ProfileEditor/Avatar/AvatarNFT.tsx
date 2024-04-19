@@ -1,16 +1,25 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
+import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query'
 import { ReactNode, useCallback, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import styled, { css } from 'styled-components'
-import { useAccount, useInfiniteQuery } from 'wagmi'
+import { TFunction, useTranslation } from 'react-i18next'
+import styled, { css, DefaultTheme, keyframes } from 'styled-components'
+import { useAccount, useClient } from 'wagmi'
 
-import { Button, Dialog, Heading, Input, Typography, mq } from '@ensdomains/thorin'
+import {
+  AlertSVG,
+  Button,
+  Dialog,
+  Heading,
+  Input,
+  MagnifyingGlassSVG,
+  mq,
+  Typography,
+} from '@ensdomains/thorin'
 
-import MagnifyingGlassSVG from '@app/assets/MagnifyingGlass.svg'
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
 import { ScrollBoxWithSpinner, SpinnerRow } from '@app/components/@molecules/ScrollBoxWithSpinner'
-import { useChainName } from '@app/hooks/useChainName'
+import { useChainName } from '@app/hooks/chain/useChainName'
+import { getSupportedChainContractAddress } from '@app/utils/getSupportedChainContractAddress'
 
 type OwnedNFT = {
   contract: {
@@ -51,9 +60,8 @@ type NFTResponse = {
   totalCount: number
 }
 
-const alchemyKey = process.env.NEXT_PUBLIC_ALCHEMY_KEY || 'no-key'
 const makeBaseURL = (network: string) =>
-  `https://eth-${network}.alchemyapi.io/nft/v2/${alchemyKey}/getNFTs/`
+  `https://ens-nft-worker.ens-cf.workers.dev/v1/${network}/getNfts/`
 
 const InnerScrollBox = styled.div(
   ({ theme }) => css`
@@ -67,6 +75,8 @@ const InnerScrollBox = styled.div(
 
 const NFTContainer = styled.div(
   ({ theme }) => css`
+    width: ${theme.space['36']};
+
     padding: ${theme.space['2']};
     gap: ${theme.space['2']};
 
@@ -80,11 +90,28 @@ const NFTContainer = styled.div(
     transition: all 0.15s ease-in-out;
     cursor: pointer;
 
+    color: ${theme.colors.textPrimary};
+
     &:hover {
       opacity: 1;
     }
+
+    &[aria-disabled='true'] {
+      cursor: not-allowed;
+      opacity: 1;
+      color: ${theme.colors.textTertiary};
+    }
   `,
 )
+
+const fadeInKeyframes = ({ theme }: { theme: DefaultTheme }) => keyframes`
+  from {
+    background-color: ${theme.colors.greyLight};
+  }
+  to {
+    background-color: ${theme.colors.greySurface};
+  }
+`
 
 const NFTImage = styled.img(
   ({ theme }) => css`
@@ -92,6 +119,13 @@ const NFTImage = styled.img(
     height: ${theme.space['32']};
 
     border-radius: ${theme.radii['2xLarge']};
+    object-fit: cover;
+    animation: ${fadeInKeyframes} 2s infinite alternate ease-in-out;
+    background-color: ${theme.colors.backgroundSecondary};
+
+    &[data-image-state='loaded'] {
+      animation: none;
+    }
   `,
 )
 
@@ -103,6 +137,7 @@ const NFTName = styled(Typography)(
     text-overflow: ellipsis;
     padding: 0 ${theme.space['2']};
     text-align: center;
+    color: inherit;
   `,
 )
 
@@ -156,6 +191,75 @@ const LoadingContainer = styled.div(({ theme }) => [
   `),
 ])
 
+const LoadFailureContainer = styled.div(
+  ({ theme }) => css`
+    width: ${theme.space['32']};
+    height: ${theme.space['32']};
+
+    padding: ${theme.space['4']};
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: ${theme.space['1']};
+
+    border-radius: ${theme.radii['2xLarge']};
+
+    background-color: ${theme.colors.greySurface};
+    color: ${theme.colors.textTertiary};
+
+    & > svg {
+      width: ${theme.space['5']};
+      height: ${theme.space['5']};
+    }
+  `,
+)
+
+const NftItem = ({
+  t,
+  nft,
+  setSelectedNft,
+  i,
+}: {
+  t: TFunction
+  nft: OwnedNFT
+  setSelectedNft: (i: number) => void
+  i: number
+}) => {
+  const [loadState, setLoadState] = useState<'loading' | 'error' | 'loaded'>('loading')
+  return (
+    <NFTContainer
+      data-testid={`nft-${nft.id.tokenId}-${nft.contract.address}`}
+      as="button"
+      onClick={(e) => {
+        e.preventDefault()
+        if (loadState === 'loaded') setSelectedNft(i)
+      }}
+      aria-disabled={loadState !== 'loaded'}
+    >
+      {loadState !== 'error' ? (
+        <NFTImage
+          src={nft.media[0].thumbnail || nft.media[0].gateway}
+          loading="lazy"
+          onError={() => setLoadState('error')}
+          onLoad={() => setLoadState('loaded')}
+          data-image-state={loadState}
+          data-testid={`nft-image-${nft.id.tokenId}-${nft.contract.address}`}
+        />
+      ) : (
+        <LoadFailureContainer>
+          <AlertSVG />
+          <Typography fontVariant="smallBold" color="textTertiary">
+            {t('input.profileEditor.tabs.avatar.nft.loadError')}
+          </Typography>
+        </LoadFailureContainer>
+      )}
+      <NFTName>{nft.title || t('input.profileEditor.tabs.avatar.nft.unknown')}</NFTName>
+    </NFTContainer>
+  )
+}
+
 export const AvatarNFT = ({
   handleCancel,
   handleSubmit,
@@ -169,13 +273,15 @@ export const AvatarNFT = ({
   const { address: _address } = useAccount()
   const address = _address!
 
+  const client = useClient()
+
   const {
     data: NFTPages,
     fetchNextPage,
     isLoading,
-  } = useInfiniteQuery(
-    [chain, address, 'NFTs'],
-    async ({ pageParam }: { pageParam?: string }) => {
+  } = useInfiniteQuery({
+    queryKey: [chain, address, 'NFTs'],
+    queryFn: async ({ pageParam }) => {
       const urlParams = new URLSearchParams()
       urlParams.append('owner', address)
       urlParams.append('filters[]', 'SPAM')
@@ -191,16 +297,24 @@ export const AvatarNFT = ({
         ...response,
         ownedNfts: response.ownedNfts.filter(
           (nft) =>
-            (nft.media[0].thumbnail || nft.media[0].gateway) &&
-            nft.contract.address !== '0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85',
+            (nft.media?.[0]?.thumbnail || nft.media?.[0]?.gateway) &&
+            nft.contract.address !==
+              getSupportedChainContractAddress({
+                client,
+                contract: 'ensBaseRegistrarImplementation',
+              }) &&
+            nft.contract.address !==
+              getSupportedChainContractAddress({
+                client,
+                contract: 'ensNameWrapper',
+              }),
         ),
-      } as NFTResponse
+      }
     },
-    {
-      keepPreviousData: true,
-      getNextPageParam: (lastPage) => lastPage.pageKey,
-    },
-  )
+    initialPageParam: '',
+    placeholderData: keepPreviousData,
+    getNextPageParam: (lastPage) => lastPage.pageKey,
+  })
 
   const [searchedInput, setSearchedInput] = useState('')
   const [selectedNFT, setSelectedNFT] = useState<number | null>(null)
@@ -218,7 +332,7 @@ export const AvatarNFT = ({
     const handleConfirm = () => {
       const string = `eip155:1/${nftReference.id.tokenMetadata.tokenType.toLowerCase()}:${
         nftReference.contract.address
-      }/${BigNumber.from(nftReference.id.tokenId).toString()}`
+      }/${BigInt(nftReference.id.tokenId).toString()}`
       handleSubmit('nft', string, nftReference.media[0].gateway)
     }
 
@@ -262,7 +376,7 @@ export const AvatarNFT = ({
     )
   } else if (NFTs && (NFTs.length > 0 || searchedInput !== '')) {
     innerContent = (
-      <InnerDialog>
+      <InnerDialog style={{ overflow: 'hidden' }}>
         <Input
           icon={<MagnifyingGlassSVG />}
           hideLabel
@@ -282,17 +396,13 @@ export const AvatarNFT = ({
           >
             <InnerScrollBox>
               {NFTs?.map((NFT, i) => (
-                <NFTContainer
-                  data-testid={`nft-${NFT.id.tokenId}-${NFT.contract.address}`}
-                  as="button"
-                  onClick={() => setSelectedNFT(i)}
+                <NftItem
+                  t={t}
+                  nft={NFT}
+                  setSelectedNft={setSelectedNFT}
+                  i={i}
                   key={`${NFT.id.tokenId}-${NFT.contract.address}`}
-                >
-                  <NFTImage src={NFT.media[0].thumbnail || NFT.media[0].gateway} loading="lazy" />
-                  <NFTName weight="bold">
-                    {NFT.title || t('input.profileEditor.tabs.avatar.nft.unknown')}
-                  </NFTName>
-                </NFTContainer>
+                />
               ))}
             </InnerScrollBox>
           </ScrollBoxWithSpinner>

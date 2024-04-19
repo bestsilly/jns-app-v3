@@ -1,69 +1,49 @@
 import { ReactNode, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useEns } from '@app/utils/EnsProvider'
 import { formatFullExpiry } from '@app/utils/utils'
 
+import { useDnsOwner } from './ensjs/dns/useDnsOwner'
 import { useBasicName } from './useBasicName'
-import useDNSOwner from './useDNSOwner'
-import { useGetABI } from './useGetABI'
 import { useProfile } from './useProfile'
 
-export type Profile = NonNullable<ReturnType<typeof useProfile>['profile']>
-export type DetailedProfileRecords = Profile['records'] & {
-  abi?: { data: string; contentType?: number }
-}
-export type DetailedProfile = Omit<Profile, 'records'> & {
-  records: DetailedProfileRecords
+type UseNameDetailsParameters = {
+  name: string
+  subgraphEnabled?: boolean
 }
 
-export const useNameDetails = (name: string, skipGraph = false) => {
+export const useNameDetails = ({ name, subgraphEnabled = true }: UseNameDetailsParameters) => {
   const { t } = useTranslation('profile')
-  const { ready } = useEns()
 
   const {
     isValid,
     normalisedName,
-    isLoading: basicLoading,
-    isCachedData: basicIsCachedData,
+    isLoading: isBasicLoading,
+    isCachedData: isBasicCachedData,
     registrationStatus,
     expiryDate,
     gracePeriodEndDate,
+    refetchIfEnabled: refetchBasicName,
     ...basicName
-  } = useBasicName(name, { normalised: false, skipGraph })
+  } = useBasicName({ name })
 
   const {
-    profile: baseProfile,
-    loading: profileLoading,
-    status,
-    isCachedData: profileIsCachedData,
-  } = useProfile(normalisedName, {
-    skip: !normalisedName || normalisedName === '[root]',
-    skipGraph,
+    data: profile,
+    isLoading: isProfileLoading,
+    isCachedData: isProfileCachedData,
+    refetchIfEnabled: refetchProfile,
+  } = useProfile({
+    name: normalisedName,
+    enabled: !!normalisedName && normalisedName !== '[root]',
+    subgraphEnabled,
   })
 
-  const { abi, loading: abiLoading } = useGetABI(
-    normalisedName,
-    !normalisedName || normalisedName === '[root]',
-  )
-
-  const profile: DetailedProfile | undefined = useMemo(() => {
-    if (!baseProfile) return undefined
-    return {
-      ...baseProfile,
-      records: {
-        ...baseProfile.records,
-        ...(abi ? { abi } : {}),
-      },
-    }
-  }, [abi, baseProfile])
-
   const {
-    dnsOwner,
-    isLoading: dnsOwnerLoading,
-    isCachedData: dnsOwnerIsCachedData,
-  } = useDNSOwner(normalisedName, isValid)
-
+    data: dnsOwner,
+    isLoading: isDnsOwnerLoading,
+    isCachedData: isDnsOwnerCachedData,
+    refetchIfEnabled: refetchDnsOwner,
+  } = useDnsOwner({ name: normalisedName, enabled: isValid })
   const error: string | ReactNode | null = useMemo(() => {
     if (isValid === false) {
       return t('errors.invalidName')
@@ -81,9 +61,6 @@ export const useNameDetails = (name: string, skipGraph = false) => {
         </>
       )
     }
-    if (profile && profile.message) {
-      return profile.message
-    }
     if (registrationStatus === 'invalid') {
       return t('errors.invalidName')
     }
@@ -94,11 +71,7 @@ export const useNameDetails = (name: string, skipGraph = false) => {
       // bypass unknown error for root name
       normalisedName !== '[root]' &&
       !profile &&
-      !profileLoading &&
-      !abiLoading &&
-      ready &&
-      status !== 'idle' &&
-      status !== 'loading'
+      !isProfileLoading
     ) {
       return t('errors.networkError.message', { ns: 'common' })
     }
@@ -107,11 +80,8 @@ export const useNameDetails = (name: string, skipGraph = false) => {
     gracePeriodEndDate,
     normalisedName,
     profile,
-    profileLoading,
-    abiLoading,
-    ready,
+    isProfileLoading,
     registrationStatus,
-    status,
     t,
     isValid,
   ])
@@ -120,30 +90,13 @@ export const useNameDetails = (name: string, skipGraph = false) => {
     if (registrationStatus === 'gracePeriod') {
       return t('errors.hasExpired', { name })
     }
-    if (
-      normalisedName !== '[root]' &&
-      !profile &&
-      !profileLoading &&
-      !abiLoading &&
-      ready &&
-      status !== 'idle' &&
-      status !== 'loading'
-    ) {
+    if (normalisedName !== '[root]' && !profile && !isProfileLoading) {
       return t('errors.networkError.title', { ns: 'common' })
     }
-  }, [
-    registrationStatus,
-    name,
-    t,
-    profile,
-    profileLoading,
-    abiLoading,
-    ready,
-    status,
-    normalisedName,
-  ])
+  }, [registrationStatus, name, t, profile, isProfileLoading, normalisedName])
 
-  const isLoading = !ready || profileLoading || abiLoading || basicLoading || dnsOwnerLoading
+  const isLoading = isProfileLoading || isBasicLoading || isDnsOwnerLoading
+  const isCachedData = isBasicCachedData || isProfileCachedData || isDnsOwnerCachedData
 
   return {
     error,
@@ -152,12 +105,19 @@ export const useNameDetails = (name: string, skipGraph = false) => {
     isValid,
     profile,
     isLoading,
+    isProfileLoading,
+    isBasicLoading,
+    isDnsOwnerLoading,
     dnsOwner,
-    basicIsCachedData: basicIsCachedData || dnsOwnerIsCachedData,
-    profileIsCachedData,
+    isCachedData,
     registrationStatus,
     gracePeriodEndDate,
     expiryDate,
+    refetchIfEnabled: () => {
+      refetchBasicName()
+      refetchProfile()
+      refetchDnsOwner()
+    },
     ...basicName,
   }
 }

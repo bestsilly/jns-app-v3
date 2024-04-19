@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test'
-import { test } from '@root/playwright'
+
+import { test } from '../../../playwright'
 
 test.describe('Permissions', () => {
   test('should show parent not locked warning', async ({
@@ -70,14 +71,17 @@ test.describe('Permissions', () => {
       ]),
     ).toBeTruthy()
 
-    await permissionsPage.burnChildPermissions([
-      'CANNOT_UNWRAP',
-      'CANNOT_CREATE_SUBDOMAIN',
-      'CANNOT_TRANSFER',
-      'CANNOT_SET_RESOLVER',
-      'CANNOT_SET_TTL',
-      'CANNOT_APPROVE',
-    ])
+    await permissionsPage.burnChildPermissions(
+      [
+        'CANNOT_UNWRAP',
+        'CANNOT_CREATE_SUBDOMAIN',
+        'CANNOT_TRANSFER',
+        'CANNOT_SET_RESOLVER',
+        'CANNOT_SET_TTL',
+        'CANNOT_APPROVE',
+      ],
+      name,
+    )
     const transactionModal = makePageObject('TransactionModal')
     await transactionModal.autoComplete()
 
@@ -186,7 +190,9 @@ test.describe('Permissions', () => {
       label: 'wrapped',
       type: 'wrapped',
       owner: 'user',
-      fuses: ['CANNOT_UNWRAP'],
+      fuses: {
+        named: ['CANNOT_UNWRAP'],
+      },
       subnames: [
         {
           label: 'test',
@@ -204,7 +210,7 @@ test.describe('Permissions', () => {
 
     await expect(permissionsPage.isPermissionUnburned('CAN_EXTEND_EXPIRY')).toBeTruthy()
 
-    await permissionsPage.burnExtendExpiry()
+    await permissionsPage.burnExtendExpiry(name)
     const transactionModal = makePageObject('TransactionModal')
     await transactionModal.autoComplete()
 
@@ -217,7 +223,9 @@ test.describe('Permissions', () => {
       label: 'wrapped',
       type: 'wrapped',
       owner: 'user',
-      fuses: ['CANNOT_UNWRAP'],
+      fuses: {
+        named: ['CANNOT_UNWRAP'],
+      },
       subnames: [
         {
           label: 'test',
@@ -235,7 +243,7 @@ test.describe('Permissions', () => {
 
     await expect(permissionsPage.isPermissionUnburned('PARENT_CANNOT_CONTROL')).toBeTruthy()
 
-    await permissionsPage.burnPCC(['CANNOT_UNWRAP'])
+    await permissionsPage.burnPCC(['CANNOT_UNWRAP'], subname)
     const transactionModal = makePageObject('TransactionModal')
     await transactionModal.autoComplete()
 
@@ -254,12 +262,18 @@ test.describe('Permissions', () => {
       label: 'wrapped',
       type: 'wrapped',
       owner: 'user2',
-      fuses: ['CANNOT_UNWRAP'],
+      fuses: {
+        named: ['CANNOT_UNWRAP'],
+      },
       subnames: [
         {
           label: 'test',
           owner: 'user',
-          fuses: ['PARENT_CANNOT_CONTROL'],
+          fuses: {
+            parent: {
+              named: ['PARENT_CANNOT_CONTROL'],
+            },
+          },
         },
       ],
     })
@@ -281,7 +295,7 @@ test.describe('Permissions', () => {
     ]
 
     await expect(permissionsPage.arePermissionsUnburned(childPermissions)).toBeTruthy()
-    await permissionsPage.burnChildPermissions(childPermissions)
+    await permissionsPage.burnChildPermissions(childPermissions, subname)
     const transactionModal = makePageObject('TransactionModal')
     await transactionModal.autoComplete()
 
@@ -298,12 +312,21 @@ test.describe('Permissions', () => {
       label: 'wrapped',
       type: 'wrapped',
       owner: 'user2',
-      fuses: ['CANNOT_UNWRAP'],
+      fuses: {
+        named: ['CANNOT_UNWRAP'],
+      },
       subnames: [
         {
           label: 'test',
           owner: 'user',
-          fuses: ['PARENT_CANNOT_CONTROL', 'CANNOT_UNWRAP'],
+          fuses: {
+            parent: {
+              named: ['PARENT_CANNOT_CONTROL'],
+            },
+            child: {
+              named: ['CANNOT_UNWRAP'],
+            },
+          },
         },
       ],
     })
@@ -317,7 +340,7 @@ test.describe('Permissions', () => {
 
     await expect(permissionsPage.isPermissionUnburned('CANNOT_BURN_FUSES')).toBeTruthy()
 
-    await permissionsPage.burnCannotBurnFuses()
+    await permissionsPage.burnCannotBurnFuses(subname)
     const transactionModal = makePageObject('TransactionModal')
     await transactionModal.autoComplete()
 
@@ -334,12 +357,21 @@ test.describe('Permissions', () => {
       label: 'wrapped',
       type: 'wrapped',
       owner: 'user',
-      fuses: ['CANNOT_UNWRAP'],
+      fuses: {
+        named: ['CANNOT_UNWRAP'],
+      },
       subnames: [
         {
           label: 'test',
           owner: 'user2',
-          fuses: ['PARENT_CANNOT_CONTROL', 'CANNOT_UNWRAP'],
+          fuses: {
+            parent: {
+              named: ['PARENT_CANNOT_CONTROL'],
+            },
+            child: {
+              named: ['CANNOT_UNWRAP'],
+            },
+          },
         },
       ],
     })
@@ -372,12 +404,21 @@ test.describe('Permissions', () => {
       label: 'wrapped',
       type: 'wrapped',
       owner: 'user2',
-      fuses: ['CANNOT_UNWRAP'],
+      fuses: {
+        named: ['CANNOT_UNWRAP'],
+      },
       subnames: [
         {
           label: 'test',
           owner: 'user',
-          fuses: ['PARENT_CANNOT_CONTROL', 'CANNOT_UNWRAP'],
+          fuses: {
+            parent: {
+              named: ['PARENT_CANNOT_CONTROL'],
+            },
+            child: {
+              named: ['CANNOT_UNWRAP'],
+            },
+          },
         },
       ],
     })

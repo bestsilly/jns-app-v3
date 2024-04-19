@@ -1,16 +1,17 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Helper, Typography, mq } from '@ensdomains/thorin'
+import { DecodedContentHash } from '@ensdomains/ensjs/utils'
+import { Button, Helper, mq, RightArrowSVG, Typography } from '@ensdomains/thorin'
 
 import { CacheableComponent } from '@app/components/@atoms/CacheableComponent'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
+import { Outlink } from '@app/components/Outlink'
 import coinsWithIcons from '@app/constants/coinsWithIcons.json'
-import supportedProfileItems from '@app/constants/supportedGeneralRecordKeys.json'
-import supportedTexts from '@app/constants/supportedSocialRecordKeys.json'
-import useOwners from '@app/hooks/useOwners'
+import { supportedGeneralRecordKeys } from '@app/constants/supportedGeneralRecordKeys'
+import { supportedSocialRecordKeys } from '@app/constants/supportedSocialRecordKeys'
+import { useOwners } from '@app/hooks/useOwners'
 import { useProfileActions } from '@app/hooks/useProfileActions'
-import { ContentHash } from '@app/types'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
 import { contentHashToString } from '@app/utils/contenthash'
 import { checkETH2LDFromName, formatExpiry } from '@app/utils/utils'
@@ -23,12 +24,11 @@ import {
 } from './ProfileButton'
 
 const ProfileInfoBox = styled(CacheableComponent)(
-  ({ theme }) =>
-    css`
-      background-color: ${theme.colors.background};
-      border-radius: ${theme.radii['2xLarge']};
-      border: ${theme.space.px} solid ${theme.colors.border};
-    `,
+  ({ theme }) => css`
+    background-color: ${theme.colors.background};
+    border-radius: ${theme.radii['2xLarge']};
+    border: ${theme.space.px} solid ${theme.colors.border};
+  `,
 )
 
 const Stack = styled.div(
@@ -45,6 +45,9 @@ const SectionTitle = styled(Typography)(({ theme }) => [
   css`
     color: ${theme.colors.greyPrimary};
     margin-left: ${theme.space['2']};
+    display: flex;
+    flex-direction: row;
+    gap: ${theme.space['2']};
   `,
 ])
 
@@ -55,6 +58,7 @@ const ProfileSection = ({
   button,
   supported,
   type,
+  name = '',
 }: {
   condition: any
   label: string
@@ -62,6 +66,7 @@ const ProfileSection = ({
   button: any
   supported?: Array<string>
   type?: 'address' | 'text'
+  name?: string
 }) => {
   const { t } = useTranslation('profile')
   const ButtonComponent = button
@@ -74,15 +79,27 @@ const ProfileSection = ({
 
   return condition ? (
     <div>
-      <SectionTitle weight="bold">{t(label)}</SectionTitle>
+      <SectionTitle weight="bold">
+        {t(label)}
+        {label === 'ownership' ? (
+          <Outlink
+            fontVariant="bodyBold"
+            href={`/${name}?tab=ownership`}
+            target="_self"
+            icon={RightArrowSVG}
+          >
+            View
+          </Outlink>
+        ) : null}
+      </SectionTitle>
       <Stack>
         {supportedArray.map((item: { key: string; value: string; type?: 'text' | 'address' }) => (
-          <ButtonComponent {...{ ...item, iconKey: item.key }} />
+          <ButtonComponent {...{ ...item, iconKey: item.key, name }} />
         ))}
         {unsupportedArray.length > 0 &&
           unsupportedArray.map(
             (item: { key: string; value: string; type?: 'text' | 'address' }) => (
-              <OtherProfileButton {...{ ...item, iconKey: item.key }} />
+              <OtherProfileButton {...{ ...item, iconKey: item.key, name }} />
             ),
           )}
       </Stack>
@@ -174,9 +191,9 @@ const getAction = (action: Action, is2LDEth: boolean) => {
         content={action.tooltipContent}
         buttonText={action.label}
         mobileWidth={150}
-        mobileButtonWidth="initial"
         mobilePlacement="top"
         placement={action.tooltipPlacement || 'right'}
+        loading={action.loading}
       />
     )
   }
@@ -186,6 +203,8 @@ const getAction = (action: Action, is2LDEth: boolean) => {
       onClick={action.onClick}
       size="small"
       colorStyle={action.red ? 'redSecondary' : 'accentPrimary'}
+      loading={action.loading}
+      disabled={action.loading}
     >
       {action.label}
     </Button>
@@ -295,7 +314,7 @@ export const ProfileDetails = ({
 }: {
   textRecords: Array<Record<'key' | 'value', string>>
   addresses: Array<Record<'key' | 'value', string>>
-  contentHash?: ContentHash
+  contentHash?: DecodedContentHash | string | null
   expiryDate: Date | undefined
   pccExpired: boolean
   owners: ReturnType<typeof useOwners>
@@ -311,8 +330,12 @@ export const ProfileDetails = ({
     ...textRecords
       .filter(
         (x) =>
-          !supportedTexts.includes(x.key.toLowerCase()) &&
-          !supportedProfileItems.includes(x.key.toLowerCase()),
+          !supportedSocialRecordKeys.includes(
+            x.key.toLowerCase() as (typeof supportedSocialRecordKeys)[number],
+          ) &&
+          !supportedGeneralRecordKeys.includes(
+            x.key.toLowerCase() as (typeof supportedGeneralRecordKeys)[number],
+          ),
       )
       .map((x) => ({ ...x, type: 'text' })),
     ...(_contentHash ? [{ key: 'contenthash', type: 'contenthash', value: _contentHash }] : []),
@@ -333,7 +356,11 @@ export const ProfileDetails = ({
           label="accounts"
           condition={
             textRecords &&
-            textRecords.filter((x) => supportedTexts.includes(x.key.toLowerCase())).length > 0
+            textRecords.filter((x) =>
+              supportedSocialRecordKeys.includes(
+                x.key.toLowerCase() as (typeof supportedSocialRecordKeys)[number],
+              ),
+            ).length > 0
           }
           array={textRecords}
           button={SocialProfileButton}
@@ -351,12 +378,14 @@ export const ProfileDetails = ({
           condition={otherRecords && otherRecords.length > 0}
           array={otherRecords}
           button={OtherProfileButton}
+          name={name}
         />
         <ProfileSection
           label="ownership"
           condition={!!mappedOwners}
           array={mappedOwners!}
           button={OwnerProfileButton}
+          name={name}
         />
       </RecordsStack>
       {actions && actions?.length > 0 && (
@@ -364,7 +393,11 @@ export const ProfileDetails = ({
           {!!actionWarnings &&
             actionWarnings.length > 0 &&
             actionWarnings.map((warning) => (
-              <Helper type="warning" alignment={breakpoint.sm ? 'horizontal' : 'vertical'}>
+              <Helper
+                type="warning"
+                key={warning}
+                alignment={breakpoint.sm ? 'horizontal' : 'vertical'}
+              >
                 {warning}
               </Helper>
             ))}
