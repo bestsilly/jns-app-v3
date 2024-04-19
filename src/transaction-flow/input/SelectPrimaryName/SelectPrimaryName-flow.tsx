@@ -349,6 +349,7 @@ const SelectPrimaryName = ({ data: { address }, dispatch, onDismiss }: Props) =>
           </>
         )}
         <StyledScrollBox hideDividers onReachedBottom={loadMoreNames}>
+          <TaggedNameItemWithFuseCheck key="fwef" name="fwef" network={0} />
           {!!namesData && namesData.pages[0].length > 0 ? (
             <>
               {namesData.pages?.map((page: Name[]) =>
