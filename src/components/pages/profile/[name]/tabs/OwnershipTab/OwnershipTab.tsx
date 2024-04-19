@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 
 import { Banner } from '@ensdomains/thorin'
 
+import { CustomTypography } from '@app/components/customs'
 import useRoles from '@app/hooks/ownership/useRoles/useRoles'
 import type { useNameDetails } from '@app/hooks/useNameDetails'
 import { useNameType } from '@app/hooks/useNameType'
@@ -32,7 +33,11 @@ export const OwnershipTab = ({ name, details }: Props) => {
   if (isLoading) return null
   return (
     <Container>
-      {warning.data && <Banner alert="warning">{warning.data}</Banner>}
+      {warning.data && (
+        <Banner alert="warning">
+          <CustomTypography>{warning.data}</CustomTypography>
+        </Banner>
+      )}
       <RolesSection name={name} roles={roles.data!} details={details} />
       <ExpirySection name={name} details={details} />
       <ContractSection details={details} />
