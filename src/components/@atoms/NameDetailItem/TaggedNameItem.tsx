@@ -87,10 +87,10 @@ export const TaggedNameItem = ({
           tags.map(([tagEnabled, translation]) => (
             <Tag
               key={translation}
-              colorStyle={!disabled && tagEnabled ? 'accentSecondary' : 'greySecondary'}
+              colorStyle={!disabled && tagEnabled ? 'accentGradient' : 'accentGradient'}
               data-testid={`tag-${translation}-${tagEnabled}`}
             >
-              {t(translation)}
+              <span>{t(translation)}</span>
             </Tag>
           ))}
       </OtherItemsContainer>
