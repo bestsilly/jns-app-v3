@@ -69,7 +69,9 @@ export const formatFullExpiry = (expiryDate?: Date) =>
   expiryDate ? `${formatExpiry(expiryDate)}, ${formatDateTime(expiryDate)}` : ''
 
 export const makeEtherscanLink = (data: string, network?: string, route: string = 'tx') =>
-  `https://${network === 'jfin' ? '' : 'testnet.'}jfinscan.com/${route}/${data}`
+  isTestnet
+    ? `https://testnet.jfinscan.com/${route}/${data}`
+    : `https://jfinscan.com/${route}/${data}`
 
 export const isBrowser = !!(
   typeof window !== 'undefined' &&
