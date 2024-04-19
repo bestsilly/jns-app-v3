@@ -9,6 +9,7 @@ import { mq } from '@ensdomains/thorin'
 
 import FeedbackSVG from '@app/assets/Feedback.svg'
 import ErrorScreen from '@app/components/@atoms/ErrorScreen'
+import { Footer } from '@app/components/Footer'
 import { useJoin } from '@app/hooks/useJoin'
 
 import { Navigation } from './Navigation'
@@ -17,6 +18,7 @@ const Container = styled.div(
   ({ theme }) => css`
     --padding-size: ${theme.space['4']};
     padding: var(--padding-size);
+    padding-bottom: 0;
     display: flex;
     flex-gap: ${theme.space['4']};
     gap: ${theme.space['4']};
@@ -121,8 +123,8 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
         <ContentWrapper>
           {error ? <ErrorScreen errorType="application-error" /> : children}
         </ContentWrapper>
-        {/* <BottomPlaceholder /> */}
       </Container>
+      <Footer />
     </>
   )
 })
