@@ -144,17 +144,19 @@ export const checkRestrictWords = (input: string): boolean => {
   }
   return false
 }
-
-export const isEnglishLowerCaseAndNumeric = (input: string): boolean => {
-  const name = input.split('.jfin')
-  return name.every((part) => {
-    return part.split('').every((char) => {
-      const charCode = char.charCodeAt(0)
-      const isLowerCase = charCode >= 97 && charCode <= 122
-      const isNumeric = charCode >= 48 && charCode <= 57
-      return isLowerCase || isNumeric
-    })
-  })
+// "abc123.abc.jfin" --> true
+// "sub.abc123.abc.jfin" --> true
+// "123.abc.jfin" --> true
+// "abc.jfin" --> true
+// "abc123" --> false (missing .jfin)
+// "abc123.jfin" --> true
+// "Abc123" --> false (uppercase letter)
+// "abc" --> false (missing .jfin)
+// "abc." --> false (missing .jfin and numeric part)
+// "abc123.jfin." --> false (extra characters after .jfin)
+export const isEnglishLowerCaseOrNumeric = (input: string): boolean => {
+  const regex = /^(?:[a-z0-9]+(?:-[a-z0-9]+)*\.)?[a-z0-9]+(?:\.jfin)?$/
+  return regex.test(input)
 }
 
 export const isBlacklisted = (input: string) => {
