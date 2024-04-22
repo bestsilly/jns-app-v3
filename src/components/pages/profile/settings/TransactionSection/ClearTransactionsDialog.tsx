@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import { Button, Dialog } from '@ensdomains/thorin'
 
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
-import { CustomButton, CustomDialogHeading } from '@app/components/customs'
+import { CustomButton, CustomDialogHeading, CustomHeading } from '@app/components/customs'
 
 const StyledInnerDialog = styled(InnerDialog)(
   () => css`
@@ -21,7 +21,7 @@ export const ClearTransactionsDialog = ({ open, onDismiss, onClose, onClear }: P
     <Dialog open={open} variant="blank" onDismiss={onDismiss} onClose={onClose}>
       <CustomDialogHeading
         alert="warning"
-        title={t('section.transaction.clearTransactions.title')}
+        title={<CustomHeading>{t('section.transaction.clearTransactions.title')}</CustomHeading>}
       />
       <StyledInnerDialog>
         {t('section.transaction.clearTransactions.description')}

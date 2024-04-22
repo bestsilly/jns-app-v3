@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 
 import { Button, ScrollBox } from '@ensdomains/thorin'
 
-import { CustomButton, CustomDialogHeading } from '@app/components/customs'
+import { CustomButton, CustomDialogHeading, CustomHeading } from '@app/components/customs'
 
 import type { EditRolesForm } from '../../EditRoles-flow'
 import { EditRolesFooter } from '../../components/EditRolesFooter'
@@ -45,7 +45,7 @@ export const MainView = ({ onSelectIndex, onCancel, onSave }: Props) => {
 
   return (
     <>
-      <CustomDialogHeading title="Edit roles" />
+      <CustomDialogHeading title={<CustomHeading>Edit roles</CustomHeading>} />
       <StyledScrollBox hideDividers>
         <ScrollBoxContent>
           {roles.map((role, index) => (

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Button, Dialog } from '@ensdomains/thorin'
 
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
-import { CustomButton, CustomDialogHeading } from '@app/components/customs'
+import { CustomButton, CustomDialogHeading, CustomHeading } from '@app/components/customs'
 import { useProfile } from '@app/hooks/useProfile'
 import TransactionLoader from '@app/transaction-flow/TransactionLoader'
 
@@ -79,7 +79,9 @@ const TransferProfile = ({ data, dispatch }: Props) => {
   if (loading) return <TransactionLoader />
   return (
     <>
-      <CustomDialogHeading title={t('input.transferProfile.title')} />
+      <CustomDialogHeading
+        title={<CustomHeading>{t('input.transferProfile.title')}</CustomHeading>}
+      />
       <InnerDialog>
         <p>{t('input.transferProfile.message1')}</p>
         <p>

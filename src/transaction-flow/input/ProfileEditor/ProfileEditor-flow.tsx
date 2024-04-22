@@ -8,7 +8,7 @@ import { Button, Dialog, PlusSVG, ScrollBox, mq } from '@ensdomains/thorin'
 
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
 import { AvatarViewManager } from '@app/components/@molecules/ProfileEditor/Avatar/AvatarViewManager'
-import { CustomButton, CustomDialogHeading } from '@app/components/customs'
+import { CustomButton, CustomDialogHeading, CustomHeading } from '@app/components/customs'
 import { AddProfileRecordView } from '@app/components/pages/profile/[name]/registration/steps/Profile/AddProfileRecordView'
 import { CustomProfileRecordInput } from '@app/components/pages/profile/[name]/registration/steps/Profile/CustomProfileRecordInput'
 import { ProfileRecordInput } from '@app/components/pages/profile/[name]/registration/steps/Profile/ProfileRecordInput'
@@ -295,7 +295,9 @@ const ProfileEditor = ({ data = {}, transactions = [], dispatch, onDismiss }: Pr
         {
           editor: (
             <>
-              <CustomDialogHeading title={t('steps.profile.title2')} />
+              <CustomDialogHeading
+                title={<CustomHeading>{t('steps.profile.title2')}</CustomHeading>}
+              />
               <StyledScrollBox hideDividers={{ bottom: true }}>
                 <ScrollContentContainer>
                   <AvatarWrapper>

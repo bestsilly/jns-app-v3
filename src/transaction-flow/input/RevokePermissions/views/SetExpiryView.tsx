@@ -11,7 +11,7 @@ import styled, { css } from 'styled-components'
 
 import { Input, RadioButton } from '@ensdomains/thorin'
 
-import { CustomDialogHeading, CustomTypography } from '@app/components/customs'
+import { CustomDialogHeading, CustomHeading, CustomTypography } from '@app/components/customs'
 import { dateTimeLocalToDate, dateToDateTimeLocal, stripDateMs } from '@app/utils/datetime-local'
 
 import type { FormData } from '../RevokePermissions-flow'
@@ -99,7 +99,9 @@ export const SetExpiryView = ({
 
   return (
     <>
-      <CustomDialogHeading title={t('input.revokePermissions.views.setExpiry.title')} />
+      <CustomDialogHeading
+        title={<CustomHeading>{t('input.revokePermissions.views.setExpiry.title')}</CustomHeading>}
+      />
       <CenterAlignedTypography>
         {canExtendExpiry ? (
           <CustomTypography>

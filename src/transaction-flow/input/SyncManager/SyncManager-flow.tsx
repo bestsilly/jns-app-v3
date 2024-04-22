@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { P, match } from 'ts-pattern'
 
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
-import { CustomDialogHeading } from '@app/components/customs'
+import { CustomDialogHeading, CustomHeading } from '@app/components/customs'
 import { useAbilities } from '@app/hooks/abilities/useAbilities'
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import useDNSProof from '@app/hooks/useDNSProof'
@@ -96,7 +96,7 @@ const SyncManager = ({ data: { name }, dispatch, onDismiss }: Props) => {
 
   return (
     <>
-      <CustomDialogHeading title={t('input.syncManager.title')} />
+      <CustomDialogHeading title={<CustomHeading>{t('input.syncManager.title')}</CustomHeading>} />
       <InnerDialog style={{ minHeight: '100px' }}>
         {match([isLoading, canSyncManager])
           .with([true, P._], () => <TransactionLoader />)

@@ -9,7 +9,12 @@ import { Button, Dialog, Input, mq } from '@ensdomains/thorin'
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { Outlink } from '@app/components/Outlink'
-import { CustomButton, CustomDialogHeading, CustomTypography } from '@app/components/customs'
+import {
+  CustomButton,
+  CustomDialogHeading,
+  CustomHeading,
+  CustomTypography,
+} from '@app/components/customs'
 import { useSubscribeToEarnifi } from '@app/components/pages/profile/[name]/tabs/MoreTab/Miscellaneous/useSubscribeToEarnifi'
 import { useChainId } from '@app/hooks/useChainId'
 
@@ -73,7 +78,9 @@ export const EarnifiDialog = ({ name, open, onDismiss }: Props) => {
 
   return (
     <Dialog open={open} variant="blank" onDismiss={() => status !== 'loading' && _onDismiss()}>
-      <CustomDialogHeading title={t('tabs.more.misc.earnfi.title', { ns: 'profile' })} />
+      <CustomDialogHeading
+        title={<CustomHeading>{t('tabs.more.misc.earnfi.title', { ns: 'profile' })}</CustomHeading>}
+      />
       {match(status)
         .with(P.not('success'), () => (
           <Form

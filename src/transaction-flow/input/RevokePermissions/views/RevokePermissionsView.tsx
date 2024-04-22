@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 
 import { CheckboxRow } from '@ensdomains/thorin'
 
-import { CustomDialogHeading } from '@app/components/customs'
+import { CustomDialogHeading, CustomHeading } from '@app/components/customs'
 import { CHILD_FUSES, ChildFuse, Fuse } from '@app/transaction-flow/transaction/changePermissions'
 
 import type { FormData } from '../RevokePermissions-flow'
@@ -44,7 +44,13 @@ export const RevokePermissionsView = ({ register, unburnedFuses }: Props) => {
 
   return (
     <>
-      <CustomDialogHeading title={t('input.revokePermissions.views.revokePermissions.title')} />
+      <CustomDialogHeading
+        title={
+          <CustomHeading>
+            {t('input.revokePermissions.views.revokePermissions.title')}
+          </CustomHeading>
+        }
+      />
       <PermissionsList>
         {unburned.map((fuse) => (
           <CheckboxRow

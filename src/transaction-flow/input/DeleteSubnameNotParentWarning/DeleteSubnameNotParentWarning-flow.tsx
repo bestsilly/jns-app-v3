@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { Button, Dialog, mq } from '@ensdomains/thorin'
 
-import { CustomDialogHeading, CustomTypography } from '@app/components/customs'
+import { CustomDialogHeading, CustomHeading, CustomTypography } from '@app/components/customs'
 import { usePrimaryNameOrAddress } from '@app/hooks/reverseRecord/usePrimaryNameOrAddress'
 import useOwners from '@app/hooks/useOwners'
 import useParentBasicName from '@app/hooks/useParentBasicName'
@@ -67,7 +67,10 @@ const DeleteSubnameNotParentWarning = ({ data, dispatch, onDismiss }: Props) => 
 
   return (
     <>
-      <CustomDialogHeading title={t('input.deleteSubnameNotParentWarning.title')} alert="error" />
+      <CustomDialogHeading
+        title={<CustomHeading>{t('input.deleteSubnameNotParentWarning.title')}</CustomHeading>}
+        alert="error"
+      />
       <MessageContainer>
         <CustomTypography>
           <Trans

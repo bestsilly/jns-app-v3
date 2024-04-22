@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 
 import { CheckboxRow } from '@ensdomains/thorin'
 
-import { CustomDialogHeading, CustomTypography } from '@app/components/customs'
+import { CustomDialogHeading, CustomHeading, CustomTypography } from '@app/components/customs'
 import { usePrimaryNameOrAddress } from '@app/hooks/reverseRecord/usePrimaryNameOrAddress'
 
 import type { FormData } from '../RevokePermissions-flow'
@@ -28,7 +28,9 @@ export const RevokePCCView = ({ managerAddr, register }: Props) => {
 
   return (
     <>
-      <CustomDialogHeading title={t('input.revokePermissions.views.revokePCC.title')} />
+      <CustomDialogHeading
+        title={<CustomHeading>{t('input.revokePermissions.views.revokePCC.title')}</CustomHeading>}
+      />
       <CenterAlignedTypography fontVariant="body" color="text">
         <CustomTypography>
           <Trans
