@@ -71,6 +71,7 @@ export const SearchViewResult = ({ address, name, excludeRole: role, roles, ...p
 
   return (
     <Container
+      style={{ background: '#101112' }}
       data-testid={`search-result-${address}`}
       type="button"
       disabled={markers.hasRole}
