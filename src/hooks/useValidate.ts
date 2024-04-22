@@ -4,6 +4,7 @@ import { useQuery } from 'wagmi'
 import { Prettify } from '@app/types'
 import { tryBeautify } from '@app/utils/beautify'
 import { useQueryKeys } from '@app/utils/cacheKeyFactory'
+import { isEnglishLowerCaseOrNumeric } from '@app/utils/wording'
 
 export type ValidationResult = Prettify<
   Partial<Omit<ParsedInputResult, 'normalised' | 'labelDataArray'>> & {
@@ -28,9 +29,11 @@ export const validate = (input: string) => {
   const { normalised: name, ...parsedInput } = parseInput(decodedInput)
   const isNonASCII = parsedInput.labelDataArray.some((dataItem) => dataItem.type !== 'ASCII')
   const outputName = name || input
+  const isValid = isEnglishLowerCaseOrNumeric(outputName)
 
   return {
     ...parsedInput,
+    isValid,
     name: outputName,
     beautifiedName: tryBeautify(outputName),
     isNonASCII,
