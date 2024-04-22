@@ -6,48 +6,50 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
 import { makePersistent } from '@app/utils/persist'
 
-import { WC_PROJECT_ID } from './constants'
 import { getDefaultWallets } from './getDefaultWallets'
 
-const jfin: Chain = {
-  id: 3501,
-  name: 'jfin',
-  nativeCurrency: {
-    name: 'JFIN',
-    symbol: 'JFIN',
-    decimals: 18,
-  },
-  network: 'JFIN',
-  rpcUrls: {
-    default: {
-      http: ['https://rpc.jfinchain.com'],
+const CHAIN_NAME = process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 'jfintestnet' : 'jfin'
+
+const supportedChains = {
+  jfin: {
+    id: 3501,
+    name: 'jfin',
+    nativeCurrency: {
+      name: 'JFIN',
+      symbol: 'JFIN',
+      decimals: 18,
     },
-    public: {
-      http: ['https://rpc.jfinchain.com'],
+    network: 'JFIN',
+    rpcUrls: {
+      default: {
+        http: ['https://rpc.jfinchain.com'],
+      },
+      public: {
+        http: ['https://rpc.jfinchain.com'],
+      },
     },
-  },
+  } as Chain,
+  jfintestnet: {
+    id: 3502,
+    name: 'jfintestnet',
+    nativeCurrency: {
+      name: 'JFIN',
+      symbol: 'JFIN',
+      decimals: 18,
+    },
+    network: 'JFINTestnet',
+    rpcUrls: {
+      default: {
+        http: ['https://rpc.testnet.jfinchain.com'],
+      },
+      public: {
+        http: ['https://rpc.testnet.jfinchain.com'],
+      },
+    },
+  } as Chain,
 }
 
-const jfintestnet: Chain = {
-  id: 3502,
-  name: 'jfintestnet',
-  nativeCurrency: {
-    name: 'JFIN',
-    symbol: 'JFIN',
-    decimals: 18,
-  },
-  network: 'JFINTestnet',
-  rpcUrls: {
-    default: {
-      http: ['https://rpc.testnet.jfinchain.com'],
-    },
-    public: {
-      http: ['https://rpc.testnet.jfinchain.com'],
-    },
-  },
-}
-
-const providerArray: ChainProviderFn<typeof jfintestnet>[] = []
+const providerArray: ChainProviderFn<Chain>[] = []
 
 if (process.env.NEXT_PUBLIC_PROVIDER) {
   // for local testing
@@ -76,11 +78,11 @@ if (process.env.NEXT_PUBLIC_PROVIDER) {
   )
 }
 
-const { provider, chains } = configureChains([jfin, jfintestnet], providerArray)
+const { provider, chains } = configureChains([supportedChains[CHAIN_NAME]], providerArray)
 
 const connectors = getDefaultWallets({
-  appName: 'JNS',
-  projectId: WC_PROJECT_ID,
+  appName: process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 'Testnet' : 'Mainnet',
+  projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
   chains,
 })
 

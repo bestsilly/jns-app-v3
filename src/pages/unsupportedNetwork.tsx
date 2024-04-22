@@ -42,24 +42,18 @@ export default function Page() {
   const { t } = useTranslation()
   const router = useRouter()
 
-  const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
+  const chainId = process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 3502 : 3501
 
   useEffect(() => {
-    if (
-      // currentChain?.id === 1 ||
-      // currentChain?.id === 5 ||
-      // currentChain?.id === 11155111 ||
-      // currentChain?.id === 1337 ||
-      currentChain?.id === 3501 ||
-      currentChain?.id === 3502
-    ) {
+    console.log(currentChain?.id)
+    if (currentChain?.id === chainId) {
       router.push('/')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChain?.id])
 
   const handleChangeNetwork = () => {
-    switchNetwork?.(isTestnet)
+    switchNetwork?.(chainId)
   }
 
   return (
