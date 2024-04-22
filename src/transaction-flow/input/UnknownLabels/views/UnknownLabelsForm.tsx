@@ -7,7 +7,12 @@ import styled, { css } from 'styled-components'
 
 import { Button, Dialog, Input, mq } from '@ensdomains/thorin'
 
-import { CustomButton, CustomDialogHeading, CustomTypography } from '@app/components/customs'
+import {
+  CustomButton,
+  CustomDialogHeading,
+  CustomHeading,
+  CustomTypography,
+} from '@app/components/customs'
 import { isLabelTooLong } from '@app/utils/utils'
 
 const Container = styled.div(
@@ -143,7 +148,9 @@ export const UnknownLabelsForm = forwardRef<HTMLFormElement, Props>(
 
     return (
       <>
-        <CustomDialogHeading title={t('input.unknownLabels.title')} />
+        <CustomDialogHeading
+          title={<CustomHeading>{t('input.unknownLabels.title')}</CustomHeading>}
+        />
         <Container>
           <CustomTypography>{t('input.unknownLabels.subtitle')}</CustomTypography>
           <LabelsContainer
