@@ -21,6 +21,9 @@ export const getDefaultWallets = ({
   projectId: string
   chains: Chain[]
 }) => {
+  console.log('appName', appName)
+  console.log('projectId', projectId)
+  console.log('chains', chains)
   const wallets: WalletList = [
     {
       groupName: 'Popular',
