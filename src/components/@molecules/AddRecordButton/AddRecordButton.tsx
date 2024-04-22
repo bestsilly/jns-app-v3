@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components'
 import { Input, MagnifyingGlassSimpleSVG, PlusSVG } from '@ensdomains/thorin'
 
 import UnsupportedSVG from '@app/assets/Unsupported.svg'
-import { CustomButton, CustomTypography } from '@app/components/customs'
+import { CustomBaseWrapButton, CustomButton, CustomTypography } from '@app/components/customs'
 import { formSafeKey } from '@app/utils/editor'
 
 const Container = styled.div<{ $state: TransitionState }>(
@@ -370,7 +370,12 @@ export const AddRecordButton = ({
   }
 
   return (
-    <Container $state={state} ref={containerRef} data-testid="add-record-button">
+    <Container
+      $state={state}
+      ref={containerRef}
+      data-testid="add-record-button"
+      style={{ background: '#101112' }}
+    >
       <ControlsContainer $state={state} data-testid="add-record-button-controls">
         <ControlsHeader>
           <ControlsHeaderLeading>
@@ -403,9 +408,11 @@ export const AddRecordButton = ({
             disabled={!!error}
             data-testid="add-record-button-action-button"
           >
-            {inputActionType === 'create'
-              ? t('action.add', { ns: 'common' })
-              : t('action.cancel', { ns: 'common' })}
+            <CustomBaseWrapButton>
+              {inputActionType === 'create'
+                ? t('action.add', { ns: 'common' })
+                : t('action.cancel', { ns: 'common' })}
+            </CustomBaseWrapButton>
           </ControlsHeaderTrailing>
         </ControlsHeader>
         {options && (

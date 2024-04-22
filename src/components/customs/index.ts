@@ -33,6 +33,7 @@ export const CustomTypographyBlack = styled(CustomTypography)(
 
 export const CustomDialogHeading = styled(Dialog.Heading)(
   ({ theme }) => css`
+    text-align: center;
     div > * {
       color: ${theme.colors.textPrimary} !important;
       background: '#fff';
