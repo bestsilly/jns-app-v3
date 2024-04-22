@@ -46,6 +46,9 @@ export const CustomButton = styled(Button)(
     background-color: ${theme.colors.accent};
     color: #fff !important;
 
+    &:disabled {
+      color: #383838 !important;
+    }
     &:disabled:hover {
       background-color: #ccc;
     }
