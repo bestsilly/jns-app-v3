@@ -43,7 +43,7 @@ export const CustomDialogHeading = styled(Dialog.Heading)(
 export const CustomButton = styled(Button)(
   ({ theme }) => css`
     background-color: ${theme.colors.accent};
-    color: #fff;
+    color: #fff !important;
 
     &:disabled:hover {
       background-color: #ccc;
