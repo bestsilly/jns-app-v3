@@ -16,7 +16,7 @@ import CircleTickSVG from '@app/assets/CircleTick.svg'
 import WalletSVG from '@app/assets/Wallet.svg'
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
 import { Outlink } from '@app/components/Outlink'
-import { CustomHeading, CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomHeading, CustomTypography } from '@app/components/customs'
 import { useAddRecentTransaction } from '@app/hooks/transactions/useAddRecentTransaction'
 import { useRecentTransactions } from '@app/hooks/transactions/useRecentTransactions'
 import { useChainName } from '@app/hooks/useChainName'
@@ -524,12 +524,12 @@ export const TransactionStageModal = ({
         )
       }
       return (
-        <Button
+        <CustomButton
           data-testid="transaction-modal-complete-button"
           onClick={() => dispatch({ name: 'incrementTransaction' })}
         >
           {t('action.next')}
-        </Button>
+        </CustomButton>
       )
     }
     if (stage === 'failed') {
@@ -557,17 +557,17 @@ export const TransactionStageModal = ({
     }
     if (transactionLoading) {
       return (
-        <Button
+        <CustomButton
           disabled
           suffix={<Spinner color="background" />}
           data-testid="transaction-modal-confirm-button"
         >
           {t('transaction.dialog.confirm.waitingForWallet')}
-        </Button>
+        </CustomButton>
       )
     }
     return (
-      <Button
+      <CustomButton
         disabled={
           !canEnableTransactionRequest || requestLoading || !sendTransaction || !!requestError
         }
@@ -575,7 +575,7 @@ export const TransactionStageModal = ({
         data-testid="transaction-modal-confirm-button"
       >
         {t('transaction.dialog.confirm.openWallet')}
-      </Button>
+      </CustomButton>
     )
   }, [
     canEnableTransactionRequest,

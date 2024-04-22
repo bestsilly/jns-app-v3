@@ -12,11 +12,11 @@ import {
 import { useTranslation } from 'react-i18next'
 import styled, { DefaultTheme, css } from 'styled-components'
 
-import { Button, Dropdown, Helper, Input, mq } from '@ensdomains/thorin'
+import { Dropdown, Helper, Input, mq } from '@ensdomains/thorin'
 
 import CalendarSVG from '@app/assets/Calendar.svg'
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import useCurrentBlockTimestamp from '@app/hooks/useCurrentBlockTimestamp'
 import { useEthPrice } from '@app/hooks/useEthPrice'
 import { makeDisplay } from '@app/utils/currency'
@@ -612,9 +612,9 @@ const TemporaryPremium = ({ startDate, name }: Props) => {
               color: 'text',
             }))}
           >
-            <Button prefix={<CalendarIcon as={CalendarSVG} />}>
+            <CustomButton prefix={<CalendarIcon as={CalendarSVG} />}>
               {t('action.remindMe', { ns: 'common' })}
-            </Button>
+            </CustomButton>
           </Dropdown>
         </MobileFullWidth>
       </Container>

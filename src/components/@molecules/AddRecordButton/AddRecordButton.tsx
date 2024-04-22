@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next'
 import useTransition, { TransitionState } from 'react-transition-state'
 import styled, { css } from 'styled-components'
 
-import { Button, Input, MagnifyingGlassSimpleSVG, PlusSVG } from '@ensdomains/thorin'
+import { Input, MagnifyingGlassSimpleSVG, PlusSVG } from '@ensdomains/thorin'
 
 import UnsupportedSVG from '@app/assets/Unsupported.svg'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import { formSafeKey } from '@app/utils/editor'
 
 const Container = styled.div<{ $state: TransitionState }>(
@@ -430,19 +430,19 @@ export const AddRecordButton = ({
         )}
       </ControlsContainer>
       <ButtonContainer $state={state}>
-        <Button
+        <CustomButton
           prefix={
             <SVGWrapper>
               <PlusSVG />
             </SVGWrapper>
           }
-          colorStyle="transparent"
+          colorStyle="accentPrimary"
           onClick={handleButtonClick}
           size="medium"
           data-testid="add-record-button-button"
         >
           <CustomTypography color="greyPrimary">{addRecord}</CustomTypography>
-        </Button>
+        </CustomButton>
       </ButtonContainer>
     </Container>
   )

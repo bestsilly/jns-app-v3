@@ -5,7 +5,7 @@ import { Button, Helper, mq } from '@ensdomains/thorin'
 
 import { CacheableComponent } from '@app/components/@atoms/CacheableComponent'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import { coinsWithIcons } from '@app/constants/coinsWithIcons'
 import supportedProfileItems from '@app/constants/supportedGeneralRecordKeys.json'
 import supportedTexts from '@app/constants/supportedSocialRecordKeys.json'
@@ -181,15 +181,23 @@ const getAction = (action: Action, is2LDEth: boolean) => {
       />
     )
   }
-  return (
+  return action.red ? (
     <Button
       data-testid={`profile-action-${action.label}`}
       onClick={action.onClick}
       size="small"
-      colorStyle={action.red ? 'redSecondary' : 'accentPrimary'}
+      colorStyle="redSecondary"
     >
       {action.label}
     </Button>
+  ) : (
+    <CustomButton
+      data-testid={`profile-action-${action.label}`}
+      onClick={action.onClick}
+      size="small"
+    >
+      {action.label}
+    </CustomButton>
   )
 }
 

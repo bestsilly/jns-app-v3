@@ -2,13 +2,13 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, mq } from '@ensdomains/thorin'
+import { mq } from '@ensdomains/thorin'
 
 import { cacheableComponentStyles } from '@app/components/@atoms/CacheableComponent'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
 import { Outlink } from '@app/components/Outlink'
 import RecordItem from '@app/components/RecordItem'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import { useHasGlobalError } from '@app/hooks/errors/useHasGlobalError'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
 import { emptyAddress } from '@app/utils/constants'
@@ -269,9 +269,9 @@ export const RecordsTab = ({
         <Actions>
           <div>
             {canEditRecords && !hasGlobalError ? (
-              <Button onClick={handleShowEditor} size="small">
+              <CustomButton onClick={handleShowEditor} size="small">
                 {t('details.tabs.records.editRecords')}
-              </Button>
+              </CustomButton>
             ) : (
               <DisabledButtonWithTooltip
                 buttonId="records-tab-edit-records-disabled"

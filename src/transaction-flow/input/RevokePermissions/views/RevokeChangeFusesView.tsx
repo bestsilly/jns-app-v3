@@ -1,7 +1,9 @@
 import { UseFormRegister } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-import { CheckboxRow, Dialog } from '@ensdomains/thorin'
+import { CheckboxRow } from '@ensdomains/thorin'
+
+import { CustomDialogHeading } from '@app/components/customs'
 
 import type { FormData } from '../RevokePermissions-flow'
 import { CenterAlignedTypography } from '../components/CenterAlignedTypography'
@@ -15,7 +17,7 @@ export const RevokeChangeFusesView = ({ register }: Props) => {
 
   return (
     <>
-      <Dialog.Heading title={t('input.revokePermissions.views.revokeChangeFuses.title')} />
+      <CustomDialogHeading title={t('input.revokePermissions.views.revokeChangeFuses.title')} />
       <CenterAlignedTypography>
         {t('input.revokePermissions.views.revokeChangeFuses.subtitle')}
       </CenterAlignedTypography>

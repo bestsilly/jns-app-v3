@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Button, Dialog } from '@ensdomains/thorin'
 
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
+import { CustomButton, CustomDialogHeading, CustomHeading } from '@app/components/customs'
 import { intros } from '@app/transaction-flow/intro'
 import { TransactionIntro } from '@app/transaction-flow/types'
 import { TransactionDisplayItemSingle } from '@app/types'
@@ -45,9 +46,9 @@ export const IntroStageModal = ({
   )
 
   const TrailingButton = (
-    <Button onClick={() => onSuccess()} data-testid="transaction-dialog-intro-trailing-btn">
+    <CustomButton onClick={() => onSuccess()} data-testid="transaction-dialog-intro-trailing-btn">
       {trailingLabel ? t(...trailingLabel) : tLabel}
-    </Button>
+    </CustomButton>
   )
 
   const txCount = transactions.length
@@ -56,7 +57,7 @@ export const IntroStageModal = ({
 
   return (
     <>
-      <Dialog.Heading title={t(...title)} />
+      <CustomDialogHeading title={<CustomHeading>{t(...title)}</CustomHeading>} />
       <InnerDialog data-testid="transaction-modal-inner">
         <Content {...content.data} />
         {txCount > 1 && (

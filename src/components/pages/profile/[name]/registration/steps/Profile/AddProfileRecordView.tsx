@@ -7,7 +7,7 @@ import { Button, Dialog, Input, MagnifyingGlassSimpleSVG, ScrollBox, mq } from '
 
 import DismissDialogButton from '@app/components/@atoms/DismissDialogButton/DismissDialogButton'
 import { Spacer } from '@app/components/@atoms/Spacer'
-import { CustomHeading } from '@app/components/customs'
+import { CustomButton, CustomHeading } from '@app/components/customs'
 import {
   ProfileRecord,
   ProfileRecordGroup,
@@ -390,7 +390,7 @@ export const AddProfileRecordView = ({ control, onAdd, onClose, showDismiss }: P
             )
           }
           trailing={
-            <Button
+            <CustomButton
               size="medium"
               onClick={() => onAdd?.(selectedRecords)}
               count={selectedRecords.length}
@@ -399,7 +399,7 @@ export const AddProfileRecordView = ({ control, onAdd, onClose, showDismiss }: P
               data-testid="add-profile-records-button"
             >
               {t('action.add', { ns: 'common' })}
-            </Button>
+            </CustomButton>
           }
         />
       </FooterWrapper>

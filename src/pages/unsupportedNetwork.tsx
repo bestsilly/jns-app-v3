@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useNetwork, useSwitchNetwork } from 'wagmi'
 
-import { Button, Helper, mq } from '@ensdomains/thorin'
+import { Helper, mq } from '@ensdomains/thorin'
+
+import { CustomButton } from '@app/components/customs'
 
 const Card = styled.div(
   ({ theme }) => css`
@@ -64,7 +66,7 @@ export default function Page() {
     <Container>
       <Card>
         <Helper type="error">{t('unsupportedNetwork')}</Helper>
-        <Button onClick={handleChangeNetwork}>{t('action.changeNetwork')}</Button>
+        <CustomButton onClick={handleChangeNetwork}>{t('action.changeNetwork')}</CustomButton>
       </Card>
     </Container>
   )

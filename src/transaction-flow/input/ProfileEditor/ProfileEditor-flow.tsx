@@ -8,6 +8,7 @@ import { Button, Dialog, PlusSVG, ScrollBox, mq } from '@ensdomains/thorin'
 
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
 import { AvatarViewManager } from '@app/components/@molecules/ProfileEditor/Avatar/AvatarViewManager'
+import { CustomButton, CustomDialogHeading } from '@app/components/customs'
 import { AddProfileRecordView } from '@app/components/pages/profile/[name]/registration/steps/Profile/AddProfileRecordView'
 import { CustomProfileRecordInput } from '@app/components/pages/profile/[name]/registration/steps/Profile/CustomProfileRecordInput'
 import { ProfileRecordInput } from '@app/components/pages/profile/[name]/registration/steps/Profile/ProfileRecordInput'
@@ -135,9 +136,9 @@ const SubmitButton = ({
   const disabled = _disabled || recordsDiff.length === 0
 
   return canEdit ? (
-    <Button type="submit" disabled={disabled} data-testid="profile-submit-button">
+    <CustomButton type="submit" disabled={disabled} data-testid="profile-submit-button">
       {t('action.save', { ns: 'common' })}
-    </Button>
+    </CustomButton>
   ) : (
     <DisabledButtonWithTooltip
       buttonId="profile-editor-save-disabled"
@@ -294,7 +295,7 @@ const ProfileEditor = ({ data = {}, transactions = [], dispatch, onDismiss }: Pr
         {
           editor: (
             <>
-              <Dialog.Heading title={t('steps.profile.title2')} />
+              <CustomDialogHeading title={t('steps.profile.title2')} />
               <StyledScrollBox hideDividers={{ bottom: true }}>
                 <ScrollContentContainer>
                   <AvatarWrapper>
@@ -353,14 +354,14 @@ const ProfileEditor = ({ data = {}, transactions = [], dispatch, onDismiss }: Pr
                   )}
                   <ButtonContainer>
                     <ButtonWrapper>
-                      <Button
+                      <CustomButton
                         size="medium"
                         onClick={handleShowAddRecordModal}
                         data-testid="show-add-profile-records-modal-button"
                         prefix={<PlusSVG />}
                       >
                         {t('steps.profile.addMore')}
-                      </Button>
+                      </CustomButton>
                     </ButtonWrapper>
                   </ButtonContainer>
                 </ScrollContentContainer>

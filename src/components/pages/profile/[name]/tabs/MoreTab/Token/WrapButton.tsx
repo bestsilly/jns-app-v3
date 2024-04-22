@@ -1,6 +1,7 @@
 import { checkIsDecrypted } from '@jfinchain/jnsjs/utils/labels'
 import { useTranslation } from 'react-i18next'
 
+import { CustomBaseWrapButton } from '@app/components/customs'
 import { useHasGlobalError } from '@app/hooks/errors/useHasGlobalError'
 import { useResolverStatus } from '@app/hooks/resolver/useResolverStatus'
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
@@ -11,8 +12,6 @@ import { makeIntroItem } from '@app/transaction-flow/intro'
 import { makeTransactionItem } from '@app/transaction-flow/transaction'
 import { GenericTransaction, TransactionFlowItem } from '@app/transaction-flow/types'
 import { ReturnedENS } from '@app/types'
-
-import BaseWrapButton from './BaseWrapButton'
 
 type Props = {
   name: string
@@ -108,9 +107,13 @@ const WrapButton = ({ name, ownerData, profile, canBeWrapped }: Props) => {
   if (!_canBeWrapped || hasGlobalError) return null
 
   return (
-    <BaseWrapButton data-testid="wrap-name-btn" disabled={isLoading} onClick={handleWrapClick}>
+    <CustomBaseWrapButton
+      data-testid="wrap-name-btn"
+      disabled={isLoading}
+      onClick={handleWrapClick}
+    >
       {t('tabs.more.token.wrapName')}
-    </BaseWrapButton>
+    </CustomBaseWrapButton>
   )
 }
 

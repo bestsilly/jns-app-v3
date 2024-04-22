@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { Button, Dialog, mq } from '@ensdomains/thorin'
 
+import { CustomDialogHeading } from '@app/components/customs'
 import { useGetWrapperData } from '@app/hooks/useGetWrapperData'
 import { TransactionDialogPassthrough } from '@app/transaction-flow/types'
 
@@ -56,7 +57,7 @@ const DeleteEmancipatedSubnameWarning = ({ data, dispatch, onDismiss }: Props) =
 
   return (
     <>
-      <Dialog.Heading title={t('input.deleteEmancipatedSubnameWarning.title')} alert="error" />
+      <CustomDialogHeading title={t('input.deleteEmancipatedSubnameWarning.title')} alert="error" />
       <MessageContainer>
         {t('input.deleteEmancipatedSubnameWarning.message', { date: expiryLabel })}
       </MessageContainer>

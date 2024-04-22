@@ -18,12 +18,14 @@ export const SyncManager = ({ manager, isWrapped }: { manager: string; isWrapped
   return (
     <>
       <StyledTypography>
-        <Trans
-          i18nKey="intro.syncManager.description"
-          ns="transactionFlow"
-          components={{ b: <strong /> }}
-          values={{ manager: shortenAddress(manager) }}
-        />
+        <CustomTypography>
+          <Trans
+            i18nKey="intro.syncManager.description"
+            ns="transactionFlow"
+            components={{ b: <strong /> }}
+            values={{ manager: shortenAddress(manager) }}
+          />
+        </CustomTypography>
       </StyledTypography>
       {isWrapped && <Helper type="warning">{t('intro.syncManager.wrappedWarning')}</Helper>}
     </>

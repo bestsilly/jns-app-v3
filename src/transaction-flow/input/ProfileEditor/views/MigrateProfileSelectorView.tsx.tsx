@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { Button, Dialog, RadioButton, ScrollBox } from '@ensdomains/thorin'
 
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 
 import type { SelectedProfile } from '../ResolverWarningOverlay'
 import { CenteredTypography } from '../components/CenteredTypography'
@@ -152,9 +152,9 @@ export const MigrateProfileSelectorView = ({
           </Button>
         }
         trailing={
-          <Button onClick={onNext} data-testid="warning-overlay-next-button">
+          <CustomButton onClick={onNext} data-testid="warning-overlay-next-button">
             {t('action.next', { ns: 'common' })}
-          </Button>
+          </CustomButton>
         }
       />
     </>

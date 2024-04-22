@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 import { Button, Dialog } from '@ensdomains/thorin'
 
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
+import { CustomButton, CustomDialogHeading } from '@app/components/customs'
 
 import { makeTransactionItem } from '../../transaction'
 import { TransactionDialogPassthrough } from '../../types'
@@ -43,7 +44,7 @@ const ResetPrimaryName = ({ data: { address }, dispatch, onDismiss }: Props) => 
 
   return (
     <>
-      <Dialog.Heading alert="warning" title={t('input.resetPrimaryName.title')} />
+      <CustomDialogHeading alert="warning" title={t('input.resetPrimaryName.title')} />
       <StyledInnerDialog>{t('input.resetPrimaryName.description')}</StyledInnerDialog>
       <Dialog.Footer
         leading={
@@ -52,9 +53,9 @@ const ResetPrimaryName = ({ data: { address }, dispatch, onDismiss }: Props) => 
           </Button>
         }
         trailing={
-          <Button data-testid="primary-next" onClick={handleSubmit}>
+          <CustomButton data-testid="primary-next" onClick={handleSubmit}>
             {t('action.next', { ns: 'common' })}
-          </Button>
+          </CustomButton>
         }
       />
     </>

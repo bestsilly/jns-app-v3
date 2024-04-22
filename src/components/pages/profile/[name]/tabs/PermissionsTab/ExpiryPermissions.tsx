@@ -1,9 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button } from '@ensdomains/thorin'
-
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import type { useFusesStates } from '@app/hooks/fuses/useFusesStates'
 import type { useGetFusesSetDates } from '@app/hooks/fuses/useGetFusesSetDates'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
@@ -110,9 +108,12 @@ export const ExpiryPermissions = ({
             <SectionFooter>
               <FooterContainer>
                 <div>
-                  <Button data-testid="button-extend-expiry" onClick={handleRevokePermissions}>
+                  <CustomButton
+                    data-testid="button-extend-expiry"
+                    onClick={handleRevokePermissions}
+                  >
                     {t('tabs.permissions.expiry.action.changePermissions')}
-                  </Button>
+                  </CustomButton>
                 </div>
               </FooterContainer>
             </SectionFooter>

@@ -4,16 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useDisconnect } from 'wagmi'
 
-import {
-  Button,
-  CheckSVG,
-  CogSVG,
-  CopySVG,
-  ExitSVG,
-  PersonSVG,
-  Profile,
-  mq,
-} from '@ensdomains/thorin'
+import { CheckSVG, CogSVG, CopySVG, ExitSVG, PersonSVG, Profile, mq } from '@ensdomains/thorin'
 import { DropdownItem } from '@ensdomains/thorin/dist/types/components/molecules/Dropdown/Dropdown'
 
 import useHasPendingTransactions from '@app/hooks/transactions/useHasPendingTransactions'
@@ -28,6 +19,7 @@ import { useBreakpoint } from '@app/utils/BreakpointProvider'
 import { shortenAddress } from '@app/utils/utils'
 
 import BaseLink from './@atoms/BaseLink'
+import { CustomButton } from './customs'
 import JNSGradientButton from './jns/button'
 
 const StyledButtonWrapper = styled.div<{ $isTabBar?: boolean; $large?: boolean }>(
@@ -133,7 +125,7 @@ export const JoinConnectButton = ({ isTabBar, large, inHeader }: Props) => {
 
   return (
     <StyledButtonWrapper $large={large} $isTabBar={isTabBar}>
-      <Button
+      <CustomButton
         data-testid={calculateTestId(isTabBar, inHeader)}
         onClick={() => login()}
         size={breakpoints.sm || large ? 'medium' : 'small'}
@@ -147,7 +139,7 @@ export const JoinConnectButton = ({ isTabBar, large, inHeader }: Props) => {
           style={{ width: '25px', height: '25px', verticalAlign: 'top', marginRight: '5px' }}
         />
         <span style={{ verticalAlign: 'middle' }}>Connect Join</span>
-      </Button>
+      </CustomButton>
     </StyledButtonWrapper>
   )
 }

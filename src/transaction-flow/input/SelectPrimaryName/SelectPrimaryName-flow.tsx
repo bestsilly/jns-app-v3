@@ -19,7 +19,12 @@ import {
   SortType,
 } from '@app/components/@molecules/NameTableHeader/NameTableHeader'
 import { ScrollBoxWithSpinner, SpinnerRow } from '@app/components/@molecules/ScrollBoxWithSpinner'
-import { CustomHeading, CustomTypography } from '@app/components/customs'
+import {
+  CustomButton,
+  CustomDialogHeading,
+  CustomHeading,
+  CustomTypography,
+} from '@app/components/customs'
 import {
   Name,
   useAvailablePrimaryNamesForAddress,
@@ -322,7 +327,9 @@ const SelectPrimaryName = ({ data: { address }, dispatch, onDismiss }: Props) =>
     />
   ) : (
     <>
-      <Dialog.Heading title={<CustomHeading>{t('input.selectPrimaryName.title')}</CustomHeading>} />
+      <CustomDialogHeading
+        title={<CustomHeading>{t('input.selectPrimaryName.title')}</CustomHeading>}
+      />
       <ContentContainer ref={formRef} onSubmit={handleSubmit((data) => mutateName(data))}>
         <Divider />
         {showHeader && (
@@ -385,14 +392,14 @@ const SelectPrimaryName = ({ data: { address }, dispatch, onDismiss }: Props) =>
           </Button>
         }
         trailing={
-          <Button
+          <CustomButton
             data-testid="primary-next"
             onClick={onConfirm}
             disabled={!selectedName || isLoadingName}
             loading={isLoadingName}
           >
             {t('action.next', { ns: 'common' })}
-          </Button>
+          </CustomButton>
         }
       />
     </>

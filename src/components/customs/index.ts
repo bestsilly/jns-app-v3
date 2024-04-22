@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components'
 
-import { Dialog, Heading, Select, Typography } from '@ensdomains/thorin'
+import { Button, Dialog, Heading, Select, Typography } from '@ensdomains/thorin'
+
+import BaseWrapButton from '../pages/profile/[name]/tabs/MoreTab/Token/BaseWrapButton'
 
 export const CustomSelect = styled(Select)(
   ({ theme }) =>
@@ -34,6 +36,40 @@ export const CustomDialogHeading = styled(Dialog.Heading)(
     div > * {
       color: ${theme.colors.textPrimary} !important;
       background: '#fff';
+    }
+  `,
+)
+
+export const CustomButton = styled(Button)(
+  ({ theme }) => css`
+    background-color: ${theme.colors.accent};
+    color: #fff;
+
+    &:disabled:hover {
+      background-color: #ccc;
+    }
+    &:hover {
+      background-color: ${theme.colors.accentActive};
+    }
+    svg {
+      color: #fff;
+    }
+  `,
+)
+
+export const CustomBaseWrapButton = styled(BaseWrapButton)(
+  ({ theme }) => css`
+    background-color: ${theme.colors.accent};
+    color: #fff;
+
+    &:disabled:hover {
+      background-color: #ccc;
+    }
+    &:hover {
+      background-color: ${theme.colors.accentActive};
+    }
+    svg {
+      color: #fff;
     }
   `,
 )

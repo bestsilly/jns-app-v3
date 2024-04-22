@@ -8,6 +8,7 @@ import { useAccount } from 'wagmi'
 import { Banner, CheckCircleSVG } from '@ensdomains/thorin'
 
 import BaseLink from '@app/components/@atoms/BaseLink'
+import { CustomTypography } from '@app/components/customs'
 import { useAbilities } from '@app/hooks/abilities/useAbilities'
 import { useRecentTransactions } from '@app/hooks/transactions/useRecentTransactions'
 import { useChainId } from '@app/hooks/useChainId'
@@ -89,14 +90,16 @@ export const NameAvailableBanner = ({
         icon={<CheckCircleSVG />}
         title={t('banner.available.title', { name: normalisedName })}
       >
-        <Trans
-          ns="profile"
-          i18nKey="banner.available.description"
-          values={{
-            date: formatFullExpiry(expiryDate),
-          }}
-          components={{ strong: <strong /> }}
-        />
+        <CustomTypography>
+          <Trans
+            ns="profile"
+            i18nKey="banner.available.description"
+            values={{
+              date: formatFullExpiry(expiryDate),
+            }}
+            components={{ strong: <strong /> }}
+          />
+        </CustomTypography>
       </Banner>
     </BaseLink>
   )

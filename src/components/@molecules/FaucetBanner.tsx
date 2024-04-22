@@ -20,7 +20,7 @@ import { useChainName } from '@app/hooks/useChainName'
 import useFaucet from '@app/hooks/useFaucet'
 
 import { InnerDialog } from '../@atoms/InnerDialog'
-import { CustomTypography } from '../customs'
+import { CustomButton, CustomDialogHeading, CustomHeading, CustomTypography } from '../customs'
 import { DisplayItems } from './TransactionDialogManager/DisplayItems'
 
 const BannerWrapper = styled.div(
@@ -98,7 +98,7 @@ const FaucetBanner = () => {
       {dialogStage === 'default' ? (
         <>
           <Dialog.Heading
-            title="Faucet Claim"
+            title={<CustomHeading>Faucet Claim</CustomHeading>}
             subtitle={`Claim once every ${msToDays(data.interval)} days`}
           />
           <InnerDialog>
@@ -121,20 +121,26 @@ const FaucetBanner = () => {
               </Button>
             }
             trailing={
-              <Button loading={mutationLoading} disabled={mutationLoading} onClick={() => mutate()}>
+              <CustomButton
+                loading={mutationLoading}
+                disabled={mutationLoading}
+                onClick={() => mutate()}
+              >
                 {t('action.claim')}
-              </Button>
+              </CustomButton>
             }
           />
         </>
       ) : (
         <>
-          <Dialog.Heading title="Your claim was submitted!" />
+          <CustomDialogHeading title={<CustomHeading>Your claim was submitted!</CustomHeading>} />
           <InnerDialog>
             <LargeCheckIcon as={CheckCircleSVG} />
             <CustomTypography>{t('testnetFaucet.note')}</CustomTypography>
           </InnerDialog>
-          <Dialog.Footer trailing={<Button onClick={closeDialog}>{t('action.close')}</Button>} />
+          <Dialog.Footer
+            trailing={<CustomButton onClick={closeDialog}>{t('action.close')}</CustomButton>}
+          />
         </>
       )}
     </Dialog>

@@ -14,7 +14,7 @@ import { Invoice } from '@app/components/@atoms/Invoice/Invoice'
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
 import NFTTemplate from '@app/components/@molecules/NFTTemplate/NFTTemplate'
 import { Card } from '@app/components/Card'
-import { CustomHeading, CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomHeading, CustomTypography } from '@app/components/customs'
 import { useNameDetails } from '@app/hooks/useNameDetails'
 import useWindowSize from '@app/hooks/useWindowSize'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
@@ -254,9 +254,9 @@ const Complete = ({
           </Button>
         </MobileFullWidth>
         <MobileFullWidth>
-          <Button data-testid="view-name" onClick={() => callback(true)}>
+          <CustomButton data-testid="view-name" onClick={() => callback(true)}>
             {t('steps.complete.viewName')}
-          </Button>
+          </CustomButton>
         </MobileFullWidth>
       </ButtonContainer>
     </StyledCard>

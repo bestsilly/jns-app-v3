@@ -9,7 +9,7 @@ import { Button, Dialog, Input, mq } from '@ensdomains/thorin'
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { Outlink } from '@app/components/Outlink'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomDialogHeading, CustomTypography } from '@app/components/customs'
 import { useSubscribeToEarnifi } from '@app/components/pages/profile/[name]/tabs/MoreTab/Miscellaneous/useSubscribeToEarnifi'
 import { useChainId } from '@app/hooks/useChainId'
 
@@ -73,7 +73,7 @@ export const EarnifiDialog = ({ name, open, onDismiss }: Props) => {
 
   return (
     <Dialog open={open} variant="blank" onDismiss={() => status !== 'loading' && _onDismiss()}>
-      <Dialog.Heading title={t('tabs.more.misc.earnfi.title', { ns: 'profile' })} />
+      <CustomDialogHeading title={t('tabs.more.misc.earnfi.title', { ns: 'profile' })} />
       {match(status)
         .with(P.not('success'), () => (
           <Form
@@ -112,13 +112,13 @@ export const EarnifiDialog = ({ name, open, onDismiss }: Props) => {
                 </Button>
               }
               trailing={
-                <Button
+                <CustomButton
                   disabled={!!errors.email || status === 'loading'}
                   loading={status === 'loading'}
                   onClick={handleClick}
                 >
                   {t('action.continue')}
-                </Button>
+                </CustomButton>
               }
             />
           </Form>
@@ -128,7 +128,9 @@ export const EarnifiDialog = ({ name, open, onDismiss }: Props) => {
             <div style={{ textAlign: 'center' }}>
               {t('tabs.more.misc.earnfi.emailConfirmation', { ns: 'profile' })}
             </div>
-            <Dialog.Footer trailing={<Button onClick={_onDismiss}>{t('action.close')}</Button>} />
+            <Dialog.Footer
+              trailing={<CustomButton onClick={_onDismiss}>{t('action.close')}</CustomButton>}
+            />
           </InnerDialog>
         ))
         .exhaustive()}

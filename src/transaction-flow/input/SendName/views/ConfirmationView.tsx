@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { Button, Dialog, OutlinkSVG, QuestionSVG } from '@ensdomains/thorin'
 
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomDialogHeading, CustomTypography } from '@app/components/customs'
 import { getSupportLink } from '@app/utils/supportLinks'
 
 const CenteredTypography = styled(CustomTypography)(
@@ -57,7 +57,7 @@ export const ConfirmationView = ({ onConfirm, onBack }: Props) => {
   const link = getSupportLink('sendingNames')
   return (
     <>
-      <Dialog.Heading alert="warning" title={t('input.sendName.views.confirmation.title')} />
+      <CustomDialogHeading alert="warning" title={t('input.sendName.views.confirmation.title')} />
       <CenteredTypography fontVariant="body">
         {t('input.sendName.views.confirmation.description')}
       </CenteredTypography>
@@ -82,9 +82,9 @@ export const ConfirmationView = ({ onConfirm, onBack }: Props) => {
           </Button>
         }
         trailing={
-          <Button data-testid="send-name-confirm-button" onClick={onConfirm}>
+          <CustomButton data-testid="send-name-confirm-button" onClick={onConfirm}>
             {t('action.understand', { ns: 'common' })}
-          </Button>
+          </CustomButton>
         }
       />
     </>

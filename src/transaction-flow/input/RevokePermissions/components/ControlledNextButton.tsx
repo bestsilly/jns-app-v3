@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@ensdomains/thorin'
 
+import { CustomButton } from '@app/components/customs'
 import type { Fuse } from '@app/transaction-flow/transaction/changePermissions'
 
 import type { FormData, View } from '../RevokePermissions-flow'
@@ -147,5 +148,5 @@ export const ControlledNextButton = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view, parentFuses, childFuses, unburnedFuses, fusesBurnedDuringFlow, isCustomExpiryValid])
 
-  return <Button data-testid="permissions-next-button" {...props} />
+  return <CustomButton data-testid="permissions-next-button" {...(props as any)} />
 }

@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { Button, Dialog, mq } from '@ensdomains/thorin'
 
+import { CustomDialogHeading, CustomTypography } from '@app/components/customs'
 import { usePrimaryNameOrAddress } from '@app/hooks/reverseRecord/usePrimaryNameOrAddress'
 import useOwners from '@app/hooks/useOwners'
 import useParentBasicName from '@app/hooks/useParentBasicName'
@@ -66,17 +67,19 @@ const DeleteSubnameNotParentWarning = ({ data, dispatch, onDismiss }: Props) => 
 
   return (
     <>
-      <Dialog.Heading title={t('input.deleteSubnameNotParentWarning.title')} alert="error" />
+      <CustomDialogHeading title={t('input.deleteSubnameNotParentWarning.title')} alert="error" />
       <MessageContainer>
-        <Trans
-          i18nKey="input.deleteSubnameNotParentWarning.message"
-          ns="transactionFlow"
-          components={{ b: <strong /> }}
-          values={{
-            ownershipTerm: t(ownerTarget.label, { ns: 'common' }).toLocaleLowerCase(),
-            parentOwner: parentPrimaryOrAddress.nameOrAddr,
-          }}
-        />
+        <CustomTypography>
+          <Trans
+            i18nKey="input.deleteSubnameNotParentWarning.message"
+            ns="transactionFlow"
+            components={{ b: <strong /> }}
+            values={{
+              ownershipTerm: t(ownerTarget.label, { ns: 'common' }).toLocaleLowerCase(),
+              parentOwner: parentPrimaryOrAddress.nameOrAddr,
+            }}
+          />
+        </CustomTypography>
       </MessageContainer>
       <Dialog.Footer
         leading={

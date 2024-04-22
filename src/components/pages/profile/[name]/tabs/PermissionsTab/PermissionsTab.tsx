@@ -5,6 +5,7 @@ import { Banner } from '@ensdomains/thorin'
 
 import BaseLink from '@app/components/@atoms/BaseLink'
 import { CacheableComponent } from '@app/components/@atoms/CacheableComponent'
+import { CustomTypography } from '@app/components/customs'
 import { useFusesStates } from '@app/hooks/fuses/useFusesStates'
 import { useGetFusesSetDates } from '@app/hooks/fuses/useGetFusesSetDates'
 import useParentBasicName from '@app/hooks/useParentBasicName'
@@ -61,11 +62,13 @@ export const PermissionsTab = ({ name, wrapperData, isCached: isBasicCached }: P
       {showUnwrapWarning && (
         <BaseLink href={`/${parentName}?tab=permissions`} passHref>
           <Banner alert="warning" as="a" data-testid="banner-parent-not-locked">
-            <Trans
-              t={t}
-              i18nKey="tabs.permissions.parentUnlockedWarning"
-              values={{ parent: parentName }}
-            />
+            <CustomTypography>
+              <Trans
+                t={t}
+                i18nKey="tabs.permissions.parentUnlockedWarning"
+                values={{ parent: parentName }}
+              />
+            </CustomTypography>
           </Banner>
         </BaseLink>
       )}

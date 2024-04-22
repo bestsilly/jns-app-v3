@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { Button, Dialog, Helper } from '@ensdomains/thorin'
 
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 
 const Container = styled.div(
   ({ theme }) => css`
@@ -42,7 +42,9 @@ export const MainView = ({ manager, showWarning, onCancel, onConfirm }: Props) =
             {t('action.cancel', { ns: 'common' })}
           </Button>
         }
-        trailing={<Button onClick={onConfirm}>{t('action.next', { ns: 'common' })}</Button>}
+        trailing={
+          <CustomButton onClick={onConfirm}>{t('action.next', { ns: 'common' })}</CustomButton>
+        }
       />
     </Container>
   )

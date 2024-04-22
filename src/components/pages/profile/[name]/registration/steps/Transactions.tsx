@@ -8,7 +8,7 @@ import { AlertSVG, Button, CountdownCircle, Dialog, Spinner, mq } from '@ensdoma
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
 import { Card } from '@app/components/Card'
-import { CustomHeading, CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomHeading, CustomTypography } from '@app/components/customs'
 import { useNameDetails } from '@app/hooks/useNameDetails'
 import useRegistrationParams from '@app/hooks/useRegistrationParams'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
@@ -229,9 +229,9 @@ const Transactions = ({ registrationData, nameDetails, callback, onStart }: Prop
 
   let ActionButton: ReactNode = (
     <MobileFullWidth>
-      <Button data-testid="start-timer-button" onClick={makeCommitNameFlow}>
+      <CustomButton data-testid="start-timer-button" onClick={makeCommitNameFlow}>
         {t('steps.transactions.startTimer')}
-      </Button>
+      </CustomButton>
     </MobileFullWidth>
   )
 
@@ -256,12 +256,12 @@ const Transactions = ({ registrationData, nameDetails, callback, onStart }: Prop
       BackButton = ResetBackButton
       ActionButton = (
         <MobileFullWidth>
-          <Button
+          <CustomButton
             data-testid="finish-button"
             onClick={!registerTx ? makeRegisterNameFlow : showRegisterTransaction}
           >
             {t('action.finish', { ns: 'common' })}
-          </Button>
+          </CustomButton>
         </MobileFullWidth>
       )
     }

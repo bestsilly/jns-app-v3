@@ -2,7 +2,9 @@ import { useFieldArray, useFormContext, useFormState } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Dialog, ScrollBox } from '@ensdomains/thorin'
+import { Button, ScrollBox } from '@ensdomains/thorin'
+
+import { CustomButton, CustomDialogHeading } from '@app/components/customs'
 
 import type { EditRolesForm } from '../../EditRoles-flow'
 import { EditRolesFooter } from '../../components/EditRolesFooter'
@@ -43,7 +45,7 @@ export const MainView = ({ onSelectIndex, onCancel, onSave }: Props) => {
 
   return (
     <>
-      <Dialog.Heading title="Edit roles" />
+      <CustomDialogHeading title="Edit roles" />
       <StyledScrollBox hideDividers>
         <ScrollBoxContent>
           {roles.map((role, index) => (
@@ -64,9 +66,13 @@ export const MainView = ({ onSelectIndex, onCancel, onSave }: Props) => {
           </Button>
         }
         trailing={
-          <Button data-testid="edit-roles-save-button" disabled={!isDirty} onClick={() => onSave()}>
+          <CustomButton
+            data-testid="edit-roles-save-button"
+            disabled={!isDirty}
+            onClick={() => onSave()}
+          >
             {t('action.save')}
-          </Button>
+          </CustomButton>
         }
       />
     </>

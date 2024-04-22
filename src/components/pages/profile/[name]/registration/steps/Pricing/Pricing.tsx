@@ -5,7 +5,7 @@ import usePrevious from 'react-use/lib/usePrevious'
 import styled, { css } from 'styled-components'
 import { useBalance } from 'wagmi'
 
-import { Button, Field, Heading, Helper, RadioButtonGroup, Toggle, mq } from '@ensdomains/thorin'
+import { Field, Heading, Helper, RadioButtonGroup, Toggle, mq } from '@ensdomains/thorin'
 
 // import MoonpayLogo from '@app/assets/MoonpayLogo.svg'
 import MobileFullWidth from '@app/components/@atoms/MobileFullWidth'
@@ -14,7 +14,7 @@ import { RegistrationTimeComparisonBanner } from '@app/components/@atoms/Registr
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { Card } from '@app/components/Card'
 import { ConnectButton } from '@app/components/ConnectButton'
-import { CustomTypography, CustomTypographyBlack } from '@app/components/customs'
+import { CustomButton, CustomTypography, CustomTypographyBlack } from '@app/components/customs'
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import { useContractAddress } from '@app/hooks/useContractAddress'
 import { useEstimateFullRegistration } from '@app/hooks/useEstimateRegistration'
@@ -345,55 +345,55 @@ export const ActionButton = ({
   }
   if (hasPendingMoonpayTransaction) {
     return (
-      <Button data-testid="next-button" disabled loading>
+      <CustomButton data-testid="next-button" disabled loading>
         {t('steps.info.processing')}
-      </Button>
+      </CustomButton>
     )
   }
   if (hasFailedMoonpayTransaction && paymentMethodChoice === PaymentMethod.moonpay) {
     return (
-      <Button
+      <CustomButton
         data-testid="next-button"
         onClick={() => callback({ reverseRecord, years, paymentMethodChoice })}
       >
         {t('action.tryAgain', { ns: 'common' })}
-      </Button>
+      </CustomButton>
     )
   }
   if (paymentMethodChoice === PaymentMethod.moonpay) {
     return (
-      <Button
+      <CustomButton
         loading={initiateMoonpayRegistrationMutation.isLoading}
         data-testid="next-button"
         onClick={() => callback({ reverseRecord, years, paymentMethodChoice })}
         disabled={!paymentMethodChoice || initiateMoonpayRegistrationMutation.isLoading}
       >
         {t('action.next', { ns: 'common' })}
-      </Button>
+      </CustomButton>
     )
   }
   if (!balance?.value || !totalRequiredBalance) {
     return (
-      <Button data-testid="next-button" disabled>
+      <CustomButton data-testid="next-button" disabled>
         {t('loading', { ns: 'common' })}
-      </Button>
+      </CustomButton>
     )
   }
   if (balance?.value.lt(totalRequiredBalance) && paymentMethodChoice === PaymentMethod.ethereum) {
     return (
-      <Button data-testid="next-button" disabled>
+      <CustomButton data-testid="next-button" disabled>
         {t('steps.pricing.insufficientBalance')}
-      </Button>
+      </CustomButton>
     )
   }
   return (
-    <Button
+    <CustomButton
       data-testid="next-button"
       onClick={() => callback({ reverseRecord, years, paymentMethodChoice })}
       disabled={!paymentMethodChoice}
     >
       {t('action.next', { ns: 'common' })}
-    </Button>
+    </CustomButton>
   )
 }
 

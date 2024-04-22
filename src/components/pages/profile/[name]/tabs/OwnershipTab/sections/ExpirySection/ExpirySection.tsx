@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components'
 import { Button, Card, Dropdown, mq } from '@ensdomains/thorin'
 
 import { cacheableComponentStyles } from '@app/components/@atoms/CacheableComponent'
+import { CustomButton } from '@app/components/customs'
 import { useNameDetails } from '@app/hooks/useNameDetails'
 
 import { EarnifiDialog } from '../../../MoreTab/Miscellaneous/EarnifiDialog'
@@ -163,15 +164,26 @@ export const ExpirySection = ({ name, details }: Props) => {
                   )
                 return (
                   <div key={action.type}>
-                    <Button
-                      data-testid={`expiry-action-${action.type}`}
-                      key={action.label}
-                      prefix={action.icon}
-                      onClick={action.onClick}
-                      colorStyle={action.primary ? 'accentPrimary' : 'accentSecondary'}
-                    >
-                      {action.label}
-                    </Button>
+                    {(action.primary as boolean) ? (
+                      <CustomButton
+                        data-testid={`expiry-action-${action.type}`}
+                        key={action.label}
+                        prefix={action.icon}
+                        onClick={action.onClick}
+                      >
+                        {action.label}
+                      </CustomButton>
+                    ) : (
+                      <Button
+                        data-testid={`expiry-action-${action.type}`}
+                        key={action.label}
+                        prefix={action.icon}
+                        onClick={action.onClick}
+                        colorStyle="accentSecondary"
+                      >
+                        {action.label}
+                      </Button>
+                    )}
                   </div>
                 )
               })}

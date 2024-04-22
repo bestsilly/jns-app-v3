@@ -2,9 +2,7 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button } from '@ensdomains/thorin'
-
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import type { useFusesStates } from '@app/hooks/fuses/useFusesStates'
 import type { useGetFusesSetDates } from '@app/hooks/fuses/useGetFusesSetDates'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
@@ -143,9 +141,9 @@ export const NameChangePermissions = ({
       )
 
     return (
-      <Button data-testid="button-revoke-permissions" onClick={handleRevokePermissions}>
+      <CustomButton data-testid="button-revoke-permissions" onClick={handleRevokePermissions}>
         {t('tabs.permissions.nameChangePermissions.action.changePermissions')}
-      </Button>
+      </CustomButton>
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [permissions, wrapperData, state, isUserOwner])
