@@ -18,7 +18,7 @@ export const randomSecret = () => {
   return `0x${platformSource}${version}${window.crypto.getRandomValues(bytes).toString('hex')}`
 }
 
-const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
+const CHAIN_ID = process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 3502 : 3501
 
 const defaultData: RegistrationReducerDataItem = {
   stepIndex: 0,
@@ -35,7 +35,7 @@ const defaultData: RegistrationReducerDataItem = {
   name: '',
   isMoonpayFlow: false,
   externalTransactionId: '',
-  chainId: isTestnet,
+  chainId: CHAIN_ID,
 }
 
 const isBrowser = !!(

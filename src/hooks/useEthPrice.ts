@@ -9,8 +9,8 @@ import { useEns } from '@app/utils/EnsProvider'
 import { useQueryKeys } from '@app/utils/cacheKeyFactory'
 import { CONTRACT_ADDRESSES } from '@app/utils/constants'
 
-const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
-const ORACLE_DUMMY = CONTRACT_ADDRESSES[isTestnet].dummyOracle
+const chainId = process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 3502 : 3501
+const ORACLE_DUMMY = CONTRACT_ADDRESSES[chainId].dummyOracle
 
 export const useEthPrice = () => {
   const provider = useProvider()

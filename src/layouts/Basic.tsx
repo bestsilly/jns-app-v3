@@ -70,7 +70,7 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
   const router = useRouter()
   const [error] = useErrorBoundary()
   const { getProfile } = useJoin()
-  const chainId = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
+  const chainId = process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 3502 : 3501
 
   useEffect(() => {
     // Do not initialise with uid and email without implementing identity verification first
@@ -79,16 +79,7 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
   }, [])
 
   useEffect(() => {
-    if (
-      currentChain &&
-      !(
-        // currentChain?.id === 1 ||
-        // currentChain?.id === 5 ||
-        // currentChain?.id === 11155111 ||
-        // currentChain?.id === 1337 ||
-        (currentChain?.id === 3501 || currentChain?.id === 3502)
-      )
-    ) {
+    if (currentChain && !(currentChain?.id === chainId)) {
       switchNetwork?.(chainId)
       router.push('/unsupportedNetwork')
     }
