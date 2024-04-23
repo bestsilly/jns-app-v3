@@ -144,15 +144,15 @@ export default function LandingSection2() {
   const handleCalculatePrice = useCallback(() => {
     if (!data) return
     const letter3 = BigNumber.from(data[2])
-      .div(10 ** 9)
+      .div(10 ** 10)
       .toNumber()
 
     const letter4 = BigNumber.from(data[3])
-      .div(10 ** 9)
+      .div(10 ** 10)
       .toNumber()
 
     const letter5 = BigNumber.from(data[4])
-      .div(10 ** 9)
+      .div(10 ** 10)
       .toNumber()
     setPrices(() => ({
       letter3,
