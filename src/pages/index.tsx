@@ -38,7 +38,6 @@ const StyledLeadingHeading = styled(LeadingHeading)(
 )
 
 export default function Page() {
-  console.log(process.env.NEXT_PUBLIC_IS_TESTNET === 'true')
   return (
     <>
       <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>

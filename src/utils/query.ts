@@ -28,6 +28,25 @@ const supportedChains = {
         http: ['https://rpc.jfinchain.com'],
       },
     },
+    blockExplorers: {
+      default: {
+        name: 'JFIN Scan',
+        url: 'https://jfinscan.com/',
+      },
+    },
+    contracts: {
+      ensRegistry: {
+        address: '0x75b8e9cA8991A390720488d80AA6789D048485E5',
+      },
+      ensUniversalResolver: {
+        address: '0x606ccc2fd102035d3844eCFb44277D6625404499',
+        blockCreated: 18431911,
+      },
+      multicall3: {
+        address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+        blockCreated: 13857465,
+      },
+    },
   } as Chain,
   jfintestnet: {
     id: 3502,
@@ -44,6 +63,19 @@ const supportedChains = {
       },
       public: {
         http: ['https://rpc.testnet.jfinchain.com'],
+      },
+    },
+    contracts: {
+      ensRegistry: {
+        address: '0x8Dd72c36Df956bC2220b09dAc908DdC8C62AeC2b',
+      },
+      ensUniversalResolver: {
+        address: '0x192624E2A70Ffbf9215F2Ea9909fBDD9d1bac720',
+        blockCreated: 18280526,
+      },
+      multicall3: {
+        address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+        blockCreated: 13854497,
       },
     },
   } as Chain,
