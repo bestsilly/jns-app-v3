@@ -113,8 +113,8 @@ if (process.env.NEXT_PUBLIC_PROVIDER) {
 const { provider, chains } = configureChains([supportedChains[CHAIN_NAME]], providerArray)
 
 const connectors = getDefaultWallets({
-  appName: process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 'Testnet' : 'Mainnet',
-  projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
+  appName: 'testjns',
+  projectId: '540723e8a2793c07905da6fda1b0aa31',
   chains,
 })
 

@@ -23,6 +23,9 @@ patchedDependencies:
   '@rainbow-me/rainbowkit@0.12.15':
     hash: ids4vnpwyenrujupancx6kn4ci
     path: patches/@rainbow-me__rainbowkit@0.12.15.patch
+  '@walletconnect/core@2.7.8':
+    hash: mr7w3nidprqzptcomo7ns5ioh4
+    path: patches/@walletconnect__core@2.7.8.patch
   next-dev-https@0.1.2:
     hash: q5l3x5627ujg3rak6l6v24c2cq
     path: patches/next-dev-https@0.1.2.patch
@@ -145,6 +148,9 @@ importers:
       '@wagmi/core':
         specifier: 0.10.11
         version: 0.10.11(ethers@5.7.2)(immer@9.0.15)(react@17.0.2)(typescript@4.9.5)
+      '@walletconnect/core':
+        specifier: 2.7.8
+        version: 2.7.8(patch_hash=mr7w3nidprqzptcomo7ns5ioh4)
       bad-words:
         specifier: ^3.0.4
         version: 3.0.4
@@ -6531,7 +6537,7 @@ packages:
       - zod
     dev: true
 
-  /@walletconnect/core@2.7.8:
+  /@walletconnect/core@2.7.8(patch_hash=mr7w3nidprqzptcomo7ns5ioh4):
     resolution: {integrity: sha512-Ptp1Jo9hv5mtrQMF/iC/RF/KHmYfO79DBLj77AV4PnJ5z6J0MRYepPKXKFEirOXR4OKCT5qCrPOiRtGvtNI+sg==}
     dependencies:
       '@walletconnect/heartbeat': 1.2.1
@@ -6555,6 +6561,7 @@ packages:
       - bufferutil
       - lokijs
       - utf-8-validate
+    patched: true
 
   /@walletconnect/crypto@1.0.3:
     resolution: {integrity: sha512-+2jdORD7XQs76I2Odgr3wwrtyuLUXD/kprNVsjWRhhhdO9Mt6WqVzOPu0/t7OHSmgal8k7SoBQzUc5hu/8zL/g==}
@@ -6763,7 +6770,7 @@ packages:
   /@walletconnect/sign-client@2.7.8:
     resolution: {integrity: sha512-na7VeXiOwM83w69s4kA5IeuL2SezwIbHfJsitmbtmsTLaX8Hnf7HwaJrNzrdhKpnEw8a+uG/xDTq+RYY50zf+A==}
     dependencies:
-      '@walletconnect/core': 2.7.8
+      '@walletconnect/core': 2.7.8(patch_hash=mr7w3nidprqzptcomo7ns5ioh4)
       '@walletconnect/events': 1.0.1
       '@walletconnect/heartbeat': 1.2.1
       '@walletconnect/jsonrpc-utils': 1.0.8
