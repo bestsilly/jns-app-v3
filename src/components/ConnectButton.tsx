@@ -95,7 +95,7 @@ const PersonOverlay = styled.div(
 
 const InstructionWrapper = styled.div(
   ({ theme }) => css`
-    width: 60vh;
+    width: 70vw;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -106,12 +106,11 @@ const InstructionWrapper = styled.div(
 
     transition: all 0.2s ease-out;
 
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-
     padding: 12px 24px 24px;
-    ${mq.xs.max(css`
-      width: 100%;
+    ${mq.sm.max(css`
+      width: 100vw;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     `)}
   `,
 )
