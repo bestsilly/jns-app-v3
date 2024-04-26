@@ -4,7 +4,16 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useDisconnect } from 'wagmi'
 
-import { CheckSVG, CogSVG, CopySVG, ExitSVG, PersonSVG, Profile, mq } from '@ensdomains/thorin'
+import {
+  CheckSVG,
+  CogSVG,
+  CopySVG,
+  ExitSVG,
+  Modal,
+  PersonSVG,
+  Profile,
+  mq,
+} from '@ensdomains/thorin'
 import { DropdownItem } from '@ensdomains/thorin/dist/types/components/molecules/Dropdown/Dropdown'
 
 import useHasPendingTransactions from '@app/hooks/transactions/useHasPendingTransactions'
@@ -16,6 +25,7 @@ import { useJoin } from '@app/hooks/useJoin'
 import { usePrimary } from '@app/hooks/usePrimary'
 import { useZorb } from '@app/hooks/useZorb'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
+import { isIOS } from '@app/utils/isIOS'
 import { shortenAddress } from '@app/utils/utils'
 
 import BaseLink from './@atoms/BaseLink'
@@ -83,12 +93,58 @@ const PersonOverlay = styled.div(
   `,
 )
 
+const InstructionWrapper = styled.div(
+  ({ theme }) => css`
+    width: 60vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+
+    border-radius: ${theme.radii['2xLarge']};
+    background-color: ${theme.colors.background};
+
+    transition: all 0.2s ease-out;
+
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    padding: 12px 24px 24px;
+    ${mq.xs.max(css`
+      width: 100%;
+    `)}
+  `,
+)
+
+const InstructionGifWrapper = styled.div`
+  min-height: 184px;
+`
+
+const InstructionGif = styled.img`
+  width: 100%;
+  margin-bottom: 8px;
+`
+
+const InstructionHeader = styled.p`
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+`
+
+const Instruction = styled.ul`
+  padding-left: 18px;
+`
+
+const ListItem = styled.li`
+  list-style: circle;
+`
+
 type Props = {
   isTabBar?: boolean
   large?: boolean
   inHeader?: boolean
 }
-
 const calculateTestId = (isTabBar: boolean | undefined, inHeader: boolean | undefined) => {
   if (isTabBar) {
     return 'tabbar-connect-button'
@@ -103,18 +159,53 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
   const { t } = useTranslation('common')
   const breakpoints = useBreakpoint()
   const { openConnectModal } = useConnectModal()
+  const [isIOSDeviceModalOpen, setIsIOSDeviceModalOpen] = useState(false)
+
+  const isIOSDevice = isIOS()
+
+  const onConnectButtonClicked = () => {
+    if (isIOSDevice) {
+      setIsIOSDeviceModalOpen(true)
+    } else {
+      openConnectModal?.()
+    }
+  }
 
   return (
     <StyledButtonWrapper $large={large} $isTabBar={isTabBar}>
       <JNSGradientButton
         data-testid={calculateTestId(isTabBar, inHeader)}
-        onClick={() => openConnectModal?.()}
+        onClick={onConnectButtonClicked}
         size={breakpoints.sm || large ? 'medium' : 'small'}
         width={inHeader ? '45' : undefined}
         shape="rounded"
       >
         {t('wallet.connect')}
       </JNSGradientButton>
+      <Modal open={isIOSDeviceModalOpen} onDismiss={() => setIsIOSDeviceModalOpen(false)}>
+        <InstructionWrapper>
+          <InstructionHeader>Connecting Metamask for iOS Users</InstructionHeader>
+          <InstructionGifWrapper>
+            <InstructionGif src="/other/walletConnectIosInstruction.gif" alt="ios device" />
+          </InstructionGifWrapper>
+          <Instruction style={{ whiteSpace: 'pre-line' }}>
+            <ListItem>Open our website on your computer.</ListItem>
+            <ListItem>Click on the &quot;Connect&quot; button.</ListItem>
+            <ListItem>Choose &quot;WalletConnect&quot; from the menu.</ListItem>
+            <ListItem>Use mobile phone to scan the QR Code.</ListItem>
+            <ListItem>You&apos;re all set to connect to Metamask</ListItem>
+          </Instruction>
+          <JNSGradientButton
+            onClick={() => setIsIOSDeviceModalOpen(false)}
+            size={breakpoints.sm || large ? 'medium' : 'small'}
+            width={inHeader ? '45' : undefined}
+            style={{ marginTop: 16 }}
+            shape="rounded"
+          >
+            Close
+          </JNSGradientButton>
+        </InstructionWrapper>
+      </Modal>
     </StyledButtonWrapper>
   )
 }
