@@ -32,6 +32,27 @@ import BaseLink from './@atoms/BaseLink'
 import { CustomButton } from './customs'
 import JNSGradientButton from './jns/button'
 
+const WC_STORAGE_KEYS = [
+  'wc@2:core:0.3//keychain',
+  'wc@2:core:0.3//messages',
+  'wc@2:ethereum_provider:/chainId',
+  'wc@2:client:0.3//proposal',
+  'wc@2:universal_provider:/namespaces',
+  'wc@2:core:0.3//subscription',
+  'wc@2:core:0.3//history',
+  'wc@2:client:0.3//session',
+  'wc@2:core:0.3//expirer',
+  'wc@2:core:0.3//pairing',
+  'wc@2:universal_provider:/optionalNamespaces',
+  '-walletlink:https://www.walletlink.org:session:linked',
+  'wagmi.connected',
+  'wagmi.wallet',
+  '-walletlink:https://www.walletlink.org:session:id',
+  '-walletlink:https://www.walletlink.org:session:secret',
+  '-walletlink:https://www.walletlink.org:version',
+  'sessionId',
+]
+
 const StyledButtonWrapper = styled.div<{ $isTabBar?: boolean; $large?: boolean }>(
   ({ theme, $isTabBar, $large }) => [
     $isTabBar
@@ -286,6 +307,17 @@ const HeaderProfile = ({ address }: { address: string }) => {
   const { copy, copied } = useCopied(300)
   const hasPendingTransactions = useHasPendingTransactions()
 
+  const removeWalletConnectStorage = () => {
+    WC_STORAGE_KEYS.forEach((key) => {
+      localStorage.removeItem(key)
+    })
+  }
+
+  const onClickDisconnect = () => {
+    removeWalletConnectStorage()
+    disconnect()
+  }
+
   return (
     <Profile
       style={{ color: '#fff !important' }}
@@ -330,7 +362,7 @@ const HeaderProfile = ({ address }: { address: string }) => {
           {
             label: t('wallet.disconnect'),
             color: 'red',
-            onClick: () => disconnect(),
+            onClick: onClickDisconnect,
             icon: <ExitSVG />,
           },
         ] as DropdownItem[]
