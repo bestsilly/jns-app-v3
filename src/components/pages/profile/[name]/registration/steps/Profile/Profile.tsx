@@ -10,7 +10,7 @@ import { Button, Dialog, PlusSVG, mq } from '@ensdomains/thorin'
 import { ConfirmationDialogView } from '@app/components/@molecules/ConfirmationDialogView/ConfirmationDialogView'
 import { AvatarClickType } from '@app/components/@molecules/ProfileEditor/Avatar/AvatarButton'
 import { AvatarViewManager } from '@app/components/@molecules/ProfileEditor/Avatar/AvatarViewManager'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import { ProfileRecord } from '@app/constants/profileRecordOptions'
 import { useContractAddress } from '@app/hooks/useContractAddress'
 import { useLocalStorage } from '@app/hooks/useLocalStorage'
@@ -102,9 +102,9 @@ const SubmitButton = ({
     : t('action.next', { ns: 'common' })
 
   return (
-    <Button type="submit" disabled={disabled} data-testid="profile-submit-button">
+    <CustomButton type="submit" disabled={disabled} data-testid="profile-submit-button">
       {message}
-    </Button>
+    </CustomButton>
   )
 }
 
@@ -331,14 +331,14 @@ const Profile = ({ nameDetails, callback, registrationData, resolverExists }: Pr
           ),
         )}
         <ButtonWrapper>
-          <Button
+          <CustomButton
             size="medium"
             onClick={handleShowAddRecordModal}
             data-testid="show-add-profile-records-modal-button"
             prefix={<PlusSVG />}
           >
             {t('steps.profile.addMore')}
-          </Button>
+          </CustomButton>
         </ButtonWrapper>
         <Divider />
         <Dialog.Footer

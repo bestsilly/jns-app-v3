@@ -7,6 +7,7 @@ import { Helper } from '@ensdomains/thorin'
 
 import { Outlink } from '@app/components/Outlink'
 import { ProfileSnippet } from '@app/components/ProfileSnippet'
+import { CustomTypography } from '@app/components/customs'
 import { ProfileDetails } from '@app/components/pages/profile/ProfileDetails'
 import { useAbilities } from '@app/hooks/abilities/useAbilities'
 import { useChainId } from '@app/hooks/useChainId'
@@ -97,13 +98,15 @@ const ProfileTab = ({ nameDetails, name }: Props) => {
       >
         {nameDetails.isNonASCII && (
           <Helper type="warning" alignment="horizontal">
-            <Trans
-              i18nKey="tabs.profile.warnings.homoglyph"
-              ns="profile"
-              components={{
-                a: <Outlink href={getSupportLink('homoglyphs')} />,
-              }}
-            />
+            <CustomTypography>
+              <Trans
+                i18nKey="tabs.profile.warnings.homoglyph"
+                ns="profile"
+                components={{
+                  a: <Outlink href={getSupportLink('homoglyphs')} />,
+                }}
+              />
+            </CustomTypography>
           </Helper>
         )}
         {isWrapped && !normalisedName.endsWith('.jfin') && (

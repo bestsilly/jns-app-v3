@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Button, Dialog } from '@ensdomains/thorin'
 
+import { CustomButton, CustomHeading } from '@app/components/customs'
+
 import { CenteredTypography } from '../components/CenteredTypography'
 import { ContentContainer } from '../components/ContentContainer'
 import { StyledInnerDialog } from '../components/StyledInnerDialog'
@@ -15,7 +17,11 @@ export const MigrateRegistryView = ({ name, onCancel }: Props) => {
   return (
     <>
       <Dialog.Heading
-        title={t('input.profileEditor.warningOverlay.migrateRegistry.title')}
+        title={
+          <CustomHeading>
+            {t('input.profileEditor.warningOverlay.migrateRegistry.title')}
+          </CustomHeading>
+        }
         alert="error"
       />
       <StyledInnerDialog>
@@ -36,14 +42,14 @@ export const MigrateRegistryView = ({ name, onCancel }: Props) => {
           </Button>
         }
         trailing={
-          <Button
+          <CustomButton
             as="a"
             href={`https://legacy.ens.domains/name/${name}`}
             target="_blank"
             data-testid="warning-overlay-next-button"
           >
             {t('input.profileEditor.warningOverlay.migrateRegistry.action')}
-          </Button>
+          </CustomButton>
         }
       />
     </>

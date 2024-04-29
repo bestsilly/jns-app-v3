@@ -8,7 +8,7 @@ import styled, { css } from 'styled-components'
 import { Button, FlameSVG, Helper, mq } from '@ensdomains/thorin'
 
 import { Spacer } from '@app/components/@atoms/Spacer'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import { AllChildFuses } from '@app/types'
 
 export const childFuseObj = Object.fromEntries(
@@ -245,14 +245,14 @@ const BurnFusesContent = ({
         <Button colorStyle="accentSecondary" onClick={onDismiss}>
           {tc('action.cancel')}
         </Button>
-        <Button
+        <CustomButton
           disabled={canContinue(_fuseData, fuseSelected, canUnsetFuse)}
           onClick={_onSubmit}
           color="red"
           data-testid="burn-form-continue"
         >
           {canUnsetFuse ? tc('action.confirm') : tc('action.burnSelected')}
-        </Button>
+        </CustomButton>
       </ButtonsContainer>
     </FusesContainer>
   )

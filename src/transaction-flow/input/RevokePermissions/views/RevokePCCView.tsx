@@ -2,9 +2,9 @@ import { UseFormRegister } from 'react-hook-form'
 import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { CheckboxRow, Dialog } from '@ensdomains/thorin'
+import { CheckboxRow } from '@ensdomains/thorin'
 
-import { CustomTypography } from '@app/components/customs'
+import { CustomDialogHeading, CustomHeading, CustomTypography } from '@app/components/customs'
 import { usePrimaryNameOrAddress } from '@app/hooks/reverseRecord/usePrimaryNameOrAddress'
 
 import type { FormData } from '../RevokePermissions-flow'
@@ -28,13 +28,17 @@ export const RevokePCCView = ({ managerAddr, register }: Props) => {
 
   return (
     <>
-      <Dialog.Heading title={t('input.revokePermissions.views.revokePCC.title')} />
+      <CustomDialogHeading
+        title={<CustomHeading>{t('input.revokePermissions.views.revokePCC.title')}</CustomHeading>}
+      />
       <CenterAlignedTypography fontVariant="body" color="text">
-        <Trans
-          i18nKey="input.revokePermissions.views.revokePCC.subtitle"
-          t={t}
-          values={{ account: nameOrAddr }}
-        />
+        <CustomTypography>
+          <Trans
+            i18nKey="input.revokePermissions.views.revokePCC.subtitle"
+            t={t}
+            values={{ account: nameOrAddr }}
+          />
+        </CustomTypography>
       </CenterAlignedTypography>
       <CheckboxRow
         data-testid="checkbox-pcc"

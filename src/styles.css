@@ -10,7 +10,7 @@ div[data-testid='profile-title'] {
   color: #f2f2f2;
 }
 
-div[data-testid='dropdown-menu'] button:hover:not(:last-child),
+div[data-testid='dropdown-menu'] button:hover,
 div[data-testid='dropdown-menu'] button:hover svg,
 div[data-testid='dropdown-menu'] a:hover svg,
 div[data-testid='dropdown-menu'] a:hover {
@@ -32,8 +32,8 @@ div[id^='popoverContainer'] a:hover * {
   color: #000 !important;
 }
 
-div[id='ProfileDetails'] a:hover,
-div[id='ProfileDetails'] button:hover {
+div[id='ProfileDetails'] > div > div:first-child a:hover,
+div[id='ProfileDetails'] > div > div:first-child button:hover {
   background: #f2f2f2 !important;
 }
 

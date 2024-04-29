@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Button, Dialog } from '@ensdomains/thorin'
 
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
+import { CustomButton, CustomDialogHeading, CustomHeading } from '@app/components/customs'
 import { useProfile } from '@app/hooks/useProfile'
 import TransactionLoader from '@app/transaction-flow/TransactionLoader'
 
@@ -70,15 +71,17 @@ const TransferProfile = ({ data, dispatch }: Props) => {
   )
 
   const footerTrailing = (
-    <Button onClick={handleTransfer} data-testid="transfer-profile-trailing-btn">
+    <CustomButton onClick={handleTransfer} data-testid="transfer-profile-trailing-btn">
       {t('action.transfer', { ns: 'common' })}
-    </Button>
+    </CustomButton>
   )
 
   if (loading) return <TransactionLoader />
   return (
     <>
-      <Dialog.Heading title={t('input.transferProfile.title')} />
+      <CustomDialogHeading
+        title={<CustomHeading>{t('input.transferProfile.title')}</CustomHeading>}
+      />
       <InnerDialog>
         <p>{t('input.transferProfile.message1')}</p>
         <p>

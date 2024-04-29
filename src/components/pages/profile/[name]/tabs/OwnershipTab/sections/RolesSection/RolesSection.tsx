@@ -6,6 +6,7 @@ import { Button, Card } from '@ensdomains/thorin'
 import { cacheableComponentStyles } from '@app/components/@atoms/CacheableComponent'
 import { PseudoActionButton } from '@app/components/@atoms/PseudoActionButton/PseudoActionButton'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
+import { CustomButton } from '@app/components/customs'
 import type { GroupedRoleRecord } from '@app/hooks/ownership/useRoles/useRoles'
 import type { useNameDetails } from '@app/hooks/useNameDetails'
 
@@ -83,15 +84,26 @@ export const RolesSection = ({ name, roles, details }: Props) => {
             )
           return (
             <div key={type}>
-              <Button
-                data-testid={`role-action-${type}`}
-                colorStyle={primary ? 'accentPrimary' : 'accentSecondary'}
-                prefix={icon}
-                disabled={disabled}
-                onClick={onClick}
-              >
-                {label}
-              </Button>
+              {primary ? (
+                <CustomButton
+                  data-testid={`role-action-${type}`}
+                  prefix={icon}
+                  disabled={disabled}
+                  onClick={onClick}
+                >
+                  {label}
+                </CustomButton>
+              ) : (
+                <Button
+                  data-testid={`role-action-${type}`}
+                  colorStyle="accentSecondary"
+                  prefix={icon}
+                  disabled={disabled}
+                  onClick={onClick}
+                >
+                  {label}
+                </Button>
+              )}
             </div>
           )
         })}

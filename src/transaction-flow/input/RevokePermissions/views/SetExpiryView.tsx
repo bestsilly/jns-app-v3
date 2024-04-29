@@ -9,9 +9,9 @@ import {
 import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Dialog, Input, RadioButton } from '@ensdomains/thorin'
+import { Input, RadioButton } from '@ensdomains/thorin'
 
-import { CustomTypography } from '@app/components/customs'
+import { CustomDialogHeading, CustomHeading, CustomTypography } from '@app/components/customs'
 import { dateTimeLocalToDate, dateToDateTimeLocal, stripDateMs } from '@app/utils/datetime-local'
 
 import type { FormData } from '../RevokePermissions-flow'
@@ -99,20 +99,26 @@ export const SetExpiryView = ({
 
   return (
     <>
-      <Dialog.Heading title={t('input.revokePermissions.views.setExpiry.title')} />
+      <CustomDialogHeading
+        title={<CustomHeading>{t('input.revokePermissions.views.setExpiry.title')}</CustomHeading>}
+      />
       <CenterAlignedTypography>
         {canExtendExpiry ? (
-          <Trans
-            t={t}
-            i18nKey="input.revokePermissions.views.setExpiry.subtitleWithCEE"
-            values={{ parent: parentName, expiry: expiryLabel }}
-          />
+          <CustomTypography>
+            <Trans
+              t={t}
+              i18nKey="input.revokePermissions.views.setExpiry.subtitleWithCEE"
+              values={{ parent: parentName, expiry: expiryLabel }}
+            />
+          </CustomTypography>
         ) : (
-          <Trans
-            t={t}
-            i18nKey="input.revokePermissions.views.setExpiry.subtitle"
-            values={{ parent: parentName, expiry: expiryLabel }}
-          />
+          <CustomTypography>
+            <Trans
+              t={t}
+              i18nKey="input.revokePermissions.views.setExpiry.subtitle"
+              values={{ parent: parentName, expiry: expiryLabel }}
+            />
+          </CustomTypography>
         )}
       </CenterAlignedTypography>
       <ExpiryOptionsContainer>

@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Button, Dialog } from '@ensdomains/thorin'
 
+import { CustomButton } from '@app/components/customs'
+
 import type { SelectedProfile } from '../ResolverWarningOverlay'
 import { CenteredTypography } from '../components/CenteredTypography'
 import { DetailedSwitch } from '../components/DetailedSwitch'
@@ -50,9 +52,9 @@ export const TransferOrResetProfileView = ({
           </Button>
         }
         trailing={
-          <Button onClick={onNext} data-testid="warning-overlay-next-button">
+          <CustomButton onClick={onNext} data-testid="warning-overlay-next-button">
             {t('action.next', { ns: 'common' })}
-          </Button>
+          </CustomButton>
         }
       />
     </>

@@ -2,6 +2,8 @@ import { ComponentProps, useEffect, useRef, useState } from 'react'
 
 import { Button } from '@ensdomains/thorin'
 
+import { CustomButton } from '@app/components/customs'
+
 type Props = { timeout?: number } & ComponentProps<typeof Button>
 
 export const PseudoActionButton = ({ loading, onClick, timeout = 3000, ...props }: Props) => {
@@ -15,8 +17,8 @@ export const PseudoActionButton = ({ loading, onClick, timeout = 3000, ...props 
   }, [])
 
   return (
-    <Button
-      {...props}
+    <CustomButton
+      {...(props as any)}
       loading={loading || pseudoLoading}
       onClick={(e) => {
         setPseudoLoading(true)

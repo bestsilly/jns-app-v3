@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Button, Dialog } from '@ensdomains/thorin'
 
+import { CustomButton } from '@app/components/customs'
+
 import { CenteredTypography } from '../components/CenteredTypography'
 import { ContentContainer } from '../components/ContentContainer'
 import { StyledInnerDialog } from '../components/StyledInnerDialog'
@@ -37,9 +39,9 @@ export const MigrateProfileWarningView = ({ onNext, onBack }: Props) => {
           </Button>
         }
         trailing={
-          <Button onClick={onNext} data-testid="warning-overlay-next-button">
+          <CustomButton onClick={onNext} data-testid="warning-overlay-next-button">
             {t('action.understand', { ns: 'common' })}
-          </Button>
+          </CustomButton>
         }
       />
     </>

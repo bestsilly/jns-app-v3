@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components'
 import { Button, Dialog, Field, ScrollBox } from '@ensdomains/thorin'
 
 import { AvatarWithIdentifier } from '@app/components/@molecules/AvatarWithIdentifier/AvatarWithIdentifier'
+import { CustomButton, CustomDialogHeading, CustomHeading } from '@app/components/customs'
 import { useExpiry } from '@app/hooks/useExpiry'
 import TransactionLoader from '@app/transaction-flow/TransactionLoader'
 
@@ -64,7 +65,9 @@ export const SummaryView = ({ name, canResetProfile, onNext, onBack }: Props) =>
   if (isLoading) return <TransactionLoader />
   return (
     <>
-      <Dialog.Heading title={t('input.sendName.views.summary.title')} />
+      <CustomDialogHeading
+        title={<CustomHeading>{t('input.sendName.views.summary.title')}</CustomHeading>}
+      />
       <StyledScrollBox>
         <Content>
           <Field label={t('input.sendName.views.summary.fields.name.label')}>
@@ -103,9 +106,9 @@ export const SummaryView = ({ name, canResetProfile, onNext, onBack }: Props) =>
           </Button>
         }
         trailing={
-          <Button data-testid="send-name-send-button" onClick={onNext}>
+          <CustomButton data-testid="send-name-send-button" onClick={onNext}>
             {t('action.send', { ns: 'common' })}
-          </Button>
+          </CustomButton>
         }
       />
     </>

@@ -131,27 +131,28 @@ export default function LandingSection2() {
     }
   }, [prices, originalPrices])
 
-  const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
+  const chainId = process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 3502 : 3501
+  const isTestnet = chainId === 3502
 
   const { data, isLoading, error } = useSWR<string[]>(
     isTestnet
-      ? 'https://jns-bridge.jfin.workers.dev/get-rent-prices'
-      : 'https://jns-bridge-testnet.jfin.workers.dev/get-rent-prices',
+      ? 'https://jns-bridge-testnet.jfin.workers.dev/get-rent-prices'
+      : 'https://jns-bridge.jfin.workers.dev/get-rent-prices',
     (url: string) => fetch(url, { method: 'GET' }).then((res) => res.json() as unknown as string[]),
   )
 
   const handleCalculatePrice = useCallback(() => {
     if (!data) return
     const letter3 = BigNumber.from(data[2])
-      .div(10 ** 9)
+      .div(10 ** 10)
       .toNumber()
 
     const letter4 = BigNumber.from(data[3])
-      .div(10 ** 9)
+      .div(10 ** 10)
       .toNumber()
 
     const letter5 = BigNumber.from(data[4])
-      .div(10 ** 9)
+      .div(10 ** 10)
       .toNumber()
     setPrices(() => ({
       letter3,

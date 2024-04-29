@@ -279,7 +279,7 @@ export const Content = ({
   )
 
   const InfoComponent = !loading && children.info && (
-    <WarningWrapper>{children.info}fewfwefwe</WarningWrapper>
+    <WarningWrapper>{children.info}</WarningWrapper>
   )
 
   let LeadingComponent: ReactNode = children.leading ? (

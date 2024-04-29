@@ -9,7 +9,7 @@ import CropBorderSVG from '@app/assets/CropBorder.svg'
 import CropFrameSVG from '@app/assets/CropFrame.svg'
 import MinusCircleSVG from '@app/assets/MinusCircle.svg'
 import PlusCircleSVG from '@app/assets/PlusCircle.svg'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomHeading, CustomTypography } from '@app/components/customs'
 import useDebouncedCallback from '@app/hooks/useDebouncedCallback'
 import { calcMomentum, getVars } from '@app/utils/avatarUpload'
 
@@ -396,7 +396,9 @@ export const CropComponent = ({
 
   return (
     <>
-      <Dialog.Heading title={t('input.profileEditor.tabs.avatar.image.title')} />
+      <Dialog.Heading
+        title={<CustomHeading>{t('input.profileEditor.tabs.avatar.image.title')}</CustomHeading>}
+      />
       <AvatarScrollBox>
         <EditImageContainer data-testid="edit-image-container">
           <ImageWrapper>
@@ -427,9 +429,9 @@ export const CropComponent = ({
       <Dialog.Footer
         leading={<AvCancelButton handleCancel={handleCancel} />}
         trailing={
-          <Button onClick={handleSubmit} data-testid="continue-button">
+          <CustomButton onClick={handleSubmit} data-testid="continue-button">
             {t('action.continue', { ns: 'common' })}
-          </Button>
+          </CustomButton>
         }
       />
     </>

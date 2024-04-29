@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, FastForwardSVG, mq } from '@ensdomains/thorin'
+import { FastForwardSVG, mq } from '@ensdomains/thorin'
 
+import { CustomButton } from '@app/components/customs'
 import { useAbilities } from '@app/hooks/abilities/useAbilities'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
 import { shouldShowExtendWarning } from '@app/utils/abilities/shouldShowExtendWarning'
@@ -40,7 +41,7 @@ export const ExtendButton = ({ name }: { name: string }) => {
 
   return (
     <ButtonContainer>
-      <Button
+      <CustomButton
         onClick={() => {
           showExtendNamesInput(`extend-names-${name}`, {
             names: [name],
@@ -50,7 +51,7 @@ export const ExtendButton = ({ name }: { name: string }) => {
         prefix={<FastForwardIcon as={FastForwardSVG} />}
       >
         {t('action.extend')}
-      </Button>
+      </CustomButton>
     </ButtonContainer>
   )
 }

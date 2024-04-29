@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useNetwork, useSwitchNetwork } from 'wagmi'
 
-import { Button, Helper, mq } from '@ensdomains/thorin'
+import { Helper, mq } from '@ensdomains/thorin'
+
+import { CustomButton } from '@app/components/customs'
 
 const Card = styled.div(
   ({ theme }) => css`
@@ -40,31 +42,25 @@ export default function Page() {
   const { t } = useTranslation()
   const router = useRouter()
 
-  const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
+  const chainId = process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 3502 : 3501
 
   useEffect(() => {
-    if (
-      // currentChain?.id === 1 ||
-      // currentChain?.id === 5 ||
-      // currentChain?.id === 11155111 ||
-      // currentChain?.id === 1337 ||
-      currentChain?.id === 3501 ||
-      currentChain?.id === 3502
-    ) {
+    console.log(currentChain?.id)
+    if (currentChain?.id === chainId) {
       router.push('/')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChain?.id])
 
   const handleChangeNetwork = () => {
-    switchNetwork?.(isTestnet)
+    switchNetwork?.(chainId)
   }
 
   return (
     <Container>
       <Card>
         <Helper type="error">{t('unsupportedNetwork')}</Helper>
-        <Button onClick={handleChangeNetwork}>{t('action.changeNetwork')}</Button>
+        <CustomButton onClick={handleChangeNetwork}>{t('action.changeNetwork')}</CustomButton>
       </Card>
     </Container>
   )

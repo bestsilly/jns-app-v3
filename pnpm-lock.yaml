@@ -23,6 +23,9 @@ patchedDependencies:
   '@rainbow-me/rainbowkit@0.12.15':
     hash: ids4vnpwyenrujupancx6kn4ci
     path: patches/@rainbow-me__rainbowkit@0.12.15.patch
+  '@walletconnect/core@2.7.8':
+    hash: mr7w3nidprqzptcomo7ns5ioh4
+    path: patches/@walletconnect__core@2.7.8.patch
   next-dev-https@0.1.2:
     hash: q5l3x5627ujg3rak6l6v24c2cq
     path: patches/next-dev-https@0.1.2.patch
@@ -145,6 +148,9 @@ importers:
       '@wagmi/core':
         specifier: 0.10.11
         version: 0.10.11(ethers@5.7.2)(immer@9.0.15)(react@17.0.2)(typescript@4.9.5)
+      '@walletconnect/core':
+        specifier: 2.7.8
+        version: 2.7.8(patch_hash=mr7w3nidprqzptcomo7ns5ioh4)
       bad-words:
         specifier: ^3.0.4
         version: 3.0.4
@@ -6179,7 +6185,7 @@ packages:
       css-what: 5.1.0
       cssesc: 3.0.0
       csstype: 3.1.1
-      deep-object-diff: 1.1.7
+      deep-object-diff: 1.1.9
       deepmerge: 4.2.2
       media-query-parser: 2.0.2
       outdent: 0.8.0
@@ -6531,7 +6537,7 @@ packages:
       - zod
     dev: true
 
-  /@walletconnect/core@2.7.8:
+  /@walletconnect/core@2.7.8(patch_hash=mr7w3nidprqzptcomo7ns5ioh4):
     resolution: {integrity: sha512-Ptp1Jo9hv5mtrQMF/iC/RF/KHmYfO79DBLj77AV4PnJ5z6J0MRYepPKXKFEirOXR4OKCT5qCrPOiRtGvtNI+sg==}
     dependencies:
       '@walletconnect/heartbeat': 1.2.1
@@ -6555,6 +6561,7 @@ packages:
       - bufferutil
       - lokijs
       - utf-8-validate
+    patched: true
 
   /@walletconnect/crypto@1.0.3:
     resolution: {integrity: sha512-+2jdORD7XQs76I2Odgr3wwrtyuLUXD/kprNVsjWRhhhdO9Mt6WqVzOPu0/t7OHSmgal8k7SoBQzUc5hu/8zL/g==}
@@ -6763,7 +6770,7 @@ packages:
   /@walletconnect/sign-client@2.7.8:
     resolution: {integrity: sha512-na7VeXiOwM83w69s4kA5IeuL2SezwIbHfJsitmbtmsTLaX8Hnf7HwaJrNzrdhKpnEw8a+uG/xDTq+RYY50zf+A==}
     dependencies:
-      '@walletconnect/core': 2.7.8
+      '@walletconnect/core': 2.7.8(patch_hash=mr7w3nidprqzptcomo7ns5ioh4)
       '@walletconnect/events': 1.0.1
       '@walletconnect/heartbeat': 1.2.1
       '@walletconnect/jsonrpc-utils': 1.0.8
@@ -9907,8 +9914,8 @@ packages:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: true
 
-  /deep-object-diff@1.1.7:
-    resolution: {integrity: sha512-QkgBca0mL08P6HiOjoqvmm6xOAl2W6CT2+34Ljhg0OeFan8cwlcdq8jrLKsBBuUFAZLsN5b6y491KdKEoSo9lg==}
+  /deep-object-diff@1.1.9:
+    resolution: {integrity: sha512-Rn+RuwkmkDwCi2/oXOFS9Gsr5lJZu/yTGpK7wAaAIE75CC+LCGEZHpY6VQJa/RoJcrmaA/docWJZvYohlNkWPA==}
     dev: false
 
   /deepmerge@4.2.2:
@@ -17721,8 +17728,8 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: true
 
-  /react-remove-scroll-bar@2.3.3(@types/react@17.0.30)(react@17.0.2):
-    resolution: {integrity: sha512-i9GMNWwpz8XpUpQ6QlevUtFjHGqnPG4Hxs+wlIJntu/xcsZVEpJcIV71K3ZkqNy2q3GfgvkD7y6t/Sv8ofYSbw==}
+  /react-remove-scroll-bar@2.3.6(@types/react@17.0.30)(react@17.0.2):
+    resolution: {integrity: sha512-DtSYaao4mBmX+HDo5YWYdBWQwYIQQshUV/dVxFxK+KM26Wjwp1gZ6rv6OC3oujI6Bfu6Xyg3TwK533AQutsn/g==}
     engines: {node: '>=10'}
     peerDependencies:
       '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -17749,7 +17756,7 @@ packages:
     dependencies:
       '@types/react': 17.0.30
       react: 17.0.2
-      react-remove-scroll-bar: 2.3.3(@types/react@17.0.30)(react@17.0.2)
+      react-remove-scroll-bar: 2.3.6(@types/react@17.0.30)(react@17.0.2)
       react-style-singleton: 2.2.1(@types/react@17.0.30)(react@17.0.2)
       tslib: 2.4.1
       use-callback-ref: 1.3.0(@types/react@17.0.30)(react@17.0.2)

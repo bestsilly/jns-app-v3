@@ -154,7 +154,9 @@ export const OtherProfileButton = ({
             </OtherContainerAddressPrefix>
           </OtherContainer>
         ) : (
-          <OtherContainerTextPrefix color="grey">{iconKey}</OtherContainerTextPrefix>
+          <OtherContainerTextPrefix>
+            <CustomTypography style={{ color: '#00000095' }}>{iconKey}</CustomTypography>
+          </OtherContainerTextPrefix>
         )
       }
       data-testid={`other-profile-button-${iconKey}`}

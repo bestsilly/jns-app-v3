@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components'
 
 import { Button } from '@ensdomains/thorin'
 
+import { CustomButton } from '@app/components/customs'
+
 const Container = styled.div(
   ({ theme }) => css`
     display: flex;
@@ -17,14 +19,20 @@ export const Footer = ({ buttons }: { buttons: any[] }) => {
     <Container>
       {buttons.map((button) => (
         <div>
-          <Button
-            key={button.label}
-            colorStyle={button.primary ? 'accentPrimary' : 'accentSecondary'}
-            prefix={button.prefix}
-            onClick={button.onClick}
-          >
-            {button.label}
-          </Button>
+          {button.primary ? (
+            <CustomButton key={button.label} prefix={button.prefix} onClick={button.onClick}>
+              {button.label}
+            </CustomButton>
+          ) : (
+            <Button
+              key={button.label}
+              colorStyle="accentSecondary"
+              prefix={button.prefix}
+              onClick={button.onClick}
+            >
+              {button.label}
+            </Button>
+          )}
         </div>
       ))}
     </Container>

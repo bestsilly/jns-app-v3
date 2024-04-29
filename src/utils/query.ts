@@ -6,48 +6,82 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
 import { makePersistent } from '@app/utils/persist'
 
-import { WC_PROJECT_ID } from './constants'
 import { getDefaultWallets } from './getDefaultWallets'
 
-const jfin: Chain = {
-  id: 3501,
-  name: 'jfin',
-  nativeCurrency: {
-    name: 'JFIN',
-    symbol: 'JFIN',
-    decimals: 18,
-  },
-  network: 'JFIN',
-  rpcUrls: {
-    default: {
-      http: ['https://rpc.jfinchain.com'],
+const CHAIN_NAME = process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 'jfintestnet' : 'jfin'
+
+const supportedChains = {
+  jfin: {
+    id: 3501,
+    name: 'jfin',
+    nativeCurrency: {
+      name: 'JFIN',
+      symbol: 'JFIN',
+      decimals: 18,
     },
-    public: {
-      http: ['https://rpc.jfinchain.com'],
+    network: 'JFIN',
+    rpcUrls: {
+      default: {
+        http: ['https://rpc.jfinchain.com'],
+      },
+      public: {
+        http: ['https://rpc.jfinchain.com'],
+      },
     },
-  },
+    blockExplorers: {
+      default: {
+        name: 'JFIN Scan',
+        url: 'https://jfinscan.com/',
+      },
+    },
+    contracts: {
+      ensRegistry: {
+        address: '0x75b8e9cA8991A390720488d80AA6789D048485E5',
+      },
+      ensUniversalResolver: {
+        address: '0x606ccc2fd102035d3844eCFb44277D6625404499',
+        blockCreated: 18431911,
+      },
+      multicall3: {
+        address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+        blockCreated: 13857465,
+      },
+    },
+  } as Chain,
+  jfintestnet: {
+    id: 3502,
+    name: 'jfintestnet',
+    nativeCurrency: {
+      name: 'JFIN',
+      symbol: 'JFIN',
+      decimals: 18,
+    },
+    network: 'JFINTestnet',
+    rpcUrls: {
+      default: {
+        http: ['https://rpc.testnet.jfinchain.com'],
+      },
+      public: {
+        http: ['https://rpc.testnet.jfinchain.com'],
+      },
+    },
+    contracts: {
+      ensRegistry: {
+        address: '0x8Dd72c36Df956bC2220b09dAc908DdC8C62AeC2b',
+      },
+      ensUniversalResolver: {
+        address: '0x192624E2A70Ffbf9215F2Ea9909fBDD9d1bac720',
+        blockCreated: 18280526,
+      },
+      multicall3: {
+        address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+        blockCreated: 13854497,
+      },
+    },
+  } as Chain,
 }
 
-const jfintestnet: Chain = {
-  id: 3502,
-  name: 'jfintestnet',
-  nativeCurrency: {
-    name: 'JFIN',
-    symbol: 'JFIN',
-    decimals: 18,
-  },
-  network: 'JFINTestnet',
-  rpcUrls: {
-    default: {
-      http: ['https://rpc.testnet.jfinchain.com'],
-    },
-    public: {
-      http: ['https://rpc.testnet.jfinchain.com'],
-    },
-  },
-}
-
-const providerArray: ChainProviderFn<typeof jfintestnet>[] = []
+const providerArray: ChainProviderFn<Chain>[] = []
 
 if (process.env.NEXT_PUBLIC_PROVIDER) {
   // for local testing
@@ -76,11 +110,11 @@ if (process.env.NEXT_PUBLIC_PROVIDER) {
   )
 }
 
-const { provider, chains } = configureChains([jfin, jfintestnet], providerArray)
+const { provider, chains } = configureChains([supportedChains[CHAIN_NAME]], providerArray)
 
 const connectors = getDefaultWallets({
-  appName: 'JNS',
-  projectId: WC_PROJECT_ID,
+  appName: process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 'JNS Testnet' : 'JNS Mainnet',
+  projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!,
   chains,
 })
 

@@ -10,7 +10,7 @@ import { Button, Dialog, Heading, Input, mq } from '@ensdomains/thorin'
 import MagnifyingGlassSVG from '@app/assets/MagnifyingGlass.svg'
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
 import { ScrollBoxWithSpinner, SpinnerRow } from '@app/components/@molecules/ScrollBoxWithSpinner'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomHeading, CustomTypography } from '@app/components/customs'
 import { useChainName } from '@app/hooks/useChainName'
 
 type OwnedNFT = {
@@ -226,8 +226,14 @@ export const AvatarNFT = ({
     return (
       <>
         <Dialog.Heading
-          title={t('input.profileEditor.tabs.avatar.nft.selected.title')}
-          subtitle={t('input.profileEditor.tabs.avatar.nft.selected.subtitle')}
+          title={
+            <CustomHeading>{t('input.profileEditor.tabs.avatar.nft.selected.title')}</CustomHeading>
+          }
+          subtitle={
+            <CustomTypography>
+              {t('input.profileEditor.tabs.avatar.nft.selected.subtitle')}
+            </CustomTypography>
+          }
         />
         <SelectedNFTContainer>
           <SelectedNFTImageWrapper>
@@ -245,7 +251,9 @@ export const AvatarNFT = ({
             </Button>
           }
           trailing={
-            <Button onClick={handleConfirm}>{t('action.confirm', { ns: 'common' })}</Button>
+            <CustomButton onClick={handleConfirm}>
+              {t('action.confirm', { ns: 'common' })}
+            </CustomButton>
           }
         />
       </>
@@ -257,7 +265,7 @@ export const AvatarNFT = ({
   if (isLoading) {
     innerContent = (
       <LoadingContainer>
-        <div>{t('input.profileEditor.tabs.avatar.nft.loading')}</div>
+        <CustomHeading>{t('input.profileEditor.tabs.avatar.nft.loading')}</CustomHeading>
         <SpinnerRow />
       </LoadingContainer>
     )

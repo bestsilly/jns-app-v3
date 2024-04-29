@@ -7,7 +7,7 @@ import { Helper, mq } from '@ensdomains/thorin'
 import { cacheableComponentStyles } from '@app/components/@atoms/CacheableComponent'
 import { Spacer } from '@app/components/@atoms/Spacer'
 import { TrafficLight } from '@app/components/TrafficLight'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
 
 import { TabWrapper } from '../../../TabWrapper'
@@ -103,14 +103,14 @@ const Fuses = ({
         <HeadingContainer>
           <Heading>{t('tabs.more.fuses.permissions.label')}</Heading>
           {canEdit && (
-            <button
+            <CustomButton
               style={{ cursor: 'pointer' }}
               data-testid="edit-fuses-button"
               type="button"
               onClick={handleEditClick}
             >
               {t('action.edit', { ns: 'common' })}
-            </button>
+            </CustomButton>
           )}
         </HeadingContainer>
         <div>

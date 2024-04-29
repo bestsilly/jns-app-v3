@@ -6,7 +6,7 @@ import { Button, Spinner, mq } from '@ensdomains/thorin'
 
 import { Card } from '@app/components/Card'
 import { Outlink } from '@app/components/Outlink'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import { useClearRecentTransactions } from '@app/hooks/transactions/useClearRecentTransactions'
 import { useRecentTransactions } from '@app/hooks/transactions/useRecentTransactions'
 import { useChainName } from '@app/hooks/useChainName'
@@ -231,9 +231,9 @@ export const TransactionSection = () => {
                       </InfoContainer>
                       {resumable && (
                         <ContinueContainer>
-                          <Button size="small" onClick={() => resumeTransactionFlow(key)}>
+                          <CustomButton size="small" onClick={() => resumeTransactionFlow(key)}>
                             {t('action.continue', { ns: 'common' })}
-                          </Button>
+                          </CustomButton>
                         </ContinueContainer>
                       )}
                     </TransactionContainer>

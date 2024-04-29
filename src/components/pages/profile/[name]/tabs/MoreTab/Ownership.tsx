@@ -10,7 +10,7 @@ import { BaseLinkWithHistory } from '@app/components/@atoms/BaseLink'
 import { cacheableComponentStyles } from '@app/components/@atoms/CacheableComponent'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
 import { AvatarWithZorb } from '@app/components/AvatarWithZorb'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import { useChainId } from '@app/hooks/useChainId'
 import useDNSProof from '@app/hooks/useDNSProof'
 import useOwners from '@app/hooks/useOwners'
@@ -248,9 +248,14 @@ const DNSOwnerSection = ({
           {t('tabs.more.ownership.refreshDNS')}
         </Button>
         {!canSend && (
-          <Button width="auto" onClick={handleSyncManager} loading={isLoading} disabled={!data}>
+          <CustomButton
+            width="auto"
+            onClick={handleSyncManager}
+            loading={isLoading}
+            disabled={!data}
+          >
             {t('tabs.more.ownership.dnsOwnerWarning.syncManager')}
-          </Button>
+          </CustomButton>
         )}
       </ButtonsContainer>
     </DNSOwnerSectionContainer>
@@ -290,14 +295,14 @@ const Ownership = ({
         </CustomTypography>
         <div>
           {canSend && (
-            <Button
+            <CustomButton
               size="small"
               prefix={<AeroplaneIcon as={AeroplaneSVG} />}
               onClick={handleSend}
               data-testid="send-name-button"
             >
               {t('action.send', { ns: 'common' })}
-            </Button>
+            </CustomButton>
           )}
           {!canSend && canSendError && (
             <DisabledButtonWithTooltip

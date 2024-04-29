@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components'
 import { Button, Dialog, Input } from '@ensdomains/thorin'
 
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
+import { CustomButton, CustomDialogHeading, CustomHeading } from '@app/components/customs'
 import useDebouncedCallback from '@app/hooks/useDebouncedCallback'
 
 import { useValidateSubnameLabel } from '../../hooks/useValidateSubnameLabel'
@@ -67,7 +68,9 @@ const CreateSubname = ({ data: { parent, isWrapped }, dispatch, onDismiss }: Pro
 
   return (
     <>
-      <Dialog.Heading title={t('details.tabs.subnames.addSubname.dialog.title')} />
+      <CustomDialogHeading
+        title={<CustomHeading>{t('details.tabs.subnames.addSubname.dialog.title')}</CustomHeading>}
+      />
       <InnerDialog>
         <Input
           data-testid="add-subname-input"
@@ -98,13 +101,13 @@ const CreateSubname = ({ data: { parent, isWrapped }, dispatch, onDismiss }: Pro
           </Button>
         }
         trailing={
-          <Button
+          <CustomButton
             data-testid="create-subname-next"
             onClick={handleSubmit}
             disabled={!valid || isLoading}
           >
             {t('action.next', { ns: 'common' })}
-          </Button>
+          </CustomButton>
         }
       />
     </>

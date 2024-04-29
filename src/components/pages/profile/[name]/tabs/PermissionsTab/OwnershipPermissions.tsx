@@ -2,10 +2,8 @@ import { useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button } from '@ensdomains/thorin'
-
 import { StyledLink } from '@app/components/@atoms/StyledLink'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import type { useFusesStates } from '@app/hooks/fuses/useFusesStates'
 import type { useGetFusesSetDates } from '@app/hooks/fuses/useGetFusesSetDates'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
@@ -229,7 +227,7 @@ export const OwnershipPermissions = ({
         <SectionFooter>
           <ButtonRow>
             <div>
-              <Button {...buttonProps} />
+              <CustomButton {...buttonProps} />
             </div>
           </ButtonRow>
         </SectionFooter>

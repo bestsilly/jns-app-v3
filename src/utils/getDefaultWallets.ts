@@ -37,7 +37,7 @@ export const getDefaultWallets = ({
           downloadUrls: {},
         },
         // always shown
-        walletConnectWallet({ chains, projectId }),
+        walletConnectWallet({ chains, projectId, version: '2' }),
         rainbowWallet({ chains, projectId }),
         coinbaseWallet({ appName, chains }),
         metaMaskWallet({ chains, projectId }),

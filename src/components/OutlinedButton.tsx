@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 import { Button } from '@ensdomains/thorin'
 
 import { DisabledButton } from './@atoms/DisabledButton'
+import { CustomButton } from './customs'
 
 const OutlinedButtonWrapper = styled.div(
   ({ theme }) => css`
@@ -21,6 +22,6 @@ export const OutlinedButton = ({
   ...props
 }: ComponentProps<typeof Button> & { className?: string }) => (
   <OutlinedButtonWrapper className={className}>
-    {disabled ? <DisabledButton {...(props as any)} /> : <Button {...props} />}
+    {disabled ? <DisabledButton {...(props as any)} /> : <CustomButton {...(props as any)} />}
   </OutlinedButtonWrapper>
 )

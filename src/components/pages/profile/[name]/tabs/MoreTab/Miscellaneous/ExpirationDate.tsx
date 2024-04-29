@@ -4,7 +4,7 @@ import type { TFunction } from 'react-i18next'
 
 import { CalendarSVG, Dropdown } from '@ensdomains/thorin'
 
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import { formatDateTime, formatExpiry } from '@app/utils/utils'
 
 import { DateLayout } from './components/DateLayout'
@@ -77,10 +77,10 @@ export const ExpirationDate = ({
         })),
       ]}
     >
-      <button id="remind-me-button" type="button">
+      <CustomButton id="remind-me-button" type="button">
         {t('action.remindMe')}
         <CalendarSVG />
-      </button>
+      </CustomButton>
     </Dropdown>
   </DateLayout>
 )

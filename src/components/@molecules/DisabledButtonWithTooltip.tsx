@@ -6,6 +6,8 @@ import { ReactNodeNoStrings } from '@ensdomains/thorin/dist/types/types/index'
 
 import { useTooltipSeenManager } from '@app/hooks/useTooltipSeenManager'
 
+import { CustomButton } from '../customs'
+
 type Placement = NonNullable<ComponentProps<typeof Tooltip>['placement']>
 type Size = ComponentProps<typeof Button>['size']
 
@@ -49,7 +51,7 @@ export const DisabledButtonWithTooltip = ({
           mobileWidth,
         }}
       >
-        <Button
+        <CustomButton
           id={buttonId}
           size={size}
           shouldShowTooltipIndicator={shouldShowTooltipIndicator}
@@ -59,7 +61,7 @@ export const DisabledButtonWithTooltip = ({
           width={buttonWidth}
         >
           {buttonText}
-        </Button>
+        </CustomButton>
       </Tooltip>
     </>
   )

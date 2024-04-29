@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { P, match } from 'ts-pattern'
 
+import { CustomTypography } from '@app/components/customs'
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import type { useNameDetails } from '@app/hooks/useNameDetails'
 import type { useNameType } from '@app/hooks/useNameType'
@@ -83,11 +84,13 @@ export const useOwnershipWarning = ({ name, nameType, details }: Input) => {
           },
         ],
         () => (
-          <Trans
-            t={t}
-            i18nKey="tabs.ownership.warning.managerNotParentOwner"
-            values={{ parent: parentName(name) }}
-          />
+          <CustomTypography>
+            <Trans
+              t={t}
+              i18nKey="tabs.ownership.warning.managerNotParentOwner"
+              values={{ parent: parentName(name) }}
+            />
+          </CustomTypography>
         ),
       )
       .otherwise(() => undefined)

@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useMutation, useQueryClient, useSignTypedData } from 'wagmi'
 
-import { Button, Dialog, mq } from '@ensdomains/thorin'
+import { Dialog, mq } from '@ensdomains/thorin'
 
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomHeading, CustomTypography } from '@app/components/customs'
 import { useChainName } from '@app/hooks/useChainName'
 
 import { useQueryKeys } from '../../../../utils/cacheKeyFactory'
@@ -109,7 +109,9 @@ const UploadComponent = ({
   return (
     <>
       <Dialog.Heading
-        title={t('input.profileEditor.tabs.avatar.image.upload.title')}
+        title={
+          <CustomHeading>{t('input.profileEditor.tabs.avatar.image.upload.title')}</CustomHeading>
+        }
         subtitle={
           <CustomTypography>
             {t('input.profileEditor.tabs.avatar.image.upload.subtitle')}
@@ -122,9 +124,13 @@ const UploadComponent = ({
       <Dialog.Footer
         leading={<AvCancelButton handleCancel={handleCancel} />}
         trailing={
-          <Button disabled={isLoading} onClick={() => signAndUpload()} data-testid="upload-button">
+          <CustomButton
+            disabled={isLoading}
+            onClick={() => signAndUpload()}
+            data-testid="upload-button"
+          >
             {t('input.profileEditor.tabs.avatar.image.upload.action')}
-          </Button>
+          </CustomButton>
         }
       />
     </>

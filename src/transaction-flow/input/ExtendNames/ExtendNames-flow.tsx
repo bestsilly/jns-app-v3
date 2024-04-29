@@ -11,7 +11,7 @@ import { Invoice, InvoiceItem } from '@app/components/@atoms/Invoice/Invoice'
 import { PlusMinusControl } from '@app/components/@atoms/PlusMinusControl/PlusMinusControl'
 import { RegistrationTimeComparisonBanner } from '@app/components/@atoms/RegistrationTimeComparisonBanner/RegistrationTimeComparisonBanner'
 import { StyledName } from '@app/components/@atoms/StyledName/StyledName'
-import { CustomDialogHeading } from '@app/components/customs'
+import { CustomButton, CustomDialogHeading, CustomHeading } from '@app/components/customs'
 import gasLimitDictionary from '@app/constants/gasLimits'
 import { useAvatar } from '@app/hooks/useAvatar'
 import { useEstimateGasLimitForTransactions } from '@app/hooks/useEstimateGasLimitForTransactions'
@@ -263,7 +263,7 @@ const ExtendNames = ({ data: { names, isSelf }, dispatch, onDismiss }: Props) =>
 
   return (
     <Container data-testid="extend-names-modal">
-      <CustomDialogHeading title={title} />
+      <CustomDialogHeading title={<CustomHeading>{title}</CustomHeading>} />
       <ScrollBoxWrapper>
         <InnerContainer>
           {view === 'name-list' ? (
@@ -308,7 +308,7 @@ const ExtendNames = ({ data: { names, isSelf }, dispatch, onDismiss }: Props) =>
           </Button>
         }
         trailing={
-          <Button
+          <CustomButton
             {...trailingButtonProps}
             data-testid="extend-names-confirm"
             disabled={isEstimateGasLoading}

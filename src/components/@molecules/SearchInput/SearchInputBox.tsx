@@ -149,6 +149,7 @@ export const FakeSearchInputBox = forwardRef(
           parentStyles={StyledInputParent(size)}
           spellCheck="false"
           data-testid="search-input-box-fake"
+          autoCapitalize="off"
         />
       </SearchInputWrapper>
     )

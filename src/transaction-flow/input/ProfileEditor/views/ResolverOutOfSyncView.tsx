@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Button, Dialog } from '@ensdomains/thorin'
 
 import { Outlink } from '@app/components/Outlink'
+import { CustomButton } from '@app/components/customs'
 import { getSupportLink } from '@app/utils/supportLinks'
 
 import { CenteredTypography } from '../components/CenteredTypography'
@@ -50,9 +51,9 @@ export const ResolverOutOfSyncView = ({ onNext, onCancel, onSkip }: Props) => {
           </Button>
         }
         trailing={
-          <Button onClick={onNext} data-testid="warning-overlay-next-button">
+          <CustomButton onClick={onNext} data-testid="warning-overlay-next-button">
             {t('input.profileEditor.warningOverlay.action.updateResolver')}
-          </Button>
+          </CustomButton>
         }
       />
     </>

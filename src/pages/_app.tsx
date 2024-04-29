@@ -31,7 +31,7 @@ const thorinGlobalTheme: typeof thorinDarkTheme = merge(thorinDarkTheme, {
   colors: {
     accentPrimary: '#5647ff',
     accentSecondary: '#5647ff',
-    accentActive: '#2015bd',
+    accentActive: '#362dba',
     accentBright: '#4336e3',
     accent: '#5647ff',
     accentLight: '#564aff',

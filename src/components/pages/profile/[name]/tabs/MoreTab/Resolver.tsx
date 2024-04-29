@@ -6,7 +6,7 @@ import { mq } from '@ensdomains/thorin'
 import { cacheableComponentStyles } from '@app/components/@atoms/CacheableComponent'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
 import RecordItem from '@app/components/RecordItem'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import { useHasGlobalError } from '@app/hooks/errors/useHasGlobalError'
 import { useTransactionFlow } from '@app/transaction-flow/TransactionFlowProvider'
 
@@ -97,14 +97,14 @@ const Resolver = ({
         {canEdit && !hasGlobalError && (
           <>
             {canEditResolver ? (
-              <button
+              <CustomButton
                 style={{ cursor: 'pointer' }}
                 type="button"
                 onClick={handleEditClick}
                 data-testid="edit-resolver-button"
               >
                 {t('action.edit', { ns: 'common' })}
-              </button>
+              </CustomButton>
             ) : (
               <DisabledButtonWithTooltip
                 {...{

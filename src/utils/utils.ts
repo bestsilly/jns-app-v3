@@ -12,11 +12,11 @@ import {
 export const getSupportedNetworkName = (networkId: number) =>
   networkName[`${networkId}` as keyof typeof networkName] || 'unknown'
 
-const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET ? 3502 : 3501
-const baseMetadataURL =
-  isTestnet === 3502
-    ? 'https://jns-metadata.testnet.jfinchain.com'
-    : 'https://jns-metadata.jfinchain.com'
+const CHAIN_ID = process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 3502 : 3501
+const isTestnet = CHAIN_ID === 3502
+const baseMetadataURL = isTestnet
+  ? 'https://jns-metadata.testnet.jfinchain.com'
+  : 'https://jns-metadata.jfinchain.com'
 
 // eslint-disable-next-line consistent-return
 export function imageUrlUnknownRecord(name: string, network: number) {
@@ -69,7 +69,9 @@ export const formatFullExpiry = (expiryDate?: Date) =>
   expiryDate ? `${formatExpiry(expiryDate)}, ${formatDateTime(expiryDate)}` : ''
 
 export const makeEtherscanLink = (data: string, network?: string, route: string = 'tx') =>
-  `https://${network === 'jfin' ? '' : 'testnet.'}jfinscan.com/${route}/${data}`
+  isTestnet
+    ? `https://testnet.jfinscan.com/${route}/${data}`
+    : `https://jfinscan.com/${route}/${data}`
 
 export const isBrowser = !!(
   typeof window !== 'undefined' &&
@@ -140,8 +142,8 @@ export const validateExpiry = (
 
 export const canEditRecordsWhenWrappedCalc = (
   isWrapped: boolean,
-  resolverAddress: string = RESOLVER_ADDRESSES[isTestnet]?.[0],
-  chainId: number = isTestnet,
+  resolverAddress: string = RESOLVER_ADDRESSES[CHAIN_ID]?.[0],
+  chainId: number = CHAIN_ID,
 ) => {
   if (!isWrapped) return true
   return NAMEWRAPPER_AWARE_RESOLVERS[chainId]?.includes(resolverAddress)

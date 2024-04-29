@@ -6,6 +6,7 @@ import { P, match } from 'ts-pattern'
 
 import { Button, Dialog, Input, MagnifyingGlassSimpleSVG, mq } from '@ensdomains/thorin'
 
+import { CustomDialogHeading, CustomHeading } from '@app/components/customs'
 import { useSimpleSearch } from '@app/transaction-flow/input/EditRoles/hooks/useSimpleSearch'
 
 import type { SendNameForm } from '../../SendName-flow'
@@ -74,7 +75,7 @@ export const SearchView = ({ name, senderRole, onCancel, onSelect }: Props) => {
 
   return (
     <>
-      <Dialog.Heading title="Send Name" />
+      <CustomDialogHeading title={<CustomHeading>Send Name</CustomHeading>} />
       <Content>
         <Input
           data-testid="send-name-search-input"

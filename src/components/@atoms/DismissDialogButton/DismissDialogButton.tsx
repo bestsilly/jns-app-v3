@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components'
 
 import { CrossSVG } from '@ensdomains/thorin'
 
+import { CustomButton } from '@app/components/customs'
+
 const IconWrapper = styled.div(
   ({ theme }) => css`
     width: ${theme.space['9']};
@@ -30,11 +32,11 @@ const IconWrapper = styled.div(
 type Props = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'>
 const DismissDialogButton = (props: Props) => {
   return (
-    <button type="button" {...props}>
+    <CustomButton type="button" {...(props as any)}>
       <IconWrapper>
         <CrossSVG />
       </IconWrapper>
-    </button>
+    </CustomButton>
   )
 }
 

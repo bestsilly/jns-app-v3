@@ -5,11 +5,11 @@ import styled, { css } from 'styled-components'
 import { useDisconnect } from 'wagmi'
 
 import {
-  Button,
   CheckSVG,
   CogSVG,
   CopySVG,
   ExitSVG,
+  Modal,
   PersonSVG,
   Profile,
   mq,
@@ -25,10 +25,33 @@ import { useJoin } from '@app/hooks/useJoin'
 import { usePrimary } from '@app/hooks/usePrimary'
 import { useZorb } from '@app/hooks/useZorb'
 import { useBreakpoint } from '@app/utils/BreakpointProvider'
+import { isIOS } from '@app/utils/isIOS'
 import { shortenAddress } from '@app/utils/utils'
 
 import BaseLink from './@atoms/BaseLink'
+import { CustomButton } from './customs'
 import JNSGradientButton from './jns/button'
+
+const WC_STORAGE_KEYS = [
+  'wc@2:core:0.3//keychain',
+  'wc@2:core:0.3//messages',
+  'wc@2:ethereum_provider:/chainId',
+  'wc@2:client:0.3//proposal',
+  'wc@2:universal_provider:/namespaces',
+  'wc@2:core:0.3//subscription',
+  'wc@2:core:0.3//history',
+  'wc@2:client:0.3//session',
+  'wc@2:core:0.3//expirer',
+  'wc@2:core:0.3//pairing',
+  'wc@2:universal_provider:/optionalNamespaces',
+  '-walletlink:https://www.walletlink.org:session:linked',
+  'wagmi.connected',
+  'wagmi.wallet',
+  '-walletlink:https://www.walletlink.org:session:id',
+  '-walletlink:https://www.walletlink.org:session:secret',
+  '-walletlink:https://www.walletlink.org:version',
+  'sessionId',
+]
 
 const StyledButtonWrapper = styled.div<{ $isTabBar?: boolean; $large?: boolean }>(
   ({ theme, $isTabBar, $large }) => [
@@ -91,12 +114,57 @@ const PersonOverlay = styled.div(
   `,
 )
 
+const InstructionWrapper = styled.div(
+  ({ theme }) => css`
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+
+    border-radius: ${theme.radii['2xLarge']};
+    background-color: ${theme.colors.background};
+
+    transition: all 0.2s ease-out;
+
+    padding: 12px 24px 24px;
+    ${mq.sm.max(css`
+      width: 100vw;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    `)}
+  `,
+)
+
+const InstructionGifWrapper = styled.div`
+  min-height: 184px;
+`
+
+const InstructionGif = styled.img`
+  width: 100%;
+  margin-bottom: 8px;
+`
+
+const InstructionHeader = styled.p`
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+`
+
+const Instruction = styled.ul`
+  padding-left: 18px;
+`
+
+const ListItem = styled.li`
+  list-style: circle;
+`
+
 type Props = {
   isTabBar?: boolean
   large?: boolean
   inHeader?: boolean
 }
-
 const calculateTestId = (isTabBar: boolean | undefined, inHeader: boolean | undefined) => {
   if (isTabBar) {
     return 'tabbar-connect-button'
@@ -111,18 +179,53 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
   const { t } = useTranslation('common')
   const breakpoints = useBreakpoint()
   const { openConnectModal } = useConnectModal()
+  const [isIOSDeviceModalOpen, setIsIOSDeviceModalOpen] = useState(false)
+
+  const isIOSDevice = isIOS()
+
+  const onConnectButtonClicked = () => {
+    if (isIOSDevice) {
+      setIsIOSDeviceModalOpen(true)
+    } else {
+      openConnectModal?.()
+    }
+  }
 
   return (
     <StyledButtonWrapper $large={large} $isTabBar={isTabBar}>
       <JNSGradientButton
         data-testid={calculateTestId(isTabBar, inHeader)}
-        onClick={() => openConnectModal?.()}
+        onClick={onConnectButtonClicked}
         size={breakpoints.sm || large ? 'medium' : 'small'}
         width={inHeader ? '45' : undefined}
         shape="rounded"
       >
         {t('wallet.connect')}
       </JNSGradientButton>
+      <Modal open={isIOSDeviceModalOpen} onDismiss={() => setIsIOSDeviceModalOpen(false)}>
+        <InstructionWrapper>
+          <InstructionHeader>Connecting Metamask for iOS Users</InstructionHeader>
+          <InstructionGifWrapper>
+            <InstructionGif src="/other/walletConnectIosInstruction.gif" alt="ios device" />
+          </InstructionGifWrapper>
+          <Instruction style={{ whiteSpace: 'pre-line' }}>
+            <ListItem>Open our website on your computer.</ListItem>
+            <ListItem>Click on the &quot;Connect&quot; button.</ListItem>
+            <ListItem>Choose &quot;WalletConnect&quot; from the menu.</ListItem>
+            <ListItem>Use mobile phone to scan the QR Code.</ListItem>
+            <ListItem>You&apos;re all set to connect to Metamask</ListItem>
+          </Instruction>
+          <JNSGradientButton
+            onClick={() => setIsIOSDeviceModalOpen(false)}
+            size={breakpoints.sm || large ? 'medium' : 'small'}
+            width={inHeader ? '45' : undefined}
+            style={{ marginTop: 16 }}
+            shape="rounded"
+          >
+            Close
+          </JNSGradientButton>
+        </InstructionWrapper>
+      </Modal>
     </StyledButtonWrapper>
   )
 }
@@ -133,7 +236,7 @@ export const JoinConnectButton = ({ isTabBar, large, inHeader }: Props) => {
 
   return (
     <StyledButtonWrapper $large={large} $isTabBar={isTabBar}>
-      <Button
+      <CustomButton
         data-testid={calculateTestId(isTabBar, inHeader)}
         onClick={() => login()}
         size={breakpoints.sm || large ? 'medium' : 'small'}
@@ -147,7 +250,7 @@ export const JoinConnectButton = ({ isTabBar, large, inHeader }: Props) => {
           style={{ width: '25px', height: '25px', verticalAlign: 'top', marginRight: '5px' }}
         />
         <span style={{ verticalAlign: 'middle' }}>Connect Join</span>
-      </Button>
+      </CustomButton>
     </StyledButtonWrapper>
   )
 }
@@ -204,6 +307,17 @@ const HeaderProfile = ({ address }: { address: string }) => {
   const { copy, copied } = useCopied(300)
   const hasPendingTransactions = useHasPendingTransactions()
 
+  const removeWalletConnectStorage = () => {
+    WC_STORAGE_KEYS.forEach((key) => {
+      localStorage.removeItem(key)
+    })
+  }
+
+  const onClickDisconnect = () => {
+    removeWalletConnectStorage()
+    disconnect()
+  }
+
   return (
     <Profile
       style={{ color: '#fff !important' }}
@@ -248,7 +362,7 @@ const HeaderProfile = ({ address }: { address: string }) => {
           {
             label: t('wallet.disconnect'),
             color: 'red',
-            onClick: () => disconnect(),
+            onClick: onClickDisconnect,
             icon: <ExitSVG />,
           },
         ] as DropdownItem[]

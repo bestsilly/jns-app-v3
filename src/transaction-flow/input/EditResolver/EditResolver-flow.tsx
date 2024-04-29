@@ -6,6 +6,7 @@ import { Button, Dialog, mq } from '@ensdomains/thorin'
 
 import EditResolverForm from '@app/components/@molecules/EditResolver/EditResolverForm'
 import EditResolverWarnings from '@app/components/@molecules/EditResolver/EditResolverWarnings'
+import { CustomButton, CustomDialogHeading, CustomHeading } from '@app/components/customs'
 import { useBasicName } from '@app/hooks/useBasicName'
 import { useProfile } from '@app/hooks/useProfile'
 import useResolverEditor from '@app/hooks/useResolverEditor'
@@ -67,7 +68,7 @@ export const EditResolver = ({ data, dispatch, onDismiss }: Props) => {
 
   return (
     <>
-      <Dialog.Heading title={t('input.editResolver.title')} />
+      <CustomDialogHeading title={<CustomHeading>{t('input.editResolver.title')}</CustomHeading>} />
       <EditResolverFormContainer>
         <EditResolverWarnings {...editResolverForm} />
         <EditResolverForm {...{ ...editResolverForm, resolverAddress, formRef }} />
@@ -79,9 +80,9 @@ export const EditResolver = ({ data, dispatch, onDismiss }: Props) => {
           </Button>
         }
         trailing={
-          <Button onClick={handleSubmitForm} disabled={hasErrors} data-testid="update-button">
+          <CustomButton onClick={handleSubmitForm} disabled={hasErrors} data-testid="update-button">
             {t('action.update', { ns: 'common' })}
-          </Button>
+          </CustomButton>
         }
       />
     </>

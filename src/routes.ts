@@ -1,7 +1,6 @@
 import { UrlObject } from 'url'
 
 import {
-  BrowserSVG,
   CogActiveSVG,
   CogSVG,
   DotGridActiveSVG,
@@ -11,6 +10,8 @@ import {
   PersonActiveSVG,
   PersonSVG,
 } from '@ensdomains/thorin'
+
+import HouseSVG from './assets/House.svg'
 
 export type PublicRoute =
   | 'search'
@@ -48,8 +49,8 @@ export const routes: RouteItemObj[] = [
     disabled: false,
     connected: false,
     icon: {
-      inactive: BrowserSVG,
-      active: BrowserSVG,
+      inactive: HouseSVG,
+      active: HouseSVG,
     },
   },
   {

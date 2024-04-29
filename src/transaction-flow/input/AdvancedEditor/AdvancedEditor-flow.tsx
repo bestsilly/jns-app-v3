@@ -8,6 +8,7 @@ import { Button, mq } from '@ensdomains/thorin'
 import AddRecord from '@app/components/@molecules/AdvancedEditor/AddRecord'
 import AdvancedEditorContent from '@app/components/@molecules/AdvancedEditor/AdvancedEditorTabContent'
 import AdvancedEditorTabs from '@app/components/@molecules/AdvancedEditor/AdvancedEditorTabs'
+import { CustomButton } from '@app/components/customs'
 import useAdvancedEditor from '@app/hooks/useAdvancedEditor'
 import { useNameDetails } from '@app/hooks/useNameDetails'
 import { TransactionItem, makeTransactionItem } from '@app/transaction-flow/transaction'
@@ -136,9 +137,9 @@ const AdvancedEditor = ({ data, transactions = [], dispatch, onDismiss }: Props)
           <Button colorStyle="accentSecondary" onClick={handleCancel}>
             {t('action.cancel', { ns: 'common' })}
           </Button>
-          <Button disabled={hasErrors || !hasChanges} type="submit">
+          <CustomButton disabled={hasErrors || !hasChanges} type="submit">
             {t('action.save', { ns: 'common' })}
-          </Button>
+          </CustomButton>
         </FooterContainer>
       </ContentContainer>
     </Container>

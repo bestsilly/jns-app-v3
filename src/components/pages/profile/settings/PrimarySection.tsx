@@ -5,7 +5,7 @@ import { Button, Card, CrossSVG, PersonPlusSVG, Skeleton, mq } from '@ensdomains
 
 import { AvatarWithLink } from '@app/components/@molecules/AvatarWithLink/AvatarWithLink'
 import { DisabledButtonWithTooltip } from '@app/components/@molecules/DisabledButtonWithTooltip'
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 import { useHasGlobalError } from '@app/hooks/errors/useHasGlobalError'
 import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import { useBasicName } from '@app/hooks/useBasicName'
@@ -215,13 +215,13 @@ export const PrimarySection = () => {
                   >
                     {t('action.remove', { ns: 'common' })}
                   </Button>
-                  <Button
+                  <CustomButton
                     data-testid="change-primary-name-button"
                     prefix={<PersonPlusSVG />}
                     onClick={changePrimary}
                   >
                     {t('action.change', { ns: 'common' })}
-                  </Button>
+                  </CustomButton>
                 </>
               )}
             </ActionsContainer>

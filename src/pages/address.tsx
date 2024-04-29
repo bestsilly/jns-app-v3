@@ -3,13 +3,14 @@ import { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
-import { Button, Spinner } from '@ensdomains/thorin'
+import { Spinner } from '@ensdomains/thorin'
 
 import FastForwardSVG from '@app/assets/FastForward.svg'
 import { TaggedNameItem } from '@app/components/@atoms/NameDetailItem/TaggedNameItem'
 import { NameTableFooter } from '@app/components/@molecules/NameTableFooter/NameTableFooter'
 import { ProfileSnippet } from '@app/components/ProfileSnippet'
 import NoProfileSnippet from '@app/components/address/NoProfileSnippet'
+import { CustomButton } from '@app/components/customs'
 import { TabWrapper } from '@app/components/pages/profile/TabWrapper'
 import {
   ReturnedName,
@@ -186,7 +187,7 @@ const Page = () => {
               onSearchChange={setSearchQuery}
             >
               {mode === 'select' && (
-                <Button
+                <CustomButton
                   size="small"
                   onClick={handleExtend}
                   data-testid="extend-names-button"
@@ -194,7 +195,7 @@ const Page = () => {
                   disabled={selectedNames.length === 0}
                 >
                   {t('action.extend', { ns: 'common' })}
-                </Button>
+                </CustomButton>
               )}
             </NameTableHeader>
             <div>

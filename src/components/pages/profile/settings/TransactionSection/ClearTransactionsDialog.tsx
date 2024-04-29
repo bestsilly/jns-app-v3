@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components'
 import { Button, Dialog } from '@ensdomains/thorin'
 
 import { InnerDialog } from '@app/components/@atoms/InnerDialog'
+import { CustomButton, CustomDialogHeading, CustomHeading } from '@app/components/customs'
 
 const StyledInnerDialog = styled(InnerDialog)(
   () => css`
@@ -18,7 +19,10 @@ export const ClearTransactionsDialog = ({ open, onDismiss, onClose, onClear }: P
   const { t } = useTranslation('settings')
   return (
     <Dialog open={open} variant="blank" onDismiss={onDismiss} onClose={onClose}>
-      <Dialog.Heading alert="warning" title={t('section.transaction.clearTransactions.title')} />
+      <CustomDialogHeading
+        alert="warning"
+        title={<CustomHeading>{t('section.transaction.clearTransactions.title')}</CustomHeading>}
+      />
       <StyledInnerDialog>
         {t('section.transaction.clearTransactions.description')}
       </StyledInnerDialog>
@@ -29,9 +33,9 @@ export const ClearTransactionsDialog = ({ open, onDismiss, onClose, onClear }: P
           </Button>
         }
         trailing={
-          <Button onClick={onClear} data-testid="clear-transactions-dialog-clear-button">
+          <CustomButton onClick={onClear} data-testid="clear-transactions-dialog-clear-button">
             {t('section.transaction.clearTransactions.actionLabel')}
-          </Button>
+          </CustomButton>
         }
       />
     </Dialog>

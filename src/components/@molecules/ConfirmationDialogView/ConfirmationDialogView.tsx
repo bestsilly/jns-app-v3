@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { Button, Dialog, mq } from '@ensdomains/thorin'
 
-import { CustomTypography } from '@app/components/customs'
+import { CustomButton, CustomTypography } from '@app/components/customs'
 
 const Container = styled.div(({ theme }) => [
   css`
@@ -56,13 +56,13 @@ export const ConfirmationDialogView = ({
           </Button>
         }
         trailing={
-          <Button
+          <CustomButton
             size="medium"
             onClick={onConfirm}
             data-testid="confirmation-dialog-confirm-button"
           >
             {confirmLabel}
-          </Button>
+          </CustomButton>
         }
       />
     </Container>
