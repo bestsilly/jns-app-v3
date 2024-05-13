@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { BigNumber } from '@ethersproject/bignumber/lib/bignumber'
 import { useCallback, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
@@ -36,7 +37,7 @@ const Stack = styled.div(
 
 const Card = styled.div(
   ({ theme }) => css`
-    padding: ${theme.space['4']};
+    padding: ${theme.space['4']} ${theme.space['12']};
     text-align: center;
     border: 1px solid #9790ac;
     border-radius: 5px;
@@ -65,6 +66,7 @@ const CardContainer = styled.div(
 const SmallCustomTypography = styled(CustomTypography)(
   () => css`
     font-size: 0.8rem;
+    white-space: nowrap;
   `,
 )
 
@@ -202,12 +204,13 @@ export default function LandingSection2() {
                   <CustomHeading>3 Letter</CustomHeading>
                   <SmallCustomTypography>3 Letter for 1 year register</SmallCustomTypography>
                   <PriceContainer>
-                    <PriceValue>
+                    {/* REMARK: Hide discount for now */}
+                    {/* <PriceValue>
                       <span style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
                         *{originalPrices.letter3.toLocaleString()} JFIN
                       </span>
                       <PriceDiscount>{discount.letter3}%</PriceDiscount>
-                    </PriceValue>
+                    </PriceValue> */}
                     <AccentTypography>{prices?.letter3.toLocaleString()} JFIN</AccentTypography>
                     <CustomTypography>Per year</CustomTypography>
                   </PriceContainer>
@@ -216,12 +219,12 @@ export default function LandingSection2() {
                   <CustomHeading>4 Letter</CustomHeading>
                   <SmallCustomTypography>4 Letter for 1 year register</SmallCustomTypography>
                   <PriceContainer>
-                    <PriceValue>
+                    {/* <PriceValue>
                       <span style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
                         *{originalPrices.letter4.toLocaleString()} JFIN
                       </span>
                       <PriceDiscount>{discount.letter4}%</PriceDiscount>
-                    </PriceValue>
+                    </PriceValue> */}
                     <AccentTypography>{prices?.letter4.toLocaleString()} JFIN</AccentTypography>
                     <CustomTypography>Per year</CustomTypography>
                   </PriceContainer>
@@ -230,12 +233,12 @@ export default function LandingSection2() {
                   <CustomHeading>5 Letter +</CustomHeading>
                   <SmallCustomTypography>5 Letter+ for 1 year register</SmallCustomTypography>
                   <PriceContainer>
-                    <PriceValue>
+                    {/* <PriceValue>
                       <span style={{ textDecoration: 'line-through', fontStyle: 'italic' }}>
                         *{originalPrices.letter5.toLocaleString()} JFIN
                       </span>
                       <PriceDiscount>{discount.letter5}%</PriceDiscount>
-                    </PriceValue>
+                    </PriceValue> */}
                     <AccentTypography>{prices?.letter5.toLocaleString()} JFIN</AccentTypography>
                     <CustomTypography>Per year</CustomTypography>
                   </PriceContainer>
