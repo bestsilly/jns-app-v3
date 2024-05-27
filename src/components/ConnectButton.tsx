@@ -1,5 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { Key, ReactNode, useState } from 'react'
+import { Key, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { useDisconnect } from 'wagmi'
@@ -21,6 +22,7 @@ import { useAccountSafely } from '@app/hooks/useAccountSafely'
 import { useAvatar } from '@app/hooks/useAvatar'
 import { useChainId } from '@app/hooks/useChainId'
 import { useCopied } from '@app/hooks/useCopied'
+import useIsWebView from '@app/hooks/useIsWebview'
 import { useJoin } from '@app/hooks/useJoin'
 import { usePrimary } from '@app/hooks/usePrimary'
 import { useZorb } from '@app/hooks/useZorb'
@@ -191,6 +193,33 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
     }
   }
 
+  const isWebview = useIsWebView()
+
+  useEffect(() => {
+    if (!isWebview) return
+    const connectButton = document.getElementById('connectButton')
+    if (connectButton) connectButton.click()
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+          const walletConnect = document.querySelectorAll(
+            'button[data-testid="rk-wallet-option-walletConnect"]',
+          )
+          if (walletConnect.length > 0) {
+            ;(walletConnect[0] as HTMLButtonElement).click()
+            observer.disconnect()
+          }
+        }
+      })
+    })
+
+    observer.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [isWebview])
+
   return (
     <StyledButtonWrapper $large={large} $isTabBar={isTabBar}>
       <JNSGradientButton
@@ -199,6 +228,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
         size={breakpoints.sm || large ? 'medium' : 'small'}
         width={inHeader ? '45' : undefined}
         shape="rounded"
+        id="connectButton"
       >
         {t('wallet.connect')}
       </JNSGradientButton>

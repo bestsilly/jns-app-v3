@@ -205,6 +205,9 @@ importers:
       react-confetti:
         specifier: ^6.1.0
         version: 6.1.0(patch_hash=bbuxkxhxbyez4jmqgptuoucij4)(react@17.0.2)
+      react-device-detect:
+        specifier: ^2.2.3
+        version: 2.2.3(react-dom@17.0.2)(react@17.0.2)
       react-dom:
         specifier: ^17.0.2
         version: 17.0.2(react@17.0.2)
@@ -17659,6 +17662,17 @@ packages:
     dev: false
     patched: true
 
+  /react-device-detect@2.2.3(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-buYY3qrCnQVlIFHrC5UcUoAj7iANs/+srdkwsnNjI7anr3Tt7UY6MqNxtMLlr0tMBied0O49UZVK8XKs3ZIiPw==}
+    peerDependencies:
+      react: '>= 0.14.0'
+      react-dom: '>= 0.14.0'
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2(react@17.0.2)
+      ua-parser-js: 1.0.37
+    dev: false
+
   /react-dom@17.0.2(react@17.0.2):
     resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
     peerDependencies:
@@ -20249,6 +20263,10 @@ packages:
 
   /typical@2.6.1:
     resolution: {integrity: sha512-ofhi8kjIje6npGozTip9Fr8iecmYfEbS06i0JnIg+rh51KakryWF4+jX8lLKZVhy6N+ID45WYSFCxPOdTWCzNg==}
+    dev: false
+
+  /ua-parser-js@1.0.37:
+    resolution: {integrity: sha512-bhTyI94tZofjo+Dn8SN6Zv8nBDvyXTymAdM3LDI/0IboIUwTu1rEhW7v2TfiVsoYWgkQ4kOVqnI8APUFbIQIFQ==}
     dev: false
 
   /uid-promise@1.0.0:
