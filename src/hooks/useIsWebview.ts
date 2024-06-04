@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { browserName, isMobile } from 'react-device-detect'
+import { isMobile } from 'react-device-detect'
 
 const useIsWebView = () => {
   const [isWebView, setIsWebView] = useState(false)
@@ -7,19 +7,18 @@ const useIsWebView = () => {
   useEffect(() => {
     // eslint-disable-next-line prettier/prettier
     const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
+    const _isWebview = /webview|wv|ip((?!.*Safari)|(?=.*like Safari))/i.test(userAgent)
 
     const webview = (() => {
       if (isMobile) {
-        if (browserName === 'Chrome') {
-          return /wv/.test(userAgent) || /; wv\)/.test(userAgent)
-        }
-        if (browserName === 'Safari') {
-          return /.+AppleWebKit(?!.*Safari)/.test(userAgent)
+        if (_isWebview) {
+          // eslint-disable-next-line no-alert
+          alert('is webview')
+          return true
         }
       }
       return false
     })()
-
     setIsWebView(webview)
   }, [])
 
