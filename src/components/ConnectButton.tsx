@@ -184,16 +184,15 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
   const [isIOSDeviceModalOpen, setIsIOSDeviceModalOpen] = useState(false)
 
   const isIOSDevice = isIOS()
+  const isWebview = useIsWebView()
 
   const onConnectButtonClicked = () => {
-    if (isIOSDevice) {
+    if (isIOSDevice && !isWebview) {
       setIsIOSDeviceModalOpen(true)
     } else {
       openConnectModal?.()
     }
   }
-
-  const isWebview = useIsWebView()
 
   useEffect(() => {
     if (!isWebview) return

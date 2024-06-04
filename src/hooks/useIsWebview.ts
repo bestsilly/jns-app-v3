@@ -11,11 +11,7 @@ const useIsWebView = () => {
 
     const webview = (() => {
       if (isMobile) {
-        if (_isWebview) {
-          // eslint-disable-next-line no-alert
-          alert('is webview')
-          return true
-        }
+        if (_isWebview) return true
       }
       return false
     })()
