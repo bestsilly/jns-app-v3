@@ -10,9 +10,7 @@ const useIsWebView = () => {
     const _isWebview = /webview|wv|ip((?!.*Safari)|(?=.*like Safari))/i.test(userAgent)
 
     const webview = (() => {
-      if (isMobile) {
-        if (_isWebview) return true
-      }
+      if (isMobile && _isWebview) return true
       return false
     })()
     setIsWebView(webview)
