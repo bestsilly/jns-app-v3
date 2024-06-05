@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import { mq } from '@ensdomains/thorin'
@@ -39,26 +38,6 @@ const StyledLeadingHeading = styled(LeadingHeading)(
 )
 
 export default function Page() {
-  const [localStorageData, setLocalStorageData] = useState<{ [key: string]: string }>({})
-
-  useEffect(() => {
-    const keys = ['wagmi.store', 'wagmi.wallet', 'wagmi.connected', 'rk-recent']
-    const data: { [key: string]: string } = {}
-
-    keys.forEach((key) => {
-      const storedData = localStorage?.getItem(key)
-      if (storedData) {
-        try {
-          const parsedData = JSON.parse(storedData)
-          data[key] = JSON.stringify(parsedData, null, 2)
-        } catch (error) {
-          console.error(`Failed to parse JSON data for key ${key}:`, error)
-        }
-      }
-    })
-
-    setLocalStorageData(data)
-  }, [])
   return (
     <>
       <div style={{ position: 'relative', zIndex: 1, width: '100%' }}>
@@ -68,16 +47,6 @@ export default function Page() {
           </LogoAndLanguage>
           <Hamburger />
         </StyledLeadingHeading>
-        {/* START DEBUG */}
-        <div style={{ overflowX: 'scroll' }}>
-          {Object.entries(localStorageData).map(([key, value]) => (
-            <div key={key}>
-              <u>{key}</u>
-              <pre>{value}</pre>
-            </div>
-          ))}
-        </div>
-        {/* END DEBUG */}
         <FaucetBanner />
         <LandingSection1 />
         <LandingSection2 />

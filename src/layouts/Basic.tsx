@@ -112,7 +112,14 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
       <Navigation />
       <Container className="min-safe" style={{ position: 'relative' }}>
         <ContentWrapper>
-          {error ? <ErrorScreen errorType="application-error" /> : children}
+          {error ? (
+            <>
+              <ErrorScreen errorType="application-error" />
+              {JSON.stringify(error, null, 2)}
+            </>
+          ) : (
+            children
+          )}
         </ContentWrapper>
       </Container>
       <Footer />
