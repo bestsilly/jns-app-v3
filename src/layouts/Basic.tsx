@@ -112,6 +112,10 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
       <Navigation />
       <Container className="min-safe" style={{ position: 'relative' }}>
         <ContentWrapper>
+          {/* START DEBUG */}
+          <u>PATH : {router.pathname}</u>
+          <u>Chain: </u>
+          <pre>{JSON.stringify(currentChain, null, 2)}</pre>
           {error ? (
             <>
               <ErrorScreen errorType="application-error" />
@@ -120,6 +124,7 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
           ) : (
             children
           )}
+          {/* END DEBUG */}
         </ContentWrapper>
       </Container>
       <Footer />
