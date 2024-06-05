@@ -24,6 +24,9 @@ export const getDefaultWallets = ({
           iconBackground: 'transparent',
           name: 'JOIN',
           id: 'join',
+          downloadUrls: {
+            mobile: 'https://joinwalletdev.page.link',
+          },
         },
         metaMaskWallet({ chains, projectId }),
       ],
