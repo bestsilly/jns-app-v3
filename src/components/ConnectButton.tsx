@@ -13,6 +13,7 @@ import {
   Modal,
   PersonSVG,
   Profile,
+  Spinner,
   mq,
 } from '@ensdomains/thorin'
 import { DropdownItem } from '@ensdomains/thorin/dist/types/components/molecules/Dropdown/Dropdown'
@@ -182,6 +183,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
   const breakpoints = useBreakpoint()
   const { openConnectModal } = useConnectModal()
   const [isIOSDeviceModalOpen, setIsIOSDeviceModalOpen] = useState(false)
+  const [isLoginLoading, setLoginLoading] = useState(false)
 
   const isIOSDevice = isIOS()
   const isWebview = useIsWebView()
@@ -198,6 +200,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
     if (!isWebview) return
     const connectButton = document.getElementById('connectButton')
     if (connectButton) connectButton.click()
+    setLoginLoading(true)
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
@@ -207,6 +210,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
           if (walletConnect.length > 0) {
             ;(walletConnect[0] as HTMLButtonElement).click()
             observer.disconnect()
+            setLoginLoading(false)
           }
         }
       })
@@ -216,6 +220,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
 
     return () => {
       observer.disconnect()
+      setLoginLoading(false)
     }
   }, [isWebview])
 
@@ -254,6 +259,21 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
             Close
           </JNSGradientButton>
         </InstructionWrapper>
+      </Modal>
+      <Modal
+        open={isLoginLoading}
+        style={{
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.8)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
+        <Spinner size="large" color="accent" />
+        <p>Loading...</p>
       </Modal>
     </StyledButtonWrapper>
   )

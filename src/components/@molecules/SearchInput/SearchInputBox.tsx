@@ -105,7 +105,7 @@ export const SearchInputBox = forwardRef(
             hideLabel
             placeholder={t('search.placeholder')}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value.toLowerCase())}
             ref={ref as any}
             clearable
             autoComplete="off"
