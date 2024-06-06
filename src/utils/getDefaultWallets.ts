@@ -34,10 +34,10 @@ export const getDefaultWallets = ({
             return {
               connector,
               mobile: {
-                getUri: async () => 'https://joinwalletdev.page.link',
+                getUri: async () => 'https://jfinwallet.page.link/',
               },
               qrCode: {
-                getUri: async () => 'https://joinwalletdev.page.link',
+                getUri: async () => 'https://jfinwallet.page.link/',
               },
             }
           },
