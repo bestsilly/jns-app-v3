@@ -198,10 +198,17 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
 
   useEffect(() => {
     if (!isWebview) return
+    setLoginLoading(true)
     const connectButton = document.getElementById('connectButton')
     if (connectButton) connectButton.click()
-    setLoginLoading(true)
     const observer = new MutationObserver((mutations) => {
+      const rainbowKitElement = document.querySelectorAll(
+        'div[aria-labelledby="rk_connect_title"]',
+      )?.[0] as HTMLElement
+      if (rainbowKitElement) {
+        rainbowKitElement.style.opacity = '0'
+        rainbowKitElement.style.visibility = 'hidden'
+      }
       mutations.forEach((mutation) => {
         if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
           const walletConnect = document.querySelectorAll(
@@ -270,6 +277,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
           justifyContent: 'center',
           alignItems: 'center',
           flexDirection: 'column',
+          position: 'fixed',
         }}
       >
         <Spinner size="large" color="accent" />
