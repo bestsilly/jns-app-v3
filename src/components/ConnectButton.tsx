@@ -427,6 +427,7 @@ export const HeaderConnect = () => {
     } else {
       setIsJoin(true)
       const profileData = localStorage.getItem('profile')
+      // eslint-disable-next-line no-extra-boolean-cast
       setProfile(profileData ? JSON.parse(profileData) : {})
     }
   }

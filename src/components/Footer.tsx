@@ -34,7 +34,7 @@ export const Footer = () => {
           const parsedData = JSON.parse(storedData)
           data[key] = JSON.stringify(parsedData, null, 2)
         } catch (error) {
-          console.error(`Failed to parse JSON data for key ${key}:`, error)
+          data[key] = storedData
         }
       }
     })

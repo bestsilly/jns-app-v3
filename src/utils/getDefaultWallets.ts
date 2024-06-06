@@ -1,5 +1,6 @@
 import { Chain, WalletList, connectorsForWallets } from '@rainbow-me/rainbowkit'
-import { metaMaskWallet, walletConnectWallet } from '@rainbow-me/rainbowkit/wallets'
+import { metaMaskWallet } from '@rainbow-me/rainbowkit/wallets'
+import { WalletConnectConnector } from '@wagmi/core/connectors/walletConnect'
 
 export interface MyWalletOptions {
   projectId: string
@@ -19,13 +20,26 @@ export const getDefaultWallets = ({
       groupName: 'Popular',
       wallets: [
         {
-          ...walletConnectWallet({ chains, projectId }),
+          id: 'join',
+          name: 'JOIN',
           iconUrl: './joinwallet.png',
           iconBackground: 'transparent',
-          name: 'JOIN',
-          id: 'join',
-          downloadUrls: {
-            mobile: 'https://joinwalletdev.page.link',
+          createConnector: () => {
+            const connector = new WalletConnectConnector({
+              chains,
+              options: {
+                projectId,
+              },
+            })
+            return {
+              connector,
+              mobile: {
+                getUri: async () => 'https://joinwalletdev.page.link',
+              },
+              qrCode: {
+                getUri: async () => 'https://joinwalletdev.page.link',
+              },
+            }
           },
         },
         metaMaskWallet({ chains, projectId }),

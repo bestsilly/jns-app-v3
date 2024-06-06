@@ -80,16 +80,17 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChain?.id, router.pathname])
 
+  const { query } = router
+
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const sessionId = urlParams.get('sessionId')
-    if (sessionId) {
-      localStorage.setItem('sessionId', sessionId)
+    if (query?.sessionId) {
+      localStorage.setItem('sessionId', query?.sessionId as string)
       window.dispatchEvent(new StorageEvent('storage', { key: 'sessionId' }))
       const profile = localStorage.getItem('profile')
 
       const fetchData = async () => {
         const result: any = await getProfile()
+        if (!result.data) return
         localStorage.setItem('profile', JSON.stringify(result.data))
         window.dispatchEvent(new StorageEvent('storage', { key: 'profile' }))
         window.history.replaceState({}, document.title, window.location.pathname)
@@ -99,7 +100,7 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
         fetchData()
       }
     }
-  }, [])
+  }, [getProfile, query])
 
   return (
     <>
