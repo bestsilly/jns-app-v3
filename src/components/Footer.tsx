@@ -22,9 +22,9 @@ export const Footer = () => {
   )
 
   const [localStorageData, setLocalStorageData] = useState<{ [key: string]: string }>({})
-
+  /* START DEBUG */
   useEffect(() => {
-    const keys = ['wagmi.store', 'wagmi.wallet', 'wagmi.connected', 'rk-recent']
+    const keys = Object.keys(localStorage)
     const data: { [key: string]: string } = {}
 
     keys.forEach((key) => {
@@ -41,6 +41,7 @@ export const Footer = () => {
 
     setLocalStorageData(data)
   }, [])
+  /* END DEBUG */
   return (
     <footer>
       <FooterWrapper>
@@ -48,11 +49,21 @@ export const Footer = () => {
       </FooterWrapper>
 
       {/* START DEBUG */}
-      <div style={{ overflowX: 'scroll', padding: 8 }}>
+      <div
+        style={{
+          overflowX: 'scroll',
+          padding: 8,
+          background: 'white',
+          color: 'black',
+          fontSize: 10,
+        }}
+      >
         {Object.entries(localStorageData).map(([key, value]) => (
           <div key={key}>
             <u>{key}</u>
-            <pre>{value}</pre>
+            <div style={{ background: '#cccccc' }}>
+              <pre>{value}</pre>
+            </div>
           </div>
         ))}
       </div>

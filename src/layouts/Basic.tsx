@@ -73,12 +73,6 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
   const chainId = process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 3502 : 3501
 
   useEffect(() => {
-    // Do not initialise with uid and email without implementing identity verification first
-    // boot()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
     if (currentChain && !(currentChain?.id === chainId)) {
       switchNetwork?.(chainId)
       router.push('/unsupportedNetwork')
@@ -114,6 +108,7 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
         <ContentWrapper>
           {/* START DEBUG */}
           <u>PATH : {router.pathname}</u>
+          <u>Query : {JSON.stringify(router.query, null, 2)}</u>
           <u>Chain: </u>
           <pre>{JSON.stringify(currentChain, null, 2)}</pre>
           {error ? (
