@@ -15,6 +15,8 @@ export const getDefaultWallets = ({
   projectId: string
   chains: Chain[]
 }) => {
+  const chainId = process.env.NEXT_PUBLIC_IS_TESTNET === 'true' ? 3502 : 3501
+  const isTestnet = chainId === 3502
   const wallets: WalletList = [
     {
       groupName: 'Popular',
@@ -42,6 +44,34 @@ export const getDefaultWallets = ({
             }
           },
         },
+        ...(isTestnet
+          ? [
+              {
+                id: 'join-dev',
+                name: 'JOIN Dev',
+                iconUrl: './joinwallet.png',
+                iconBackground: 'transparent',
+                createConnector: () => {
+                  const connector = new WalletConnectConnector({
+                    chains,
+                    options: {
+                      projectId,
+                    },
+                  })
+                  return {
+                    connector,
+
+                    mobile: {
+                      getUri: async () => 'https://joinwalletdev.page.link',
+                    },
+                    qrCode: {
+                      getUri: async () => 'https://joinwalletdev.page.link',
+                    },
+                  }
+                },
+              },
+            ]
+          : []),
         metaMaskWallet({ chains, projectId }),
       ],
     },
