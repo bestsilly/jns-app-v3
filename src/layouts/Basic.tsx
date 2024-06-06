@@ -108,14 +108,14 @@ export const Basic = withErrorBoundary(({ children }: { children: React.ReactNod
       <Container className="min-safe" style={{ position: 'relative' }}>
         <ContentWrapper>
           {/* START DEBUG */}
-          <u>PATH : {router.pathname}</u>
+          {/* <u>PATH : {router.pathname}</u>
           <u>Query : {JSON.stringify(router.query, null, 2)}</u>
           <u>Chain: </u>
-          <pre>{JSON.stringify(currentChain, null, 2)}</pre>
+          <pre>{JSON.stringify(currentChain, null, 2)}</pre> */}
           {error ? (
             <>
               <ErrorScreen errorType="application-error" />
-              {JSON.stringify(error, null, 2)}
+              {/* {JSON.stringify(error, null, 2)} */}
             </>
           ) : (
             children

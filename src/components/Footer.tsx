@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 export const Footer = () => {
@@ -21,26 +21,26 @@ export const Footer = () => {
     `,
   )
 
-  const [localStorageData, setLocalStorageData] = useState<{ [key: string]: string }>({})
+  // const [localStorageData, setLocalStorageData] = useState<{ [key: string]: string }>({})
   /* START DEBUG */
-  useEffect(() => {
-    const keys = Object.keys(localStorage)
-    const data: { [key: string]: string } = {}
+  // useEffect(() => {
+  //   const keys = Object.keys(localStorage)
+  //   const data: { [key: string]: string } = {}
 
-    keys.forEach((key) => {
-      const storedData = localStorage?.getItem(key)
-      if (storedData) {
-        try {
-          const parsedData = JSON.parse(storedData)
-          data[key] = JSON.stringify(parsedData, null, 2)
-        } catch (error) {
-          data[key] = storedData
-        }
-      }
-    })
+  //   keys.forEach((key) => {
+  //     const storedData = localStorage?.getItem(key)
+  //     if (storedData) {
+  //       try {
+  //         const parsedData = JSON.parse(storedData)
+  //         data[key] = JSON.stringify(parsedData, null, 2)
+  //       } catch (error) {
+  //         data[key] = storedData
+  //       }
+  //     }
+  //   })
 
-    setLocalStorageData(data)
-  }, [])
+  //   setLocalStorageData(data)
+  // }, [])
   /* END DEBUG */
   return (
     <footer>
@@ -49,7 +49,7 @@ export const Footer = () => {
       </FooterWrapper>
 
       {/* START DEBUG */}
-      <div
+      {/* <div
         style={{
           overflowX: 'scroll',
           padding: 8,
@@ -66,7 +66,7 @@ export const Footer = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
       {/* END DEBUG */}
     </footer>
   )

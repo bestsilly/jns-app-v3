@@ -202,7 +202,7 @@ export const ConnectButton = ({ isTabBar, large, inHeader }: Props) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
           const walletConnect = document.querySelectorAll(
-            'button[data-testid="rk-wallet-option-walletConnect"]',
+            'button[data-testid="rk-wallet-option-metaMask"]',
           )
           if (walletConnect.length > 0) {
             ;(walletConnect[0] as HTMLButtonElement).click()
